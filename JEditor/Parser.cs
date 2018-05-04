@@ -49,8 +49,7 @@ namespace NGO.Pad.JEditor
         } 
 
 		protected void LoadConfig(JEditor.Languages language) {
-            Assembly asm = Assembly.GetExecutingAssembly();  
-            string filename = "";
+            string filename = string.Empty;
             switch(language) 
             {  
                 case JEditor.Languages.JAVA:  
@@ -130,7 +129,7 @@ namespace NGO.Pad.JEditor
         }
 		
 		private Color ParseColor(string colorName) {
-			if (colorName.StartsWith("#")) {
+			if (colorName.StartsWith("#",StringComparison.Ordinal)) {
 				string[] rgb = colorName.Remove(0,1).Split(',');
 				Color rgbColor = Color.FromArgb(Int16.Parse(rgb[0]), Int16.Parse(rgb[1]), Int16.Parse(rgb[2]));
 				return rgbColor;
@@ -152,11 +151,11 @@ namespace NGO.Pad.JEditor
 			return foreColor;
 		}
         
-        public Color AttribKeyColor() {
+        public Color AttrKeyColor() {
         	return attKeyColor;
         }
         
-        public Color AttribValueColor() {
+        public Color AttrValueColor() {
         	return attValueColor;
         }
     }
@@ -228,12 +227,11 @@ namespace NGO.Pad.JEditor
 			var stopWatch = Stopwatch.StartNew();
 			int idx = dict.Scan(key);
 			stopWatch.Stop();
-			System.Diagnostics.Debug.WriteLine(string.Format("javascript scan: {0}ms", stopWatch.Elapsed.TotalMilliseconds));
+			//System.Diagnostics.Debug.WriteLine(string.Format("javascript scan: {0}ms", stopWatch.Elapsed.TotalMilliseconds));
 			if (idx == -1)
 				return Color.Empty;
 			if (idx < FUZZY)
 				return (Color)scolors[idx];
-			
 			return (Color)fcolors[idx - FUZZY];
 		}
 		
@@ -273,7 +271,6 @@ namespace NGO.Pad.JEditor
 				return Color.Empty;
 			if (idx < FUZZY)
 				return (Color)scolors[idx];
-			
 			return (Color)fcolors[idx - FUZZY];
 		}
 		

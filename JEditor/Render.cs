@@ -33,6 +33,7 @@ namespace NGO.Pad.JEditor
 		
 		public abstract Color BackColor();
 		public abstract Color ForeColor();
+		public abstract string AutoComplete(string candidate);
 		
 		public abstract void Coloring(Word word,RichTextBox tbase, int selectStart, int lineStart);
 		
@@ -52,6 +53,24 @@ namespace NGO.Pad.JEditor
 			return parser.ForeColor();
 		}
 		
+		public override string AutoComplete(string candidate) {
+			//TODO: change to a efficient way for mapping fill Text
+			if (candidate == "html") {
+				return "2:></html>";
+			}
+			if (candidate == "head") {
+				return "2:></head>";
+			}
+			if (candidate == "body") {
+				return "2:></body>";
+			}
+			if (candidate == "script") {
+				return "2:></script>";
+			}
+			return null;
+		}
+		
+		
 		public override void Coloring(Word word, RichTextBox tbase, int selectStart, int lineStart) {
 			//System.Diagnostics.Debug.WriteLine("ls={0},idx={1}",lineStart,index);
 			bool fuzzy = false;
@@ -67,7 +86,7 @@ namespace NGO.Pad.JEditor
            	}
            	
            	//fuzzy matched, splite down the attributes
-           	// an example: <a href="/tags/tag_ul.asp" title="HTML &lt;ul&gt; 标签">
+           	// an example: <a href="/tags/tag_ul.asp" title="HTML">
            	char[] cArray = word.Inner.ToCharArray();
            	bool kwDone = false, quaOpen = false;
            	int startIndex = lineStart + word.Index;
@@ -88,7 +107,7 @@ namespace NGO.Pad.JEditor
            			tbase.SelectionStart = startIndex + renderedPos;
 		            tbase.SelectionLength = i - renderedPos; 
 		            renderedPos = i;
-		            tbase.SelectionColor = parser.AttribKeyColor();
+		            tbase.SelectionColor = parser.AttrKeyColor();
            		} else if (cArray[i] == '\'' || cArray[i] == '"') {
            			if (!quaOpen) {
            				quaOpen = true;
@@ -97,7 +116,7 @@ namespace NGO.Pad.JEditor
            				tbase.SelectionStart = startIndex + renderedPos;
 		            	tbase.SelectionLength = i - renderedPos + 1; 
 		            	renderedPos = i;
-		           	 	tbase.SelectionColor = parser.AttribValueColor();
+		           	 	tbase.SelectionColor = parser.AttrValueColor();
 		           	 	quaOpen = false;
            			}
            		} else if (cArray[i] == '>') {
@@ -126,6 +145,11 @@ namespace NGO.Pad.JEditor
 		
 		public override Color ForeColor() {
 			return parser.ForeColor();
+		}
+		
+		public override string AutoComplete(string candidate) {
+			//TODO: change to a efficient way for mapping fill Text
+			return "2:XXXXXXXXXX";	
 		}
 		
 		public override void Coloring(Word word, RichTextBox tbase, int selectStart, int lineStart) {
@@ -157,6 +181,11 @@ namespace NGO.Pad.JEditor
 		
 		public override Color ForeColor() {
 			return parser.ForeColor();
+		}
+		
+		public override string AutoComplete(string candidate) {
+			//TODO: change to a efficient way for mapping fill Text
+			return "2:XXXXXXXXXX";	
 		}
 		
 		public override void Coloring(Word word, RichTextBox tbase, int selectStart, int lineStart) {

@@ -47,7 +47,46 @@ namespace NGO.Pad.JEditor
         	Cursor = System.Windows.Forms.Cursors.IBeam;
         	BackColor = render.BackColor();
         	ForeColor = render.ForeColor();
+        	this.KeyPress += OnKeyPress;
         	
+        }
+        
+        private void OnKeyPress(object sender, KeyPressEventArgs e){
+           if(e.KeyChar == '\t'){
+             int ln = base.GetLineFromCharIndex(base.SelectionStart);
+             int column = base.SelectionStart - base.GetFirstCharIndexFromLine(ln);
+
+             string lineStr = base.Lines[ln];
+             string onStr = lineStr.Substring(0, column);
+              int i = onStr.LastIndexOf(' ');
+              i = i<0 ? onStr.LastIndexOf('\t') : i;
+              i = i<0 ? onStr.LastIndexOf('>') : i;
+              i = i<0 ? 0 : i;
+              //1. get candidate word
+             string lastWord = string.Empty;
+             lastWord = onStr.Substring(i==0? 0 : i+1).Trim();
+             System.Diagnostics.Debug.WriteLine(lastWord);
+             //2.backup candidate position
+             int candidatePos = base.SelectionStart - lastWord.Length;
+             //3.check auto-completion
+             string toFill = render.AutoComplete(lastWord);
+             if (toFill == null)
+                 return;
+  
+             int curPos = base.SelectionStart + Int16.Parse(toFill.Split(':')[0]);
+             base.SelectionColor = render.ForeColor();
+             //AC1. add <
+             base.SelectionStart = candidatePos;
+             base.SelectedText="<";
+             //AC2. complete the candidate
+             base.SelectionStart = candidatePos+lastWord.Length + 1;
+             base.SelectedText = toFill.Split(':')[1];
+             base.SelectedText = string.Empty;
+             //AC3. reset cursor pos
+             base.SelectionStart = curPos;
+             //AC4. ignore the tab
+             e.Handled = true;
+           }
         }
         
         /// <summary>
@@ -66,9 +105,7 @@ namespace NGO.Pad.JEditor
         	int selectStart = base.SelectionStart; 
         	for(int line = 0; line <base.Lines.Length ; line++) {
         		string lineStr = base.Lines[line];  
-                int lineStart = 0;  
-                for (int i = 0; i < line; i++)  
-                    lineStart += base.Lines[i].Length + 1;  
+                int lineStart = base.GetFirstCharIndexFromLine(line);  
   
                 SendMessage(base.Handle, WM_SETREDRAW, 0, IntPtr.Zero);  
   
@@ -111,9 +148,7 @@ namespace NGO.Pad.JEditor
                 int selectStart = base.SelectionStart;  
                 line = base.GetLineFromCharIndex(selectStart);  
                 string lineStr = base.Lines[line];  
-                int lineStart = 0;  
-                for (int i = 0; i < line; i++)  
-                    lineStart += base.Lines[i].Length + 1;  
+                int lineStart = base.GetFirstCharIndexFromLine(line);  
   
                 SendMessage(base.Handle, WM_SETREDRAW, 0, IntPtr.Zero);  
   
