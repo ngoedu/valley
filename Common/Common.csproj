@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>NGO.Pad..Common</RootNamespace>
     <AssemblyName>NGO.Pad..Common</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <NoWin32Manifest>False</NoWin32Manifest>
     <TargetFrameworkProfile />
