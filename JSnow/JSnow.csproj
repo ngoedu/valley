@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{446D6656-9C1E-4F6B-94C8-6FE4F6658C7C}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Snow</RootNamespace>
+    <AssemblyName>NGO.Pad.Snow</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <NoWin32Manifest>False</NoWin32Manifest>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assembly\Constant.cs" />
+    <Compile Include="Assembly\Expressions\Assign.cs" />
+    <Compile Include="Assembly\Expressions\Block.cs" />
+    <Compile Include="Assembly\Expressions\Const.cs" />
+    <Compile Include="Assembly\Expressions\Expression.cs" />
+    <Compile Include="Assembly\Expressions\Condition.cs" />
+    <Compile Include="Assembly\Expressions\Invoke.cs" />
+    <Compile Include="Assembly\Expressions\Return.cs" />
+    <Compile Include="Assembly\Method.cs" />
+    <Compile Include="Assembly\Perm.cs" />
+    <Compile Include="Form1.cs" />
+    <Compile Include="Form1.Designer.cs" />
+    <Compile Include="Syntax\Context.cs" />
+    <Compile Include="Syntax\Entity\Composite.cs" />
+    <Compile Include="Syntax\Entity\Element.cs" />
+    <Compile Include="Syntax\Formalizer.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Syntax\Matcher.cs" />
+    <Compile Include="Syntax\Matrixer.cs" />
+    <Compile Include="Syntax\Parser.cs" />
+    <Compile Include="Syntax\Source.cs" />
+    <Compile Include="VM\Frame.cs" />
+    <Compile Include="VM\Stack.cs" />
+    <Compile Include="VM\Thread.cs" />
+    <Compile Include="X\Algorithm\BlockSkipList.cs" />
+    <Compile Include="X\Algorithm\Circuit.cs" />
+    <Compile Include="X\Algorithm\SkipList.cs" />
+    <Compile Include="X\Algorithm\SkipList2.cs" />
+    <Compile Include="X\Algorithm\StateMachine.cs" />
+    <Compile Include="X\Algorithm\StateMatrix.cs" />
+    <Compile Include="X\Algorithm\TrieDict.cs" />
+    <Compile Include="X\UnitTest\BlockSkipListTest.cs" />
+    <Compile Include="X\UnitTest\CircuitTest1.cs" />
+    <Compile Include="X\UnitTest\CircuitTest2.cs" />
+    <Compile Include="X\UnitTest\CircuitTest3.cs" />
+    <Compile Include="X\UnitTest\FormalizerTest.cs" />
+    <Compile Include="X\UnitTest\JSRailRoadTest.cs" />
+    <Compile Include="X\UnitTest\JustTest.cs" />
+    <Compile Include="X\UnitTest\SkipList2Test.cs" />
+    <Compile Include="X\UnitTest\SkipListTest.cs" />
+    <Compile Include="X\UnitTest\SourceTest.cs" />
+    <Compile Include="X\UnitTest\StateMachineTest.cs" />
+    <Compile Include="X\UnitTest\StateMatrixTest.cs" />
+    <Compile Include="X\UnitTest\TestTrieDict.cs" />
+    <Compile Include="X\UnitTest\TestUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Syntax-Parsing-state-machine.asta" />
+    <None Include="X\Sample\Formalizer1.html" />
+    <None Include="X\Sample\Reference.htm" />
+    <None Include="X\Sample\Sample1.html" />
+    <None Include="X\Sample\Sample2.html" />
+    <None Include="X\Sample\Sample3.html" />
+    <None Include="X\Sample\Sample4.html" />
+    <None Include="X\Sample\Sample4b.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assembly" />
+    <Folder Include="Assembly\Expressions" />
+    <Folder Include="Syntax" />
+    <Folder Include="Syntax\Entity" />
+    <Folder Include="VM" />
+    <Folder Include="X" />
+    <Folder Include="X\Algorithm" />
+    <Folder Include="X\Sample" />
+    <Folder Include="X\UnitTest" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

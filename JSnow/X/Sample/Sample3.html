@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html><html><body><h2>JSnow - Javascript language syntax verify page 2</h2><p id="demo"></p><p id="console"></p><script>//start
+    //start
+    //line comment
+    //var d;
+    ga1 = 10;
+
+    var  ga2 = 8, ge1='adv'; //tailing comment
+
+    var gmyMap = new Map();
+
+    var keyString = 'a string',
+        keyObj = { 1: 2 },
+        keyArray = [0,'a',false],
+        keyFunc = function() { };
+
+    var gaf1 = incr(ga2);
+
+    var gaf2 = incr(incr(ga2));
+
+    myfunc(3);
+
+    /*
+    * function comment 111 中文
+    */
+    function myfunc(p)
+    {
+        var j = p + 1; //line trailing comment
+        /**
+        3 comment lines
+        \?**/
+        if(j > 1)
+        {
+            if(j > 2)
+            {
+                document.getElementById('demo').innerHTML=j;
+            }
+            else
+                return;   
+        }
+        else
+        {
+            document.getElementById('demo').innerHTML= 'less than 1';
+        }
+
+        j = fn1_WithParms(j, 3);
+
+        /*
+        anonymous function
+        */
+        var avg = function () {
+            var sum = 0;
+            for (var i = 0, j = arguments.length; i < j; i++) {
+                sum += arguments[i];
+            }
+            return sum / arguments.length;
+        };
+    }
+
+    function show(info) { document.getElementById('demo').innerHTML = info;}
+
+
+    function incr(p)
+    {
+        return ++p; 
+    }
+
+
+    function fn1_WithParms(p, step)
+    {
+        return p + step;
+    }
+
+    function fnWithBlock(p, step)
+    {
+        if(p > 1)
+        {
+            p = p + 9;
+            return p; //this is a return in the block
+        }
+	
+        //this is a bottom return
+        return p+1;
+    }
+
+    document.getElementById('console').innerHTML = "script is valid!";
+
+</script>
+
+</body>
+</html>

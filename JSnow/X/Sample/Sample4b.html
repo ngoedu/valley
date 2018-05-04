@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html><html><body><h2>JSnow - Javascript language syntax verify page</h2><p id="demo"></p><p id="console"></p><script>//start
+    function Person(first, last) {
+        this.first = first;
+        this.last = last;
+        this.fullName = function () {
+            return this.first + ' ' + this.last;
+        };
+        this.fullNameReversed = function () {
+            return this.last + ', ' + this.first;
+        };
+    }
+    var s = new Person('Bob', 'Hou');
+
+    //show(s.fullName());// ""
+
+    function getPerson()
+    {
+        return s;
+    }
+
+    function getName()
+    {
+        return 'Liky';
+    }
+
+    getPerson().first = getName();
+    show(s.fullName());// "Liky Hou"
+
+
+
+function show(info) { document.getElementById('demo').innerHTML = info;}
+
+
+document.getElementById('console').innerHTML = "script is valid!";
+</script>
+
+</body>
+</html>
