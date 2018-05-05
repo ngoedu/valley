@@ -76,16 +76,6 @@
     <None Include="words_dist.bat" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JSnow\JSnow.csproj">
-      <Project>{446D6656-9C1E-4F6B-94C8-6FE4F6658C7C}</Project>
-      <Name>JSnow</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Text.Control\Text.Control.csproj">
-      <Project>{DAB65C9A-7EFE-4FFF-94AD-ACD2D8549F84}</Project>
-      <Name>Text.Control</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="JeditorForm.resx">
       <DependentUpon>JeditorForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -93,6 +83,12 @@
   <ItemGroup>
     <Folder Include="UnitTest" />
     <Folder Include="Words" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JSnow\JSnow.csproj">
+      <Project>{446D6656-9C1E-4F6B-94C8-6FE4F6658C7C}</Project>
+      <Name>JSnow</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

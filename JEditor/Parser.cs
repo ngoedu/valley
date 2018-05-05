@@ -23,21 +23,10 @@ namespace NGO.Pad.JEditor
 	/// </summary>
 	public abstract class Parser  
     {  
-        protected ArrayList swords=null;
-		protected ArrayList fwords=null;        
- 		protected ArrayList scolors=null;	//static words
- 		protected ArrayList fcolors=null; 	//fuzzy words
-		protected ArrayList ccolors=null; 	//comment
-		protected bool caseSensitive = false;  
-		protected Color backColor;
-		protected Color foreColor;
-		protected Color attKeyColor;
-		protected Color attValueColor;
-		
+        private static Dictionary<String, Parser> Parsers = new Dictionary<string, Parser>();
+        protected XmlDocument xdoc;
  		
- 		private static Dictionary<String, Parser> Parsers = new Dictionary<string, Parser>();
- 		
- 		public static Parser Instance(JEditor.Languages language){	
+        public static Parser Instance(JEditor.Languages language){
  			return Parsers[language.ToString()];
 		}  
 		
@@ -69,104 +58,51 @@ namespace NGO.Pad.JEditor
                 	break;  
                 default:  
                     break;  
-            }  
+            } 
+            
             StreamReader reader= new StreamReader(filename,  System.Text.Encoding.UTF8); 
-  
-            XmlDocument xdoc = new XmlDocument();  
-            xdoc.Load(reader);  
-  
-            swords=new ArrayList();  
-            fwords=new ArrayList();
-			scolors=new ArrayList();  
-            fcolors=new ArrayList();
-            ccolors=new ArrayList();
-            XmlElement root=xdoc.DocumentElement;  
-            
-            string colorName = null, value = null;
-            XmlNodeList xnl=root.SelectNodes("/definition/sword");  
-            this.caseSensitive = bool.Parse(root.Attributes["caseSensitive"].Value);  
-            
-            for(int i=0;i<xnl.Count;i++)
-            {   
-            	value = xnl[i].ChildNodes[0].Value;
-            	swords.Add(this.caseSensitive ? value : value.ToLower());
-                colorName = xnl[i].Attributes["color"].Value;
-                scolors.Add(ParseColor(colorName));
-            }
-            
-            xnl=root.SelectNodes("/definition/fword");  
-            for(int i=0;i<xnl.Count;i++)  
-            {    
-            	value = xnl[i].ChildNodes[0].Value;
-            	fwords.Add(this.caseSensitive ? value : value.ToLower());
-                colorName = xnl[i].Attributes["color"].Value;
-                fcolors.Add(ParseColor(colorName));                  
-            }
-            
-            xnl=root.SelectNodes("/definition/comment");   
-            colorName = xnl[0].Attributes["color"].Value;
-            ccolors.Add(ParseColor(colorName));                  
-
-            xnl=root.SelectNodes("/definition/background");  
-            colorName = xnl[0].Attributes["color"].Value;
-            backColor = ParseColor(colorName);
-            
-            xnl=root.SelectNodes("/definition/foreground");  
-            colorName = xnl[0].Attributes["color"].Value;
-            foreColor = ParseColor(colorName);
-
-			xnl=root.SelectNodes("/definition/attribKey");  
-          	if (xnl.Count > 0) {
-            	colorName = xnl[0].Attributes["color"].Value;
-            	attKeyColor = ParseColor(colorName); 
-			} 
-
-			xnl=root.SelectNodes("/definition/attribValue");
-			if (xnl.Count > 0) {
-            	colorName = xnl[0].Attributes["color"].Value;
-            	attValueColor = ParseColor(colorName); 
-			}
+            xdoc = new XmlDocument();  
+            xdoc.Load(reader); 
         }
 		
-		private Color ParseColor(string colorName) {
+		protected Color ParseColor(string colorName) {
 			if (colorName.StartsWith("#",StringComparison.Ordinal)) {
 				string[] rgb = colorName.Remove(0,1).Split(',');
 				Color rgbColor = Color.FromArgb(Int16.Parse(rgb[0]), Int16.Parse(rgb[1]), Int16.Parse(rgb[2]));
 				return rgbColor;
-			}
-			
+			}			
 			return Color.FromName(colorName); 
 		}
-		
-  
+				
         public abstract Color IsKeyword(string word, ref bool fuzzy);
-        
         public abstract Color CommentColor();
-        
-        public Color BackColor() {
-        	return backColor;
-        }
-        
-        public  Color ForeColor() {
-			return foreColor;
-		}
-        
-        public Color AttrKeyColor() {
-        	return attKeyColor;
-        }
-        
-        public Color AttrValueColor() {
-        	return attValueColor;
-        }
+        public abstract Color ForeColor();
+        public abstract Color BackColor();
     }
 	
+	/// <summary>
+	/// HTML parser
+	/// </summary>
 	internal class HTMLParser : Parser
 	{
 		readonly TrieDict dict = new TrieDict();
 		private int FUZZY = 0;
-		
+		protected ArrayList swords=null;
+		protected ArrayList fwords=null;        
+ 		protected ArrayList scolors=null;	//static words
+ 		protected ArrayList fcolors=null; 	//fuzzy words
+		protected ArrayList ccolors=null; 	//comment
+		protected bool caseSensitive = false;  
+		protected Color backColor;
+		protected Color foreColor;
+		protected Color attKeyColor;
+		protected Color attValueColor;
+	
 		public HTMLParser() {
+			
 			LoadConfig(JEditor.Languages.HTML);
+			ParseConfig();
+			
 			for(int i=0; i<this.swords.Count; i++)
 				dict.Insert((string)this.swords[i], i);
 			FUZZY = swords.Count;
@@ -177,6 +113,60 @@ namespace NGO.Pad.JEditor
 				spart = spart.Split('*')[0]; 
 				dict.Insert(spart, FUZZY + i);
 			}		
+		}
+		
+		private void ParseConfig() {
+			swords=new ArrayList();  
+            fwords=new ArrayList();
+			scolors=new ArrayList();  
+            fcolors=new ArrayList();
+            ccolors=new ArrayList();
+            XmlElement root=xdoc.DocumentElement;  
+            
+            string colorName = null, value = null;
+            XmlNodeList xnl=root.SelectNodes("/definition/keywords/sword");  
+            this.caseSensitive = bool.Parse(root.Attributes["caseSensitive"].Value);  
+            
+            for(int i=0;i<xnl.Count;i++)
+            {   
+            	value = xnl[i].ChildNodes[0].Value;
+            	swords.Add(this.caseSensitive ? value : value.ToLower());
+                colorName = xnl[i].Attributes["color"].Value;
+                scolors.Add(ParseColor(colorName));
+            }
+            
+            xnl=root.SelectNodes("/definition/keywords/fword");  
+            for(int i=0;i<xnl.Count;i++)  
+            {    
+            	value = xnl[i].ChildNodes[0].Value;
+            	fwords.Add(this.caseSensitive ? value : value.ToLower());
+                colorName = xnl[i].Attributes["color"].Value;
+                fcolors.Add(ParseColor(colorName));                  
+            }
+            
+            xnl=root.SelectNodes("/definition/color-schema/comment");   
+            colorName = xnl[0].Attributes["color"].Value;
+            ccolors.Add(ParseColor(colorName));                  
+
+            xnl=root.SelectNodes("/definition/color-schema/background");  
+            colorName = xnl[0].Attributes["color"].Value;
+            backColor = ParseColor(colorName);
+            
+            xnl=root.SelectNodes("/definition/color-schema/foreground");  
+            colorName = xnl[0].Attributes["color"].Value;
+            foreColor = ParseColor(colorName);
+
+			xnl=root.SelectNodes("/definition/color-schema/attribKey");  
+          	if (xnl.Count > 0) {
+            	colorName = xnl[0].Attributes["color"].Value;
+            	attKeyColor = ParseColor(colorName); 
+			} 
+
+			xnl=root.SelectNodes("/definition/color-schema/attribValue");
+			if (xnl.Count > 0) {
+            	colorName = xnl[0].Attributes["color"].Value;
+            	attValueColor = ParseColor(colorName); 
+			}
 		}
 		
 		public override Color IsKeyword(string word, ref bool fuzzy) {
@@ -200,16 +190,47 @@ namespace NGO.Pad.JEditor
 		{
 			return (Color)ccolors[0];
 		}
+		
+		public override Color BackColor()
+		{
+			return backColor;
+		}
+		
+		public override Color ForeColor()
+		{
+			return foreColor;
+		}
+		
+		public Color AttrKeyColor()
+		{
+			return attKeyColor;
+		}
+		
+		public Color AttrValueColor()
+		{
+			return attValueColor;
+		}
 	}
 	
-	
+	/// <summary>
+	/// Javascropt parser
+	/// </summary>
 	internal class JavascriptParser : Parser
 	{
 		readonly TrieDict dict = new TrieDict();
 		private int FUZZY = 0;
+		protected ArrayList swords=null;
+		protected ArrayList fwords=null;        
+ 		protected ArrayList scolors=null;	//static words
+ 		protected ArrayList fcolors=null; 	//fuzzy words
+		protected ArrayList ccolors=null; 	//comment
+		protected bool caseSensitive = false;  
+		protected Color backColor;
+		protected Color foreColor;
 		
 		public JavascriptParser() {
 			LoadConfig(JEditor.Languages.JAVASCRIPT);
+			ParseConfig();
 			for(int i=0; i<this.swords.Count; i++)
 				dict.Insert((string)this.swords[i], i);
 			FUZZY = swords.Count;
@@ -220,6 +241,49 @@ namespace NGO.Pad.JEditor
 				spart = spart.Split('*')[0]; 
 				dict.Insert(spart, FUZZY + i);
 			}			
+		}
+		
+		private void ParseConfig() {
+			swords=new ArrayList();  
+            fwords=new ArrayList();
+			scolors=new ArrayList();  
+            fcolors=new ArrayList();
+            ccolors=new ArrayList();
+            XmlElement root=xdoc.DocumentElement;  
+            
+            string colorName = null, value = null;
+            XmlNodeList xnl=root.SelectNodes("/definition/keywords/sword");  
+            this.caseSensitive = bool.Parse(root.Attributes["caseSensitive"].Value);  
+            
+            for(int i=0;i<xnl.Count;i++)
+            {   
+            	value = xnl[i].ChildNodes[0].Value;
+            	swords.Add(this.caseSensitive ? value : value.ToLower());
+                colorName = xnl[i].Attributes["color"].Value;
+                scolors.Add(ParseColor(colorName));
+            }
+            
+            xnl=root.SelectNodes("/definition/keywords/fword");  
+            for(int i=0;i<xnl.Count;i++)  
+            {    
+            	value = xnl[i].ChildNodes[0].Value;
+            	fwords.Add(this.caseSensitive ? value : value.ToLower());
+                colorName = xnl[i].Attributes["color"].Value;
+                fcolors.Add(ParseColor(colorName));                  
+            }
+            
+            xnl=root.SelectNodes("/definition/color-schema/comment");   
+            colorName = xnl[0].Attributes["color"].Value;
+            ccolors.Add(ParseColor(colorName));                  
+
+            xnl=root.SelectNodes("/definition/color-schema/background");  
+            colorName = xnl[0].Attributes["color"].Value;
+            backColor = ParseColor(colorName);
+            
+            xnl=root.SelectNodes("/definition/color-schema/foreground");  
+            colorName = xnl[0].Attributes["color"].Value;
+            foreColor = ParseColor(colorName);
+
 		}
 		
 		public override Color IsKeyword(string word, ref bool fuzzy) {
@@ -239,16 +303,37 @@ namespace NGO.Pad.JEditor
 		{
 			return (Color)ccolors[0];
 		}
+		
+		public override Color BackColor()
+		{
+			return backColor;
+		}
+		
+		public override Color ForeColor()
+		{
+			return foreColor;
+		}
 	}
 	
-	
+	/// <summary>
+	/// CSS parser
+	/// </summary>
 	internal class CSSParser : Parser
 	{
 		readonly TrieDict dict = new TrieDict();
 		private int FUZZY = 0;
+		protected ArrayList swords=null;
+		protected ArrayList fwords=null;        
+ 		protected ArrayList scolors=null;	//static words
+ 		protected ArrayList fcolors=null; 	//fuzzy words
+		protected ArrayList ccolors=null; 	//comment
+		protected bool caseSensitive = false;  
+		protected Color backColor;
+		protected Color foreColor;
 		
 		public CSSParser() {
 			LoadConfig(JEditor.Languages.CSS);
+			ParseConfig();
 			for(int i=0; i<this.swords.Count; i++)
 				dict.Insert((string)this.swords[i], i);
 			FUZZY = swords.Count;
@@ -259,6 +344,48 @@ namespace NGO.Pad.JEditor
 				spart = spart.Split('*')[0]; 
 				dict.Insert(spart, FUZZY + i);
 			}			
+		}
+		
+		private void ParseConfig() {
+			swords=new ArrayList();  
+            fwords=new ArrayList();
+			scolors=new ArrayList();  
+            fcolors=new ArrayList();
+            ccolors=new ArrayList();
+            XmlElement root=xdoc.DocumentElement;  
+            
+            string colorName = null, value = null;
+            XmlNodeList xnl=root.SelectNodes("/definition/keywords/sword");  
+            this.caseSensitive = bool.Parse(root.Attributes["caseSensitive"].Value);  
+            
+            for(int i=0;i<xnl.Count;i++)
+            {   
+            	value = xnl[i].ChildNodes[0].Value;
+            	swords.Add(this.caseSensitive ? value : value.ToLower());
+                colorName = xnl[i].Attributes["color"].Value;
+                scolors.Add(ParseColor(colorName));
+            }
+            
+            xnl=root.SelectNodes("/definition/keywords/fword");  
+            for(int i=0;i<xnl.Count;i++)  
+            {    
+            	value = xnl[i].ChildNodes[0].Value;
+            	fwords.Add(this.caseSensitive ? value : value.ToLower());
+                colorName = xnl[i].Attributes["color"].Value;
+                fcolors.Add(ParseColor(colorName));                  
+            }
+            
+            xnl=root.SelectNodes("/definition/color-schema/comment");   
+            colorName = xnl[0].Attributes["color"].Value;
+            ccolors.Add(ParseColor(colorName));                  
+
+            xnl=root.SelectNodes("/definition/color-schema/background");  
+            colorName = xnl[0].Attributes["color"].Value;
+            backColor = ParseColor(colorName);
+            
+            xnl=root.SelectNodes("/definition/color-schema/foreground");  
+            colorName = xnl[0].Attributes["color"].Value;
+            foreColor = ParseColor(colorName);
 		}
 		
 		public override Color IsKeyword(string word, ref bool fuzzy) {
@@ -277,6 +404,16 @@ namespace NGO.Pad.JEditor
 		public override Color CommentColor()
 		{
 			return (Color)ccolors[0];
+		}
+		
+		public override Color BackColor()
+		{
+			return backColor;
+		}
+		
+		public override Color ForeColor()
+		{
+			return foreColor;
 		}
 	}
 }

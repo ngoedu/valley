@@ -20,10 +20,7 @@ namespace NGO.Pad.JEditor
 	/// </summary>
 	public partial class JEditor : System.Windows.Forms.RichTextBox  
     {  
-        private int line;  
         private Render render;
-        private Spliter spliter;
-       
         public string Path {set; get;}
         
         /// <summary>
@@ -32,14 +29,12 @@ namespace NGO.Pad.JEditor
  		[DllImport("user32")]  
         private static extern int SendMessage(HWND hwnd, int wMsg, int wParam, IntPtr lParam);  
         private const int WM_SETREDRAW = 0xB;  
-        private static Font DEFAULT_ASCII_FONT = new System.Drawing.Font("SimSun", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));		
-        private static Font DEFAULT_FONT = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+        public static Font DEFAULT_FONT = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         
         public JEditor(Languages language)  
         {  
         	render = Render.Instance(language);
-        	spliter = Spliter.Instance(language);
-            WordWrap = false;
+        	WordWrap = false;
             Font = DEFAULT_FONT;
             AcceptsTab = true;
             AutoWordSelection = false;
@@ -47,7 +42,7 @@ namespace NGO.Pad.JEditor
         	Cursor = System.Windows.Forms.Cursors.IBeam;
         	BackColor = render.BackColor();
         	ForeColor = render.ForeColor();
-        	this.KeyPress += OnKeyPress;
+        	KeyPress += OnKeyPress;
         	
         }
         
@@ -60,7 +55,27 @@ namespace NGO.Pad.JEditor
         	e.Handled = render.HandleKey(e.KeyChar, this);
         }
         
-        
+        /// <summary>
+        /// force re-render keywords line by line
+        /// </summary>
+        private void RenderAll() {
+    		SendMessage(base.Handle, WM_SETREDRAW, 0, IntPtr.Zero);  
+    		render.ForceRenderAll(this);                          
+            SendMessage(base.Handle, WM_SETREDRAW, 1, IntPtr.Zero);  
+            base.Refresh();	
+       	}
+  
+        protected override void OnTextChanged(EventArgs e)  
+        {            
+            if (base.Text.Length > 0){              
+ 	            SendMessage(base.Handle, WM_SETREDRAW, 0, IntPtr.Zero);  
+                render.HandleTextChanged(this);
+                SendMessage(base.Handle, WM_SETREDRAW, 1, IntPtr.Zero);  
+                base.Refresh();  
+            }  
+            base.OnTextChanged(e);  
+        }  
+  
         /// <summary>
         /// persist to file
         /// </summary>
@@ -73,103 +88,14 @@ namespace NGO.Pad.JEditor
         	RenderAll();
         }
         
-        private void RenderAll() {
-        	int selectStart = base.SelectionStart; 
-        	for(int line = 0; line <base.Lines.Length ; line++) {
-        		string lineStr = base.Lines[line];  
-                int lineStart = base.GetFirstCharIndexFromLine(line);  
-  
-                SendMessage(base.Handle, WM_SETREDRAW, 0, IntPtr.Zero);  
-  
-                base.SelectionStart = lineStart;  
-                base.SelectionLength = lineStr.Length;  
-                base.SelectionColor = render.ForeColor();
-				base.SelectionFont = DEFAULT_FONT;                
-                base.SelectionStart = 0;  
-                base.SelectionLength = 0; 
-                //System.Diagnostics.Debug.WriteLine(base.SelectionFont);
-     			
-                if (spliter.IsComment(lineStr)) {
-                	render.Comment(lineStr, this, selectStart, lineStart);
-                	//reset the selection status
-	            	base.SelectionStart = selectStart;  
-	            	base.SelectionLength = 0;  
-	            	base.SelectionColor = render.ForeColor(); 
-                } 
-                else
-                {
-					List<Word> words = spliter.Split(lineStr);                 
-	                for (int i = 0; i < words.Count; i++) {
-						render.Coloring(words[i], this, selectStart, lineStart);
-						//reset the selection status
-	            		base.SelectionStart = selectStart;  
-	            		base.SelectionLength = 0;  
-	            		base.SelectionColor = render.ForeColor(); 
-	                }                	
-                }
-                                
-                SendMessage(base.Handle, WM_SETREDRAW, 1, IntPtr.Zero);  
-                base.Refresh();
-        	}
-       	}
-  
-        protected override void OnTextChanged(EventArgs e)  
-        {            
-            if (base.Text.Length > 0)  
-            {  
-                int selectStart = base.SelectionStart;  
-                line = base.GetLineFromCharIndex(selectStart);  
-                string lineStr = base.Lines[line];  
-                int lineStart = base.GetFirstCharIndexFromLine(line);  
-  System.Diagnostics.Debug.WriteLine("OnTextChanged - line={0},column={1}",line,base.SelectionStart - base.GetFirstCharIndexFromLine(line));
-                SendMessage(base.Handle, WM_SETREDRAW, 0, IntPtr.Zero);  
-  
-                base.SelectionStart = lineStart;  
-                base.SelectionLength = lineStr.Length;  
-                base.SelectionColor = render.ForeColor();
-				base.SelectionFont = DEFAULT_FONT;                
-                base.SelectionStart = selectStart;  
-                base.SelectionLength = 0; 
-                //System.Diagnostics.Debug.WriteLine(base.SelectionFont);
-     			
-                if (spliter.IsComment(lineStr)) {
-                	render.Comment(lineStr, this, selectStart, lineStart);
-                	//reset the selection status
-	            	base.SelectionStart = selectStart;  
-	            	base.SelectionLength = 0;  
-	            	base.SelectionColor = render.ForeColor(); 
-                } 
-                else
-                {
-					List<Word> words = spliter.Split(lineStr);                 
-	                for (int i = 0; i < words.Count; i++) {
-						render.Coloring(words[i], this, selectStart, lineStart);
-						//reset the selection status
-	            		base.SelectionStart = selectStart;  
-	            		base.SelectionLength = 0;  
-	            		base.SelectionColor = render.ForeColor(); 
-	                }                	
-                }
-                                
-                SendMessage(base.Handle, WM_SETREDRAW, 1, IntPtr.Zero);  
-                base.Refresh();  
-            }  
-            base.OnTextChanged(e);  
-        }  
-  
         public new bool WordWrap  
         {  
             get { return base.WordWrap; }  
             set { base.WordWrap = value; }  
         }  
   
-        public enum Languages  
-        {  
-            SQL,  
-            JAVA,  
-            HTML,  
-            CSS,
-			JAVASCRIPT            
+        public enum Languages {  
+            SQL, JAVA, HTML, CSS, JAVASCRIPT            
         }  
   
         private Languages language = Languages.CSS;  
