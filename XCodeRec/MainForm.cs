@@ -31,10 +31,10 @@ namespace XCodeRec
 			//@"D:\NGO\course\xCodeRec\c1web"
 			fileBrowser = new JFiles(path, this);
 			this.Controls.Add(fileBrowser);
-			Resize();
+			ResizeControl();
 		}
 		
-		private void Resize() {
+		private void ResizeControl() {
 			fileBrowser.Left = 10;
 			fileBrowser.Top = 10;
 			fileBrowser.Height = this.Height - 120;
