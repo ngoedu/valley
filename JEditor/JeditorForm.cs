@@ -30,6 +30,7 @@ namespace NGO.Pad.JEditor
 			editor.Left = 5;
 			editor.Height = this.Height - 80;
 			editor.Top = 5;
+			editor.TabIndex = 0;
 			
 			this.Controls.Add(editor);
 		}
@@ -66,6 +67,30 @@ function abc() {
 				if (t != '\n')
 					editor.AppendText(t.ToString());
 			}
+		}
+		void Button2Click(object sender, EventArgs e)
+		{
+			string line1 = "<!DOCTYPE html>";
+			string line2 = "\r\n<html>";
+			string line3 = "\r\n</html>";
+			
+			
+			int selectStart = 0;
+			editor.SelectionStart = selectStart;
+			editor.SelectedText = line1;
+			
+			selectStart+=line1.Length+1;
+			editor.SelectionStart = selectStart;
+			editor.SelectedText = line2;
+			
+			selectStart+=line2.Length+1;
+			editor.SelectionStart = selectStart;
+			editor.SelectedText = line3;
+			
+		}
+		void JeditorFormLoad(object sender, EventArgs e)
+		{
+			//editor.Focus();
 		}
 	}
 }

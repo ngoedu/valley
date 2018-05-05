@@ -51,43 +51,15 @@ namespace NGO.Pad.JEditor
         	
         }
         
+        /// <summary>
+        /// special key handling by render
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnKeyPress(object sender, KeyPressEventArgs e){
-           if(e.KeyChar == '\t'){
-             int ln = base.GetLineFromCharIndex(base.SelectionStart);
-             int column = base.SelectionStart - base.GetFirstCharIndexFromLine(ln);
-
-             string lineStr = base.Lines[ln];
-             string onStr = lineStr.Substring(0, column);
-              int i = onStr.LastIndexOf(' ');
-              i = i<0 ? onStr.LastIndexOf('\t') : i;
-              i = i<0 ? onStr.LastIndexOf('>') : i;
-              i = i<0 ? 0 : i;
-              //1. get candidate word
-             string lastWord = string.Empty;
-             lastWord = onStr.Substring(i==0? 0 : i+1).Trim();
-             System.Diagnostics.Debug.WriteLine(lastWord);
-             //2.backup candidate position
-             int candidatePos = base.SelectionStart - lastWord.Length;
-             //3.check auto-completion
-             string toFill = render.AutoComplete(lastWord);
-             if (toFill == null)
-                 return;
-  
-             int curPos = base.SelectionStart + Int16.Parse(toFill.Split(':')[0]);
-             base.SelectionColor = render.ForeColor();
-             //AC1. add <
-             base.SelectionStart = candidatePos;
-             base.SelectedText="<";
-             //AC2. complete the candidate
-             base.SelectionStart = candidatePos+lastWord.Length + 1;
-             base.SelectedText = toFill.Split(':')[1];
-             base.SelectedText = string.Empty;
-             //AC3. reset cursor pos
-             base.SelectionStart = curPos;
-             //AC4. ignore the tab
-             e.Handled = true;
-           }
+        	e.Handled = render.HandleKey(e.KeyChar, this);
         }
+        
         
         /// <summary>
         /// persist to file
@@ -149,7 +121,7 @@ namespace NGO.Pad.JEditor
                 line = base.GetLineFromCharIndex(selectStart);  
                 string lineStr = base.Lines[line];  
                 int lineStart = base.GetFirstCharIndexFromLine(line);  
-  
+  System.Diagnostics.Debug.WriteLine("OnTextChanged - line={0},column={1}",line,base.SelectionStart - base.GetFirstCharIndexFromLine(line));
                 SendMessage(base.Handle, WM_SETREDRAW, 0, IntPtr.Zero);  
   
                 base.SelectionStart = lineStart;  
