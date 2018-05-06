@@ -43,7 +43,7 @@ namespace NGO.Pad.JEditor
         	BackColor = render.BackColor();
         	ForeColor = render.ForeColor();
         	KeyPress += OnKeyPress;
-        	
+        	RenderAll += new RenderAllHandler(OnRenderAll);
         }
         
         /// <summary>
@@ -56,11 +56,26 @@ namespace NGO.Pad.JEditor
         }
         
         /// <summary>
+        /// define RenderEvent Arg
+        /// </summary>
+        public class RenderEventArgs : EventArgs {
+	    	public RichTextBox target;
+		}
+        
+        /// <summary>
+        /// define delegate and event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private delegate void RenderAllHandler(RenderEventArgs e);
+        private event RenderAllHandler RenderAll;
+        
+        /// <summary>
         /// force re-render keywords line by line
         /// </summary>
-        private void RenderAll() {
+        private void OnRenderAll(RenderEventArgs e) {
     		SendMessage(base.Handle, WM_SETREDRAW, 0, IntPtr.Zero);  
-    		render.ForceRenderAll(this);                          
+    		render.ForceRenderAll(e.target);                          
             SendMessage(base.Handle, WM_SETREDRAW, 1, IntPtr.Zero);  
             base.Refresh();	
        	}
@@ -85,7 +100,7 @@ namespace NGO.Pad.JEditor
         
         public void LoadFromFile(string path) {
         	base.LoadFile(path, RichTextBoxStreamType.UnicodePlainText);
-        	RenderAll();
+        	OnRenderAll(new RenderEventArgs() { target = this });
         }
         
         public new bool WordWrap  
