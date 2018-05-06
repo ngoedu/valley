@@ -63,9 +63,8 @@ namespace NGO.Pad.JEditor
 		}
         
         /// <summary>
-        /// define delegate and event
+        /// define delegate and event of RenderAll
         /// </summary>
-        /// <param name="sender"></param>
         /// <param name="e"></param>
         private delegate void RenderAllHandler(RenderEventArgs e);
         private event RenderAllHandler RenderAll;
@@ -101,6 +100,8 @@ namespace NGO.Pad.JEditor
         public void LoadFromFile(string path) {
         	base.LoadFile(path, RichTextBoxStreamType.UnicodePlainText);
         	OnRenderAll(new RenderEventArgs() { target = this });
+        	//below is the equvilent
+        	//RenderAll.Invoke(new RenderEventArgs() { target = this });
         }
         
         public new bool WordWrap  
