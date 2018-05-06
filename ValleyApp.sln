@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCodeRec", "XCodeRec\XCodeR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XDiffPatch", "XDiffPatch\XDiffPatch.csproj", "{BFA728B9-8365-4B26-8F36-DC1195F79B72}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JClientDev", "JClientDev\JClientDev.csproj", "{AB47239D-86AA-4DDF-985D-B2E11FACBA2E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -88,5 +90,9 @@ Global
 		{BFA728B9-8365-4B26-8F36-DC1195F79B72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFA728B9-8365-4B26-8F36-DC1195F79B72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFA728B9-8365-4B26-8F36-DC1195F79B72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB47239D-86AA-4DDF-985D-B2E11FACBA2E}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{AB47239D-86AA-4DDF-985D-B2E11FACBA2E}.Debug|Any CPU.Build.0 = Debug|x86
+		{AB47239D-86AA-4DDF-985D-B2E11FACBA2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB47239D-86AA-4DDF-985D-B2E11FACBA2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
