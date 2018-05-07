@@ -122,7 +122,7 @@ namespace NGO.Pad.JEditor
 	internal class HTMLRender : Render
 	{
 		private HTMLParser parser = (HTMLParser)Parser.Instance(JEditor.Languages.HTML);
-		
+		private char LastChar;
 		public HTMLRender() {
 			spliter = (HTMLSplitor)Spliter.Instance(JEditor.Languages.HTML);
 		}
@@ -140,45 +140,61 @@ namespace NGO.Pad.JEditor
 		public override bool HandleKey(char key, RichTextBox rtb)
 		{
 			if (key == '\t') {
-				string lastWord = GetLastWord(rtb);
-				if (lastWord == null)
-					return false;
-				//2.backup candidate position
-				int candidatePos = rtb.SelectionStart - lastWord.Length;
-				//3.check auto-completion
-				string toFill = this.AutoComplete(lastWord);
-				if (toFill == null)
-					return false;
-				string[] splited = toFill.Split(':');
-				string prefix = splited[0];
-				string suffix = splited[2];
-				rtb.SelectionColor = this.ForeColor();
-				//AC1. add prefix
-				rtb.SelectionStart = candidatePos;
-				//base.SelectedText=prefix;
-				InsertSelectedText(prefix, rtb);
-				//AC2. complete the candidate
-				rtb.SelectionStart = candidatePos + lastWord.Length + prefix.Length;
-				//base.SelectedText = suffix;
-				InsertSelectedText(suffix, rtb);
-				rtb.SelectedText = string.Empty;
-				//AC3. reset cursor pos
-				rtb.SelectionStart = candidatePos + lastWord.Length + prefix.Length + Int16.Parse(splited[1]);
-				//AC4. ignore the tab
-				return true;
-			} else if (key == '<' ) {
-				//TODO: auto-close does not sensitive now
-				/*
-				string lastWord = GetLastWord(rtb);
-				if (lastWord != string.Empty) {
-					string closed = AutoClose(lastWord);
-					if (closed != null)	{	
-						InsertSelectedText(closed, rtb);
+				if (LastChar == '<') {
+					return DoAutoClose(rtb);
+				} else {
+					return DoAutoComplete(rtb);
+				}
+			}
+			LastChar = key;
+			return false;
+		}
+		
+		private bool DoAutoComplete(RichTextBox rtb) {
+			string lastWord = GetLastWord(rtb);
+			if (lastWord == null)
+				return false;
+			//2.backup candidate position
+			int candidatePos = rtb.SelectionStart - lastWord.Length;
+			//3.check auto-completion
+			string toFill = parser.ToAutoComplete(lastWord);
+			if (toFill == null)
+				return false;
+			string[] splited = toFill.Split(':');
+			string prefix = splited[0];
+			string suffix = splited[2];
+			rtb.SelectionColor = this.ForeColor();
+			//AC1. add prefix
+			rtb.SelectionStart = candidatePos;
+			//base.SelectedText=prefix;
+			InsertSelectedText(prefix, rtb);
+			//AC2. complete the candidate
+			rtb.SelectionStart = candidatePos + lastWord.Length + prefix.Length;
+			//base.SelectedText = suffix;
+			InsertSelectedText(suffix, rtb);
+			rtb.SelectedText = string.Empty;
+			//AC3. reset cursor pos
+			rtb.SelectionStart = candidatePos + lastWord.Length + prefix.Length + Int16.Parse(splited[1]);
+			//AC4. ignore the tab
+			return true;
+		}
+		
+		private bool DoAutoClose(RichTextBox rtb) {
+			string onString = GetOnString(rtb);
+            List<Word> words = spliter.Split(onString.Substring(0, onString.Length - 1));
+            if (words.Count <= 0)
+            	return false;
+            for(int i = words.Count - 1; i>=0; i--) {
+            	if (words[i].IsHtmlTag()) {
+            		string closed = parser.ToAutoClose(words[i].Inner);
+					if (closed != null)	{
+            			string[] splited = closed.Split(':');
+            			InsertSelectedText(splited[1], rtb);
+            			rtb.SelectionStart += Int16.Parse(splited[0]);
 						return true;
 					}
-				}
-				*/
-			}
+            	}
+            }
 			return false;
 		}
 	
@@ -247,15 +263,19 @@ namespace NGO.Pad.JEditor
 			tbase.SelectionColor = color;
 		}
 		
+		private string GetOnString(RichTextBox rtb) {
+			int ln = rtb.GetLineFromCharIndex(rtb.SelectionStart);
+			int column = rtb.SelectionStart - rtb.GetFirstCharIndexFromLine(ln);
+			string lineStr = rtb.Lines[ln];
+			string onStr = lineStr.Substring(0, column);
+			return onStr;
+		}
+		
 		private string GetLastWord(RichTextBox rtb) {			
 			string lastWord = string.Empty;
 			if (rtb.Text.Length > 0) {
-				int ln = rtb.GetLineFromCharIndex(rtb.SelectionStart);
-				int column = rtb.SelectionStart - rtb.GetFirstCharIndexFromLine(ln);
-	
-				string lineStr = rtb.Lines[ln];
-				string onStr = lineStr.Substring(0, column);
-				if (onStr.Length <=0) 
+				string onStr = GetOnString(rtb);				
+				if (onStr.Length <=0)
 					return null;
 				int i = onStr.LastIndexOf(' ');
 				i = i < 0 ? onStr.LastIndexOf('\t') : i;
@@ -279,7 +299,7 @@ namespace NGO.Pad.JEditor
 					rtb.SelectedText = "\r\n" + lines[i];
 		}
 		
-		private string AutoComplete(string candidate)
+		private string MapAutoComplete(string candidate)
 		{
 			//TODO: change to a efficient way for mapping fill Text
 			if (candidate == "html") {
@@ -297,20 +317,20 @@ namespace NGO.Pad.JEditor
 			return null;
 		}
 		
-		private string AutoClose(string candidate)
+		private string MapAutoClose(string candidate)
 		{
 			//TODO: change to a efficient way for mapping fill Text
 			if (candidate == "<html>") {
-				return "</html>";
+				return "0:/html>";
 			}
 			if (candidate == "<head>") {
-				return "</head>";
+				return "0:/head>";
 			}
 			if (candidate == "<body>") {
-				return "</body>";
+				return "0:/body>";
 			}
 			if (candidate == "<script>") {
-				return "</script>";
+				return "0:/script>";
 			}
 			return null;
 		}

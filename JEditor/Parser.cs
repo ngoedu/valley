@@ -61,7 +61,7 @@ namespace NGO.Pad.JEditor
             } 
             
             StreamReader reader= new StreamReader(filename,  System.Text.Encoding.UTF8); 
-            xdoc = new XmlDocument();  
+            xdoc = new XmlDocument();
             xdoc.Load(reader); 
         }
 		
@@ -78,6 +78,8 @@ namespace NGO.Pad.JEditor
         public abstract Color CommentColor();
         public abstract Color ForeColor();
         public abstract Color BackColor();
+        public abstract string ToAutoComplete(string key);
+        public abstract string ToAutoClose(string key);
     }
 	
 	/// <summary>
@@ -97,6 +99,9 @@ namespace NGO.Pad.JEditor
 		protected Color foreColor;
 		protected Color attKeyColor;
 		protected Color attValueColor;
+		protected Dictionary<string, string> completeDict;
+		protected Dictionary<string, string> closeDict;
+		
 	
 		public HTMLParser() {
 			
@@ -121,6 +126,9 @@ namespace NGO.Pad.JEditor
 			scolors=new ArrayList();  
             fcolors=new ArrayList();
             ccolors=new ArrayList();
+            completeDict = new Dictionary<string, string>();
+            closeDict = new Dictionary<string, string>();
+            
             XmlElement root=xdoc.DocumentElement;  
             
             string colorName = null, value = null;
@@ -167,6 +175,33 @@ namespace NGO.Pad.JEditor
             	colorName = xnl[0].Attributes["color"].Value;
             	attValueColor = ParseColor(colorName); 
 			}
+			
+			//https://stackoverflow.com/questions/514635/represent-space-and-tab-in-xml-tag
+			xnl=root.SelectNodes("/definition/auto-complete/word");  
+            for(int i=0;i<xnl.Count;i++)  
+            {    
+            	value = xnl[i].ChildNodes[0].Value;
+            	completeDict.Add(xnl[i].Attributes["key"].Value, value.Replace(@"\r\n", "\r\n").Replace(@"\t", "\t"));
+            }
+            
+            xnl=root.SelectNodes("/definition/auto-close/word");  
+            for(int i=0;i<xnl.Count;i++)  
+            {    
+            	value = xnl[i].ChildNodes[0].Value;
+            	closeDict.Add("<"+xnl[i].Attributes["key"].Value+">",  value.Replace(@"\r\n", "\r\n").Replace(@"\t", "\t"));               
+            }
+		}
+		
+		public override string ToAutoComplete(string key) {
+			string tryValue = null;
+			completeDict.TryGetValue(key, out tryValue);
+			return tryValue;
+		}
+        
+		public override string ToAutoClose(string key) {
+			string tryValue = null;
+			closeDict.TryGetValue(key, out tryValue);
+			return tryValue;
 		}
 		
 		public override Color IsKeyword(string word, ref bool fuzzy) {
@@ -299,6 +334,14 @@ namespace NGO.Pad.JEditor
 			return (Color)fcolors[idx - FUZZY];
 		}
 		
+		public override string ToAutoComplete(string key) {
+			return null;
+		}
+        
+		public override string ToAutoClose(string key) {
+			return null;
+		}
+		
 		public override Color CommentColor()
 		{
 			return (Color)ccolors[0];
@@ -399,6 +442,14 @@ namespace NGO.Pad.JEditor
 			if (idx < FUZZY)
 				return (Color)scolors[idx];
 			return (Color)fcolors[idx - FUZZY];
+		}
+		
+		public override string ToAutoComplete(string key) {
+			return null;
+		}
+        
+		public override string ToAutoClose(string key) {
+			return null;
 		}
 		
 		public override Color CommentColor()

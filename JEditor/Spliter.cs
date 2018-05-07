@@ -27,6 +27,10 @@ namespace NGO.Pad.JEditor
 			this.Inner = str;
 		}
 		
+		public bool IsHtmlTag() {
+			return this.Inner.Length > 0 && this.Inner.StartsWith("<", StringComparison.Ordinal) && this.Inner.EndsWith(">",StringComparison.Ordinal);
+		}
+		
 		public override string ToString()
 		{
 			return string.Format("[{0}:{1}]", Index, Inner);
