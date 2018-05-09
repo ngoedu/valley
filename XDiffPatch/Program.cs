@@ -6,6 +6,8 @@
  * 
  * 
  */
+
+ 
 using System;
 using System.Windows.Forms;
 
@@ -22,9 +24,11 @@ namespace XDiffPatch
 		[STAThread]
 		private static void Main(string[] args)
 		{
+			#if (DIA_DEBUG)
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new MainForm());
+			#endif
 		}
 		
 	}
