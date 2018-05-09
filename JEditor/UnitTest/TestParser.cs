@@ -10,7 +10,7 @@ using System;
 using System.Drawing;
 using NUnit.Framework;
 
-namespace NGO.Pad.JEditor.UnitTest
+namespace NGO.Pad.Editor.UnitTest
 {
 	[TestFixture]
 	public class TestParser

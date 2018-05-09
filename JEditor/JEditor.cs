@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using HWND = System.IntPtr;  
 
-namespace NGO.Pad.JEditor
+namespace NGO.Pad.Editor
 {
 	/// <summary>
 	/// RichTextBox based ngo Editor which used for code demostration.

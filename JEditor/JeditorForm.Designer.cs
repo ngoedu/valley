@@ -6,7 +6,7 @@
  * 
  * 
  */
-namespace NGO.Pad.JEditor
+namespace NGO.Pad.Editor
 {
 	partial class JeditorForm
 	{

@@ -16,7 +16,7 @@ using System.Reflection;
 using System.Drawing;
 using Snow.X.Algorithm; 
 
-namespace NGO.Pad.JEditor
+namespace NGO.Pad.Editor
 {
 	/// <summary>
 	/// Description of Parser.
@@ -93,8 +93,8 @@ namespace NGO.Pad.JEditor
 		protected ArrayList fwords=null;        
  		protected ArrayList scolors=null;	//static words
  		protected ArrayList fcolors=null; 	//fuzzy words
-		protected ArrayList ccolors=null; 	//comment
-		protected bool caseSensitive = false;  
+		protected Color comment; 	
+		protected bool caseSensitive = false;
 		protected Color backColor;
 		protected Color foreColor;
 		protected Color attKeyColor;
@@ -125,8 +125,7 @@ namespace NGO.Pad.JEditor
             fwords=new ArrayList();
 			scolors=new ArrayList();  
             fcolors=new ArrayList();
-            ccolors=new ArrayList();
-            completeDict = new Dictionary<string, string>();
+           	completeDict = new Dictionary<string, string>();
             closeDict = new Dictionary<string, string>();
             
             XmlElement root=xdoc.DocumentElement;  
@@ -154,7 +153,7 @@ namespace NGO.Pad.JEditor
             
             xnl=root.SelectNodes("/definition/color-schema/comment");   
             colorName = xnl[0].Attributes["color"].Value;
-            ccolors.Add(ParseColor(colorName));                  
+            comment = ParseColor(colorName);                  
 
             xnl=root.SelectNodes("/definition/color-schema/background");  
             colorName = xnl[0].Attributes["color"].Value;
@@ -223,7 +222,7 @@ namespace NGO.Pad.JEditor
 		
 		public override Color CommentColor()
 		{
-			return (Color)ccolors[0];
+			return comment;
 		}
 		
 		public override Color BackColor()
@@ -258,7 +257,7 @@ namespace NGO.Pad.JEditor
 		protected ArrayList fwords=null;        
  		protected ArrayList scolors=null;	//static words
  		protected ArrayList fcolors=null; 	//fuzzy words
-		protected ArrayList ccolors=null; 	//comment
+		protected Color comment; 	
 		protected bool caseSensitive = false;  
 		protected Color backColor;
 		protected Color foreColor;
@@ -283,7 +282,7 @@ namespace NGO.Pad.JEditor
             fwords=new ArrayList();
 			scolors=new ArrayList();  
             fcolors=new ArrayList();
-            ccolors=new ArrayList();
+           
             XmlElement root=xdoc.DocumentElement;  
             
             string colorName = null, value = null;
@@ -309,7 +308,7 @@ namespace NGO.Pad.JEditor
             
             xnl=root.SelectNodes("/definition/color-schema/comment");   
             colorName = xnl[0].Attributes["color"].Value;
-            ccolors.Add(ParseColor(colorName));                  
+            comment = ParseColor(colorName);                  
 
             xnl=root.SelectNodes("/definition/color-schema/background");  
             colorName = xnl[0].Attributes["color"].Value;
@@ -344,7 +343,7 @@ namespace NGO.Pad.JEditor
 		
 		public override Color CommentColor()
 		{
-			return (Color)ccolors[0];
+			return comment;
 		}
 		
 		public override Color BackColor()
@@ -369,7 +368,7 @@ namespace NGO.Pad.JEditor
 		protected ArrayList fwords=null;        
  		protected ArrayList scolors=null;	//static words
  		protected ArrayList fcolors=null; 	//fuzzy words
-		protected ArrayList ccolors=null; 	//comment
+		protected Color comment; 		//comment
 		protected bool caseSensitive = false;  
 		protected Color backColor;
 		protected Color foreColor;
@@ -394,7 +393,6 @@ namespace NGO.Pad.JEditor
             fwords=new ArrayList();
 			scolors=new ArrayList();  
             fcolors=new ArrayList();
-            ccolors=new ArrayList();
             XmlElement root=xdoc.DocumentElement;  
             
             string colorName = null, value = null;
@@ -420,7 +418,7 @@ namespace NGO.Pad.JEditor
             
             xnl=root.SelectNodes("/definition/color-schema/comment");   
             colorName = xnl[0].Attributes["color"].Value;
-            ccolors.Add(ParseColor(colorName));                  
+            comment = ParseColor(colorName);                  
 
             xnl=root.SelectNodes("/definition/color-schema/background");  
             colorName = xnl[0].Attributes["color"].Value;
@@ -454,7 +452,7 @@ namespace NGO.Pad.JEditor
 		
 		public override Color CommentColor()
 		{
-			return (Color)ccolors[0];
+			return comment;
 		}
 		
 		public override Color BackColor()

@@ -16,7 +16,7 @@ using System.IO;
 using System.Collections;   
 using System.Drawing; 
 
-namespace NGO.Pad.JEditor
+namespace NGO.Pad.Editor
 {
 	public class Word {
 		public int Index {get ;set;}

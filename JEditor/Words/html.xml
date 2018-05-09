@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <definition name="html" caseSensitive="false">
 	<color-schema>
-		<comment color="#52,81,95"><![CDATA[<!--]]></comment>
+		<comment color="#117,113,94"><![CDATA[<!--]]></comment>
 		<background color="#39,40,34"></background>
 		<foreground color="#204,206,209"></foreground>
 		<attribKey color="#133,217,30"></attribKey>

@@ -10,7 +10,7 @@ using System;
 using System.Windows.Forms;
 
 
-namespace NGO.Pad.JEditor
+namespace NGO.Pad.Editor
 {
 	/// <summary>
 	/// Class with program entry point.
