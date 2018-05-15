@@ -50,20 +50,37 @@ namespace NGO.Pad.Catalina
 		
 		BlockingCollection<string> queue = new BlockingCollection<string>();
 		
+		private int pid = -1;
+		
 		void DoWork(object sender, DoWorkEventArgs e)
         {
 			while (true)
 			{
 				var item = queue.Take();
-				System.Diagnostics.Debug.WriteLine("item Taken");
+				//System.Diagnostics.Debug.WriteLine("item Taken");
 				backgroundWorker.ReportProgress(1,item);
 			}		
 		}
 		
 		void UpdateProgress(object sender, ProgressChangedEventArgs e)
         {
-			System.Diagnostics.Debug.WriteLine("updateProgress");
-		 	this.richTextBox1.AppendText(e.UserState.ToString()+"\r\n");
+			//System.Diagnostics.Debug.WriteLine("updateProgress");
+			if (e != null && e.UserState != null) {
+				if (inShutdown == 0) {
+					if (e.UserState.ToString().EndsWith("A valid shutdown command was received via the shutdown port. Stopping the Server instance.", StringComparison.Ordinal)) {
+						inShutdown = 1;
+						System.Diagnostics.Debug.WriteLine("Tomcat shutted down!");
+					} else {
+						if (pid > 0 && Process.GetProcessById(pid) !=null)
+						{
+							Process.GetProcessById(pid).Kill();
+							pid = -1;
+						}
+							
+					}
+				}
+				this.richTextBox1.AppendText(e.UserState.ToString()+"\r\n");
+			}
 		}
 		 
 		void CompletedWork(object sender, RunWorkerCompletedEventArgs e)
@@ -77,6 +94,8 @@ namespace NGO.Pad.Catalina
 		/// <param name="e"></param>
 		void Button1Click(object sender, EventArgs e)
 		{
+			if (inShutdown == 0 || pid != -1)
+				return;
 			//* Create your Process
 		    Process process = new Process();
 		    process.StartInfo.FileName = @"D:\NGO\client\embed\embed.bat";
@@ -91,7 +110,7 @@ namespace NGO.Pad.Catalina
 		    
 		    // try start process in a thread.
 		    ThreadStart ths = new ThreadStart(
-		    					delegate() { process.Start(); 
+		    	delegate() { process.Start(); pid = process.Id;
 		    						process.BeginOutputReadLine();
 		    						process.BeginErrorReadLine();
 		    						process.WaitForExit();}
@@ -103,8 +122,22 @@ namespace NGO.Pad.Catalina
 		
 		private void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine) {
 		    //* Do your stuff with the output (write to console/log/StringBuilder)
-		    System.Diagnostics.Debug.WriteLine(outLine.Data);
+		    //System.Diagnostics.Debug.WriteLine(outLine.Data);
 		    queue.Add(outLine.Data);
+		}
+		/// <summary>
+		/// initial status = -1
+		/// in shutdown process = 0
+		/// already shutted down = 1
+		/// </summary>
+		int inShutdown = -1;
+		
+		void Button2Click(object sender, EventArgs e)
+		{
+			if (inShutdown == -1 || inShutdown==1) {
+				inShutdown = 0;
+				Server.Instance.Shutdown();
+			}
 		}
 	}
 }
