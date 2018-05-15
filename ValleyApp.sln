@@ -4,8 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # SharpDevelop 5.1
 VisualStudioVersion = 12.0.20827.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cef49", "Cef49\Cef49.csproj", "{C14757DE-809B-4677-80B2-136519759FDE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AEther", "AEther\AEther.csproj", "{E3F1F449-85A8-44FA-8651-85DCA0CA0F1C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalina", "Catalina\Catalina.csproj", "{0A164BAC-2DB0-410D-ABA0-92DCA60ED8B6}"
@@ -30,7 +28,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCodeRec", "XCodeRec\XCodeR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XDiffPatch", "XDiffPatch\XDiffPatch.csproj", "{BFA728B9-8365-4B26-8F36-DC1195F79B72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JClientDev", "JClientDev\JClientDev.csproj", "{AB47239D-86AA-4DDF-985D-B2E11FACBA2E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JPanel", "JPanel\JPanel.csproj", "{169136C1-BC6E-4AB8-95CF-845D783167C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,10 +36,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C14757DE-809B-4677-80B2-136519759FDE}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{C14757DE-809B-4677-80B2-136519759FDE}.Debug|Any CPU.Build.0 = Debug|x86
-		{C14757DE-809B-4677-80B2-136519759FDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C14757DE-809B-4677-80B2-136519759FDE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E3F1F449-85A8-44FA-8651-85DCA0CA0F1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E3F1F449-85A8-44FA-8651-85DCA0CA0F1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3F1F449-85A8-44FA-8651-85DCA0CA0F1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -90,9 +84,9 @@ Global
 		{BFA728B9-8365-4B26-8F36-DC1195F79B72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFA728B9-8365-4B26-8F36-DC1195F79B72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFA728B9-8365-4B26-8F36-DC1195F79B72}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AB47239D-86AA-4DDF-985D-B2E11FACBA2E}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{AB47239D-86AA-4DDF-985D-B2E11FACBA2E}.Debug|Any CPU.Build.0 = Debug|x86
-		{AB47239D-86AA-4DDF-985D-B2E11FACBA2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AB47239D-86AA-4DDF-985D-B2E11FACBA2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{169136C1-BC6E-4AB8-95CF-845D783167C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{169136C1-BC6E-4AB8-95CF-845D783167C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{169136C1-BC6E-4AB8-95CF-845D783167C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{169136C1-BC6E-4AB8-95CF-845D783167C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
