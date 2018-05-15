@@ -30,6 +30,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XDiffPatch", "XDiffPatch\XD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JPanel", "JPanel\JPanel.csproj", "{169136C1-BC6E-4AB8-95CF-845D783167C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JGuider", "JGuider\JGuider.csproj", "{1D61F8B1-EA27-423B-A9C3-D334F1D923D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Course", "Course\Course.csproj", "{1F2B037E-94A7-40B4-9642-4D45C6C15CC3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -88,5 +92,13 @@ Global
 		{169136C1-BC6E-4AB8-95CF-845D783167C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{169136C1-BC6E-4AB8-95CF-845D783167C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{169136C1-BC6E-4AB8-95CF-845D783167C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D61F8B1-EA27-423B-A9C3-D334F1D923D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D61F8B1-EA27-423B-A9C3-D334F1D923D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D61F8B1-EA27-423B-A9C3-D334F1D923D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D61F8B1-EA27-423B-A9C3-D334F1D923D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F2B037E-94A7-40B4-9642-4D45C6C15CC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F2B037E-94A7-40B4-9642-4D45C6C15CC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F2B037E-94A7-40B4-9642-4D45C6C15CC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F2B037E-94A7-40B4-9642-4D45C6C15CC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

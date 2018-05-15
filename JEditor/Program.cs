@@ -23,10 +23,12 @@ namespace NGO.Pad.Editor
 		[STAThread]
 		private static void Main(string[] args)
 		{
+			#if (DIA_DEBUG)
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			//Application.Run(new MainForm());
 			Application.Run(new JeditorForm());
+			#endif
 		}
 		
 	}
