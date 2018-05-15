@@ -13,6 +13,7 @@ using System.Windows.Forms;
 namespace NGO.Pad.JVideo
 {
 	/// <summary>
+	/// http://open.iqiyi.com/lib/play.html
 	/// Description of VideoForm.
 	/// </summary>
 	public partial class VideoForm : Form
@@ -39,8 +40,10 @@ namespace NGO.Pad.JVideo
 		}
 		void Button1Click(object sender, EventArgs e)
 		{
-			string ver = (new WebBrowser()).Version.ToString();
-			MessageBox.Show(ver);
+			//string ver = (new WebBrowser()).Version.ToString();
+			//MessageBox.Show(ver);
+			
+			this.webBrowser1.Navigate("file:///D:/NGO/course/Demo/3dLable/miaov_demo.html");
 		}
 		void VideoFormSizeChanged(object sender, EventArgs e)
 		{

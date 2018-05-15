@@ -22,10 +22,12 @@ namespace NGO.Pad.JVideo
 		[STAThread]
 		private static void Main(string[] args)
 		{
+			#if (DIA_DEBUG)
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			//Application.Run(new MainForm());
 			Application.Run(new VideoForm());
+			#endif
 		}
 		
 	}
