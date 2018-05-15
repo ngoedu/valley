@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using NGO.Pad.JEditor;
+using NGO.Pad.Editor;
 using NGO.Pad.JFiles;
 
 namespace XCodeRec
@@ -31,7 +31,7 @@ namespace XCodeRec
 			//@"D:\NGO\course\xCodeRec\c1web"
 			fileBrowser = new JFiles(path, this);
 			this.Controls.Add(fileBrowser);
-			ResizeControl();
+			
 		}
 		
 		private void ResizeControl() {
@@ -45,6 +45,10 @@ namespace XCodeRec
 			this.tabControl1.Top = fileBrowser.Top;
 			this.tabControl1.Height = fileBrowser.Height;
 			this.tabControl1.Width = this.Width - fileBrowser.Width - 40;
+			
+			this.button1.Top = tabControl1.Top + tabControl1.Height + 20;
+			this.button2.Top = this.button1.Top;
+			
 		}
 
 		#region IFileHandler implementation
@@ -103,6 +107,10 @@ namespace XCodeRec
 		void Button2Click(object sender, EventArgs e)
 		{
 			
+		}
+		void MainFormLoad(object sender, EventArgs e)
+		{
+			ResizeControl();
 		}
 
 		#endregion

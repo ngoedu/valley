@@ -83,6 +83,8 @@ namespace XCodeRec
 			this.Controls.Add(this.tabControl1);
 			this.Name = "MainForm";
 			this.Text = "XCodeRec";
+			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+			this.Load += new System.EventHandler(this.MainFormLoad);
 			this.ResumeLayout(false);
 
 		}
