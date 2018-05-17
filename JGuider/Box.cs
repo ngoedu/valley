@@ -25,16 +25,17 @@ namespace NGO.Pad.Guider
 			//
 			InitializeComponent();
 			BackColor = Color.FromArgb(16,35,56);
+			tbCourse.BackColor = Color.FromArgb(255,255,238);
 		}
 		
 		void BoxSizeChanged(object sender, EventArgs e)
 		{
-			this.picBox.Top = 5;
-			this.picBox.Left = 3;
+			this.picBox.Top = 7;
+			this.picBox.Left = 4;
 			
 			this.tbCourse.Left = this.picBox.Left + this.picBox.Width + 4;
-			this.tbCourse.Top = 6;	
-			this.tbCourse.Width = this.Width - picBox.Width - 14;
+			this.tbCourse.Top = (this.ClientSize.Height - tbCourse.Height) / 2;
+			this.tbCourse.Width = this.ClientSize.Width - picBox.Width - 14;
 		}
 
 		#region ICourse implementation
@@ -42,6 +43,10 @@ namespace NGO.Pad.Guider
 		public void SetName(string course)
 		{
 			this.tbCourse.Text = course;
+		}
+		void BoxLoad(object sender, EventArgs e)
+		{
+	
 		}
 
 		#endregion

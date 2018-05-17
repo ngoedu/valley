@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using NGO.Train;
 
 namespace NGO.Pad.Guider
 {
@@ -29,8 +30,21 @@ namespace NGO.Pad.Guider
 			guider = new JGuider();
 			this.Controls.Add(guider);
 			
-			guider.BindCourse(new NGO.Train.Course("Web编程基础A001"));
+			guider.BindCourse(BuildCourse());
 			this.Size = new Size(250,400);
+		}
+		
+		private Course BuildCourse() {
+			
+			var course = new Course("Web编程基础A001");
+			course.AddMileStone(new Step(1, "添加一个页面","REF","Code", Course.STATUS_DEFAULT));
+			course.AddMileStone(new Step(2, "第一条文字","REF","Code", Course.STATUS_DEFAULT));
+			course.AddMileStone(new Step(3, "换行试试","REF","Code", Course.STATUS_DEFAULT));
+			course.AddMileStone(new Step(4, "原来需要标签","REF","Code", Course.STATUS_DEFAULT));
+			course.AddMileStone(new Step(5, "样子丑陋","REF","Code", Course.STATUS_DEFAULT));
+			course.AddMileStone(new Step(6, "好多的样式","REF","Code", Course.STATUS_DEFAULT));
+			
+			return course;
 		}
 		
 		void MainFormSizeChanged(object sender, EventArgs e)

@@ -1,10 +1,10 @@
 ﻿/*
  * Created by SharpDevelop.
- * User: Bob (XuYong Hou) houxuyong@hotmail.com
- * Date: 2018/5/16
- * Time: 0:53
+ * User: xho
+ * Date: 2018-05-17
+ * Time: 7:33 PM
  * 
- * 
+ * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 namespace NGO.Pad.Guider
 {
@@ -14,6 +14,7 @@ namespace NGO.Pad.Guider
 		/// Designer variable used to keep track of non-visual components.
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
+		private System.Windows.Forms.Label stone;
 		
 		/// <summary>
 		/// Disposes resources used by the control.
@@ -36,15 +37,27 @@ namespace NGO.Pad.Guider
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.stone = new System.Windows.Forms.Label();
 			this.SuspendLayout();
+			// 
+			// stone
+			// 
+			this.stone.BackColor = System.Drawing.SystemColors.Info;
+			this.stone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.stone.Location = new System.Drawing.Point(28, 19);
+			this.stone.Name = "stone";
+			this.stone.Size = new System.Drawing.Size(17, 14);
+			this.stone.TabIndex = 0;
+			this.stone.DoubleClick += new System.EventHandler(this.StoneDoubleClick);
 			// 
 			// MileStone
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.Controls.Add(this.stone);
 			this.Name = "MileStone";
-			this.Size = new System.Drawing.Size(192, 341);
+			this.Size = new System.Drawing.Size(76, 55);
+			this.Paint += new System.Windows.Forms.PaintEventHandler(this.MileStonePaint);
 			this.ResumeLayout(false);
 
 		}
