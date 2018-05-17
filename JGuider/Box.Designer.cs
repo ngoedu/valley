@@ -56,7 +56,6 @@ namespace NGO.Pad.Guider
 			// tbCourse
 			// 
 			this.tbCourse.BackColor = System.Drawing.SystemColors.Info;
-			this.tbCourse.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.tbCourse.Font = new System.Drawing.Font("微软雅黑", 10F);
 			this.tbCourse.Location = new System.Drawing.Point(72, 8);
 			this.tbCourse.Name = "tbCourse";

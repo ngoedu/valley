@@ -51,7 +51,7 @@ namespace NGO.Pad.Guider
 			int index = 0;
 			foreach (Step step in steps)
 			{
-				var stone = new MileStone(step.Name);
+				var stone = new MileStone(step.Id+"."+step.Name, step.Status);
 				stone.Top = (stone.Height - 2 ) * index++ + boxCourse.Top + boxCourse.Height;
 				stone.Left = 20;
 				mileStones.Add(stone);
@@ -68,10 +68,8 @@ namespace NGO.Pad.Guider
 			
 			for (int i=0; i<mileStones.Count; i++)
 			{
-				var stone = new MileStone("Web页面设计 A0"+i);
-				mileStones[i].Top = (stone.Height - 2 ) * i + boxCourse.Top + boxCourse.Height;
-				stone.Left = 20;
-				
+				mileStones[i].Top = (mileStones[i].Height - 2 ) * i + boxCourse.Top + boxCourse.Height;
+				mileStones[i].Left = 20;			
 			}
 		}
 	}

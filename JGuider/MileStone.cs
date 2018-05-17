@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using NGO.Train;
 
 namespace NGO.Pad.Guider
 {
@@ -29,27 +30,54 @@ namespace NGO.Pad.Guider
 		private const int STONE_HEIGHT = 50;
 		private Font font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 		
-		public MileStone(string name)
+		private Color COLOR_REFER = Color.SpringGreen;
+		private Color COLOR_CODE = Color.Yellow;
+		private Color COLOR_SAVE = Color.OrangeRed;
+		private Color COLOR_DEF = Color.FromArgb(255,255,238);
+		
+		private Color[] COLOR_INDEX = new Color[4];
+		
+		public MileStone(string name, int status)
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
 			
+			//initilize color index
+			COLOR_INDEX[0] = COLOR_DEF;
+			COLOR_INDEX[1] = COLOR_REFER;
+			COLOR_INDEX[2] = COLOR_CODE;
+			COLOR_INDEX[3] = COLOR_SAVE;
+			
+			//show given stone color
+			this.stone.BackColor = COLOR_INDEX[status];
+			
+			//set current status
+			STATUS = status;
+			
+			//set name
 			this.Name = name;
 			
-			this.Size = new Size(STONE_WIDTH + 160, STONE_HEIGHT);
 			// Set up the delays for the ToolTip.
-			toolTip1.AutoPopDelay = 8000;
-			toolTip1.InitialDelay = 1000;
+			toolTip1.AutoPopDelay = 5000;
+			toolTip1.InitialDelay = 500;
 			toolTip1.ReshowDelay = 500;
 			toolTip1.RemoveAll();
 			toolTip1.SetToolTip(stone, "双击我查看讲解.");
+			// Force the ToolTip text to be displayed whether or not the form is active.
+			toolTip1.ShowAlways = true;
+		
+			//trigger resizes
+			this.Size = new Size(STONE_WIDTH + 160, STONE_HEIGHT);
 			
-			this.stone.BackColor = Color.FromArgb(255,255,238);
-			
-			STATUS = 1;
 		}
+		
+		/// <summary>
+		/// repaint the control
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		void MileStonePaint(object sender, PaintEventArgs e)
 		{
 			e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
@@ -83,47 +111,38 @@ namespace NGO.Pad.Guider
 		
 		void StoneDoubleClick(object sender, EventArgs e)
 		{
-			// Create the ToolTip and associate with the Form container.
-         
-         
-			// Force the ToolTip text to be displayed whether or not the form is active.
-			toolTip1.ShowAlways = true;
-
-			// Set up the ToolTip text for the Button and Checkbox.
-         
+			System.Diagnostics.Debug.WriteLine("dbclick");
 			switch (STATUS) {
-				
+				case 0:
+					{
+						STATUS = Course.STATUS_REFER;
+						stone.BackColor = COLOR_INDEX[STATUS];
+						toolTip1.RemoveAll();
+						toolTip1.SetToolTip(stone, "当前“讲解模式”,如继续双击将进入代码演示模式.");
+						break;
+					}
 				case 1:
 					{
-						stone.BackColor = Color.SpringGreen;
-						STATUS++;
+						STATUS = Course.STATUS_CODE;
+						stone.BackColor = COLOR_INDEX[STATUS];
 						toolTip1.RemoveAll();
-						toolTip1.SetToolTip(stone, "当前“讲解模式”，如果还有问题，继续双击进入代码演示模式.");
+						toolTip1.SetToolTip(stone, "当前“代码演示模式”,如继续双击将自动复制(覆盖)代码到你的工作区.");
 						break;
 					}
 				case 2:
 					{
-						stone.BackColor = Color.Yellow;
-						STATUS++;
-						toolTip1.RemoveAll();
-						toolTip1.SetToolTip(stone, "当前“代码演示模式”，如果继续双击可以自动复制(覆盖)代码到你的工作区.");
-						break;
-					}
-				case 3:
-					{
-						var confirmResult = MessageBox.Show("你确定执行此操作吗? 该操作将会覆盖你当前工作区的代码。",
+						var confirmResult = MessageBox.Show("你确定执行此操作吗? 该操作会将参考代码拷贝并覆盖到你的工作区。",
 							                    "覆盖确认!",
 							                    MessageBoxButtons.YesNo);
 						if (confirmResult == DialogResult.Yes) {
-							stone.BackColor = Color.OrangeRed;
-							STATUS++;
+							STATUS = Course.STATUS_SAVE;
+							stone.BackColor = COLOR_INDEX[STATUS];
 							toolTip1.RemoveAll();
-							toolTip1.SetToolTip(stone, "已执行过自动覆盖代码操作！");
+							toolTip1.SetToolTip(stone, "已执行过拷贝覆盖代码操作！");
 							
 						} else {
 							//do nothing
 						}
-						
 						break;
 					}
 			}
