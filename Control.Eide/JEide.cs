@@ -40,7 +40,7 @@ namespace Control.Eide
 		const int SW_SHOWDEFAULT    =  10;
 		const int SW_FORCEMINIMIZE   = 11;
 		const int SW_MAX            =  11;
-		
+			
 		const short SWP_NOMOVE = 0X2;
 		const short SWP_NOSIZE = 1;
 		const short SWP_NOZORDER = 0X4;
@@ -136,6 +136,8 @@ namespace Control.Eide
 
 			ProcessStartInfo psi = new ProcessStartInfo();
 			psi.WindowStyle = ProcessWindowStyle.Hidden;
+			psi.FileName = fileName;
+			psi.Arguments = arguments;
 			psi.RedirectStandardOutput = true;
 			psi.RedirectStandardError = true;
 			psi.UseShellExecute = false;
@@ -143,19 +145,29 @@ namespace Control.Eide
 			
 			Process process = new Process();
 			process.StartInfo = psi;
-			//process.EnableRaisingEvents = true;
-			
-			process = Process.Start(fileName, arguments, null, null, null);
-			
-			
-			//eclipse_pid = p.Id;
-			process.WaitForInputIdle();
+			process.EnableRaisingEvents = true;
+			process.OutputDataReceived += new DataReceivedEventHandler(OutputHandler);
+		    process.ErrorDataReceived += new DataReceivedEventHandler(OutputHandler);
+			process.Exited += new EventHandler(OnExited);
+			//process = Process.Start(fileName, arguments, null, null, null);
+			process.Start(); 
+			process.BeginOutputReadLine();
+			process.BeginErrorReadLine();
 		}
 		
+		private void OnExited(object sender, System.EventArgs e) {
+        	System.Diagnostics.Debug.WriteLine("process {0} Exited", pid);
+		    pid = -1; 
+        }
+		
+		private void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine) {
+		    System.Diagnostics.Debug.WriteLine("OutputHandler {0} ", outLine.Data);  
+		}
+		
+		
 		public void EmbedIde() {
-			const int SW_SHOW            = 5;
 			if (embedHwd > 0)
-       				ShowWindow(embedHwd, SW_SHOW);
+       			ShowWindow(embedHwd, SW_SHOW);
 			
 			Process[] processlist = Process.GetProcesses();
 			foreach (Process theprocess in processlist) 
@@ -177,17 +189,18 @@ namespace Control.Eide
 		}
 		
 		public void LoadEide() {
+			if ( pid != -1 )
+        		return;
 			
+			//create process
 			createByProcess();
 
-			bool launched=false;
-			
-			while (!launched) {
-				launched = IsRunning();
-				if (launched)
+			//wait until launched and then hide it
+			while (pid == -1) {
+				pid = IsRunning();
+				if (pid > -1)
 				{
 					//hide it now
-					
 					int hWnd;
 					Process[] processRunning = Process.GetProcesses();
 					foreach (Process pr in processRunning)
@@ -200,9 +213,9 @@ namespace Control.Eide
 					        ShowWindow(hWnd, SW_HIDE);
 					    }
 					}
-					
 					break;
 				}
+				Thread.Sleep(5);
 			}
 		}
 		
@@ -210,19 +223,17 @@ namespace Control.Eide
 			SetWindowPos(embedHandle, 0, 0, 0, this.Width, this.Height, SWP_NOZORDER | SWP_SHOWWINDOW | 0X80);            
 		}
 		
-		private bool IsRunning()
+		private int IsRunning()
 		{
 			Process[] processlist = Process.GetProcesses();
 			foreach (Process theprocess in processlist) 
 			{
 				if (theprocess.MainWindowTitle.Contains("Eclipse")) {
-					
 					System.Diagnostics.Debug.WriteLine("MainWindowHandle="+theprocess.MainWindowHandle);
-					return true;
+					return theprocess.Id;
 				}
 			}
-			Thread.Sleep(5);
-			return false;
+			return -1;
 		}
 		
 		public void WindowsReStyle()
