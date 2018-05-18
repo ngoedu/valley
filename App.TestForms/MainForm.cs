@@ -10,7 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using NGO.Pad.Editor;
 using NGO.Pad.Guider;
+using NGO.Pad.Catalina;
 
 namespace AppTestForms
 {
@@ -39,6 +41,21 @@ namespace AppTestForms
 		{
 			GuiderForm form = new GuiderForm();
 			form.Show();
+		}
+		void Button3Click(object sender, EventArgs e)
+		{
+			JeditorForm form =  new JeditorForm();
+			form.Show();
+		}
+		void Button4Click(object sender, EventArgs e)
+		{
+			CatalinaForm form = new CatalinaForm();
+			form.Show();
+		}
+		void Button5Click(object sender, EventArgs e)
+		{
+			EideForm eide = new EideForm();
+			eide.Show();
 		}
 	}
 }

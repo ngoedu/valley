@@ -53,8 +53,20 @@
   <ItemGroup>
     <Compile Include="AetherForm.cs" />
     <Compile Include="AetherForm.Designer.cs" />
+    <Compile Include="CatalinaForm.cs" />
+    <Compile Include="CatalinaForm.Designer.cs">
+      <DependentUpon>CatalinaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EideForm.cs" />
+    <Compile Include="EideForm.Designer.cs">
+      <DependentUpon>EideForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GuiderForm.cs" />
     <Compile Include="GuiderForm.Designer.cs" />
+    <Compile Include="JeditorForm.cs" />
+    <Compile Include="JeditorForm.Designer.cs">
+      <DependentUpon>JeditorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -69,14 +81,35 @@
     <EmbeddedResource Include="AetherForm.resx">
       <DependentUpon>AetherForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CatalinaForm.resx">
+      <DependentUpon>CatalinaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EideForm.resx">
+      <DependentUpon>EideForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GuiderForm.resx">
       <DependentUpon>GuiderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JeditorForm.resx">
+      <DependentUpon>JeditorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Component.Catalina\Component.Catalina.csproj">
+      <Project>{ECBE8FB1-549C-44AB-A8B2-A80CE5F32D70}</Project>
+      <Name>Component.Catalina</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Control.Editor\Control.Editor.csproj">
+      <Project>{CD942A27-6733-42BB-BDA8-66E3B3A03755}</Project>
+      <Name>Control.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Control.Eide\Control.Eide.csproj">
+      <Project>{9588C636-7568-453A-9A1B-299416A1B8DD}</Project>
+      <Name>Control.Eide</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Control.Guider\Control.Guider.csproj">
       <Project>{99F78AAD-6781-4EC4-8CEB-928D69DEBEFD}</Project>
       <Name>Control.Guider</Name>
