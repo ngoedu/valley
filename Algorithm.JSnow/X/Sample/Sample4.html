@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html><html><body><h2>JSnow - Javascript language syntax verify page</h2><p id="demo"></p><p id="console"></p><script>//start
+    function makePerson(first, last) {
+        return {
+            first: first,
+            last: last,
+            fullName: function () {
+                return this.first + ' ' + this.last;
+            },
+            fullNameReversed: function () {
+                return this.last + ', ' + this.first;
+            }
+        };
+    }
+
+    s = makePerson('Simon', 'Willison');
+    s.fullName(); 
+    s.fullNameReversed(); // "Willison, Simon"
+
+    show(s.fullName());// "Simon Willison"
+
+function show(info) { document.getElementById('demo').innerHTML = info;}
+
+
+
+document.getElementById('console').innerHTML = "script is valid!";
+</script>
+
+</body>
+</html>

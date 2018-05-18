@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html><html><body><h2>JSnow - Javascript language syntax verify page</h2><p id="demo"></p><script>//start
+//line comment
+//var d;
+    d = 8; //tailing comment
+
+//below 'if' clause will be packed in a element, and 'else' clause either
+if(d>8)show('v.11');else  if (d>7)
+show('v.12');
+var g = 10; //trailing comment
+var g1 = d + 6;
+myfunc(g1);
+
+myfunc(incr(d + 1));
+
+alert('script are valid');
+
+/*
+* function comment 111
+*/
+function myfunc(p)
+{
+    var j = p + 1; //line trailing comment
+    /**
+    3 comment lines
+    \?**/
+    if(j > 1)
+    {
+        if(j > 2)
+        {
+        	document.getElementById('demo').innerHTML=j;
+        }
+        else
+        	return;   
+    }
+    else
+	{
+		document.getElementById('demo').innerHTML= 'less than 1';
+    }
+
+    j = fn1_WithParms(j, 3);
+
+    /*
+	some comment here
+	*/
+    
+}
+
+function show(info) { document.getElementById('demo').innerHTML = info;}
+
+
+function incr(p)
+{
+	return ++p; 
+}
+
+
+function fn1_WithParms(p, step)
+{
+	return p + step;
+}
+
+function fnWithBlock(p, step)
+{
+	if(p > 1)
+	{
+	    p = p + 9;
+		return p; //this is a return in the block
+	}
+	
+	//this is a bottom return
+	return p+1;
+}
+
+</script>
+
+</body>
+</html>
