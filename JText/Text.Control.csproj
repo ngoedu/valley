@@ -113,11 +113,5 @@
     <Folder Include="Controller\Command" />
     <Folder Include="Controller" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{72840B62-165E-4714-856C-024D3BA8910A}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
