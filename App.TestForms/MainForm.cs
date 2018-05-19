@@ -63,5 +63,10 @@ namespace AppTestForms
 			FilesForm form = new FilesForm();
 			form.Show();
 		}
+		void Button7Click(object sender, EventArgs e)
+		{
+			VideoForm1 form = new VideoForm1();
+			form.Show();
+		}
 	}
 }

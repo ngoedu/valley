@@ -77,6 +77,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VideoForm1.cs" />
+    <Compile Include="VideoForm1.Designer.cs">
+      <DependentUpon>VideoForm1.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -103,6 +107,9 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="VideoForm1.resx">
+      <DependentUpon>VideoForm1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Component.Catalina\Component.Catalina.csproj">
@@ -124,6 +131,10 @@
     <ProjectReference Include="..\Control.JFiles\Control.JFiles.csproj">
       <Project>{42EA2E8A-410D-45A9-B830-4F698397A731}</Project>
       <Name>Control.JFiles</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Control.Video\Control.Video.csproj">
+      <Project>{6C117197-6D3B-485B-9B52-A20BD6E34918}</Project>
+      <Name>Control.Video</Name>
     </ProjectReference>
     <ProjectReference Include="..\Protocal.AEther\Protocal.AEther.csproj">
       <Project>{AC9264E3-925E-4090-877E-457A45A10456}</Project>
