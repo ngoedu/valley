@@ -4,10 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # SharpDevelop 5.1
 VisualStudioVersion = 12.0.20827.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard", "Dashboard\Dashboard.csproj", "{ADEA00B2-830F-4375-82F5-F6EC86093E41}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JVideo", "JVideo\JVideo.csproj", "{6BEA47E8-06A4-4CEA-994E-5F78818D87EC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCodeRec", "XCodeRec\XCodeRec.csproj", "{00801848-0520-4F25-AF30-9ABE6A655167}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Protocal.AEther", "Protocal.AEther\Protocal.AEther.csproj", "{AC9264E3-925E-4090-877E-457A45A10456}"
@@ -32,20 +28,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Control.JText", "Control.JT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Control.JFiles", "Control.JFiles\Control.JFiles.csproj", "{42EA2E8A-410D-45A9-B830-4F698397A731}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Dashboard", "App.Dashboard\App.Dashboard.csproj", "{ADEA00B2-830F-4375-82F5-F6EC86093E41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Control.Video", "Control.Video\Control.Video.csproj", "{6C117197-6D3B-485B-9B52-A20BD6E34918}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{ADEA00B2-830F-4375-82F5-F6EC86093E41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ADEA00B2-830F-4375-82F5-F6EC86093E41}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ADEA00B2-830F-4375-82F5-F6EC86093E41}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ADEA00B2-830F-4375-82F5-F6EC86093E41}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6BEA47E8-06A4-4CEA-994E-5F78818D87EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6BEA47E8-06A4-4CEA-994E-5F78818D87EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6BEA47E8-06A4-4CEA-994E-5F78818D87EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6BEA47E8-06A4-4CEA-994E-5F78818D87EC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{00801848-0520-4F25-AF30-9ABE6A655167}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{00801848-0520-4F25-AF30-9ABE6A655167}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00801848-0520-4F25-AF30-9ABE6A655167}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -94,5 +86,13 @@ Global
 		{42EA2E8A-410D-45A9-B830-4F698397A731}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42EA2E8A-410D-45A9-B830-4F698397A731}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42EA2E8A-410D-45A9-B830-4F698397A731}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADEA00B2-830F-4375-82F5-F6EC86093E41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADEA00B2-830F-4375-82F5-F6EC86093E41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADEA00B2-830F-4375-82F5-F6EC86093E41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADEA00B2-830F-4375-82F5-F6EC86093E41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C117197-6D3B-485B-9B52-A20BD6E34918}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C117197-6D3B-485B-9B52-A20BD6E34918}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C117197-6D3B-485B-9B52-A20BD6E34918}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C117197-6D3B-485B-9B52-A20BD6E34918}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
