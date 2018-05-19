@@ -1,0 +1,172 @@
+/// <summary>
+	/// This is the stage of
+	/// </summary>
+	public partial class TextControl : UserControl
+	{
+		private Graphics g; 
+		
+		private TextHandler handler = new JavaTextHandler();
+		
+		public TextControl()
+		{
+			//
+			// The InitializeComponent() call is required for Windows Forms designer support.
+			//
+			InitializeComponent();
+			
+			// Activates double buffering
+			this.SetStyle(ControlStyles.DoubleBuffer |
+			              ControlStyles.OptimizedDoubleBuffer |
+			              ControlStyles.UserPaint |
+			              ControlStyles.AllPaintingInWmPaint, true);
+			this.UpdateStyles();
+			
+			this.g = this.CreateGraphics();
+			
+			//this.KeyDown += TextControl_KeyDown;	
+			
+			this.textBox1.Focus();
+			
+			Flicker cursor = new Flicker();
+			cursor.AcceptsReturn = true;
+			cursor.AcceptsTab = true;
+			cursor.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+			cursor.BackColor = System.Drawing.SystemColors.ActiveCaption;
+			cursor.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			cursor.Cursor = System.Windows.Forms.Cursors.IBeam;
+			cursor.ImeMode = System.Windows.Forms.ImeMode.On;
+			cursor.Location = new System.Drawing.Point(101, 138);
+			cursor.Margin = new System.Windows.Forms.Padding(0);
+			cursor.Name = "textBox2";
+			cursor.Size = new System.Drawing.Size(4, 13);
+			this.Controls.Add(cursor);
+		}
+		
+		private void TextControl_KeyDown(object sender, KeyEventArgs e)
+	    {
+			var stopWatch = Stopwatch.StartNew();
+
+			handler.OnKey(e);
+			handler.OnPaint(g, false);
+			
+			stopWatch.Stop();
+			this.DebugTips.Text = string.Format("Key+Draw: {0}ms", stopWatch.Elapsed.TotalMilliseconds);
+	    }
+		
+		//get focus
+		void TextControl_Enter(object sender, EventArgs e)
+		{
+			this.BackColor = Color.AliceBlue;
+			this.textBox1.BackColor = this.BackColor;
+		}
+		
+		//lost focus
+		void TextControl_Leave(object sender, EventArgs e)
+		{
+			this.BackColor = Color.Gray;
+		}	
+		
+		void TextControl_Paint(object sender, PaintEventArgs e){
+			//System.Diagnostics.Debug.WriteLine("===OnPaint");
+			var stopWatch = Stopwatch.StartNew();
+
+			handler.OnPaint(e.Graphics, true);	
+			
+			stopWatch.Stop();
+			//this.DebugTips.Text = string.Format("RePaint: {0}ms", stopWatch.Elapsed.TotalMilliseconds);
+		}
+		
+		/// <summary>
+		/// this control will handle Tab key by overriding this 
+		/// </summary>
+		/// <param name="keyData"></param>
+		/// <returns></returns>
+		protected override bool IsInputKey(System.Windows.Forms.Keys keyData) {
+			if (keyData == System.Windows.Forms.Keys.Tab){
+				return true;
+			}
+			return base.IsInputKey(keyData);
+		}
+		void TextBox1TextChanged(object sender, EventArgs e)
+		{
+			var cArray = this.textBox1.Text.ToCharArray();
+			foreach (var c in cArray) {
+				System.Diagnostics.Debug.Write(c);
+				this.DebugTips.Text = string.Format("Char.code={0}",(int)c);
+			}
+			
+			this.textBox1.Clear();
+		}
+		void TextControlImeModeChanged(object sender, EventArgs e)
+		{
+			System.Diagnostics.Debug.Write("Ime Changed");
+				
+		}
+		void TextBox1KeyDown(object sender, KeyEventArgs key)
+		{
+			//check shortcut
+			if (!key.Shift && key.Control & !key.Alt ){
+				
+				switch (key.KeyCode)
+				{
+				    case Keys.C:
+				        System.Diagnostics.Debug.WriteLine("SHORTCUT - [Ctr + C]");
+				        break;
+				    case Keys.A:
+				        System.Diagnostics.Debug.WriteLine("SHORTCUT - [Ctr + A]");
+				        break;
+				    case Keys.X:
+				        System.Diagnostics.Debug.WriteLine("SHORTCUT - [Ctr + X]");
+				        break;
+				    case Keys.V:
+				        System.Diagnostics.Debug.WriteLine("SHORTCUT - [Ctr + V]");
+				        break;
+					case Keys.S:
+				        System.Diagnostics.Debug.WriteLine("SHORTCUT - [Ctr + S]");
+				        break;	
+				} 				
+			}
+			
+			if (key.KeyCode == Keys.Tab)
+			{
+				//System.Diagnostics.Debug.WriteLine("tab");
+			}
+			else if (key.KeyCode == Keys.Up)
+			{
+				System.Diagnostics.Debug.WriteLine("[Up]");
+				        
+			} else if  (key.KeyCode == Keys.Down)
+			{
+				System.Diagnostics.Debug.WriteLine("[Down]");
+				        
+			} else if (key.KeyCode == Keys.Left)
+			{
+				System.Diagnostics.Debug.WriteLine("[Left]");
+				        
+			} else if (key.KeyCode == Keys.Right)
+			{
+				System.Diagnostics.Debug.WriteLine("[Right]");
+				        
+			}
+		}
+		void TextControlLoad(object sender, EventArgs e)
+		{
+	
+		}
+	}
+	
+	class Flicker : System.Windows.Forms.TextBox
+	{   
+	    protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+		{
+		    if (keyData == Keys.Tab)
+		    {
+		        WndProc(ref msg);
+		        return true;
+		    } 
+		    return base.ProcessCmdKey(ref msg, keyData);
+		}
+	}
+	
+	
+	

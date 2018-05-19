@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{DAB65C9A-7EFE-4FFF-94AD-ACD2D8549F84}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NGO.Pad.JText</RootNamespace>
+    <AssemblyName>NGO.Pad.JText</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <NoWin32Manifest>False</NoWin32Manifest>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="NUnit.Framework">
+      <HintPath>$(SharpDevelopBinPath)\Tools\NUnit\NUnit.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controller\Command\Delete.cs" />
+    <Compile Include="Controller\Command\Linefeed.cs" />
+    <Compile Include="Controller\Const.cs" />
+    <Compile Include="Controller\IDispatcher.cs" />
+    <Compile Include="Controller\Command\Select.cs" />
+    <Compile Include="Controller\Command\Tab.cs" />
+    <Compile Include="Controller\Command\Letter.cs" />
+    <Compile Include="Controller\Command\Backspace.cs" />
+    <Compile Include="Controller\Command\Return.cs" />
+    <Compile Include="Controller\Command\ICommand.cs" />
+    <Compile Include="Controller\Command\Navigate.cs" />
+    <Compile Include="Controller\Command\Shortcuts.cs" />
+    <Compile Include="Controller\IDatahub.cs" />
+    <Compile Include="Controller\IMediator.cs" />
+    <Compile Include="Controller\TextController.cs" />
+    <Compile Include="UI\Context.cs" />
+    <Compile Include="UI\IFlicker.cs" />
+    <Compile Include="UI\Graphic.cs" />
+    <Compile Include="UI\IKeyCallback.cs" />
+    <Compile Include="Module\Block.cs" />
+    <Compile Include="Module\Char.cs" />
+    <Compile Include="Module\Cursor.cs" />
+    <Compile Include="Module\Glyph.cs" />
+    <Compile Include="Module\LinkList.cs" />
+    <Compile Include="Module\Node.cs" />
+    <Compile Include="Module\Row.cs" />
+    <Compile Include="UI\MainControl.cs" />
+    <Compile Include="UI\MainControl.Designer.cs">
+      <DependentUpon>MainControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Keyboard.cs" />
+    <Compile Include="UnitTest\Command\Mock.cs" />
+    <Compile Include="UnitTest\Command\MockDocument.cs" />
+    <Compile Include="UnitTest\Command\Test_Delete.cs" />
+    <Compile Include="UnitTest\Command\Test_Navigate.cs" />
+    <Compile Include="UnitTest\Command\Test_TAB.cs" />
+    <Compile Include="UnitTest\Command\Test_Letter.cs" />
+    <Compile Include="UnitTest\Command\Test_Linefeed.cs" />
+    <Compile Include="UnitTest\Command\Test_Return.cs" />
+    <Compile Include="UnitTest\Module\Test_Block.cs" />
+    <Compile Include="UnitTest\Module\Test_List.cs" />
+    <Compile Include="UnitTest\Module\Test_Row.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UI\MainControl.resx">
+      <DependentUpon>MainControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UnitTest\Module" />
+    <Folder Include="UnitTest\Command" />
+    <Folder Include="Module" />
+    <Folder Include="UnitTest" />
+    <Folder Include="UI" />
+    <Folder Include="Controller\Command" />
+    <Folder Include="Controller" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
