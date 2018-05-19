@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Control.Files;
 using NGO.Pad.Editor;
 using NGO.Pad.Guider;
 using NGO.Pad.Catalina;
@@ -56,6 +57,11 @@ namespace AppTestForms
 		{
 			EideForm eide = new EideForm();
 			eide.Show();
+		}
+		void Button6Click(object sender, EventArgs e)
+		{
+			FilesForm form = new FilesForm();
+			form.Show();
 		}
 	}
 }

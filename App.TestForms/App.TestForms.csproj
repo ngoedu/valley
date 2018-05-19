@@ -67,6 +67,10 @@
     <Compile Include="JeditorForm.Designer.cs">
       <DependentUpon>JeditorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="JFilesForm.cs" />
+    <Compile Include="JFilesForm.Designer.cs">
+      <DependentUpon>JFilesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -93,6 +97,9 @@
     <EmbeddedResource Include="JeditorForm.resx">
       <DependentUpon>JeditorForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="JFilesForm.resx">
+      <DependentUpon>JFilesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -113,6 +120,10 @@
     <ProjectReference Include="..\Control.Guider\Control.Guider.csproj">
       <Project>{99F78AAD-6781-4EC4-8CEB-928D69DEBEFD}</Project>
       <Name>Control.Guider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Control.JFiles\Control.JFiles.csproj">
+      <Project>{42EA2E8A-410D-45A9-B830-4F698397A731}</Project>
+      <Name>Control.JFiles</Name>
     </ProjectReference>
     <ProjectReference Include="..\Protocal.AEther\Protocal.AEther.csproj">
       <Project>{AC9264E3-925E-4090-877E-457A45A10456}</Project>
