@@ -1,17 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <Import Project="packages\CefSharp.WinForms.49.0.0\build\CefSharp.WinForms.props" Condition="Exists('packages\CefSharp.WinForms.49.0.0\build\CefSharp.WinForms.props')" />
+  <Import Project="packages\CefSharp.Common.49.0.0\build\CefSharp.Common.props" Condition="Exists('packages\CefSharp.Common.49.0.0\build\CefSharp.Common.props')" />
   <PropertyGroup>
-    <ProjectGuid>{ADEA00B2-830F-4375-82F5-F6EC86093E41}</ProjectGuid>
+    <ProjectGuid>{3906171B-C01D-4B4C-BC9E-416388042872}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>NGO.Pad.Dashboard</RootNamespace>
-    <AssemblyName>NGO.Pad.Dashboard</AssemblyName>
+    <RootNamespace>App.Dashboard</RootNamespace>
+    <AssemblyName>App.Dashboard</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <TargetFrameworkProfile />
     <NoWin32Manifest>False</NoWin32Manifest>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -23,6 +29,7 @@
     <Optimize>False</Optimize>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -31,6 +38,13 @@
     <Optimize>True</Optimize>
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
+    <BaseAddress>4194304</BaseAddress>
+    <PlatformTarget>x86</PlatformTarget>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <FileAlignment>4096</FileAlignment>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp">
@@ -58,14 +72,32 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource1.Designer.cs">
+      <DependentUpon>Resource1.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resource1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Control.Toolbar\Control.Toolbar.csproj">
+      <Project>{DE45D941-991A-4EB9-AC9B-288ABBD52525}</Project>
+      <Name>Control.Toolbar</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="packages\cef.redist.x86.3.2623.1396\build\cef.redist.x86.targets" Condition="Exists('packages\cef.redist.x86.3.2623.1396\build\cef.redist.x86.targets')" />
+  <Import Project="packages\cef.redist.x64.3.2623.1396\build\cef.redist.x64.targets" Condition="Exists('packages\cef.redist.x64.3.2623.1396\build\cef.redist.x64.targets')" />
+  <Import Project="packages\CefSharp.Common.49.0.0\build\CefSharp.Common.targets" Condition="Exists('packages\CefSharp.Common.49.0.0\build\CefSharp.Common.targets')" />
 </Project>

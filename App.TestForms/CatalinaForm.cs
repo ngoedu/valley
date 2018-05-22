@@ -23,7 +23,7 @@ namespace NGO.Pad.Catalina
 	/// </summary>
 	public partial class CatalinaForm : Form, IOutputCallback
 	{
-		Server server ;
+		WebServer server ;
 		
 		public CatalinaForm()
 		{
@@ -32,7 +32,7 @@ namespace NGO.Pad.Catalina
 			//
 			InitializeComponent();
 			
-			server = new Server(this, "127.0.0.1", 8080, 6002, "NGO_CATA_BYE");
+			server = new WebServer(this, "127.0.0.1", 8080, 6002, "NGO_CATA_BYE");
 			
 			backgroundWorker = new BackgroundWorker(); // 实例化后台对象
  

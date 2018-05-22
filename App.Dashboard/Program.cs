@@ -1,15 +1,15 @@
 ﻿/*
- * 由SharpDevelop创建。
- * 用户： Bob (XuYong Hou) houxuyong@hotmail.com
- * 日期: 2018/2/18
- * 时间: 21:05
+ * Created by SharpDevelop.
+ * User: Bob (XuYong Hou) houxuyong@hotmail.com
+ * Date: 2018/5/8
+ * Time: 14:01
  * 
  * 
  */
 using System;
 using System.Windows.Forms;
 
-namespace NGO.Pad.Dashboard
+namespace CefSharp49NuGet
 {
 	/// <summary>
 	/// Class with program entry point.
@@ -25,7 +25,6 @@ namespace NGO.Pad.Dashboard
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new MainForm());
-			//Application.Run(new Form1());
 		}
 		
 	}
