@@ -18,7 +18,7 @@ namespace Component.Catalina
 	/// <summary>
 	/// catalina server bind.
 	/// </summary>
-	public class Server
+	public class WebServer
 	{
 		private int pid = -1;
 		private int PORT_NO = 8080;
@@ -34,7 +34,7 @@ namespace Component.Catalina
 		/// </summary>
 		int status = 0;
 		
-        public Server(IOutputCallback callback, string ip, int port, int shutdownPort, string shutdownCmd)
+        public WebServer(IOutputCallback callback, string ip, int port, int shutdownPort, string shutdownCmd)
 		{
 			this.PORT_NO = port;
 			this.SHUTDOWN_PORT = shutdownPort;
@@ -64,15 +64,15 @@ namespace Component.Catalina
 		    
 		    // try start process in a thread.
 		    ThreadStart ths = new ThreadStart(
-		    	delegate() { 		process.Start(); 
-		    						process.BeginOutputReadLine();
-		    						process.BeginErrorReadLine();
-		    						status = 0;
-		    						pid = process.Id; 
-		    						//process.WaitForExit();
-		    						System.Diagnostics.Debug.WriteLine("process {0} started", pid);
-		    						}
-		    					);
+		    	delegate() { 	process.Start(); 
+		    					process.BeginOutputReadLine();
+		    					process.BeginErrorReadLine();
+		    					status = 0;
+		    					pid = process.Id; 
+		    					//process.WaitForExit();
+		    					System.Diagnostics.Debug.WriteLine("process {0} started", pid);
+		    					}
+		    				);
 		    Thread th = new Thread(ths);
     		th.Start();
 		}
