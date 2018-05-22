@@ -21,7 +21,6 @@ namespace NGO.Train
 		public const int STATUS_CODE = 2;
 		public const int STATUS_SAVE = 3;
 		
-		
 		public Course(string cname)
 		{
 			Name = cname;
@@ -30,6 +29,10 @@ namespace NGO.Train
 		public string Name {set; get;}
 		
 		private List<Step> Steps = new List<Step>();
+		
+		public Style Css {set; get;}
+		
+		public Video Video {set; get;}
 		
 		public void AddMileStone(Step step) {
 			Steps.Add(step);
@@ -61,5 +64,20 @@ namespace NGO.Train
 		public string Reference {set; get;}
 		public string SourceCode {set; get;}
 		public int Status {set; get;}
+	}
+	
+	/// <summary>
+	/// course base style
+	/// </summary>
+	public class Style {
+		public string Css {set; get;}
+	}
+	
+	/// <summary>
+	/// course Video
+	/// </summary>
+	public class Video {
+		public string Url {set; get;}
+		public string Html {set; get;}
 	}
 }
