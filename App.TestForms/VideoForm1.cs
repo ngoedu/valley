@@ -39,7 +39,24 @@ namespace AppTestForms
 		}
 		void Button2Click(object sender, EventArgs e)
 		{
-			var html = @"<embed src='http://player.video.qiyi.com/5ef9f94c3023d2d839688acdae373314/0/0/v_19rrm6n7c4.swf-albumId=204588701-tvId=529118600-isPurchase=0-cnId=12' allowFullScreen='true' quality='high' width='480' height='350' align='middle' allowScriptAccess='always' type='application/x-shockwave-flash'></embed>";
+			var html = @"<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+	<meta http-equiv='X-UA-Compatible' content='IE=Edge' />
+	<meta http-equiv='Content-Language' content='zh-CN'/>
+	<style type='text/css'>
+	  div { height:600px; width:800px; }
+	</style>
+	<script>   
+	</script>
+</head>
+<body>
+	<div>
+		<iframe src='http://open.iqiyi.com/developer/player_js/coopPlayerIndex.html?vid=d52c9431203048a4986bba373d391525&tvId=1043319200&accessToken=2.f22860a2479ad60d8da7697274de9346&appKey=3955c3425820435e86d0f4cdfe56f5e7&appId=1368&height=100%&width=100%' frameborder='0' allowfullscreen='true' width='100%' height='100%'></iframe>
+	</div>
+</body>
+</html>";
 			video.LoadHtml(html);
 		}
 		void VideoForm1SizeChanged(object sender, EventArgs e)

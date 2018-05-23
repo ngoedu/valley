@@ -68,5 +68,10 @@ namespace AppTestForms
 			VideoForm1 form = new VideoForm1();
 			form.Show();
 		}
+		void Button8Click(object sender, EventArgs e)
+		{
+			TinyServerForm1 form = new TinyServerForm1();
+			form.Show();
+		}
 	}
 }
