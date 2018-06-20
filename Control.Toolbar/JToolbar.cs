@@ -25,7 +25,7 @@ namespace Control.Toolbar
 			//
 			InitializeComponent();
 			
-			
+			BackColor = Color.FromArgb(0, 119,198);
 		}
 	}
 }
