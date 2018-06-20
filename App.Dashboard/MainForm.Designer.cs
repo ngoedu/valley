@@ -42,6 +42,7 @@ namespace CefSharp49NuGet
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BackColor = System.Drawing.SystemColors.Info;
 			this.ClientSize = new System.Drawing.Size(755, 396);
 			this.Icon = global::App.Dashboard.Resource1.dashboard3;
 			this.Name = "MainForm";
