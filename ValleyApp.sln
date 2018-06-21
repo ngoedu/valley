@@ -38,6 +38,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TinyServer", "Com
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Control.Profile", "Control.Profile\Control.Profile.csproj", "{BBB857C2-514A-47E0-8988-0456B4CF10B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.Bridge", "Component.Bridge\Component.Bridge.csproj", "{9A647F24-F0FC-4294-99CF-38D72B7A6ADB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -112,5 +114,9 @@ Global
 		{BBB857C2-514A-47E0-8988-0456B4CF10B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBB857C2-514A-47E0-8988-0456B4CF10B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBB857C2-514A-47E0-8988-0456B4CF10B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A647F24-F0FC-4294-99CF-38D72B7A6ADB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A647F24-F0FC-4294-99CF-38D72B7A6ADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A647F24-F0FC-4294-99CF-38D72B7A6ADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A647F24-F0FC-4294-99CF-38D72B7A6ADB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
