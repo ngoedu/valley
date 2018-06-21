@@ -73,5 +73,10 @@ namespace AppTestForms
 			TinyServerForm1 form = new TinyServerForm1();
 			form.Show();
 		}
+		void Button9Click(object sender, EventArgs e)
+		{
+			BridgeForm1 form = new BridgeForm1();
+			form.Show();
+		}
 	}
 }
