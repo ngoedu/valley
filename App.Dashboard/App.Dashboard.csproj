@@ -91,6 +91,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Component.TinyServer\Component.TinyServer.csproj">
+      <Project>{562F0953-4BC8-4643-B759-0F8402DA59C5}</Project>
+      <Name>Component.TinyServer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Control.Profile\Control.Profile.csproj">
       <Project>{BBB857C2-514A-47E0-8988-0456B4CF10B8}</Project>
       <Name>Control.Profile</Name>

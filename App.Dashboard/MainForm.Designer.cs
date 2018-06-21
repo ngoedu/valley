@@ -46,7 +46,7 @@ namespace CefSharp49NuGet
 			this.ClientSize = new System.Drawing.Size(755, 396);
 			this.Icon = global::App.Dashboard.Resource1.dashboard3;
 			this.Name = "MainForm";
-			this.Text = "Main Console";
+			this.Text = "NGO控制台";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.Resize += new System.EventHandler(this.MainFormResize);
 			this.ResumeLayout(false);
