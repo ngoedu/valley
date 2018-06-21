@@ -49,7 +49,7 @@ namespace Control.Profile
 			// 
 			// label1
 			// 
-			this.label1.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
 			this.label1.Location = new System.Drawing.Point(96, 22);
 			this.label1.Name = "label1";
@@ -76,9 +76,9 @@ namespace Control.Profile
 			// 
 			// lblName
 			// 
-			this.lblName.Font = new System.Drawing.Font("Consolas", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblName.Font = new System.Drawing.Font("Consolas", 10F);
 			this.lblName.ForeColor = System.Drawing.SystemColors.ButtonFace;
-			this.lblName.Location = new System.Drawing.Point(144, 24);
+			this.lblName.Location = new System.Drawing.Point(140, 22);
 			this.lblName.Name = "lblName";
 			this.lblName.Size = new System.Drawing.Size(100, 16);
 			this.lblName.TabIndex = 3;
