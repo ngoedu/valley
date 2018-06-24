@@ -1,12 +1,7 @@
-
 #rollingCanvas a {position:absolute; top:0px; left:0px; font-family: Microsoft YaHei; color:#fff; font-weight:bold; text-decoration:none; padding: 3px 6px; }
 #rollingCanvas a:hover {border: 1px solid #eee; background: #000; }
-#rollingCanvas .blue {color:blue;}
-#rollingCanvas .red {color:red;}
-#rollingCanvas .yellow {color:yellow;}
-#rollingCanvas span { color: red; }
-.rollingChilds1 {border: 2px solid #000; background: #68D6A2;}
-.rollingChilds2 {border: 2px solid #1ee; background: #000;}
-.rollingChilds3 {border: 2px solid #efe; background: #000;}
-.rollingChilds4 {border: 2px solid #0ee; background: #000;}
-.rollingChilds0 {border: 2px solid red; background: #000;}
+.rollingChilds0 {border: 2px solid #000; background: #702d3f;}
+.rollingChilds1 {border: 2px solid #000; background: #335230;}
+.rollingChilds2 {border: 2px solid #000; background: #714eaf;}
+.rollingChilds3 {border: 2px solid #000; background: #78753a;}
+.rollingChilds4 {border: 2px solid #000; background: #1a1c4b;}

@@ -1,4 +1,4 @@
-body {background:#3c3c3c; margin:4 4 4 4;}
+body {background:#3c3c3c; margin:4 4 4 4; font-family: 'Microsoft YaHei';}
 .box {border: 0px solid; }
 .container {}
 
@@ -12,5 +12,11 @@ body {background:#3c3c3c; margin:4 4 4 4;}
 .selection .navigate .course-list ul li a{text-decoration:none; color:black;}
 .selection .details {width:100%;  height: 51%;  margin-top:6px;background-color: #96c;}
 
-.preview {float: left; width:48.88%; height: 100%; margin-left:6px;  background-color: #96c;}
+.preview {float: left; width:48.88%; height: 100%; margin-left:6px; 
+		background-image: url('../res/bg-prev.png');
+		background-position: 0px 0px;
+		background-repeat: no-repeat;}
+.preview .preview-head {width:100%; height:100px; background-color: #244d5c; margin-bottom:20px; }
+.preview .preview-head span { font-size:22px; color:#eae4df; line-height:100px;margin-left:60px;}
+.preview .preview-content {border: 2px solid black; width:60%; height:72%; margin:auto; background-color: #9ccde6;box-shadow: 7px 7px 3px #453e3e; border-radius: 5px;}
 
