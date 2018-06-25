@@ -22,7 +22,7 @@
 					<a href="#client">CSS</a>
 					<a href="#client">CSS3</a>
 					<a href="#">Bootstrap</a>
-					<a href="#database">PL/SQL</a>
+					<a href="#client">jQuery</a>
 					<a href="#database">SQL</a>
 					<a href="#">JSF</a>
 					<a href="#java">Data Structure</a>
@@ -32,11 +32,12 @@
 					<a href="#">Ruby</a>
 					<a href="#">GWT</a>
 					<a href="#server">Hibernate</a>
-					<a href="#database">MySQL</a>
+					<a href="#database">MySQL DB</a>
 					<a href="#database">Stored Procedure</a>
 					<a href="#">Grails</a>
 					<a href="#java">Algorithm</a>
 					<a href="#server">Struts</a>
+					<a href="#client">H5 Canvas</a>
 					<a href="#">React</a>
 					<a href="#server">Mybatis</a>
 					<a href="#">Vue</a>
@@ -51,14 +52,29 @@
 					</ul>
 				</div>
 			</div>
-			<div class="details box"></div>
+			<div class="details box">
+				<div class="summary">
+					<span>课程一览</span>
+				</div>
+				<div class="desc" id="course_desc">
+					<div>
+						<span>课程名称：cweb-a01</span>
+						<ul>
+							<li class="course-info">适用：初级</li>
+							<li class="course-info">时长：18分钟</li>
+							<li class="course-info">内容：HTML,css3,javascript构造页面</li>
+							<li class="course-info">类型：免费</li>		
+						</ul>
+						<a href="javascript:void(0);" onclick="COURSES.preview('cweb-a01');">预览</a>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="preview box">
 			<div class="preview-head">
 				<span>下面是web client程序的演示效果</span>
 			</div>
-			<div class="preview-content">
-				<iframe width="100%" height="100%" src="file:///D:/neverstop/tutorial/webClient/test2.html" frameborder="0" allowfullscreen></iframe>
+			<div class="preview-content" id="preview_box">
 			</div>
 		</div>
 	</div>
@@ -66,5 +82,6 @@
 	<script src="lib/jquery-1.9.1.min.js"></script>
 	<script src="lib/jquery.timers.min.js"></script>
 	<script type="text/javascript" src="js/roll.js"></script>
+	<script type="text/javascript" src="js/course.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 </body>

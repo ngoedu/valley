@@ -10,13 +10,16 @@ body {background:#3c3c3c; margin:4 4 4 4; font-family: 'Microsoft YaHei';}
 .selection .navigate .course-list ul li { font-size: 19px; line-height: 70px; height: 70px; text-align: center; background-color: #f2f2f2;}
 .selection .navigate .course-list ul li:hover  {background-color: #636466;}
 .selection .navigate .course-list ul li a{text-decoration:none; color:black;}
-.selection .details {width:100%;  height: 51%;  margin-top:6px;background-color: #96c;}
+.selection .details {width:100%;  height: 51%;  margin-top:6px;background-color: #474545;}
+.selection .details  .summary {text-align:center;font-size: 19px;float:left;width:16%; margin-right:8px;height: 100%; background-color: #05b5db;}
+.selection .details  .desc {overflow-y:scroll; float:left;width:83.1%; height: 100%;}
+.selection .details  .desc  div {width:98%; background-color:#05b5db; padding:5 5 5 5;}
+.selection .details  .desc  div:hover {background-color:#474545; color:#eae4df}
+.selection .details  .desc  div span {font-size: 19px;}
+.selection .details  .desc  div a {display:inline-block; padding:2 6 2 6;height: 26px; text-decoration: none; color:eae4df;border: 2px solid #eae4df;}
 
-.preview {float: left; width:48.88%; height: 100%; margin-left:6px; 
-		background-image: url('../res/bg-prev.png');
-		background-position: 0px 0px;
-		background-repeat: no-repeat;}
-.preview .preview-head {width:100%; height:100px; background-color: #244d5c; margin-bottom:20px; }
-.preview .preview-head span { font-size:22px; color:#eae4df; line-height:100px;margin-left:60px;}
+.preview {float: left; width:48.88%; height: 100%; margin-left:6px; background-color: #474545;}
+.preview .preview-head {width:100%; height:80px; background-color: #05b5db; margin-bottom:20px; }
+.preview .preview-head span { font-size:22px; color:#eae4df; line-height:80px;margin-left:60px;}
 .preview .preview-content {border: 2px solid black; width:60%; height:72%; margin:auto; background-color: #9ccde6;box-shadow: 7px 7px 3px #453e3e; border-radius: 5px;}
 
