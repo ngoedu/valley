@@ -37,10 +37,10 @@ namespace CefSharp49NuGet
 			//
 			InitializeComponent();
 			
-			//var webRoot = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-			var webRoot = @"D:/NGO/client/pad/src/valley/ui-html";
-			jTinyserver = new SimpleHTTPServer(webRoot,60002);
-			jTinyserver.Startup();
+			var webRoot = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+			//var webRoot = @"D:/NGO/client/pad/src/valley/ui-html";
+			//jTinyserver = new SimpleHTTPServer(webRoot,60002);
+			//jTinyserver.Startup();
 			
 			
 			jToolBar = new JToolbar();
@@ -53,9 +53,11 @@ namespace CefSharp49NuGet
 			
 			// sample of how to embed devtool into a  panel
 			//D:\NGO\client\pad\demo\CefSharp\CefSharp-master\CefSharp.WinForms.Example.BrowserForm
-			browser = new ChromiumWebBrowser("file:///D:/NGO/client/pad/src/valley/ui-html/select.html");//http://localhost:60002/select.html");
+			var uiRoot = webRoot.Replace(@"\App.Dashboard\bin\Debug","") + @"/ui-html/ui.html";
+			browser = new ChromiumWebBrowser("file:///"+ uiRoot);//http://localhost:60002/select.html");
 			browser.Dock = DockStyle.None;
 			browser.MenuHandler = new MenuHandler();
+			browser.RegisterJsObject("callbackObj", new CallbackObjectForJs(browser));
 			this.Controls.Add(browser);
 			//loadVideo();
 		}
@@ -112,6 +114,17 @@ namespace CefSharp49NuGet
 		}
 	}
 	
+	public class CallbackObjectForJs{
+		ChromiumWebBrowser browser;
+		public CallbackObjectForJs(ChromiumWebBrowser b) {
+			this.browser = b;
+		}
+	    public void showMessage(string cid){//Read Note
+	        MessageBox.Show(cid);
+	        browser.ExecuteScriptAsync("alert('["+cid+"] downloaded, please refresh ui');");
+	    }
+	}
+	
 	internal class MenuHandler : IContextMenuHandler
 	   {
 		#region IContextMenuHandler implementation
@@ -123,12 +136,12 @@ namespace CefSharp49NuGet
 	
 		public bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags)
 		{
-			throw new NotImplementedException();
+			return true;  
 		}
 	
 		public void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame)
 		{
-			throw new NotImplementedException();
+			;
 		}
 	
 		public bool RunContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback)
