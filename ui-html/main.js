@@ -53,20 +53,23 @@ var MAINUI = (function() {
 			var ahref = $("<a/>",{id:"id"+i,name:"btnPrev",href:"javascript:void(0);",text:"预览"});
 			$(div).append(ahref);
 			$(ahref).click(function(){
-				preview(1, 'preview_box');
+				preview('cweb-A01');
 			});
 			
 			$('#'+box).append(div);
 		}		
 	}
 	
-	function preview(pid, box) {
+	function preview(pid) {
+		callbackObj.showMessage(pid);
+		/*
 		$('#'+box).children().remove();;
 		var iframe = $('<iframe>', {src: 'file:///D:/neverstop/tutorial/webClient/test2.html', frameborder: 0,  scrolling: 'no' });
 		$(iframe).height($('#preview_box').height());
 		$(iframe).width($('#preview_box').width());
 		$('#'+box).append(iframe);
 		//<iframe width="100%" height="100%" src="file:///D:/neverstop/tutorial/webClient/test2.html" frameborder="0" allowfullscreen></iframe>
+		*/
 	}
 	
 	return {
