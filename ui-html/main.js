@@ -52,16 +52,14 @@ var MAINUI = (function() {
 			
 			var ahref = $("<a/>",{id:"id"+i,name:"btnPrev",href:"javascript:void(0);",text:"预览"});
 			$(div).append(ahref);
-			$(ahref).click(function(){
-				preview('cweb-A01');
-			});
+			$(ahref).on( "click", { name: obj.cid}, preview );
 			
 			$('#'+box).append(div);
 		}		
 	}
 	
-	function preview(pid) {
-		callbackObj.showMessage(pid);
+	function preview(event) {
+		callbackObj.showMessage(event.data.name);
 		/*
 		$('#'+box).children().remove();;
 		var iframe = $('<iframe>', {src: 'file:///D:/neverstop/tutorial/webClient/test2.html', frameborder: 0,  scrolling: 'no' });
