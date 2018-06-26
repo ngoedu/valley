@@ -248,29 +248,8 @@ var ROLL = (function() {
 
 
 	function markChild(category) {
-		switch (category)
-		{
-		case '0':
-		  $("a[href|='#client']").addClass('rollingChilds'+category);
-		  $("#container").oneTime('4s','D',function(){$("a[href|='#client']").removeClass('rollingChilds'+category)});
-		  break;
-		case '1':
-		  $("a[href|='#server']").addClass('rollingChilds'+category);
-		  $("#container").oneTime('4s','D',function(){$("a[href|='#server']").removeClass('rollingChilds'+category)});
-		  break;
-		case '2':
-		  $("a[href|='#java']").addClass('rollingChilds'+category);
-		  $("#container").oneTime('4s','D',function(){$("a[href|='#java']").removeClass('rollingChilds'+category)});
-		  break;
-		case '3':
-		  $("a[href|='#database']").addClass('rollingChilds'+category);
-		  $("#container").oneTime('4s','D',function(){$("a[href|='#database']").removeClass('rollingChilds'+category)});
-		  break;
-		case '4':
-		  $("a[href|='#python']").addClass('rollingChilds'+category);
-		  $("#container").oneTime('4s','D',function(){$("a[href|='#python']").removeClass('rollingChilds'+category)});
-		  break;
-		}
+		$("a[href|='#"+category+"']").addClass('rollingChilds-'+category);
+		$("#container").oneTime('4s','D',function(){$("a[href|='#"+category+"']").removeClass('rollingChilds-'+category)});
 	}
 	
 	return {

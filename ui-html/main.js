@@ -1,11 +1,40 @@
-var COURSES = (function() {
-	var data = '[{"cid" : "cweb-A01", "name" : "web客户端基础","target":"中级","duration":"18分钟", "content":"HTML,css3,javascript构造页面","type":"免费"},{"cid" : "cweb-A02", "name" : "web客户端基础","target":"中级", "duration":"18分钟", "content":"HTML,css3,javascript构造页面","type":"免费"},{"cid" : "cweb-A03", "name" : "web客户端基础","target":"中级", "duration":"18分钟", "content":"HTML,css3,javascript构造页面","type":"免费"}]';
+var MAINUI = (function() {
+	
+	function buildRollings(box)
+	{
+		var topic = JSON.parse(DATA.topic);	
+		for(var i = 0; i < topic.length; i++) {
+			var obj = topic[i];
+			var ahref = $("<a/>",{href:"#"+obj.tid,text:obj.name});
+			$('#'+box).append(ahref);
+		}
+	}
+	
+	function buildCategory(box) {
+		var ul = $("<ul/>");
+		$('#'+box).append(ul);	
+		//build entries
+		var category = JSON.parse(DATA.category);
+		for(var i = 0; i < category.length; i++) {
+			var obj = category[i];
+			var li = $("<li/>").addClass("course-item");
+			$(ul).append(li);
+			var ahref = $("<a/>",{id:"category"+i,href:"javascript:void(0);",text:obj.name});
+			$(li).append(ahref);
+			var cid = obj.cid;
+			$(ahref).on( "click", { name: cid}, showup );
+		}
+	}
+	
+	function showup( event ) {
+	  ROLL.markChild(event.data.name);
+	}
 	
 	function listCourses(box)
 	{
-		var userdata = JSON.parse(data);	
-		for(var i = 0; i < userdata.length; i++) {
-			var obj = userdata[i];
+		var course = JSON.parse(DATA.courses);	
+		for(var i = 0; i < course.length; i++) {
+			var obj = course[i];
 			var div = $("<div/>");
 			var span = $("<span/>").text("课程名称："+obj.cid +","+ obj.name);
 			$(div).append(span);
@@ -41,7 +70,16 @@ var COURSES = (function() {
 	}
 	
 	return {
-		listCourses: listCourses
+		listCourses: listCourses,
+		buildRollings: buildRollings,
+		buildCategory: buildCategory
 	};
 })();
+
+MAINUI.buildCategory('categoryCanvas');
+MAINUI.buildRollings('rollingCanvas');
+ROLL.load('rollingCanvas');
+MAINUI.listCourses('course_desc');
+
+
 

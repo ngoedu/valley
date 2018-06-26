@@ -23,3 +23,12 @@ body {background:#3c3c3c; margin:4 4 4 4; font-family: 'Microsoft YaHei';}
 .preview .preview-head span { font-size:22px; color:#eae4df; line-height:80px;margin-left:60px;}
 .preview .preview-content {border: 2px solid black; width:60%; height:72%; margin:auto; background-color: #9ccde6;box-shadow: 7px 7px 3px #453e3e; border-radius: 5px;}
 
+
+#rollingCanvas a {position:absolute; top:0px; left:0px; font-family: Microsoft YaHei; color:#fff; font-weight:bold; text-decoration:none; padding: 3px 6px; }
+#rollingCanvas a:hover {border: 1px solid #eee; background: #000; }
+.rollingChilds-cweb {border: 2px solid #000; background: #702d3f;}
+.rollingChilds-sweb {border: 2px solid #000; background: #335230;}
+.rollingChilds-java {border: 2px solid #000; background: #714eaf;}
+.rollingChilds-mysql {border: 2px solid #000; background: #78753a;}
+.rollingChilds-other {border: 2px solid #000; background: #1a1c4b;}
+
