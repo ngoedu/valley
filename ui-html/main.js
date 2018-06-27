@@ -21,20 +21,26 @@ var MAINUI = (function() {
 			$(ul).append(li);
 			var ahref = $("<a/>",{id:"category"+i,href:"javascript:void(0);",text:obj.name});
 			$(li).append(ahref);
-			var cid = obj.cid;
-			$(ahref).on( "click", { name: cid}, showup );
+			var mid = obj.mid;
+			$(ahref).on( "click", { name: mid}, showup );
 		}
 	}
 	
 	function showup( event ) {
 	  ROLL.markChild(event.data.name);
+	  listCourses(event.data.name,'course_desc');
 	}
 	
-	function listCourses(box)
+	function listCourses(mid, box)
 	{
+		//remove all childs course info
+		$('#'+box).children().remove();
+		
 		var course = JSON.parse(DATA.courses);	
 		for(var i = 0; i < course.length; i++) {
 			var obj = course[i];
+			if (obj.mid !==mid)
+				continue;
 			var div = $("<div/>");
 			var span = $("<span/>").text("课程名称："+obj.cid +","+ obj.name);
 			$(div).append(span);
@@ -70,17 +76,8 @@ var MAINUI = (function() {
 	
 	function download(event) {
 		callbackObj.startDownload(event.data.name);
-		/*
-		$('#'+box).children().remove();;
-		var iframe = $('<iframe>', {src: 'file:///D:/neverstop/tutorial/webClient/test2.html', frameborder: 0,  scrolling: 'no' });
-		$(iframe).height($('#preview_box').height());
-		$(iframe).width($('#preview_box').width());
-		$('#'+box).append(iframe);
-		//<iframe width="100%" height="100%" src="file:///D:/neverstop/tutorial/webClient/test2.html" frameborder="0" allowfullscreen></iframe>
-		*/
 	}
-	
-	
+		
 	function preview(event) {
 		callbackObj.startPreview(event.data.name);
 		/*
@@ -103,7 +100,7 @@ var MAINUI = (function() {
 MAINUI.buildCategory('categoryCanvas');
 MAINUI.buildRollings('rollingCanvas');
 ROLL.load('rollingCanvas');
-MAINUI.listCourses('course_desc');
+
 
 
 

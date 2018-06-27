@@ -246,10 +246,15 @@ var ROLL = (function() {
 		cc = Math.cos(c * dtr);
 	}
 
+	var catValue = "";
 
 	function markChild(category) {
+		if (catValue !== "")
+			$("a[href|='#"+catValue+"']").removeClass('rollingChilds-'+catValue);
+			
 		$("a[href|='#"+category+"']").addClass('rollingChilds-'+category);
-		$("#container").oneTime('4s','D',function(){$("a[href|='#"+category+"']").removeClass('rollingChilds-'+category)});
+		$("#container").oneTime('50s','D',function(){$("a[href|='#"+category+"']").removeClass('rollingChilds-'+category)});
+		catValue = category;
 	}
 	
 	return {
