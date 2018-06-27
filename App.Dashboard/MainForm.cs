@@ -119,10 +119,18 @@ namespace CefSharp49NuGet
 		public CallbackObjectForJs(ChromiumWebBrowser b) {
 			this.browser = b;
 		}
-	    public void showMessage(string cid){//Read Note
-	        MessageBox.Show(cid);
-	        browser.ExecuteScriptAsync("alert('["+cid+"] downloaded, please refresh ui');");
+	    public void startDownload(string cid){
+	        MessageBox.Show("start download "+cid);
+	        //browser.ExecuteScriptAsync("alert('["+cid+"] downloaded, please refresh ui');");
 	    }
+		public void startPreview(string cid){
+	        MessageBox.Show("start preview "+cid);
+	        //browser.ExecuteScriptAsync("alert('["+cid+"] downloaded, please refresh ui');");
+	    }
+		
+		public string getDownloaded() {
+			return "cweb-A01";
+		}
 	}
 	
 	internal class MenuHandler : IContextMenuHandler
