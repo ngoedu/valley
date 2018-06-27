@@ -1,4 +1,4 @@
-body {background:#3c3c3c; margin:4 4 4 4; font-family: 'Microsoft YaHei';}
+body {-webkit-user-select: none;  background:#3c3c3c; margin:4 4 4 4; font-family: 'Microsoft YaHei';}
 .box {border: 0px solid; }
 .container {}
 

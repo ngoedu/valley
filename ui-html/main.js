@@ -50,16 +50,39 @@ var MAINUI = (function() {
 			$(ul).append(li);
 			$(div).append(ul);
 			
-			var ahref = $("<a/>",{id:"id"+i,name:"btnPrev",href:"javascript:void(0);",text:"预览"});
-			$(div).append(ahref);
-			$(ahref).on( "click", { name: obj.cid}, preview );
+			var hreftext = "";
+			var downloaded = callbackObj.getDownloaded();
+			if (downloaded.indexOf(obj.cid) != -1) {
+				hreftext = "预览";
+				var ahref = $("<a/>",{id:"id"+i,name:"btnPrev",href:"javascript:void(0);",text:hreftext});
+				$(div).append(ahref);
+				$(ahref).on( "click", { name: obj.cid}, preview );
+			} else {
+				hreftext = "下载";
+				var ahref = $("<a/>",{id:"id"+i,name:"btnPrev",href:"javascript:void(0);",text:hreftext});
+				$(div).append(ahref);
+				$(ahref).on( "click", { name: obj.cid}, download );
+			}
 			
 			$('#'+box).append(div);
 		}		
 	}
 	
+	function download(event) {
+		callbackObj.startDownload(event.data.name);
+		/*
+		$('#'+box).children().remove();;
+		var iframe = $('<iframe>', {src: 'file:///D:/neverstop/tutorial/webClient/test2.html', frameborder: 0,  scrolling: 'no' });
+		$(iframe).height($('#preview_box').height());
+		$(iframe).width($('#preview_box').width());
+		$('#'+box).append(iframe);
+		//<iframe width="100%" height="100%" src="file:///D:/neverstop/tutorial/webClient/test2.html" frameborder="0" allowfullscreen></iframe>
+		*/
+	}
+	
+	
 	function preview(event) {
-		callbackObj.showMessage(event.data.name);
+		callbackObj.startPreview(event.data.name);
 		/*
 		$('#'+box).children().remove();;
 		var iframe = $('<iframe>', {src: 'file:///D:/neverstop/tutorial/webClient/test2.html', frameborder: 0,  scrolling: 'no' });
