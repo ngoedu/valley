@@ -18,14 +18,23 @@ namespace Control.Toolbar
 	/// </summary>
 	public partial class JToolbar : UserControl, IToolbar
 	{
-		public JToolbar()
+		private IToolBarCallback callback;
+		public JToolbar(IToolBarCallback cb)
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
 			
+			this.callback = cb;
+			
 			BackColor = Color.FromArgb(0, 119,198);
+		}
+		
+		
+		void PictureBox1Click(object sender, EventArgs e)
+		{
+			this.callback.DisplayCourseLib();
 		}
 	}
 }
