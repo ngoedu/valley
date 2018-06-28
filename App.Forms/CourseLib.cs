@@ -9,6 +9,7 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using CefSharp.WinForms;
 using CefSharp;
@@ -29,10 +30,18 @@ namespace App.Forms
 			InitializeComponent();
 			
 			cefBrowser = browser;
+			cefBrowser.LoadingStateChanged += OnLoadingStateChanged;
+			//only do RegisterJSObj before Dock can works
+			cefBrowser.RegisterJsObject("callbackObj", new CallbackObjectForJs(cefBrowser));
 			cefBrowser.Dock = DockStyle.Fill;
 			this.Controls.Add(cefBrowser);
 		}
 
+		private void OnLoadingStateChanged(object sender, LoadingStateChangedEventArgs args)
+        {
+			//MessageBox.Show("load");
+        }
+			
 		public void ShowCourseLib()
 		{
 			var webRoot = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
@@ -43,10 +52,8 @@ namespace App.Forms
 			//disabel context menu
 			cefBrowser.MenuHandler = new MenuHandler();
 			//registe js object
-			cefBrowser.RegisterJsObject("callbackObj", new CallbackObjectForJs(cefBrowser));
-			
-			cefBrowser.Load("file:///"+uiRoot);
-			
+
+			cefBrowser.Load("file:///"+uiRoot);	
 		}
 		void CourseLibSizeChanged(object sender, EventArgs e)
 		{
