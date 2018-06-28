@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using App.Forms;
 using CefSharp;
 using CefSharp.WinForms;
 using Component.TinyServer;
@@ -28,7 +29,9 @@ namespace CefSharp49NuGet
 		private JToolbar jToolBar;
 		private Profile jProfile;
 		
-		private SimpleHTTPServer jTinyserver;
+
+		private CourseLib courseLib;
+		private CourseView courseView;
 		
 		public MainForm()
 		{
@@ -37,12 +40,9 @@ namespace CefSharp49NuGet
 			//
 			InitializeComponent();
 			
-			var webRoot = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-			//var webRoot = @"D:/NGO/client/pad/src/valley/ui-html";
-			//jTinyserver = new SimpleHTTPServer(webRoot,60002);
-			//jTinyserver.Startup();
-			
-			
+			//the singleton instance of the CefSharp
+			browser = new ChromiumWebBrowser("about:blank");
+
 			jToolBar = new JToolbar();
 			this.Controls.Add(jToolBar);
 			
@@ -51,15 +51,12 @@ namespace CefSharp49NuGet
 			jProfile.SetEnergy(90);
 			this.Controls.Add(jProfile);
 			
-			// sample of how to embed devtool into a  panel
-			//D:\NGO\client\pad\demo\CefSharp\CefSharp-master\CefSharp.WinForms.Example.BrowserForm
-			var uiRoot = webRoot.Replace(@"\App.Dashboard\bin\Debug","") + @"/ui-html/ui.html";
-			browser = new ChromiumWebBrowser("file:///"+ uiRoot);//http://localhost:60002/select.html");
-			browser.Dock = DockStyle.None;
-			browser.MenuHandler = new MenuHandler();
-			browser.RegisterJsObject("callbackObj", new CallbackObjectForJs(browser));
-			this.Controls.Add(browser);
-			//loadVideo();
+			courseLib = new CourseLib(browser);
+			this.Controls.Add(courseLib);
+			
+			courseView =  new CourseView(browser);
+			this.Controls.Add(courseView);
+			
 		}
 		
 		
@@ -76,9 +73,16 @@ namespace CefSharp49NuGet
 			jToolBar.Width = this.ClientSize.Width - 300;
 			jToolBar.Height = 100;
 			
-			browser.Width = this.Width;
-			browser.Height = this.ClientSize.Height - jToolBar.Height - 4;
-			browser.Top = 100;
+			courseLib.Width = this.Width;
+			courseLib.Height = this.ClientSize.Height - jToolBar.Height - 4;
+			courseLib.Top = 100;
+			//courseLib.ShowCourseLib();
+			courseLib.Hide();
+			
+			courseView.Width = this.Width;
+			courseView.Height = this.ClientSize.Height - jToolBar.Height - 4;
+			courseView.Top = 100;
+			//courseView.ShowCourseLib();
 		}
 		
 		void loadVideo()
@@ -113,50 +117,4 @@ namespace CefSharp49NuGet
             Environment.Exit(0); //this works like a charm
 		}
 	}
-	
-	public class CallbackObjectForJs{
-		ChromiumWebBrowser browser;
-		public CallbackObjectForJs(ChromiumWebBrowser b) {
-			this.browser = b;
-		}
-	    public void startDownload(string cid){
-	        MessageBox.Show("start download "+cid);
-	        //browser.ExecuteScriptAsync("alert('["+cid+"] downloaded, please refresh ui');");
-	    }
-		public void startPreview(string cid){
-	        MessageBox.Show("start preview "+cid);
-	        //browser.ExecuteScriptAsync("alert('["+cid+"] downloaded, please refresh ui');");
-	    }
-		
-		public string getDownloaded() {
-			return "cweb-A01";
-		}
-	}
-	
-	internal class MenuHandler : IContextMenuHandler
-	   {
-		#region IContextMenuHandler implementation
-
-		public void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model)
-		{
-			;
-		}
-	
-		public bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags)
-		{
-			return true;  
-		}
-	
-		public void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame)
-		{
-			;
-		}
-	
-		public bool RunContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback)
-		{
-			return true;
-		}
-	
-		#endregion
-    }
 }
