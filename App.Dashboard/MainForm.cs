@@ -73,13 +73,13 @@ namespace CefSharp49NuGet
 			jToolBar.Width = this.ClientSize.Width - 300;
 			jToolBar.Height = 100;
 			
-			courseLib.Width = this.Width;
+			courseLib.Width = this.ClientSize.Width;
 			courseLib.Height = this.ClientSize.Height - jToolBar.Height - 4;
 			courseLib.Top = 100;
 			//courseLib.ShowCourseLib();
 			courseLib.Hide();
 			
-			courseView.Width = this.Width;
+			courseView.Width = this.ClientSize.Width;
 			courseView.Height = this.ClientSize.Height - jToolBar.Height - 4;
 			courseView.Top = 100;
 			//courseView.ShowCourseLib();
@@ -111,6 +111,7 @@ namespace CefSharp49NuGet
 		}
 		void MainFormFormClosed(object sender, FormClosedEventArgs e)
 		{
+			courseView.Dispose();
 			browser.Dispose();
             Cef.Shutdown();
             //Application.Exit();
