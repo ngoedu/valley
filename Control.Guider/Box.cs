@@ -35,7 +35,7 @@ namespace NGO.Pad.Guider
 			
 			this.tbCourse.Left = this.picBox.Left + this.picBox.Width + 4;
 			this.tbCourse.Top = (this.ClientSize.Height - tbCourse.Height) / 2;
-			this.tbCourse.Width = this.ClientSize.Width - picBox.Width - 14;
+			this.tbCourse.Width = this.ClientSize.Width - picBox.Width - 16;
 		}
 
 		#region ICourse implementation

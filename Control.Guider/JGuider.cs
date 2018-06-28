@@ -22,6 +22,7 @@ namespace NGO.Pad.Guider
 	{
 		private Box boxCourse;
 		private List<MileStone> mileStones = new List<MileStone>();
+		private System.Windows.Forms.Panel panelMileStone;
 		public JGuider()
 		{
 			//
@@ -33,11 +34,14 @@ namespace NGO.Pad.Guider
 			boxCourse = new Box();
 			this.Controls.Add(boxCourse);
 			
+			panelMileStone = new Panel();
+			panelMileStone.AutoScroll = true;
+			this.Controls.Add(panelMileStone);
 		}
 		
 		private void RemoveMileStones() {
 			foreach(var ctl in mileStones) {
-				this.Controls.Remove(ctl);
+				this.panelMileStone.Controls.Remove(ctl);
 			}
 			mileStones.Clear();
 		}
@@ -52,23 +56,28 @@ namespace NGO.Pad.Guider
 			foreach (Step step in steps)
 			{
 				var stone = new MileStone(step.Id+"."+step.Name, step.Status);
-				stone.Top = (stone.Height - 2 ) * index++ + boxCourse.Top + boxCourse.Height;
+				stone.Top = (stone.Height - 2 ) * index++ ;
 				stone.Left = 20;
 				mileStones.Add(stone);
-				this.Controls.Add(stone);
+				this.panelMileStone.Controls.Add(stone);
 			}
 		}
 		#endregion
 
 		void JGuiderSizeChanged(object sender, EventArgs e)
 		{
-			boxCourse.Top = 2;
-			boxCourse.Left = 2;
-			boxCourse.Width = this.Width - 4;
+			boxCourse.Top = 0;
+			boxCourse.Left = 0;
+			boxCourse.Width = this.Width;
+			
+			panelMileStone.Top = boxCourse.Height + 1;
+			panelMileStone.Left = 0;
+			panelMileStone.Width = boxCourse.Width;
+			panelMileStone.Height = this.Height - boxCourse.Height;
 			
 			for (int i=0; i<mileStones.Count; i++)
 			{
-				mileStones[i].Top = (mileStones[i].Height - 2 ) * i + boxCourse.Top + boxCourse.Height;
+				mileStones[i].Top = (mileStones[i].Height - 2 ) * i;
 				mileStones[i].Left = 20;			
 			}
 		}
