@@ -107,6 +107,32 @@ namespace Control.Eide
 		public JEide()
 		{
 			InitializeComponent();
+			BackColor = Color.Black;
+		}
+		
+		
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing) {
+				if (components != null) {
+					components.Dispose();
+				}
+			}
+			
+			//kill java process
+			try {
+				Process p = Process.GetProcessById(pid);
+				p.Kill();
+				p.WaitForExit(); // possibly with a timeout
+				System.Diagnostics.Debug.WriteLine("Eide killed");
+				pid = -1;	
+			} catch (Win32Exception winException) {
+				// process was terminating or can't be terminated - deal with it
+			} catch (InvalidOperationException invalidException) {
+				// process has already exited - might be able to let this one go
+			}
+			
+			base.Dispose(disposing);
 		}
 		
 		private string getParameter() {
@@ -157,6 +183,7 @@ namespace Control.Eide
 		
 		private void OnExited(object sender, System.EventArgs e) {
         	System.Diagnostics.Debug.WriteLine("process {0} Exited", pid);
+        	MessageBox.Show("EIDE onExited");
 		    pid = -1; 
         }
 		
