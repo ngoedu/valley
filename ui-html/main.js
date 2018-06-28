@@ -79,15 +79,15 @@ var MAINUI = (function() {
 	}
 		
 	function preview(event) {
-		callbackObj.startPreview(event.data.name);
-		/*
-		$('#'+box).children().remove();;
-		var iframe = $('<iframe>', {src: 'file:///D:/neverstop/tutorial/webClient/test2.html', frameborder: 0,  scrolling: 'no' });
+		var cid = event.data.name;
+		var prevSrc = callbackObj.getPreviewSrc(cid);
+		
+		$('#preview_box').children().remove();;
+		var iframe = $('<iframe>', {src: 'file:///'+prevSrc, frameborder: 0,  scrolling: 'no' });
 		$(iframe).height($('#preview_box').height());
 		$(iframe).width($('#preview_box').width());
-		$('#'+box).append(iframe);
-		//<iframe width="100%" height="100%" src="file:///D:/neverstop/tutorial/webClient/test2.html" frameborder="0" allowfullscreen></iframe>
-		*/
+		$('#preview_box').append(iframe);
+		//<iframe width="100%" height="100%" src="file:///D:/neverstop/tutorial/webClient/test2.html" frameborder="0" allowfullscreen></iframe>	
 	}
 	
 	return {
