@@ -79,5 +79,23 @@
       <DependentUpon>CourseView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Control.Eide\Control.Eide.csproj">
+      <Project>{9588C636-7568-453A-9A1B-299416A1B8DD}</Project>
+      <Name>Control.Eide</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Control.Guider\Control.Guider.csproj">
+      <Project>{99F78AAD-6781-4EC4-8CEB-928D69DEBEFD}</Project>
+      <Name>Control.Guider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Control.Video\Control.Video.csproj">
+      <Project>{6C117197-6D3B-485B-9B52-A20BD6E34918}</Project>
+      <Name>Control.Video</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Training.Course\Training.Course.csproj">
+      <Project>{8761863D-4875-41ED-A001-EEA384F04084}</Project>
+      <Name>Training.Course</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
