@@ -108,8 +108,13 @@ namespace Control.Eide
 		{
 			InitializeComponent();
 			BackColor = Color.Black;
+			this.SizeChanged += new System.EventHandler(this.PanelSizeChanged);
 		}
 		
+		void PanelSizeChanged(object sender, EventArgs e)
+		{
+			ResizeEmebed();
+		}
 		
 		protected override void Dispose(bool disposing)
 		{
@@ -119,6 +124,8 @@ namespace Control.Eide
 				}
 			}
 			
+			if (pid==-1)
+				return;
 			//kill java process
 			try {
 				Process p = Process.GetProcessById(pid);
@@ -139,7 +146,7 @@ namespace Control.Eide
 		                            
 			var osgiRequiredJavaVer_0 = "-Dosgi.requiredJavaVersion=1.8";
 			var jvmXX_1 = "-XX:+UseG1GC -XX:+UseStringDeduplication";
-			var aether_2 = "-Dngo.bridge.host=aether.kidsmath.cn -Dngo.bridge.port=60001";
+			var aether_2 = "-Dngo.bridge.host=127.0.0.1 -Dngo.bridge.port=60001";
 			var jvmXX_3 = "-Xms256m -Xmx1024m";
 			var jar_4 = @"-jar D:\NGO\client\eide\dist\eclipse\\plugins/org.eclipse.equinox.launcher_1.3.201.v20161025-1711.jar";
 			var os_5 = "-os win32";
@@ -183,7 +190,7 @@ namespace Control.Eide
 		
 		private void OnExited(object sender, System.EventArgs e) {
         	System.Diagnostics.Debug.WriteLine("process {0} Exited", pid);
-        	MessageBox.Show("EIDE onExited");
+        	//MessageBox.Show("EIDE onExited");
 		    pid = -1; 
         }
 		
@@ -192,6 +199,8 @@ namespace Control.Eide
 		}
 		
 		
+		private String eideTitle = "Eclipse";//"NGO Engineering";
+		
 		public void EmbedIde() {
 			if (embedHwd > 0)
        			ShowWindow(embedHwd, SW_SHOW);
@@ -199,7 +208,7 @@ namespace Control.Eide
 			Process[] processlist = Process.GetProcesses();
 			foreach (Process theprocess in processlist) 
 			{
-				if (theprocess.MainWindowTitle.Contains("Eclipse")) {		
+				if (theprocess.MainWindowTitle.Contains(eideTitle)) {		
 					embedHandle = theprocess.MainWindowHandle;
 					var resul1 = SetParent(embedHandle, this.Handle);
 					int errCode = Marshal.GetLastWin32Error();
@@ -255,7 +264,7 @@ namespace Control.Eide
 			Process[] processlist = Process.GetProcesses();
 			foreach (Process theprocess in processlist) 
 			{
-				if (theprocess.MainWindowTitle.Contains("Eclipse")) {
+				if (theprocess.MainWindowTitle.Contains(eideTitle)) {
 					System.Diagnostics.Debug.WriteLine("MainWindowHandle="+theprocess.MainWindowHandle);
 					return theprocess.Id;
 				}
