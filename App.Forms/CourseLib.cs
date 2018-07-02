@@ -22,6 +22,7 @@ namespace App.Forms
 	public partial class CourseLib : UserControl,ICourseLib
 	{
 		private ChromiumWebBrowser cefBrowser;
+		
 		public CourseLib(ChromiumWebBrowser browser)
 		{
 			//
@@ -30,17 +31,14 @@ namespace App.Forms
 			InitializeComponent();
 			
 			cefBrowser = browser;
-			cefBrowser.LoadingStateChanged += OnLoadingStateChanged;
 			//only do RegisterJSObj before Dock can works
 			cefBrowser.RegisterJsObject("callbackObj", new CallbackObjectForJs(cefBrowser));
+			//disabel context menu
+			cefBrowser.MenuHandler = new MenuHandler();
+			
 			cefBrowser.Dock = DockStyle.Fill;
 			this.Controls.Add(cefBrowser);
 		}
-
-		private void OnLoadingStateChanged(object sender, LoadingStateChangedEventArgs args)
-        {
-			//MessageBox.Show("load");
-        }
 			
 		public void ShowCourseLib()
 		{
@@ -49,12 +47,10 @@ namespace App.Forms
 	
 			//D:\NGO\client\pad\demo\CefSharp\CefSharp-master\CefSharp.WinForms.Example.BrowserForm
 			var uiRoot = webRoot.Replace(@"\App.Dashboard\bin\Debug","") + @"/ui-html/ui.html";
-			//disabel context menu
-			cefBrowser.MenuHandler = new MenuHandler();
-			//registe js object
 
 			cefBrowser.Load("file:///"+uiRoot);	
 		}
+		
 		void CourseLibSizeChanged(object sender, EventArgs e)
 		{
 			cefBrowser.Top = 0;
