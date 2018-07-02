@@ -49,6 +49,7 @@ namespace CefSharp49NuGet
 			this.Text = "NGO控制台";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFormFormClosed);
+			this.Load += new System.EventHandler(this.MainFormLoad);
 			this.Resize += new System.EventHandler(this.MainFormResize);
 			this.ResumeLayout(false);
 

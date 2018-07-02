@@ -99,6 +99,10 @@
       <Project>{66EF4CF8-1381-4F24-B8FA-AD538AE011AF}</Project>
       <Name>App.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\App.Mediator\App.Mediator.csproj">
+      <Project>{D209172F-8595-44CE-B9D7-13347AFDE663}</Project>
+      <Name>App.Mediator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Component.TinyServer\Component.TinyServer.csproj">
       <Project>{562F0953-4BC8-4643-B759-0F8402DA59C5}</Project>
       <Name>Component.TinyServer</Name>
