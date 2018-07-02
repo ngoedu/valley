@@ -31,6 +31,15 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CefSharp">
+      <HintPath>..\App.Dashboard\packages\CefSharp.Common.49.0.0\CefSharp\x86\CefSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="CefSharp.Core">
+      <HintPath>..\App.Dashboard\packages\CefSharp.Common.49.0.0\CefSharp\x86\CefSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="CefSharp.WinForms">
+      <HintPath>..\App.Dashboard\packages\CefSharp.WinForms.49.0.0\CefSharp\x86\CefSharp.WinForms.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -50,7 +59,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IMediator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleMediator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\App.Forms\App.Forms.csproj">
+      <Project>{66EF4CF8-1381-4F24-B8FA-AD538AE011AF}</Project>
+      <Name>App.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Control.Profile\Control.Profile.csproj">
+      <Project>{BBB857C2-514A-47E0-8988-0456B4CF10B8}</Project>
+      <Name>Control.Profile</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Control.Toolbar\Control.Toolbar.csproj">
+      <Project>{DE45D941-991A-4EB9-AC9B-288ABBD52525}</Project>
+      <Name>Control.Toolbar</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
