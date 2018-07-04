@@ -224,34 +224,38 @@ namespace Control.Eide
 			SetWindowPos(embedHandle, 0, 0, 0, this.Width, this.Height, SWP_NOZORDER | SWP_SHOWWINDOW);            
 		}
 		
-		public void LoadEide() {
+		public void LoadEide(bool visible) {
 			if ( pid != -1 )
         		return;
 			
 			//create process
 			createByProcess();
 
-			//wait until launched and then hide it
-			while (pid == -1) {
-				pid = IsRunning();
-				if (pid > -1)
-				{
-					//hide it now
-					int hWnd;
-					Process[] processRunning = Process.GetProcesses();
-					foreach (Process pr in processRunning)
+			//hide the window
+			if (!visible)
+			{
+				//wait until launched and then hide it
+				while (pid == -1) {
+					pid = IsRunning();
+					if (pid > -1)
 					{
-					    if (pr.MainWindowTitle.Contains("Eclipse"))
-					    {
-					    	embedEclipse = pr;
-					        hWnd = pr.MainWindowHandle.ToInt32();
-					        embedHwd = hWnd;
-					        ShowWindow(hWnd, SW_HIDE);
-					    }
+						//hide it now
+						int hWnd;
+						Process[] processRunning = Process.GetProcesses();
+						foreach (Process pr in processRunning)
+						{
+						    if (pr.MainWindowTitle.Contains("Eclipse"))
+						    {
+						    	embedEclipse = pr;
+						        hWnd = pr.MainWindowHandle.ToInt32();
+						        embedHwd = hWnd;
+						        ShowWindow(hWnd, SW_HIDE);
+						    }
+						}
+						break;
 					}
-					break;
+					Thread.Sleep(5);
 				}
-				Thread.Sleep(5);
 			}
 		}
 		
