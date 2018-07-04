@@ -41,7 +41,7 @@ namespace NGO.Protocol.AEther
 	    // SwingConsole.ID = 12
 	    // Pad.ID = 8;
 	    // Bridge = 0;
-		public static readonly int ID = 8;
+		public static readonly int ID = 1;
 		public static readonly int BRIDGE_ID = 0;
 		
 		private ICallback callback;
