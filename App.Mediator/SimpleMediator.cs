@@ -8,11 +8,14 @@
  */
 using System;
 using System.Windows.Forms;
+using System.Threading;
 using App.Forms;
 using CefSharp;
 using CefSharp.WinForms;
+using Component.Bridge;
 using Control.Profile;
 using Control.Toolbar;
+using NGO.Protocol.AEther;
 
 namespace App.Mediator
 {
@@ -27,11 +30,29 @@ namespace App.Mediator
 		private Profile jProfile;
 
 		private CourseLib courseLib;
-		private CourseView courseView;
+		private CoursePlay courseView;
+		
+		private AetherBridge bridge;
+		ManualResetEvent bridgeDone = new ManualResetEvent(false);
+		
+		private Endpoint aetherClient;
+		ManualResetEvent clientDone = new ManualResetEvent(false);
 		
 		public SimpleMediator(Form mf)
 		{
 			this.mainForm = mf;
+			
+			//startup the bridge first. block current thread until done.
+			bridge = new AetherBridge(60001, this, @"D:\NGO\client\jre", @"D:\NGO\client\aether\dist");
+			bridge.Startup();
+			bridgeDone.WaitOne();
+			System.Diagnostics.Debug.WriteLine("bridge initialized.");
+			
+			//startup aether client. make sure it connect to bridge
+			aetherClient = new Endpoint(this);
+			aetherClient.Connect("127.0.0.1", 60001);
+			clientDone.WaitOne();
+			System.Diagnostics.Debug.WriteLine("aether client initialized.");
 			
 			//the singleton instance of the CefSharp
 			browser = new ChromiumWebBrowser("");
@@ -48,9 +69,11 @@ namespace App.Mediator
 			mainForm.Controls.Add(courseLib);
 			courseLib.Visible = false;
 					
-			courseView =  new CourseView(browser);
+			courseView =  new CoursePlay(browser);
 			mainForm.Controls.Add(courseView);
 			courseView.Visible = true;
+			
+			
 		}
 
 		public void FormLoaded()
@@ -60,10 +83,21 @@ namespace App.Mediator
 
 		public void FormClosed()
 		{
+			//shutdown  EIDE
+			aetherClient.SendData("$EXIT", 9);
+			clientDone.WaitOne();
+			System.Diagnostics.Debug.WriteLine("EIDE closed.");
+			
+			//shutdown bridge
+			bridge.Shutdown();
+
+			//form dispose
 			if (courseView != null)
 				courseView.Dispose();
 			if (courseLib != null)
-				//courseLib.Dispose();	//this may break the app when exit, why?		
+				//courseLib.Dispose();	//this may break the app when exit, why?
+			
+			//cefSharp dispose				
 			browser.Dispose();
             Cef.Shutdown();
 		}
@@ -100,5 +134,39 @@ namespace App.Mediator
 			var html = @"<!DOCTYPE html>";
 			CefSharp.WebBrowserExtensions.LoadHtml(browser,html,"http://localhost/test.html");
 		}*/
+
+		/// <summary>
+		/// bridge callback
+		/// </summary>
+		/// <param name="output"></param>
+		public void OutputArrived(string output)
+		{
+			System.Diagnostics.Debug.WriteLine(output);
+			if (output !=null && output.Contains("[aether bridge v1.1] launched")) {
+				bridgeDone.Set();
+				bridgeDone.Reset();
+			}
+				
+		}
+
+		/// <summary>
+		/// aether endpoint callback
+		/// </summary>
+		public void Connected()
+		{
+			clientDone.Set();
+			clientDone.Reset();
+		}
+
+		public void DataSent(string info)
+		{
+			
+		}
+
+		public void MessageReceived(string message)
+		{
+			if (message.Equals("<EIDE status='closed'/>"))
+				clientDone.Set();
+		}
 	}
 }
