@@ -31,7 +31,7 @@ namespace AppTestForms
 			//
 			InitializeComponent();
 			
-			bridge = new AetherBridge(60001, this);
+			bridge = new AetherBridge(60001, this, @"D:\NGO\client\jre", @"D:\NGO\client\aether\dist");
 			
 			backgroundWorker = new BackgroundWorker(); // 实例化后台对象
  
