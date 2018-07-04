@@ -23,6 +23,8 @@ namespace Component.Bridge
 		private int pid = -1;
 		private int PORT_NO = 60001;
 		private IOutputCallback callback;
+		private String jrePath;
+		private String aetherPath;
 		
 		/// <summary>
 		/// initial status = 0
@@ -31,10 +33,12 @@ namespace Component.Bridge
 		/// </summary>
 		int status = 0;
 		
-		public AetherBridge(int port, IOutputCallback callback)
+		public AetherBridge(int port, IOutputCallback callback, String jre, String aether)
 		{
 			this.callback = callback;
 			this.PORT_NO = port;
+			this.jrePath = jre;
+			this.aetherPath = aether;
 		}
 		
 		public void Startup() {
@@ -44,10 +48,10 @@ namespace Component.Bridge
 			//* Create your Process
 		    Process process = new Process();
 		    var currentFolder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-		    process.StartInfo.FileName = currentFolder+@"\jre\bin\java.exe";
+		    process.StartInfo.FileName = jrePath +@"\bin\java.exe";
 		    var jvmOption = "-Dngo.bridge.host=127.0.0.1 -Dngo.bridge.port="+this.PORT_NO+" -Dfile.encoding=GBK -Dngo.bridge.idle=30";
 		    var classpath = @"-classpath %BRIDGE_HOEM%\aether-bridge-1.1.jar;%BRIDGE_HOEM%\apache-mina.jar;%BRIDGE_HOEM%\slf4j-api-1.7.21.jar;%BRIDGE_HOEM%\aether-common-1.1.jar;%BRIDGE_HOEM%\commons-codec-1.10.jar;%BRIDGE_HOEM%\slf4j-log4j12-1.7.21.jar;%BRIDGE_HOEM%\log4j-1.2.17.jar";
-		    classpath = classpath.Replace("%BRIDGE_HOEM%", currentFolder+@"\bridge");
+		    classpath = classpath.Replace("%BRIDGE_HOEM%", aetherPath);
 		    string main = "org.ngo.ether.bridge.Bridge";
 		    process.StartInfo.Arguments =String.Format("{0} {1} {2}",jvmOption,classpath,main);
 				
