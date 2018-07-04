@@ -6,7 +6,7 @@
  * 
  * 
  */
-namespace CefSharp49NuGet
+namespace NGO.Dashboard
 {
 	partial class MainForm
 	{

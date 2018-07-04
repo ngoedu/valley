@@ -9,7 +9,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace CefSharp49NuGet
+namespace NGO.Dashboard
 {
 	/// <summary>
 	/// Class with program entry point.

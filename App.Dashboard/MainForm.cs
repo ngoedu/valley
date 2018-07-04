@@ -19,16 +19,14 @@ using Component.TinyServer;
 using Control.Profile;
 using Control.Toolbar;
 
-namespace CefSharp49NuGet
+namespace NGO.Dashboard
 {
 	/// <summary>
 	/// Description of MainForm.
 	/// </summary>
 	public partial class MainForm : Form
 	{
-		
-		
-		
+
 		private IMediator mediator;
 		
 		public MainForm()
