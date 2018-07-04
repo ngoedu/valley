@@ -20,14 +20,14 @@ namespace App.Forms
 	/// <summary>
 	/// Description of CourseView.
 	/// </summary>
-	public partial class CourseView : UserControl, ICourseView
+	public partial class CoursePlay : UserControl, ICourseView
 	{
 		private ChromiumWebBrowser cefBrowser;
 		private NJFLib.Controls.CollapsibleSplitter splitterPanelLeft;
 		private System.Windows.Forms.Panel panelLeft;
 		private JEide eide = new JEide();
 		
-		public CourseView(ChromiumWebBrowser browser)
+		public CoursePlay(ChromiumWebBrowser browser)
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
@@ -137,9 +137,9 @@ namespace App.Forms
 			jGuider1.BindCourse(BuildCourse());
 			
 			//show eide
-			eide.LoadEide();
-			eide.EmbedIde();
-			eide.WindowsReStyle();
+			eide.LoadEide(true);
+			//eide.EmbedIde();
+			//eide.WindowsReStyle();
 		}
 		
 		

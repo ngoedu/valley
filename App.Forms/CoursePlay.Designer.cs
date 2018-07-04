@@ -8,7 +8,7 @@
  */
 namespace App.Forms
 {
-	partial class CourseView
+	partial class CoursePlay
 	{
 		/// <summary>
 		/// Designer variable used to keep track of non-visual components.

@@ -64,9 +64,9 @@
     <Compile Include="CourseLib.Designer.cs">
       <DependentUpon>CourseLib.cs</DependentUpon>
     </Compile>
-    <Compile Include="CourseView.cs" />
-    <Compile Include="CourseView.Designer.cs">
-      <DependentUpon>CourseView.cs</DependentUpon>
+    <Compile Include="CoursePlay.cs" />
+    <Compile Include="CoursePlay.Designer.cs">
+      <DependentUpon>CoursePlay.cs</DependentUpon>
     </Compile>
     <Compile Include="ICourseLib.cs" />
     <Compile Include="ICourseView.cs" />
@@ -77,8 +77,8 @@
     <EmbeddedResource Include="CourseLib.resx">
       <DependentUpon>CourseLib.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CourseView.resx">
-      <DependentUpon>CourseView.cs</DependentUpon>
+    <EmbeddedResource Include="CoursePlay.resx">
+      <DependentUpon>CoursePlay.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
