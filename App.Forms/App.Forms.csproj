@@ -69,7 +69,7 @@
       <DependentUpon>CoursePlay.cs</DependentUpon>
     </Compile>
     <Compile Include="ICourseLib.cs" />
-    <Compile Include="ICourseView.cs" />
+    <Compile Include="ICoursePlay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SyncLoader.cs" />
   </ItemGroup>

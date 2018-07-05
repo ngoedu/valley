@@ -19,7 +19,7 @@ namespace AppTestForms
 	public partial class EideForm : Form
 	{
 		
-		JEide ide = new JEide();
+		JEide ide = new JEide("NgoEclipse");
 		
 		public EideForm()
 		{
