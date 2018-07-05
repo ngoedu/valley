@@ -30,13 +30,13 @@ namespace App.Mediator
 		private Profile jProfile;
 
 		private CourseLib courseLib;
-		private CoursePlay courseView;
+		private CoursePlay coursePlay;
 		
 		private AetherBridge bridge;
-		ManualResetEvent bridgeDone = new ManualResetEvent(false);
+		private ManualResetEvent bridgeDone = new ManualResetEvent(false);
 		
 		private Endpoint aetherClient;
-		ManualResetEvent clientDone = new ManualResetEvent(false);
+		private ManualResetEvent clientDone = new ManualResetEvent(false);
 		
 		public SimpleMediator(Form mf)
 		{
@@ -69,21 +69,21 @@ namespace App.Mediator
 			mainForm.Controls.Add(courseLib);
 			courseLib.Visible = false;
 					
-			courseView =  new CoursePlay(browser);
-			mainForm.Controls.Add(courseView);
-			courseView.Visible = true;
+			coursePlay =  new CoursePlay(browser);
+			mainForm.Controls.Add(coursePlay);
+			coursePlay.Visible = true;
 			
 			
 		}
 
+		#region form event
 		public void FormLoaded()
 		{
 			courseLib.ShowCourseLib();
 		}
-
 		public void FormClosed()
 		{
-			//shutdown  EIDE
+			//shutdown EIDE
 			aetherClient.SendData("$EXIT", 9);
 			clientDone.WaitOne();
 			System.Diagnostics.Debug.WriteLine("EIDE closed.");
@@ -92,16 +92,15 @@ namespace App.Mediator
 			bridge.Shutdown();
 
 			//form dispose
-			if (courseView != null)
-				courseView.Dispose();
+			if (coursePlay != null)
+				coursePlay.Dispose();
 			if (courseLib != null)
-				//courseLib.Dispose();	//this may break the app when exit, why?
+				/*courseLib.Dispose();*/	//this may break the app when exit, why?
 			
 			//cefSharp dispose				
 			browser.Dispose();
             Cef.Shutdown();
-		}
-		
+		}	
 		public void FormResized(int newHeight, int newWidth)
 		{
 			jProfile.Top = 0;
@@ -118,23 +117,26 @@ namespace App.Mediator
 			courseLib.Height = newHeight - jToolBar.Height - 4;
 			courseLib.Top = 100;
 			
-			courseView.Width = newWidth;
-			courseView.Height = newHeight - jToolBar.Height - 4;
-			courseView.Top = 100;	
+			coursePlay.Width = newWidth;
+			coursePlay.Height = newHeight - jToolBar.Height - 4;
+			coursePlay.Top = 100;	
 		}
+		#endregion form events
 
+		#region toolbar callback
 		public void DisplayCourseLib()
 		{
-			courseView.Visible = false;
+			coursePlay.Visible = false;
 			courseLib.Visible = true;
 		}
-		
-		/*void loadVideo()
+		public void PlayCourseEntry()
 		{
-			var html = @"<!DOCTYPE html>";
-			CefSharp.WebBrowserExtensions.LoadHtml(browser,html,"http://localhost/test.html");
-		}*/
-
+			coursePlay.Visible = true;
+			courseLib.Visible = false;
+		}
+		#endregion toolbar callback
+		
+		#region bridge callback
 		/// <summary>
 		/// bridge callback
 		/// </summary>
@@ -145,10 +147,11 @@ namespace App.Mediator
 			if (output !=null && output.Contains("[aether bridge v1.1] launched")) {
 				bridgeDone.Set();
 				bridgeDone.Reset();
-			}
-				
+			}			
 		}
+		#endregion bridge callback
 
+		#region aether endpoint callback	
 		/// <summary>
 		/// aether endpoint callback
 		/// </summary>
@@ -157,16 +160,23 @@ namespace App.Mediator
 			clientDone.Set();
 			clientDone.Reset();
 		}
-
 		public void DataSent(string info)
 		{
 			
 		}
-
 		public void MessageReceived(string message)
 		{
 			if (message.Equals("<EIDE status='closed'/>"))
 				clientDone.Set();
 		}
+		#endregion aether endpoint callback
+		
+		
+		/*void loadVideo()
+		{
+			var html = @"<!DOCTYPE html>";
+			CefSharp.WebBrowserExtensions.LoadHtml(browser,html,"http://localhost/test.html");
+		}*/
+
 	}
 }
