@@ -118,7 +118,7 @@ namespace App.Mediator
 			courseLib.Top = 100;
 			
 			coursePlay.Width = newWidth;
-			coursePlay.Height = newHeight - jToolBar.Height - 4;
+			coursePlay.Height = newHeight - jToolBar.Height;
 			coursePlay.Top = 100;	
 		}
 		#endregion form events
