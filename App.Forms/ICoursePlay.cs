@@ -13,7 +13,7 @@ namespace App.Forms
 	/// <summary>
 	/// Description of ICourseView.
 	/// </summary>
-	public interface ICourseView
+	public interface ICoursePlay
 	{
 		void LoadCourse(string courseId);
 	}

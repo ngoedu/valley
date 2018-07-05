@@ -20,12 +20,12 @@ namespace App.Forms
 	/// <summary>
 	/// Description of CourseView.
 	/// </summary>
-	public partial class CoursePlay : UserControl, ICourseView
+	public partial class CoursePlay : UserControl, ICoursePlay
 	{
 		private ChromiumWebBrowser cefBrowser;
 		private NJFLib.Controls.CollapsibleSplitter splitterPanelLeft;
 		private System.Windows.Forms.Panel panelLeft;
-		private JEide eide = new JEide();
+		private JEide eide = new JEide("NgoEclipse");
 		
 		public CoursePlay(ChromiumWebBrowser browser)
 		{
@@ -36,13 +36,12 @@ namespace App.Forms
 			
 			this.cefBrowser = browser;
 			
+			#region splitter init
 			this.splitterPanelLeft = new NJFLib.Controls.CollapsibleSplitter();
 			this.panelLeft = new System.Windows.Forms.Panel();
 			this.panelLeft.SuspendLayout();
 			this.splitterPanelLeft.Click += new System.EventHandler(splitterPanelLeft_Click);
-			// 
 			// splitterPanelLeft
-			// 
 			this.splitterPanelLeft.AnimationDelay = 20;
 			this.splitterPanelLeft.AnimationStep = 20;
 			this.splitterPanelLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -54,25 +53,20 @@ namespace App.Forms
 			this.splitterPanelLeft.TabIndex = 20;
 			this.splitterPanelLeft.TabStop = false;
 			this.splitterPanelLeft.UseAnimations = false;
-			this.splitterPanelLeft.VisualStyle = NJFLib.Controls.VisualStyles.DoubleDots;
-			
-			// 
+			this.splitterPanelLeft.VisualStyle = NJFLib.Controls.VisualStyles.DoubleDots; 
 			// panelLeft
-			// 
 			this.panelLeft.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.panelLeft.BackColor = Color.Black;
-			
 			this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
 			this.panelLeft.Location = new System.Drawing.Point(0, 80);
 			this.panelLeft.Name = "panelLeft";
 			this.panelLeft.Size = new System.Drawing.Size(720, 75);
 			this.panelLeft.TabIndex = 19;
 			this.panelLeft.SizeChanged += new System.EventHandler(this.LeftPanelSizeChanged);
-			
-			
 			this.Controls.AddRange(new System.Windows.Forms.Control[] { this.splitterPanelLeft,
 																		this.panelLeft});
 			this.panelLeft.ResumeLayout(false);
+			#endregion splitter init
 			
 			//add Guider
 			this.panelLeft.Controls.Add(this.jGuider1);
@@ -137,9 +131,9 @@ namespace App.Forms
 			jGuider1.BindCourse(BuildCourse());
 			
 			//show eide
-			eide.LoadEide(true);
-			//eide.EmbedIde();
-			//eide.WindowsReStyle();
+			eide.LoadEide(false);
+			eide.EmbedIde();
+			eide.WindowsReStyle();
 		}
 		
 		
