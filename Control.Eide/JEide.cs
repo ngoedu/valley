@@ -104,9 +104,10 @@ namespace Control.Eide
 		private int pid = -1;
 		
 		
-		public JEide()
+		public JEide(string winTitle)
 		{
 			InitializeComponent();
+			this.eideTitle = winTitle;
 			BackColor = Color.Black;
 			this.SizeChanged += new System.EventHandler(this.PanelSizeChanged);
 		}
@@ -199,7 +200,7 @@ namespace Control.Eide
 		}
 		
 		
-		private String eideTitle = "Eclipse";//"NGO Engineering";
+		private String eideTitle = "Eclipse";
 		
 		public void EmbedIde() {
 			if (embedHwd > 0)
@@ -221,7 +222,8 @@ namespace Control.Eide
 		
 		private void ResizeEmebed()
 		{
-			SetWindowPos(embedHandle, 0, 0, 0, this.Width, this.Height, SWP_NOZORDER | SWP_SHOWWINDOW);            
+			SetWindowPos(embedHandle, 0, 0, 0, this.Width, this.Height, SWP_NOZORDER | SWP_SHOWWINDOW);   
+			SetWindowPos(embedHandle, 0, 0, 0, this.Width, this.Height, SWP_NOSIZE | SWP_SHOWWINDOW);
 		}
 		
 		public void LoadEide(bool visible) {
@@ -244,7 +246,7 @@ namespace Control.Eide
 						Process[] processRunning = Process.GetProcesses();
 						foreach (Process pr in processRunning)
 						{
-						    if (pr.MainWindowTitle.Contains("Eclipse"))
+						    if (pr.MainWindowTitle.Contains(eideTitle))
 						    {
 						    	embedEclipse = pr;
 						        hWnd = pr.MainWindowHandle.ToInt32();
@@ -293,8 +295,11 @@ namespace Control.Eide
 	
 	            //force a redraw
 	            DrawMenuBar(embedEclipse.MainWindowHandle);
-	            SetWindowLong(pFoundWindow, GWL_STYLE, (style & ~WS_SYSMENU)); 
-	            SetWindowLong(pFoundWindow, GWL_STYLE, (style & ~WS_CAPTION)); 
+	         
+	            //below cause some unusual error when editing css & html page.
+	            /*SetWindowLong(pFoundWindow, GWL_STYLE, (style & ~WS_SYSMENU));*/ 
+	         
+	            SetWindowLong(pFoundWindow, GWL_STYLE, (style & ~WS_CAPTION));
 	        } 
 		    
 		}  
