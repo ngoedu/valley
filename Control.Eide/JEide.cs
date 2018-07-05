@@ -45,6 +45,8 @@ namespace Control.Eide
 		const short SWP_NOSIZE = 1;
 		const short SWP_NOZORDER = 0X4;
 		const int SWP_SHOWWINDOW = 0x0040;
+		const int SWP_FRAMECHANGED = 0x0020;
+		const int SWP_NOOWNERZORDER = 0x0200;
 		
 		//assorted constants needed
 		public static uint MF_BYPOSITION = 0x400;
@@ -55,6 +57,7 @@ namespace Control.Eide
 		public static int WS_DLGFRAME = 0x00400000; //window with double border but no title
 		public static int WS_CAPTION = WS_BORDER | WS_DLGFRAME; //window with a title bar 
 		public static int WS_SYSMENU = 0x00080000; //window menu  
+		public static int WS_THICKFRAME = 0x00040000;
 		
 			
 		[System.Runtime.InteropServices.DllImport("Kernel32.dll")]
@@ -223,7 +226,12 @@ namespace Control.Eide
 		private void ResizeEmebed()
 		{
 			SetWindowPos(embedHandle, 0, 0, 0, this.Width, this.Height, SWP_NOZORDER | SWP_SHOWWINDOW);   
-			SetWindowPos(embedHandle, 0, 0, 0, this.Width, this.Height, SWP_NOSIZE | SWP_SHOWWINDOW);
+			//SetWindowPos(embedHandle, 0, 0, 0, this.Width, this.Height, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOOWNERZORDER);
+			
+			//try set window no border
+	        int style = GetWindowLong(embedHandle, GWL_STYLE);
+			SetWindowLong(embedHandle, GWL_STYLE, (style & ~WS_THICKFRAME ));
+	         
 		}
 		
 		public void LoadEide(bool visible) {
@@ -298,7 +306,7 @@ namespace Control.Eide
 	         
 	            //below cause some unusual error when editing css & html page.
 	            /*SetWindowLong(pFoundWindow, GWL_STYLE, (style & ~WS_SYSMENU));*/ 
-	         
+	            
 	            SetWindowLong(pFoundWindow, GWL_STYLE, (style & ~WS_CAPTION));
 	        } 
 		    
