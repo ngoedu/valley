@@ -225,7 +225,7 @@ namespace Control.Eide
 		
 		private void ResizeEmebed()
 		{
-			SetWindowPos(embedHandle, 0, 0, 0, this.Width, this.Height, SWP_NOZORDER | SWP_SHOWWINDOW);   
+			SetWindowPos(embedHandle, 0, 4, 2, this.Width-4, this.Height-2, SWP_NOZORDER | SWP_SHOWWINDOW);   
 			//SetWindowPos(embedHandle, 0, 0, 0, this.Width, this.Height, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOOWNERZORDER);
 			
 			//try set window no border
