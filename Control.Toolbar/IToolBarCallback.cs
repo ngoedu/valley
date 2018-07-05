@@ -15,6 +15,8 @@ namespace Control.Toolbar
 	/// </summary>
 	public interface IToolBarCallback
 	{
+		void PlayCourseEntry();
+
 		void DisplayCourseLib();
 	}
 }
