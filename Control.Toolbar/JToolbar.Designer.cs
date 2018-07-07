@@ -85,6 +85,7 @@ namespace Control.Toolbar
 			// 
 			// label1
 			// 
+			this.label1.BackColor = System.Drawing.Color.Transparent;
 			this.label1.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
 			this.label1.Location = new System.Drawing.Point(152, 70);

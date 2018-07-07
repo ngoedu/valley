@@ -69,9 +69,9 @@ namespace Control.Profile
 			// 
 			// lblName
 			// 
-			this.lblName.Font = new System.Drawing.Font("Consolas", 10F);
+			this.lblName.Font = new System.Drawing.Font("Consolas", 9F);
 			this.lblName.ForeColor = System.Drawing.SystemColors.ButtonFace;
-			this.lblName.Location = new System.Drawing.Point(140, 22);
+			this.lblName.Location = new System.Drawing.Point(136, 22);
 			this.lblName.Name = "lblName";
 			this.lblName.Size = new System.Drawing.Size(100, 16);
 			this.lblName.TabIndex = 3;
@@ -81,7 +81,7 @@ namespace Control.Profile
 			this.jProgressBar1.Location = new System.Drawing.Point(96, 48);
 			this.jProgressBar1.MaxValue = 100;
 			this.jProgressBar1.Name = "jProgressBar1";
-			this.jProgressBar1.Size = new System.Drawing.Size(136, 22);
+			this.jProgressBar1.Size = new System.Drawing.Size(144, 18);
 			this.jProgressBar1.TabIndex = 4;
 			// 
 			// Profile
