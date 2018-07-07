@@ -12,6 +12,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Diagnostics;
 using System.Threading;
+using App.Common.Callback;
 
 namespace Component.Bridge
 {
@@ -23,6 +24,7 @@ namespace Component.Bridge
 		private int pid = -1;
 		private int PORT_NO = 60001;
 		private IOutputCallback callback;
+		private IPidCallback pidCallback;
 		private String jrePath;
 		private String aetherPath;
 		
@@ -33,9 +35,10 @@ namespace Component.Bridge
 		/// </summary>
 		int status = 0;
 		
-		public AetherBridge(int port, IOutputCallback callback, String jre, String aether)
+		public AetherBridge(int port, IOutputCallback callback, IPidCallback pCallback, String jre, String aether)
 		{
 			this.callback = callback;
+			this.pidCallback = pCallback;
 			this.PORT_NO = port;
 			this.jrePath = jre;
 			this.aetherPath = aether;
@@ -68,14 +71,18 @@ namespace Component.Bridge
 		    
 		    //* Start process and handlers
 		    
+		    bool started = false;
+		    
 		    // try start process in a thread.
 		    ThreadStart ths = new ThreadStart(
-		    	delegate() { 	process.Start(); 
+		    	delegate() { 	started = process.Start(); 
 		    					process.BeginOutputReadLine();
 		    					process.BeginErrorReadLine();
-		    					status = 0;
-		    					pid = process.Id; 
-		    					//process.WaitForExit();
+		    					if (started) {
+		    						status = 0;
+		    						pid = process.Id;
+		    						this.pidCallback.PidCreated("bridge", pid);
+		    					}
 		    					System.Diagnostics.Debug.WriteLine("process {0} started", pid);
 		    					}
 		    				);
