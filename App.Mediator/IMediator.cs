@@ -16,7 +16,7 @@ namespace App.Mediator
 	/// <summary>
 	/// Description of IMediator.
 	/// </summary>
-	public interface IMediator : IToolBarCallback, IOutputCallback, ICallback
+	public interface IMediator : IToolBarCallback, IOutputCallback, IEndpointCallback
 	{
 		void FormResized(int newHeight, int newWidth);
 		void FormLoaded();

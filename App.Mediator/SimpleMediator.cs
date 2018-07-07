@@ -10,6 +10,7 @@ using System;
 using System.Windows.Forms;
 using System.Threading;
 using App.Common;
+using App.Common.Impl;
 using App.Forms;
 using CefSharp;
 using CefSharp.WinForms;
@@ -47,11 +48,14 @@ namespace App.Mediator
 		{
 			this.mainForm = mf;
 			
+			//try clean all stale process. e.g. eide, bridge
+			PidRecorder.Instance.CleanOldProcess();
+			
 			//gif background
 			this.mainForm.Controls.Add(gif);
 			
 			//startup the bridge first. block current thread until done.
-			bridge = new AetherBridge(60001, this, @"D:\NGO\client\jre", @"D:\NGO\client\aether\dist");
+			bridge = new AetherBridge(60001, this, PidRecorder.Instance, @"D:\NGO\client\jre", @"D:\NGO\client\aether\dist");
 			bridge.Startup();
 			bridgeDone.WaitOne();
 			System.Diagnostics.Debug.WriteLine("bridge initialized.");
@@ -65,13 +69,15 @@ namespace App.Mediator
 			//the singleton instance of the CefSharp
 			browser = new ChromiumWebBrowser("");
 
-			//add toolbar
-			jToolBar = new JToolbar(this);
-			mainForm.Controls.Add(jToolBar);
-			
 			//add profile
 			jProfile = new Profile();
+			jProfile.TabIndex = 0;
 			mainForm.Controls.Add(jProfile);
+			
+			//add toolbar
+			jToolBar = new JToolbar(this);
+			jToolBar.TabIndex = 1;
+			mainForm.Controls.Add(jToolBar);
 			
 			//init forms
 			courseLib = new CourseLib(browser);
