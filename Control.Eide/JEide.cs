@@ -13,17 +13,20 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
+using App.Common.Callback;
+using App.Common.Impl;
 
 namespace Control.Eide
 {
 	/// <summary>
 	/// Description of JEide.
 	/// </summary>
-	public partial class JEide : Panel
+	public partial class JEide : Panel 
 	{
 		private IntPtr embedHandle;
 		private int embedHwd = -1;
 		private Process embedEclipse = null;
+		private IPidCallback pidCallback;
 		
 		const int SW_HIDE =              0;
 		const int SW_SHOWNORMAL   =    1;
@@ -107,10 +110,11 @@ namespace Control.Eide
 		private int pid = -1;
 		
 		
-		public JEide(string winTitle)
+		public JEide(string winTitle, IPidCallback callback)
 		{
 			InitializeComponent();
 			this.eideTitle = winTitle;
+			this.pidCallback = callback;
 			BackColor = Color.Black;
 			this.SizeChanged += new System.EventHandler(this.PanelSizeChanged);
 		}
@@ -130,18 +134,8 @@ namespace Control.Eide
 			
 			if (pid==-1)
 				return;
-			//kill java process
-			try {
-				Process p = Process.GetProcessById(pid);
-				p.Kill();
-				p.WaitForExit(); // possibly with a timeout
-				System.Diagnostics.Debug.WriteLine("Eide killed");
-				pid = -1;	
-			} catch (Win32Exception winException) {
-				// process was terminating or can't be terminated - deal with it
-			} catch (InvalidOperationException invalidException) {
-				// process has already exited - might be able to let this one go
-			}
+			
+			PidRecorder.Instance.KillProcessById(pid);
 			
 			base.Dispose(disposing);
 		}
@@ -169,7 +163,7 @@ namespace Control.Eide
 			return arguments;
 		}
 		
-		private void createByProcess() {
+		private bool CreateByProcess() {
 			var fileName = "d:\\NGO\\client\\jdk\\bin\\javaw.exe";
 			var arguments = getParameter();
 
@@ -189,9 +183,11 @@ namespace Control.Eide
 		    process.ErrorDataReceived += new DataReceivedEventHandler(OutputHandler);
 			process.Exited += new EventHandler(OnExited);
 			//process = Process.Start(fileName, arguments, null, null, null);
-			process.Start(); 
+			bool started = process.Start(); 
 			process.BeginOutputReadLine();
 			process.BeginErrorReadLine();
+			
+			return started;
 		}
 		
 		private void OnExited(object sender, System.EventArgs e) {
@@ -207,6 +203,9 @@ namespace Control.Eide
 		
 		private String eideTitle = "Eclipse";
 		
+		/// <summary>
+		/// embed EIDE into anther window
+		/// </summary>
 		public void EmbedIde() {
 			if (embedHwd > 0)
        			ShowWindow(embedHwd, SW_SHOW);
@@ -225,6 +224,9 @@ namespace Control.Eide
 			ResizeEmebed();
 		}
 		
+		/// <summary>
+		/// resize the windwo
+		/// </summary>
 		private void ResizeEmebed()
 		{
 			SetWindowPos(embedHandle, 0, 4, 2, this.Width-4, this.Height-2, SWP_NOZORDER | SWP_SHOWWINDOW);   
@@ -232,32 +234,34 @@ namespace Control.Eide
 			
 			//try set window no border
 	        int style = GetWindowLong(embedHandle, GWL_STYLE);
-			SetWindowLong(embedHandle, GWL_STYLE, (style & ~WS_THICKFRAME ));
-	         
+			SetWindowLong(embedHandle, GWL_STYLE, (style & ~WS_THICKFRAME )); 
 		}
 		
+		/// <summary>
+		/// launch the EIDE
+		/// </summary>
+		/// <param name="visible"></param>
 		public void LoadEide(bool visible) {
 			if ( pid != -1 )
         		return;
 			
 			//create process
-			createByProcess();
+			bool started = CreateByProcess();
 
-			//hide the window
-			if (!visible)
-			{
-				//wait until launched and then hide it
-				while (pid == -1) {
-					pid = IsRunning();
-					if (pid > -1)
-					{
+			//wait until launched and then hide it
+			while (started && pid == -1) {
+				pid = IsRunning();
+				if (pid > -1) {
+					this.pidCallback.PidCreated("eide", pid);
+			
+					//check if do window hidden
+					if (!visible) {
+			
 						//hide it now
 						int hWnd;
 						Process[] processRunning = Process.GetProcesses();
-						foreach (Process pr in processRunning)
-						{
-						    if (pr.MainWindowTitle.Contains(eideTitle))
-						    {
+						foreach (Process pr in processRunning){
+						    if (pr.MainWindowTitle.Contains(eideTitle)){
 						    	embedEclipse = pr;
 						        hWnd = pr.MainWindowHandle.ToInt32();
 						        embedHwd = hWnd;
@@ -271,15 +275,21 @@ namespace Control.Eide
 			}
 		}
 		
+		/// <summary>
+		/// hide the window
+		/// </summary>
 		public void HideEmebed() {
 			SetWindowPos(embedHandle, 0, 0, 0, this.Width, this.Height, SWP_NOZORDER | SWP_SHOWWINDOW | 0X80);            
 		}
 		
+		/// <summary>
+		/// check if process existed
+		/// </summary>
+		/// <returns></returns>
 		private int IsRunning()
 		{
 			Process[] processlist = Process.GetProcesses();
-			foreach (Process theprocess in processlist) 
-			{
+			foreach (Process theprocess in processlist) {
 				if (theprocess.MainWindowTitle.Contains(eideTitle)) {
 					System.Diagnostics.Debug.WriteLine("MainWindowHandle="+theprocess.MainWindowHandle);
 					return theprocess.Id;
@@ -288,6 +298,10 @@ namespace Control.Eide
 			return -1;
 		}
 		
+		
+		/// <summary>
+		/// re-style the window, remove title bar
+		/// </summary>
 		public void WindowsReStyle()
 		{ 
 		    if (embedEclipse !=null) 
