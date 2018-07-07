@@ -10,6 +10,8 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using App.Common.Callback;
+using App.Common.Impl;
 using CefSharp.WinForms;
 using CefSharp;
 using Control.Eide;
@@ -20,12 +22,12 @@ namespace App.Forms
 	/// <summary>
 	/// Description of CourseView.
 	/// </summary>
-	public partial class CoursePlay : UserControl, ICoursePlay
+	public partial class CoursePlay : UserControl, ICoursePlay 
 	{
 		private ChromiumWebBrowser cefBrowser;
 		private NJFLib.Controls.CollapsibleSplitter splitterPanelLeft;
 		private System.Windows.Forms.Panel panelLeft;
-		private JEide eide = new JEide("NgoEclipse");
+		private JEide eide = null;
 		
 		public CoursePlay(ChromiumWebBrowser browser)
 		{
@@ -33,6 +35,8 @@ namespace App.Forms
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
+			
+			eide = new JEide("NgoEclipse", PidRecorder.Instance);
 			
 			this.cefBrowser = browser;
 			
@@ -77,6 +81,7 @@ namespace App.Forms
 			//add eide
 			this.Controls.Add(eide);
 		}
+
 		
 		private int leftPanelSize = 0;
 		private void splitterPanelLeft_Click(object sender, System.EventArgs e)

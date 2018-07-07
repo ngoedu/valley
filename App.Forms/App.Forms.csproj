@@ -90,6 +90,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\App.Common\App.Common.csproj">
+      <Project>{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}</Project>
+      <Name>App.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Control.Eide\Control.Eide.csproj">
       <Project>{9588C636-7568-453A-9A1B-299416A1B8DD}</Project>
       <Name>Control.Eide</Name>
