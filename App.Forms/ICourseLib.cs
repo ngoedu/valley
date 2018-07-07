@@ -16,6 +16,7 @@ namespace App.Forms
 	/// </summary>
 	public interface ICourseLib
 	{
-		void ShowCourseLib();
+		void LoadCourseLib();
+		void InitCourseLib();
 	}
 }

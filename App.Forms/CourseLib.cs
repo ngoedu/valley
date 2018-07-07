@@ -22,6 +22,7 @@ namespace App.Forms
 	public partial class CourseLib : UserControl,ICourseLib
 	{
 		private ChromiumWebBrowser cefBrowser;
+		private string uiRoot;
 		
 		public CourseLib(ChromiumWebBrowser browser)
 		{
@@ -38,16 +39,23 @@ namespace App.Forms
 			
 			cefBrowser.Dock = DockStyle.Fill;
 			this.Controls.Add(cefBrowser);
-		}
 			
-		public void ShowCourseLib()
-		{
 			var webRoot = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
 			//var webRoot = @"D:/NGO/client/pad/src/valley/ui-html";
 	
 			//D:\NGO\client\pad\demo\CefSharp\CefSharp-master\CefSharp.WinForms.Example.BrowserForm
-			var uiRoot = webRoot.Replace(@"\App.Dashboard\bin\Debug","") + @"/ui-html/ui.html";
+			uiRoot = webRoot.Replace(@"\App.Dashboard\bin\Debug","") + @"/ui-html/ui.html";
+		}
 
+		public void InitCourseLib()
+		{
+			//prepare course lib data here
+			
+			cefBrowser.Load("file:///"+uiRoot);	
+		}
+		
+		public void LoadCourseLib()
+		{		
 			cefBrowser.Load("file:///"+uiRoot);	
 		}
 		
