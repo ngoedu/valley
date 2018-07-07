@@ -64,6 +64,10 @@
     <Compile Include="SimpleMediator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\App.Common\App.Common.csproj">
+      <Project>{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}</Project>
+      <Name>App.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\App.Forms\App.Forms.csproj">
       <Project>{66EF4CF8-1381-4F24-B8FA-AD538AE011AF}</Project>
       <Name>App.Forms</Name>

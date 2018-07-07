@@ -44,6 +44,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Forms", "App.Forms\App.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Mediator", "App.Mediator\App.Mediator.csproj", "{D209172F-8595-44CE-B9D7-13347AFDE663}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Common", "App.Common\App.Common.csproj", "{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -130,5 +132,9 @@ Global
 		{D209172F-8595-44CE-B9D7-13347AFDE663}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D209172F-8595-44CE-B9D7-13347AFDE663}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D209172F-8595-44CE-B9D7-13347AFDE663}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

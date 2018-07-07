@@ -9,6 +9,7 @@
 using System;
 using System.Windows.Forms;
 using System.Threading;
+using App.Common;
 using App.Forms;
 using CefSharp;
 using CefSharp.WinForms;
@@ -25,6 +26,10 @@ namespace App.Mediator
 	public class SimpleMediator : IMediator
 	{
 		private Form mainForm;
+		
+		private GifControl gif = new GifControl(@"D:\NGO\design\Resources\moon-animation24.gif");
+		
+		
 		private readonly ChromiumWebBrowser browser;
 		private JToolbar jToolBar;
 		private Profile jProfile;
@@ -42,6 +47,9 @@ namespace App.Mediator
 		{
 			this.mainForm = mf;
 			
+			//gif background
+			this.mainForm.Controls.Add(gif);
+			
 			//startup the bridge first. block current thread until done.
 			bridge = new AetherBridge(60001, this, @"D:\NGO\client\jre", @"D:\NGO\client\aether\dist");
 			bridge.Startup();
@@ -57,32 +65,41 @@ namespace App.Mediator
 			//the singleton instance of the CefSharp
 			browser = new ChromiumWebBrowser("");
 
+			//add toolbar
 			jToolBar = new JToolbar(this);
 			mainForm.Controls.Add(jToolBar);
 			
+			//add profile
 			jProfile = new Profile();
-			jProfile.SetName("N062018A001");
-			jProfile.SetEnergy(90);
 			mainForm.Controls.Add(jProfile);
 			
+			//init forms
 			courseLib = new CourseLib(browser);
 			mainForm.Controls.Add(courseLib);
 			courseLib.Visible = false;
 					
 			coursePlay =  new CoursePlay(browser);
 			mainForm.Controls.Add(coursePlay);
-			coursePlay.Visible = true;
-			
-			
+			coursePlay.Visible = true;		
 		}
 
 		#region form event
 		public void FormLoaded()
 		{
-			courseLib.ShowCourseLib();
+			jProfile.SetName("070718A001");
+			jProfile.SetEnergy(90);
+			
+			courseLib.InitCourseLib();
+			courseLib.Visible = false;
+			coursePlay.Visible = false;	
 		}
 		public void FormClosed()
 		{
+			//hide
+			coursePlay.Visible = false;
+			courseLib.Visible = false;
+			gif.Visible = true;
+			
 			//shutdown EIDE
 			aetherClient.SendData("$EXIT", 9);
 			clientDone.WaitOne();
@@ -118,8 +135,14 @@ namespace App.Mediator
 			courseLib.Top = 100;
 			
 			coursePlay.Width = newWidth;
-			coursePlay.Height = newHeight - jToolBar.Height;
-			coursePlay.Top = 100;	
+			coursePlay.Height = newHeight - jToolBar.Height -4;
+			coursePlay.Top = 100;
+
+			gif.Width = 277;
+			gif.Height = 277;
+			gif.Top = (newHeight - gif.Height) / 2;
+			gif.Left = (newWidth  - gif.Width) / 2;
+						
 		}
 		#endregion form events
 
@@ -128,11 +151,14 @@ namespace App.Mediator
 		{
 			coursePlay.Visible = false;
 			courseLib.Visible = true;
+			gif.Visible = false;
+			courseLib.LoadCourseLib();
 		}
 		public void PlayCourseEntry()
 		{
 			coursePlay.Visible = true;
 			courseLib.Visible = false;
+			gif.Visible = false;
 		}
 		#endregion toolbar callback
 		
@@ -171,7 +197,7 @@ namespace App.Mediator
 		}
 		#endregion aether endpoint callback
 		
-		
+		//https://stackoverflow.com/questions/1199571/how-to-hide-file-in-c
 		/*void loadVideo()
 		{
 			var html = @"<!DOCTYPE html>";
