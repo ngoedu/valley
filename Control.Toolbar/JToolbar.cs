@@ -29,7 +29,7 @@ namespace Control.Toolbar
 			
 			this.callback = cb;
 			
-			BackColor = Color.FromArgb(0, 119,198);
+			BackColor = Color.FromArgb(39, 113,143);
 			origWidth = pictureBox2.Width;
 			origHeight = pictureBox2.Height;
 		}
