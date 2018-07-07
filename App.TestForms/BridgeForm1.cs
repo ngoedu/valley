@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using App.Common.Impl;
 using Component.Bridge;
 
 namespace AppTestForms
@@ -31,7 +32,7 @@ namespace AppTestForms
 			//
 			InitializeComponent();
 			
-			bridge = new AetherBridge(60001, this, @"D:\NGO\client\jre", @"D:\NGO\client\aether\dist");
+			bridge = new AetherBridge(60001, this, PidRecorder.Instance, @"D:\NGO\client\jre", @"D:\NGO\client\aether\dist");
 			
 			backgroundWorker = new BackgroundWorker(); // 实例化后台对象
  

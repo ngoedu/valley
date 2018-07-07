@@ -17,7 +17,7 @@ namespace AppTestForms
 	/// <summary>
 	/// Description of MainForm.
 	/// </summary>
-	public partial class AetherForm : Form, ICallback
+	public partial class AetherForm : Form, IEndpointCallback
 	{
 		Endpoint client;
 		private delegate void _SafeSetTextCall(string text);

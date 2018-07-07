@@ -126,6 +126,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\App.Common\App.Common.csproj">
+      <Project>{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}</Project>
+      <Name>App.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Component.Bridge\Component.Bridge.csproj">
       <Project>{9A647F24-F0FC-4294-99CF-38D72B7A6ADB}</Project>
       <Name>Component.Bridge</Name>

@@ -9,6 +9,8 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using App.Common.Callback;
+using App.Common.Impl;
 using Control.Eide;
 
 namespace AppTestForms
@@ -19,7 +21,7 @@ namespace AppTestForms
 	public partial class EideForm : Form
 	{
 		
-		JEide ide = new JEide("NgoEclipse");
+		JEide ide = new JEide("NgoEclipse", PidRecorder.Instance);
 		
 		public EideForm()
 		{
@@ -35,6 +37,7 @@ namespace AppTestForms
 			this.Controls.Add(ide);
 			
 		}
+
 		void Button1Click(object sender, EventArgs e)
 		{
 			ide.LoadEide(false);
