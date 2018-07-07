@@ -15,9 +15,9 @@ namespace Control.Profile
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.ProgressBar progressBar1;
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.Label lblName;
+		private App.Common.JProgressBar jProgressBar1;
 		
 		/// <summary>
 		/// Disposes resources used by the control.
@@ -41,28 +41,21 @@ namespace Control.Profile
 		private void InitializeComponent()
 		{
 			this.label1 = new System.Windows.Forms.Label();
-			this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.lblName = new System.Windows.Forms.Label();
+			this.jProgressBar1 = new App.Common.JProgressBar();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// label1
 			// 
-			this.label1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+			this.label1.Font = new System.Drawing.Font("微软雅黑", 8F);
+			this.label1.ForeColor = System.Drawing.SystemColors.Menu;
 			this.label1.Location = new System.Drawing.Point(96, 22);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(56, 24);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "账号：";
-			// 
-			// progressBar1
-			// 
-			this.progressBar1.Location = new System.Drawing.Point(96, 48);
-			this.progressBar1.Name = "progressBar1";
-			this.progressBar1.Size = new System.Drawing.Size(160, 18);
-			this.progressBar1.TabIndex = 1;
 			// 
 			// pictureBox1
 			// 
@@ -83,17 +76,26 @@ namespace Control.Profile
 			this.lblName.Size = new System.Drawing.Size(100, 16);
 			this.lblName.TabIndex = 3;
 			// 
+			// jProgressBar1
+			// 
+			this.jProgressBar1.Location = new System.Drawing.Point(96, 48);
+			this.jProgressBar1.MaxValue = 100;
+			this.jProgressBar1.Name = "jProgressBar1";
+			this.jProgressBar1.Size = new System.Drawing.Size(136, 22);
+			this.jProgressBar1.TabIndex = 4;
+			// 
 			// Profile
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+			this.Controls.Add(this.jProgressBar1);
 			this.Controls.Add(this.lblName);
 			this.Controls.Add(this.pictureBox1);
-			this.Controls.Add(this.progressBar1);
 			this.Controls.Add(this.label1);
 			this.Name = "Profile";
 			this.Size = new System.Drawing.Size(300, 88);
+			this.SizeChanged += new System.EventHandler(this.ProfileSizeChanged);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);
 

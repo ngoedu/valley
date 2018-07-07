@@ -25,17 +25,22 @@ namespace Control.Profile
 			//
 			InitializeComponent();
 			
-			BackColor = Color.FromArgb(0, 119,198);
-			progressBar1.Height = 18;
+			BackColor = Color.FromArgb(39, 113,143);
+			
 		}
 		
 		public void SetEnergy(int progress) {
 			
-			this.progressBar1.Value = progress;
+			this.jProgressBar1.SetValue(progress);
 		}
 		
 		public void SetName(string name) {
 			this.lblName.Text = name;
+		}
+		
+		void ProfileSizeChanged(object sender, EventArgs e)
+		{
+			jProgressBar1.Height = 22;
 		}
 	}
 }
