@@ -50,11 +50,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Callback\IPidCallback.cs" />
+    <Compile Include="Callback\IPidCleaner.cs" />
     <Compile Include="GifControl.cs" />
     <Compile Include="GifControl.Designer.cs">
       <DependentUpon>GifControl.cs</DependentUpon>
     </Compile>
     <Compile Include="GifImage.cs" />
+    <Compile Include="Impl\PidRecorder.cs" />
     <Compile Include="JProgressBar.cs" />
     <Compile Include="JProgressBar.Designer.cs">
       <DependentUpon>JProgressBar.cs</DependentUpon>
@@ -76,6 +79,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Callback" />
+    <Folder Include="Impl" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
