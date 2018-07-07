@@ -7,19 +7,11 @@
  * 
  */
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Threading;
 using System.Windows.Forms;
-using App.Forms;
 using App.Mediator;
-using CefSharp;
-using CefSharp.WinForms;
-using Component.TinyServer;
-using Control.Profile;
-using Control.Toolbar;
 
-namespace NGO.Dashboard
+
+namespace App.Dashboard
 {
 	/// <summary>
 	/// Description of MainForm.
@@ -27,7 +19,7 @@ namespace NGO.Dashboard
 	public partial class MainForm : Form
 	{
 
-		private IMediator mediator;
+		private readonly IMediator mediator;
 		
 		public MainForm()
 		{
@@ -36,6 +28,9 @@ namespace NGO.Dashboard
 			//
 			InitializeComponent();
 			
+			//show splash screen
+			SplashForm.ShowSplashScreen();
+			
 			//init mediator
 			mediator = new SimpleMediator(this);
 		}
@@ -43,6 +38,7 @@ namespace NGO.Dashboard
 		void MainFormResize(object sender, EventArgs e)
 		{
 			mediator.FormResized(this.ClientSize.Height, this.ClientSize.Width);
+			SplashForm.CloseForm();
 		}
 		
 		void MainFormLoad(object sender, EventArgs e)
@@ -52,8 +48,10 @@ namespace NGO.Dashboard
 		
 		void MainFormFormClosed(object sender, FormClosedEventArgs e)
 		{
+			ExitForm.ShowExitScreen();
 			mediator.FormClosed();
-            //Application.Exit();
+            ExitForm.CloseForm();
+
             Environment.Exit(0); //this works like a charm
 		}
 	}

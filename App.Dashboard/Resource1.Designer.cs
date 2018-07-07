@@ -69,5 +69,35 @@ namespace App.Dashboard {
 				return ((System.Drawing.Icon)(obj));
 			}
 		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap pad_bg_1366x768 {
+			get {
+				object obj = ResourceManager.GetObject("pad-bg_1366x768", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap pad_bg_1920x1080 {
+			get {
+				object obj = ResourceManager.GetObject("pad-bg_1920x1080", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap splash {
+			get {
+				object obj = ResourceManager.GetObject("splash", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
 	}
 }

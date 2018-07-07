@@ -8,6 +8,7 @@
  */
 using System;
 using System.Windows.Forms;
+using App.Dashboard;
 
 namespace NGO.Dashboard
 {
@@ -24,7 +25,8 @@ namespace NGO.Dashboard
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new MainForm());
+			MainForm mainForm = new MainForm();
+			Application.Run(mainForm);
 		}
 		
 	}

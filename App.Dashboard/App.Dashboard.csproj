@@ -70,6 +70,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExitForm.cs" />
+    <Compile Include="ExitForm.Designer.cs">
+      <DependentUpon>ExitForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -80,12 +84,16 @@
       <DependentUpon>Resource1.resx</DependentUpon>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="SplashForm.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ExitForm.resx">
+      <DependentUpon>ExitForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -95,10 +103,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\App.Forms\App.Forms.csproj">
-      <Project>{66EF4CF8-1381-4F24-B8FA-AD538AE011AF}</Project>
-      <Name>App.Forms</Name>
-    </ProjectReference>
     <ProjectReference Include="..\App.Mediator\App.Mediator.csproj">
       <Project>{D209172F-8595-44CE-B9D7-13347AFDE663}</Project>
       <Name>App.Mediator</Name>
@@ -106,14 +110,6 @@
     <ProjectReference Include="..\Component.Bridge\Component.Bridge.csproj">
       <Project>{9A647F24-F0FC-4294-99CF-38D72B7A6ADB}</Project>
       <Name>Component.Bridge</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Component.TinyServer\Component.TinyServer.csproj">
-      <Project>{562F0953-4BC8-4643-B759-0F8402DA59C5}</Project>
-      <Name>Component.TinyServer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Control.Profile\Control.Profile.csproj">
-      <Project>{BBB857C2-514A-47E0-8988-0456B4CF10B8}</Project>
-      <Name>Control.Profile</Name>
     </ProjectReference>
     <ProjectReference Include="..\Control.Toolbar\Control.Toolbar.csproj">
       <Project>{DE45D941-991A-4EB9-AC9B-288ABBD52525}</Project>

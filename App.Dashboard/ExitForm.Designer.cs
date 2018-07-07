@@ -1,19 +1,21 @@
 ﻿/*
  * Created by SharpDevelop.
  * User: Bob (XuYong Hou) houxuyong@hotmail.com
- * Date: 2018/5/8
- * Time: 14:01
+ * Date: 2018/7/7
+ * Time: 11:40
  * 
  * 
  */
 namespace App.Dashboard
 {
-	partial class MainForm
+	partial class ExitForm
 	{
 		/// <summary>
 		/// Designer variable used to keep track of non-visual components.
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
+		private System.Windows.Forms.Timer timer1;
+		private System.Windows.Forms.ProgressBar progressBar1;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -36,22 +38,31 @@ namespace App.Dashboard
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
+			this.timer1 = new System.Windows.Forms.Timer(this.components);
+			this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.SuspendLayout();
 			// 
-			// MainForm
+			// progressBar1
+			// 
+			this.progressBar1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.progressBar1.Location = new System.Drawing.Point(0, 0);
+			this.progressBar1.Margin = new System.Windows.Forms.Padding(0);
+			this.progressBar1.Name = "progressBar1";
+			this.progressBar1.Size = new System.Drawing.Size(358, 23);
+			this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+			this.progressBar1.TabIndex = 0;
+			// 
+			// ExitForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.Color.Black;
-			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.ClientSize = new System.Drawing.Size(755, 396);
-			this.Icon = global::App.Dashboard.Resource1.dashboard3;
-			this.Name = "MainForm";
-			this.Text = "NGO控制台";
-			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFormFormClosed);
-			this.Load += new System.EventHandler(this.MainFormLoad);
-			this.Resize += new System.EventHandler(this.MainFormResize);
+			this.ClientSize = new System.Drawing.Size(358, 23);
+			this.Controls.Add(this.progressBar1);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+			this.Name = "ExitForm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Text = "ExitForm";
 			this.ResumeLayout(false);
 
 		}
