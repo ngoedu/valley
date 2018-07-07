@@ -13,7 +13,7 @@ namespace NGO.Protocol.AEther
 	/// <summary>
 	/// Description of ICallback.
 	/// </summary>
-	public interface ICallback
+	public interface IEndpointCallback
 	{
 		void Connected();
 		void DataSent(string info);

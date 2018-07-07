@@ -44,7 +44,7 @@ namespace NGO.Protocol.AEther
 		public static readonly int ID = 1;
 		public static readonly int BRIDGE_ID = 0;
 		
-		private ICallback callback;
+		private IEndpointCallback callback;
 		private Socket client;
 		//
 		//https://docs.microsoft.com/en-us/dotnet/api/system.threading.manualresetevent?view=netframework-4.7.2
@@ -53,7 +53,7 @@ namespace NGO.Protocol.AEther
 		ManualResetEvent sendDone = new ManualResetEvent(false);
 		readonly ManualResetEvent receiveDone = new ManualResetEvent(false);
 		
-		public Endpoint(ICallback callback)
+		public Endpoint(IEndpointCallback callback)
 		{
 			this.callback = callback;
 		}
