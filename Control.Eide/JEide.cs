@@ -299,10 +299,12 @@ namespace Control.Eide
 	            IntPtr HMENU = GetMenu(embedEclipse.MainWindowHandle);
 	            //get item count
 	            int count = GetMenuItemCount(HMENU);
-	            //loop & remove
-	            for (int i = 0; i < count; i++)
-	                RemoveMenu(HMENU, 0, (MF_BYPOSITION | MF_REMOVE));
-	
+	            
+	            //below cause some unusual error when editing css & html page.
+	            /*for (int i = 0; i < count; i++)
+	               	RemoveMenu(HMENU, 0, (MF_BYPOSITION | MF_REMOVE));
+	             */
+
 	            //force a redraw
 	            DrawMenuBar(embedEclipse.MainWindowHandle);
 	         
