@@ -24,6 +24,7 @@ namespace Control.Eide
 	public partial class JEide : Panel 
 	{
 		private IntPtr embedHandle;
+		private string codeBase;
 		private int embedHwd = -1;
 		private Process embedEclipse = null;
 		private IPidCallback pidCallback;
@@ -110,9 +111,10 @@ namespace Control.Eide
 		private int pid = -1;
 		
 		
-		public JEide(string winTitle, IPidCallback callback)
+		public JEide(string winTitle, string cb, IPidCallback callback)
 		{
 			InitializeComponent();
+			this.codeBase = cb;
 			this.eideTitle = winTitle;
 			this.pidCallback = callback;
 			BackColor = Color.Black;
@@ -135,7 +137,7 @@ namespace Control.Eide
 			if (pid==-1)
 				return;
 			
-			PidRecorder.Instance.KillProcessById(pid);
+			this.pidCallback.KillProcessById("eide",pid);
 			
 			base.Dispose(disposing);
 		}
@@ -146,25 +148,34 @@ namespace Control.Eide
 			var jvmXX_1 = "-XX:+UseG1GC -XX:+UseStringDeduplication";
 			var aether_2 = "-Dngo.bridge.host=127.0.0.1 -Dngo.bridge.port=60001";
 			var jvmXX_3 = "-Xms256m -Xmx1024m";
-			var jar_4 = @"-jar D:\NGO\client\eide\dist\eclipse\\plugins/org.eclipse.equinox.launcher_1.3.201.v20161025-1711.jar";
+			var jar_4 = @"-jar "+this.codeBase+@"\eide\dist\eclipse\\plugins/org.eclipse.equinox.launcher_1.3.201.v20161025-1711.jar";
 			var os_5 = "-os win32";
 			var ws_6 = "-ws win32";
 			var arch_7 = "-arch x86";
 			var splash_8 = "";// @"-showsplash  D:\NGO\client\eide\dist\eclipse\\plugins\org.eclipse.platform_4.6.3.v20170301-0400\splash.bmp";
 			var launcher_9 = "";//@"-launcher D:\NGO\client\eide\exe\eclipse\eclipse.exe -name Eclipse";
-			var launchlib_10 =	@"--launcher.library D:\NGO\client\eide\dist\eclipse\\plugins/org.eclipse.equinox.launcher.win32.win32.x86_1.1.401.v20161122-1740\eclipse_1617.dll";
-			var startup_11 = @"-startup D:\NGO\client\eide\dist\eclipse\\plugins/org.eclipse.equinox.launcher_1.3.201.v20161025-1711.jar";
+			var launchlib_10 =	@"--launcher.library "+this.codeBase+@"\eide\dist\eclipse\\plugins/org.eclipse.equinox.launcher.win32.win32.x86_1.1.401.v20161122-1740\eclipse_1617.dll";
+			var startup_11 = @"-startup "+this.codeBase+@"\eide\dist\eclipse\\plugins/org.eclipse.equinox.launcher_1.3.201.v20161025-1711.jar";
 			var launcher_appVmarg_12 = @"--launcher.appendVmargs -exitdata 11ec_80 -product org.eclipse.epp.package.java.product";
-			var vm_13 = @"-vm D:/ngo/client/jdk/bin/javaw.exe";		
-			var data_14 = @"-data D:\NGO\client\eide\dist\ws.5";		
+			var vm_13 = @"-vm "+this.codeBase+@"/jre/bin/javaw.exe";		
+			var data_14 = @"-data "+this.codeBase+@"\eide\dist\ws.5";		
+			
+			#if (DIA_RELEASE)
+            data_14 =  @"-data "+this.codeBase+@"\ws.5";	
+			#endif
 			
 			var arguments = String.Format("{0} {1} {2} {3} {4} {5} {6} {7}  {8} {9} {10} {11} {12} {13} {14}",
 			                              osgiRequiredJavaVer_0,jvmXX_1,aether_2,jvmXX_3,jar_4,os_5,ws_6,arch_7,splash_8,launcher_9,launchlib_10,startup_11,launcher_appVmarg_12,vm_13,data_14);			
+			
+			#if (DIA_RELEASE)
+            arguments = arguments.Replace(@"dist\eclipse\","");
+			#endif
+			
 			return arguments;
 		}
 		
 		private bool CreateByProcess() {
-			var fileName = "d:\\NGO\\client\\jdk\\bin\\javaw.exe";
+			var fileName = this.codeBase+@"\jre\bin\javaw.exe";
 			var arguments = getParameter();
 
 			ProcessStartInfo psi = new ProcessStartInfo();
@@ -192,8 +203,7 @@ namespace Control.Eide
 		
 		private void OnExited(object sender, System.EventArgs e) {
         	System.Diagnostics.Debug.WriteLine("process {0} Exited", pid);
-        	//MessageBox.Show("EIDE onExited");
-		    pid = -1; 
+        	pid = -1; 
         }
 		
 		private void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine) {
@@ -266,11 +276,12 @@ namespace Control.Eide
 						        hWnd = pr.MainWindowHandle.ToInt32();
 						        embedHwd = hWnd;
 						        ShowWindow(hWnd, SW_HIDE);
+								return
 						    }
 						}
 						break;
 					}
-					Thread.Sleep(5);
+					Thread.Sleep(50);
 				}
 			}
 		}
