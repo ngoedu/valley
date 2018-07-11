@@ -45,6 +45,7 @@ namespace App.Dashboard
 			this.BackColor = System.Drawing.Color.Black;
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
 			this.ClientSize = new System.Drawing.Size(755, 396);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = global::App.Dashboard.Resource1.dashboard3;
 			this.Name = "MainForm";
 			this.Text = "NGO控制台";

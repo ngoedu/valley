@@ -7,6 +7,7 @@
  * 
  */
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using App.Mediator;
 
@@ -20,6 +21,7 @@ namespace App.Dashboard
 	{
 
 		private readonly IMediator mediator;
+		private SplashForm splash;
 		
 		public MainForm()
 		{
@@ -29,7 +31,8 @@ namespace App.Dashboard
 			InitializeComponent();
 			
 			//show splash screen
-			SplashForm.ShowSplashScreen();
+			splash = new SplashForm();
+			splash.ShowSplashScreen();
 			
 			//init mediator
 			mediator = new SimpleMediator(this);
@@ -38,7 +41,11 @@ namespace App.Dashboard
 		void MainFormResize(object sender, EventArgs e)
 		{
 			mediator.FormResized(this.ClientSize.Height, this.ClientSize.Width);
-			SplashForm.CloseForm();
+			splash.CloseForm();
+			
+			//prevent user from resize the main-form
+			this.MinimumSize = new Size(this.Width, this.Height);
+			this.Location = new Point(0, 0);
 		}
 		
 		void MainFormLoad(object sender, EventArgs e)
