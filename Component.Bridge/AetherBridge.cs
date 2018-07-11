@@ -13,6 +13,7 @@ using System.Text;
 using System.Diagnostics;
 using System.Threading;
 using App.Common.Callback;
+using App.Common.Impl;
 
 namespace Component.Bridge
 {
@@ -105,17 +106,9 @@ namespace Component.Bridge
         		return;
         	
         	status = 1;
-        	try {
-				Process p = Process.GetProcessById(pid);
-				p.Kill();
-				p.WaitForExit(); // possibly with a timeout
-				System.Diagnostics.Debug.WriteLine("Bridge killed");
-				pid = -1;	
-			} catch (Win32Exception winException) {
-				// process was terminating or can't be terminated - deal with it
-			} catch (InvalidOperationException invalidException) {
-				// process has already exited - might be able to let this one go
-			}
+        	
+        	this.pidCallback.KillProcessById("bridge",pid);
+        	
 			status = 2;          
 		}
 	}
