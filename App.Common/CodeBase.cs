@@ -24,6 +24,9 @@ namespace App.Common
             path =  @"D:\NGO\client";
 			#endif
 			
+			#if (DIA_RELEASE)
+            path =  @"D:\NGO\client\dist";
+			#endif
 			return path;
 		}
 	

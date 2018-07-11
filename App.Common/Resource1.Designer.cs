@@ -63,9 +63,9 @@ namespace App.Common {
 		/// <summary>
 		///   Looks up a localized resource of type System.Drawing.Bitmap.
 		/// </summary>
-		internal static System.Drawing.Bitmap progressbar1 {
+		internal static System.Drawing.Bitmap progressbar5a {
 			get {
-				object obj = ResourceManager.GetObject("progressbar1", resourceCulture);
+				object obj = ResourceManager.GetObject("progressbar5a", resourceCulture);
 				return ((System.Drawing.Bitmap)(obj));
 			}
 		}
@@ -73,9 +73,9 @@ namespace App.Common {
 		/// <summary>
 		///   Looks up a localized resource of type System.Drawing.Bitmap.
 		/// </summary>
-		internal static System.Drawing.Bitmap progressbar12 {
+		internal static System.Drawing.Bitmap progressbar5b {
 			get {
-				object obj = ResourceManager.GetObject("progressbar12", resourceCulture);
+				object obj = ResourceManager.GetObject("progressbar5b", resourceCulture);
 				return ((System.Drawing.Bitmap)(obj));
 			}
 		}
@@ -83,9 +83,9 @@ namespace App.Common {
 		/// <summary>
 		///   Looks up a localized resource of type System.Drawing.Bitmap.
 		/// </summary>
-		internal static System.Drawing.Bitmap progressbar2 {
+		internal static System.Drawing.Bitmap progressbar6a {
 			get {
-				object obj = ResourceManager.GetObject("progressbar2", resourceCulture);
+				object obj = ResourceManager.GetObject("progressbar6a", resourceCulture);
 				return ((System.Drawing.Bitmap)(obj));
 			}
 		}
@@ -93,9 +93,9 @@ namespace App.Common {
 		/// <summary>
 		///   Looks up a localized resource of type System.Drawing.Bitmap.
 		/// </summary>
-		internal static System.Drawing.Bitmap progressbar4 {
+		internal static System.Drawing.Bitmap progressbar6b {
 			get {
-				object obj = ResourceManager.GetObject("progressbar4", resourceCulture);
+				object obj = ResourceManager.GetObject("progressbar6b", resourceCulture);
 				return ((System.Drawing.Bitmap)(obj));
 			}
 		}

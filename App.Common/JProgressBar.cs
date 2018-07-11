@@ -39,12 +39,12 @@ namespace App.Common
 			if (value > MaxValue)
 				return;
 			float w = (float)value / (float)MaxValue;
-			float cw = (float)this.Width;
+			float cw = (float)this.Width - 20;
 			this.pictureBox2.Width = (int)(cw * w);
 			this.lblBar.Text = value.ToString();
 			
 			toolTip1.RemoveAll();
-			toolTip1.SetToolTip(this.pictureBox2, "可用能量："+ value.ToString());			
+			toolTip1.SetToolTip(this.pictureBox2, "能量："+ value.ToString());			
 		}
 		
 		void JProgressBarSizeChanged(object sender, EventArgs e)
@@ -53,8 +53,8 @@ namespace App.Common
 			this.pictureBox1.Top = 0;
 			this.pictureBox1.Left = 0;
 			
-			this.pictureBox2.Top = 0;
-			this.pictureBox2.Left =0;
+			this.pictureBox2.Top = 4;
+			this.pictureBox2.Left = 3;
 			
 			this.lblBar.Top = 0;
 			this.lblBar.Left = 0;
@@ -65,10 +65,10 @@ namespace App.Common
 			
 
 			this.pictureBox1.Width = this.Width;
-			this.pictureBox1.Height = this.Height;
+			this.pictureBox1.Height = this.Height ;
 			
 			this.pictureBox2.Width = 1;
-			this.pictureBox2.Height = this.Height ;
+			this.pictureBox2.Height = this.Height - 9 ;
 		}
 	}
 }

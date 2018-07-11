@@ -49,16 +49,17 @@ namespace App.Common
 			// lblBar
 			// 
 			this.lblBar.BackColor = System.Drawing.Color.Transparent;
-			this.lblBar.Font = new System.Drawing.Font("Consolas", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblBar.Location = new System.Drawing.Point(112, 0);
+			this.lblBar.Font = new System.Drawing.Font("Arial", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblBar.Location = new System.Drawing.Point(136, 0);
 			this.lblBar.Name = "lblBar";
-			this.lblBar.Size = new System.Drawing.Size(100, 23);
+			this.lblBar.Size = new System.Drawing.Size(24, 24);
 			this.lblBar.TabIndex = 0;
+			this.lblBar.Text = "100";
 			this.lblBar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// pictureBox1
 			// 
-			this.pictureBox1.Image = global::App.Common.Resource1.progressbar2;
+			this.pictureBox1.Image = global::App.Common.Resource1.progressbar6a;
 			this.pictureBox1.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Size = new System.Drawing.Size(152, 24);
@@ -68,8 +69,8 @@ namespace App.Common
 			// 
 			// pictureBox2
 			// 
-			this.pictureBox2.Image = global::App.Common.Resource1.progressbar12;
-			this.pictureBox2.Location = new System.Drawing.Point(0, 0);
+			this.pictureBox2.Image = global::App.Common.Resource1.progressbar6b;
+			this.pictureBox2.Location = new System.Drawing.Point(32, 0);
 			this.pictureBox2.Name = "pictureBox2";
 			this.pictureBox2.Size = new System.Drawing.Size(80, 24);
 			this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -80,9 +81,9 @@ namespace App.Common
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.lblBar);
 			this.Controls.Add(this.pictureBox2);
 			this.Controls.Add(this.pictureBox1);
+			this.Controls.Add(this.lblBar);
 			this.Name = "JProgressBar";
 			this.Size = new System.Drawing.Size(163, 26);
 			this.SizeChanged += new System.EventHandler(this.JProgressBarSizeChanged);
