@@ -276,7 +276,7 @@ namespace Control.Eide
 						        hWnd = pr.MainWindowHandle.ToInt32();
 						        embedHwd = hWnd;
 						        ShowWindow(hWnd, SW_HIDE);
-								return
+						        return;
 						    }
 						}
 						break;

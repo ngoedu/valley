@@ -63,9 +63,19 @@ namespace Control.Profile {
 		/// <summary>
 		///   Looks up a localized resource of type System.Drawing.Bitmap.
 		/// </summary>
-		internal static System.Drawing.Bitmap Profile {
+		internal static System.Drawing.Bitmap profile_t2 {
 			get {
-				object obj = ResourceManager.GetObject("Profile", resourceCulture);
+				object obj = ResourceManager.GetObject("profile-t2", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap profile_t3 {
+			get {
+				object obj = ResourceManager.GetObject("profile-t3", resourceCulture);
 				return ((System.Drawing.Bitmap)(obj));
 			}
 		}

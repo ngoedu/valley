@@ -51,9 +51,9 @@ namespace Control.Toolbar
 			// pictureBox1
 			// 
 			this.pictureBox1.Image = global::Control.Toolbar.Resource1.select_course2;
-			this.pictureBox1.Location = new System.Drawing.Point(24, 6);
+			this.pictureBox1.Location = new System.Drawing.Point(26, 10);
 			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(68, 68);
+			this.pictureBox1.Size = new System.Drawing.Size(62, 62);
 			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox1.TabIndex = 0;
 			this.pictureBox1.TabStop = false;

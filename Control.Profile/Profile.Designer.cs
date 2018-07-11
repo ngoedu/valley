@@ -59,10 +59,10 @@ namespace Control.Profile
 			// 
 			// pictureBox1
 			// 
-			this.pictureBox1.Image = global::Control.Profile.Resource1.Profile;
-			this.pictureBox1.Location = new System.Drawing.Point(8, 10);
+			this.pictureBox1.Image = global::Control.Profile.Resource1.profile_t3;
+			this.pictureBox1.Location = new System.Drawing.Point(24, 15);
 			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(72, 72);
+			this.pictureBox1.Size = new System.Drawing.Size(60, 60);
 			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox1.TabIndex = 2;
 			this.pictureBox1.TabStop = false;

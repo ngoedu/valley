@@ -96,7 +96,7 @@ namespace App.Mediator
 		public void FormLoaded()
 		{
 			jProfile.SetName("070718A001");
-			jProfile.SetEnergy(90);
+			jProfile.SetEnergy(85);
 			
 			courseLib.InitCourseLib();
 			courseLib.Visible = false;

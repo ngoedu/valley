@@ -19,7 +19,7 @@ namespace Control.Toolbar
 	public partial class JToolbar : UserControl, IToolbar
 	{
 		private IToolBarCallback callback;
-		private int origWidth,origHeight;
+		private int origWidth1,origHeight1,origWidth2,origHeight2;
 		public JToolbar(IToolBarCallback cb)
 		{
 			//
@@ -29,9 +29,11 @@ namespace Control.Toolbar
 			
 			this.callback = cb;
 			
-			BackColor = Color.FromArgb(39, 113,143);
-			origWidth = pictureBox2.Width;
-			origHeight = pictureBox2.Height;
+			BackColor = Color.FromArgb(28,80,102);
+			origWidth1 = pictureBox1.Width;
+			origHeight1 = pictureBox1.Height;
+			origWidth2 = pictureBox2.Width;
+			origHeight2 = pictureBox2.Height;
 		}
 		
 		
@@ -55,8 +57,8 @@ namespace Control.Toolbar
 		}
 		void JToolbarMouseLeave(object sender, EventArgs e)
 		{
-			pictureBox2.Width =origWidth ;
-			pictureBox2.Height =origHeight;
+			pictureBox2.Width =origWidth2 ;
+			pictureBox2.Height =origHeight2;
 		}
 		void PictureBox1MouseEnter(object sender, EventArgs e)
 		{
@@ -65,8 +67,8 @@ namespace Control.Toolbar
 		}
 		void PictureBox1MouseLeave(object sender, EventArgs e)
 		{
-			pictureBox1.Width =origWidth ;
-			pictureBox1.Height =origHeight;
+			pictureBox1.Width =origWidth1 ;
+			pictureBox1.Height =origHeight1;
 	
 		}
 		#endregion Icon effect

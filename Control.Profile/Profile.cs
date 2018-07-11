@@ -25,7 +25,7 @@ namespace Control.Profile
 			//
 			InitializeComponent();
 			
-			BackColor = Color.FromArgb(39, 113,143);
+			BackColor = Color.FromArgb(28,80,102);//39, 113,143);
 			
 		}
 		
