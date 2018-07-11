@@ -27,9 +27,9 @@ namespace App.Mediator
 	public class SimpleMediator : IMediator
 	{
 		private Form mainForm;
+		private string codeBase;
 		
-		private GifControl gif = new GifControl(@"D:\NGO\design\Resources\moon-animation24.gif");
-		
+		private GifControl gif;
 		
 		private readonly ChromiumWebBrowser browser;
 		private JToolbar jToolBar;
@@ -47,15 +47,17 @@ namespace App.Mediator
 		public SimpleMediator(Form mf)
 		{
 			this.mainForm = mf;
+			this.codeBase = CodeBase.GetCodePath();
 			
 			//try clean all stale process. e.g. eide, bridge
 			PidRecorder.Instance.CleanOldProcess();
 			
-			//gif background
+			//add animation background gif
+			gif = new GifControl(this.codeBase+@"\res\anim1.gif");
 			this.mainForm.Controls.Add(gif);
 			
 			//startup the bridge first. block current thread until done.
-			bridge = new AetherBridge(60001, this, PidRecorder.Instance, @"D:\NGO\client\jre", @"D:\NGO\client\aether\dist");
+			bridge = new AetherBridge(60001, this, PidRecorder.Instance, this.codeBase +@"\jre", this.codeBase+@"\aether\dist");
 			bridge.Startup();
 			bridgeDone.WaitOne();
 			System.Diagnostics.Debug.WriteLine("bridge initialized.");
@@ -79,12 +81,13 @@ namespace App.Mediator
 			jToolBar.TabIndex = 1;
 			mainForm.Controls.Add(jToolBar);
 			
+			
 			//init forms
 			courseLib = new CourseLib(browser);
 			mainForm.Controls.Add(courseLib);
 			courseLib.Visible = false;
 					
-			coursePlay =  new CoursePlay(browser);
+			coursePlay =  new CoursePlay(browser, this.codeBase);
 			mainForm.Controls.Add(coursePlay);
 			coursePlay.Visible = true;		
 		}
@@ -110,6 +113,10 @@ namespace App.Mediator
 			aetherClient.SendData("$EXIT", 9);
 			clientDone.WaitOne();
 			System.Diagnostics.Debug.WriteLine("EIDE closed.");
+			
+			
+			//disconnect endpoint
+			aetherClient.Disconnect();
 			
 			//shutdown bridge
 			bridge.Shutdown();
