@@ -22,12 +22,15 @@ var MAINUI = (function() {
 			var ahref = $("<a/>",{id:"category"+i,href:"javascript:void(0);",text:obj.name});
 			$(li).append(ahref);
 			var mid = obj.mid;
-			$(ahref).on( "click", { name: mid}, showup );
+			$(ahref).on( "click", { name: mid, oid: "category"+i}, showup );
 		}
 	}
 	
 	function showup( event ) {
 	  ROLL.markChild(event.data.name);
+	  //alert("event.data.oid="+event.data.oid);
+	  $(".course-item").removeClass("course-selected");
+	  $("#"+event.data.oid).parent().addClass("course-selected");
 	  listCourses(event.data.name,'course_desc');
 	}
 	

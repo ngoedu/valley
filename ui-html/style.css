@@ -9,13 +9,14 @@ body {-webkit-user-select: none;  background:#3c3c3c; margin:4 4 4 4; font-famil
 .selection .navigate .course-list ul {list-style-type: none; margin: 0px; padding: 0px; }
 .selection .navigate .course-list ul li { font-size: 19px; line-height: 70px; height: 70px; text-align: center; background-color: #f2f2f2;}
 .selection .navigate .course-list ul li:hover  {background-color: #636466;}
+.course-selected {border: 2px solid #000; background-color: #636466 !important;}
+
 .selection .navigate .course-list ul li a{text-decoration:none; color:black;}
 .selection .details {width:100%;  height: 51%;  margin-top:6px;background-color: #474545;}
 .selection .details  .summary {text-align:center;font-size: 19px;float:left;width:16%; margin-right:8px;height: 100%; background-color: #05b5db;}
 .selection .details  .desc {overflow-y:scroll; float:left;width:83.1%; height: 100%;}
-.selection .details  .desc  div {width:98%; background-color:#05b5db; padding:5 5 5 5;}
+.selection .details  .desc  div {font-size: 18px; width:98%; background-color:#05b5db; padding:5 5 5 5;}
 .selection .details  .desc  div:hover {background-color:#474545; color:#eae4df}
-.selection .details  .desc  div span {font-size: 19px;}
 .selection .details  .desc  div a {display:inline-block; padding:2 6 2 6;height: 26px; text-decoration: none; color:eae4df;border: 2px solid #eae4df;}
 
 .preview {float: left; width:48.88%; height: 100%; margin-left:6px; background-color: #474545;}
