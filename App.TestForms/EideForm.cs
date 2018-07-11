@@ -21,7 +21,7 @@ namespace AppTestForms
 	public partial class EideForm : Form
 	{
 		
-		JEide ide = new JEide("NgoEclipse", PidRecorder.Instance);
+		JEide ide = new JEide("NgoEclipse", @"d:\NGO\client", PidRecorder.Instance);
 		
 		public EideForm()
 		{

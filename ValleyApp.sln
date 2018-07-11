@@ -4,8 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # SharpDevelop 5.1
 VisualStudioVersion = 12.0.20827.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCodeRec", "XCodeRec\XCodeRec.csproj", "{00801848-0520-4F25-AF30-9ABE6A655167}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Protocal.AEther", "Protocal.AEther\Protocal.AEther.csproj", "{AC9264E3-925E-4090-877E-457A45A10456}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.TestForms", "App.TestForms\App.TestForms.csproj", "{AA5018A6-C6EE-41D9-A6E2-FDEB16B39856}"
@@ -52,10 +50,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{00801848-0520-4F25-AF30-9ABE6A655167}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00801848-0520-4F25-AF30-9ABE6A655167}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00801848-0520-4F25-AF30-9ABE6A655167}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00801848-0520-4F25-AF30-9ABE6A655167}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AC9264E3-925E-4090-877E-457A45A10456}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AC9264E3-925E-4090-877E-457A45A10456}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC9264E3-925E-4090-877E-457A45A10456}.Release|Any CPU.ActiveCfg = Release|Any CPU
