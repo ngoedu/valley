@@ -10,26 +10,31 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using App.Common.Callback;
+using System.Management;
 
 namespace App.Common.Impl
 {
 	/// <summary>
 	/// Singleton of PidRecorder.
 	/// </summary>
-	public sealed class PidRecorder :  IPidCallback, IPidCleaner
+	public sealed class PidRecorder :  IPidCallback
 	{
 	    private static readonly Lazy<PidRecorder> lazy =
 	        new Lazy<PidRecorder>(() => new PidRecorder());
 	    
 	    public static PidRecorder Instance { get { return lazy.Value; } }
 	
-	    private string pidFile = @"D:\NGO\client\pad\src\valley\App.Dashboard\bin\Debug\pid";
+	    private string pidFile;
+	    
 	    private Dictionary<string, string> OLD_PIDS = new Dictionary<string, string>();
 	    private Dictionary<string, string> NEW_PIDS = new Dictionary<string, string>();
 	    
 	    private PidRecorder()
 	    {
+	    	pidFile = CodeBase.GetCodePath() + @"\pid";
+	    		
 	    	string pidData = System.IO.File.ReadAllText(pidFile);
 	    	if (string.IsNullOrEmpty(pidData))
 	    	    return;
@@ -45,24 +50,51 @@ namespace App.Common.Impl
 		public void PidCreated(string pName, int pid)
 		{
 			NEW_PIDS.Add(pName, pid.ToString());
+			System.IO.File.WriteAllText(pidFile, BuildPidInfo());
+		}
+		#endregion
+
+		
+		private string BuildPidInfo() {
 			string pidData = string.Empty;
 			foreach(var entry in NEW_PIDS) {
 				pidData += entry.Key+"="+entry.Value+System.Environment.NewLine;
 			}
-			System.IO.File.WriteAllText(pidFile, pidData);
+			return pidData;
 		}
-		#endregion
-
-		#region IPidCleaner implementation
-		public void KillProcessById(int pid)
+		
+		private bool IsExecutable(string path) {
+			string exePath = path.Replace("/", @"\");
+			string codeBase = CodeBase.GetCodePath();
+			return  (exePath.StartsWith(codeBase));
+			//UNCOMMENT IT WHEN GO-LIVE
+			//return exePath.Length > 0 && path.StartsWith(CodeBase.GetCodePath());
+		}
+		
+		static private string ProcessExecutablePath(Process process)
 		{
-			//kill java process
+			try	{
+				return process.MainModule.FileName;
+			}
+			catch {
+				//in windows 10, it's not allowed to access 64bit process from 32bit app.
+				return string.Empty;
+			}
+			return null;
+		}
+		
+		#region IPidCleaner implementation
+		public void KillProcessById(string pName, int pid)
+		{
+			//kill process
 			try {
-				Process p = Process.GetProcessById(pid);
-				if (p != null && !p.HasExited) {
-					p.Kill();
-					p.WaitForExit(); // possibly with a timeout
-					System.Diagnostics.Debug.WriteLine("pid={0} killed", pid);
+				if (Process.GetProcesses().Any(x => x.Id == pid)) {
+					Process p = Process.GetProcessById(pid);
+					if (p != null && !p.HasExited && IsExecutable(ProcessExecutablePath(p))) {
+						p.Kill();
+						p.WaitForExit(); // possibly with a timeout
+						System.Diagnostics.Debug.WriteLine("pid={0} killed", pid);
+					}
 				}
 			} catch (Win32Exception winException) {
 				// process was terminating or can't be terminated - deal with it
@@ -71,12 +103,16 @@ namespace App.Common.Impl
 				// process has already exited - might be able to let this one go
 				System.Diagnostics.Debug.WriteLine("pid={0} kill exception", invalidException.Message);
 			}
+			
+			//remove pid from cached file
+			NEW_PIDS.Remove(pName);
+			System.IO.File.WriteAllText(pidFile, BuildPidInfo());
 		}
 		
 		public void CleanOldProcess()
 		{
-			foreach(var entry in OLD_PIDS.Values) {
-				KillProcessById(Int16.Parse(entry));
+			foreach(var entry in OLD_PIDS) {
+				KillProcessById(entry.Key, Int16.Parse(entry.Value));
 			}
 		}
 		#endregion

@@ -73,6 +73,16 @@ namespace App.Common {
 		/// <summary>
 		///   Looks up a localized resource of type System.Drawing.Bitmap.
 		/// </summary>
+		internal static System.Drawing.Bitmap progressbar12 {
+			get {
+				object obj = ResourceManager.GetObject("progressbar12", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
 		internal static System.Drawing.Bitmap progressbar2 {
 			get {
 				object obj = ResourceManager.GetObject("progressbar2", resourceCulture);

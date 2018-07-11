@@ -68,7 +68,7 @@ namespace App.Common
 			// 
 			// pictureBox2
 			// 
-			this.pictureBox2.Image = global::App.Common.Resource1.progressbar1;
+			this.pictureBox2.Image = global::App.Common.Resource1.progressbar12;
 			this.pictureBox2.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox2.Name = "pictureBox2";
 			this.pictureBox2.Size = new System.Drawing.Size(80, 24);
