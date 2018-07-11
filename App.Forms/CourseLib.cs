@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using App.Common;
 using CefSharp.WinForms;
 using CefSharp;
 
@@ -40,11 +41,14 @@ namespace App.Forms
 			cefBrowser.Dock = DockStyle.Fill;
 			this.Controls.Add(cefBrowser);
 			
-			var webRoot = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-			//var webRoot = @"D:/NGO/client/pad/src/valley/ui-html";
-	
+			var webRoot = CodeBase.GetCodePath();
+			
+			#if (DIA_DEBUG)
+            webRoot =  @"D:/NGO/client/pad/src/valley";;
+			#endif
+			
 			//D:\NGO\client\pad\demo\CefSharp\CefSharp-master\CefSharp.WinForms.Example.BrowserForm
-			uiRoot = webRoot.Replace(@"\App.Dashboard\bin\Debug","") + @"/ui-html/ui.html";
+			uiRoot = webRoot + @"/ui-html/ui.html";
 		}
 
 		public void InitCourseLib()

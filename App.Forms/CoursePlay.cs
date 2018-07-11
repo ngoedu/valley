@@ -29,14 +29,15 @@ namespace App.Forms
 		private System.Windows.Forms.Panel panelLeft;
 		private JEide eide = null;
 		
-		public CoursePlay(ChromiumWebBrowser browser)
+		public CoursePlay(ChromiumWebBrowser browser, string codeBase)
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
 			
-			eide = new JEide("NgoEclipse", PidRecorder.Instance);
+			this.
+			eide = new JEide("NgoEclipse", codeBase, PidRecorder.Instance);
 			
 			this.cefBrowser = browser;
 			
