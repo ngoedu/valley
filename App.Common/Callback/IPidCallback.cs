@@ -13,7 +13,7 @@ namespace App.Common.Callback
 	/// <summary>
 	/// Description of IPidCallback.
 	/// </summary>
-	public interface IPidCallback
+	public interface IPidCallback : IPidCleaner
 	{
 		void PidCreated(string pName, int pid);
 	}

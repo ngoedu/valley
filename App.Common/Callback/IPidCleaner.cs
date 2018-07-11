@@ -15,7 +15,7 @@ namespace App.Common.Callback
 	/// </summary>
 	public interface IPidCleaner
 	{
-		void KillProcessById(int pid);
+		void KillProcessById(string pName, int pid);
 		
 		void CleanOldProcess();
 	}
