@@ -8,7 +8,7 @@
  */
 using System;
 
-namespace App.Common.Callback
+namespace App.Common.Proc
 {
 	/// <summary>
 	/// Description of IPidCallback.

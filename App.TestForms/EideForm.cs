@@ -9,8 +9,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using App.Common.Callback;
-using App.Common.Impl;
+using App.Common.Proc;
 using Control.Eide;
 
 namespace AppTestForms

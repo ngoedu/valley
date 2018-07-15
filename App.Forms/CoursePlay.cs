@@ -7,11 +7,9 @@
  * 
  */
 using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using App.Common.Callback;
-using App.Common.Impl;
+using App.Common.Proc;
 using CefSharp.WinForms;
 using CefSharp;
 using Control.Eide;

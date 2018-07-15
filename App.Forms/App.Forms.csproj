@@ -74,6 +74,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppTile.cs" />
+    <Compile Include="AppTile.Designer.cs">
+      <DependentUpon>AppTile.cs</DependentUpon>
+    </Compile>
     <Compile Include="CourseLib.cs" />
     <Compile Include="CourseLib.Designer.cs">
       <DependentUpon>CourseLib.cs</DependentUpon>

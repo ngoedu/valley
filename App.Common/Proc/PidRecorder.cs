@@ -11,10 +11,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using App.Common.Callback;
+using App.Common.Proc;
 using System.Management;
 
-namespace App.Common.Impl
+namespace App.Common.Proc
 {
 	/// <summary>
 	/// Singleton of PidRecorder.

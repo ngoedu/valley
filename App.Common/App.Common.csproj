@@ -65,19 +65,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Callback\IPidCallback.cs" />
-    <Compile Include="Callback\IPidCleaner.cs" />
-    <Compile Include="CodeBase.cs" />
-    <Compile Include="GifControl.cs" />
-    <Compile Include="GifControl.Designer.cs">
+    <Compile Include="Controls\GifControl.cs" />
+    <Compile Include="Controls\GifControl.Designer.cs">
       <DependentUpon>GifControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="GifImage.cs" />
-    <Compile Include="Impl\PidRecorder.cs" />
-    <Compile Include="JProgressBar.cs" />
-    <Compile Include="JProgressBar.Designer.cs">
+    <Compile Include="Controls\GifImage.cs" />
+    <Compile Include="Controls\JProgressBar.cs" />
+    <Compile Include="Controls\JProgressBar.Designer.cs">
       <DependentUpon>JProgressBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Hook\SystemHotKey.cs" />
+    <Compile Include="Proc\IPidCallback.cs" />
+    <Compile Include="Proc\IPidCleaner.cs" />
+    <Compile Include="CodeBase.cs" />
+    <Compile Include="Hook\HookKeyController.cs" />
+    <Compile Include="Hook\IHookKeyCallback.cs" />
+    <Compile Include="Hook\KeyboardHook.cs" />
+    <Compile Include="Proc\PidRecorder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource1.Designer.cs">
       <DependentUpon>Resource1.resx</DependentUpon>
@@ -85,10 +89,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GifControl.resx">
+    <EmbeddedResource Include="Controls\GifControl.resx">
       <DependentUpon>GifControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="JProgressBar.resx">
+    <EmbeddedResource Include="Controls\JProgressBar.resx">
       <DependentUpon>JProgressBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resource1.resx">
@@ -97,8 +101,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Callback" />
-    <Folder Include="Impl" />
+    <Folder Include="Controls" />
+    <Folder Include="Proc" />
+    <Folder Include="Hook" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

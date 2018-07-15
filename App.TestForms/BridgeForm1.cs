@@ -14,7 +14,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using App.Common.Impl;
+using App.Common.Proc;
 using Component.Bridge;
 
 namespace AppTestForms

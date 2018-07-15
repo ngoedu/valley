@@ -10,7 +10,8 @@ using System;
 using System.Windows.Forms;
 using System.Threading;
 using App.Common;
-using App.Common.Impl;
+using App.Common.Hook;
+using App.Common.Proc;
 using App.Forms;
 using CefSharp;
 using CefSharp.WinForms;
@@ -49,6 +50,10 @@ namespace App.Mediator
 		{
 			this.mainForm = mf;
 			this.codeBase = CodeBase.GetCodePath();
+			
+			//hook keys
+			//AppTile tile1 = new AppTile("Guilder", Keys.A);
+			//HookKeyController.Instance.Register(Keys.A, tile1);
 			
 			//try clean all stale process. e.g. eide, bridge
 			PidRecorder.Instance.CleanOldProcess();
@@ -97,7 +102,7 @@ namespace App.Mediator
 			mainForm.Controls.Add(webBrowser);
 			
 		}
-
+		
 		#region form event
 		public void FormLoaded()
 		{

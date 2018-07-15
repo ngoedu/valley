@@ -12,8 +12,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Diagnostics;
 using System.Threading;
-using App.Common.Callback;
-using App.Common.Impl;
+using App.Common.Proc;
 
 namespace Component.Bridge
 {

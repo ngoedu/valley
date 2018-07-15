@@ -13,8 +13,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
-using App.Common.Callback;
-using App.Common.Impl;
+using App.Common.Proc;
 
 namespace Control.Eide
 {
