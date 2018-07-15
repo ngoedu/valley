@@ -100,27 +100,25 @@ namespace App.Forms
 	internal class MenuHandler : IContextMenuHandler
 	   {
 		#region IContextMenuHandler implementation
-
-		public void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model)
+		public void OnBeforeContextMenu(CefSharp.IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model)
 		{
-			;
+			
 		}
 	
-		public bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags)
+		public bool OnContextMenuCommand(CefSharp.IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags)
 		{
 			return true;  
 		}
 	
-		public void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame)
+		public void OnContextMenuDismissed(CefSharp.IWebBrowser browserControl, IBrowser browser, IFrame frame)
 		{
-			;
+			
 		}
 	
-		public bool RunContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback)
+		public bool RunContextMenu(CefSharp.IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback)
 		{
-			return true;
+			return true;  
 		}
-	
 		#endregion
     }
 }
