@@ -18,5 +18,7 @@ namespace Control.Toolbar
 		void PlayCourseEntry();
 
 		void DisplayCourseLib();
+		
+		void DisplayWebBrowser();
 	}
 }

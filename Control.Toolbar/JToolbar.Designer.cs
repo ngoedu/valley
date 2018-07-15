@@ -18,6 +18,8 @@ namespace Control.Toolbar
 		private System.Windows.Forms.Label txtIcon1;
 		private System.Windows.Forms.PictureBox pictureBox2;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.PictureBox pictureBox3;
+		private System.Windows.Forms.Label label2;
 		
 		/// <summary>
 		/// Disposes resources used by the control.
@@ -44,8 +46,11 @@ namespace Control.Toolbar
 			this.txtIcon1 = new System.Windows.Forms.Label();
 			this.pictureBox2 = new System.Windows.Forms.PictureBox();
 			this.label1 = new System.Windows.Forms.Label();
+			this.pictureBox3 = new System.Windows.Forms.PictureBox();
+			this.label2 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// pictureBox1
@@ -94,11 +99,37 @@ namespace Control.Toolbar
 			this.label1.TabIndex = 3;
 			this.label1.Text = "编程";
 			// 
+			// pictureBox3
+			// 
+			this.pictureBox3.Image = global::Control.Toolbar.Resource1.chrome_a3;
+			this.pictureBox3.Location = new System.Drawing.Point(256, 12);
+			this.pictureBox3.Name = "pictureBox3";
+			this.pictureBox3.Size = new System.Drawing.Size(62, 62);
+			this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.pictureBox3.TabIndex = 4;
+			this.pictureBox3.TabStop = false;
+			this.pictureBox3.Click += new System.EventHandler(this.PictureBox3Click);
+			this.pictureBox3.MouseEnter += new System.EventHandler(this.PictureBox3MouseEnter);
+			this.pictureBox3.MouseHover += new System.EventHandler(this.PictureBox3MouseHover);
+			// 
+			// label2
+			// 
+			this.label2.BackColor = System.Drawing.Color.Transparent;
+			this.label2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
+			this.label2.Location = new System.Drawing.Point(268, 71);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(48, 18);
+			this.label2.TabIndex = 5;
+			this.label2.Text = "浏览器";
+			// 
 			// JToolbar
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+			this.Controls.Add(this.label2);
+			this.Controls.Add(this.pictureBox3);
 			this.Controls.Add(this.pictureBox2);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.txtIcon1);
@@ -108,6 +139,7 @@ namespace Control.Toolbar
 			this.MouseLeave += new System.EventHandler(this.JToolbarMouseLeave);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
 			this.ResumeLayout(false);
 
 		}
