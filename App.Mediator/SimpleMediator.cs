@@ -37,6 +37,7 @@ namespace App.Mediator
 
 		private CourseLib courseLib;
 		private CoursePlay coursePlay;
+		private JWebBrowser webBrowser;
 		
 		private AetherBridge bridge;
 		private ManualResetEvent bridgeDone = new ManualResetEvent(false);
@@ -89,7 +90,12 @@ namespace App.Mediator
 					
 			coursePlay =  new CoursePlay(browser, this.codeBase);
 			mainForm.Controls.Add(coursePlay);
-			coursePlay.Visible = true;		
+			coursePlay.Visible = true;	
+
+			webBrowser = new JWebBrowser(this.browser);
+			webBrowser.Visible = false;
+			mainForm.Controls.Add(webBrowser);
+			
 		}
 
 		#region form event
@@ -101,12 +107,14 @@ namespace App.Mediator
 			courseLib.InitCourseLib();
 			courseLib.Visible = false;
 			coursePlay.Visible = false;	
+			webBrowser.Visible = false;
 		}
 		public void FormClosed()
 		{
 			//hide
 			coursePlay.Visible = false;
 			courseLib.Visible = false;
+			webBrowser.Visible = false;
 			gif.Visible = true;
 			
 			//shutdown EIDE
@@ -150,6 +158,12 @@ namespace App.Mediator
 			coursePlay.Width = newWidth;
 			coursePlay.Height = newHeight - jToolBar.Height -4;
 			coursePlay.Top = 100;
+			
+			webBrowser.Width = newWidth;
+			webBrowser.Height = newHeight - jToolBar.Height -4;;
+			webBrowser.Top = 100;
+			webBrowser.Left = 0;
+			
 
 			gif.Width = 277;
 			gif.Height = 277;
@@ -163,6 +177,7 @@ namespace App.Mediator
 		public void DisplayCourseLib()
 		{
 			coursePlay.Visible = false;
+			webBrowser.Visible = false;
 			courseLib.Visible = true;
 			gif.Visible = false;
 			courseLib.LoadCourseLib();
@@ -171,8 +186,19 @@ namespace App.Mediator
 		{
 			coursePlay.Visible = true;
 			courseLib.Visible = false;
+			webBrowser.Visible = false;
 			gif.Visible = false;
 		}
+
+		public void DisplayWebBrowser()
+		{
+			gif.Visible = false;
+			coursePlay.Visible = false;
+			courseLib.Visible = false;
+			webBrowser.Visible = true;
+			webBrowser.LoadPage("");
+		}
+
 		#endregion toolbar callback
 		
 		#region bridge callback
@@ -209,13 +235,6 @@ namespace App.Mediator
 				clientDone.Set();
 		}
 		#endregion aether endpoint callback
-		
-		//https://stackoverflow.com/questions/1199571/how-to-hide-file-in-c
-		/*void loadVideo()
-		{
-			var html = @"<!DOCTYPE html>";
-			CefSharp.WebBrowserExtensions.LoadHtml(browser,html,"http://localhost/test.html");
-		}*/
 
 	}
 }
