@@ -15,6 +15,6 @@ namespace App.Common.Hook
 	/// </summary>
 	public interface IHookKeyCallback
 	{
-		void OnKey(int keyCode);
+		void OnHotKey(int keyCode);
 	}
 }

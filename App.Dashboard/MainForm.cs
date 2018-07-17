@@ -9,6 +9,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using App.Common.Hook;
 using App.Mediator;
 
 
@@ -36,7 +37,7 @@ namespace App.Dashboard
 			
 			//init mediator
 			mediator = new SimpleMediator(this);
-		}
+		} 
 
 		void MainFormResize(object sender, EventArgs e)
 		{
@@ -61,5 +62,34 @@ namespace App.Dashboard
 
             Environment.Exit(0); //this works like a charm
 		}
+		
+		
+		private const int WM_HOTKEY = 0x312; //窗口消息：热键
+        private const int WM_CREATE = 0x1; //窗口消息：创建
+        private const int WM_DESTROY = 0x2; //窗口消息：销毁
+
+        private const int HotKeyID = 1; //热键ID（自定义）
+
+        protected override void WndProc(ref Message msg)
+        {
+            base.WndProc(ref msg);
+            switch (msg.Msg)
+            {
+                case WM_HOTKEY: //窗口消息：热键
+                    int tmpWParam = msg.WParam.ToInt32();
+                    if (HookKeyController.Instance.IsHotKeyTriggered(tmpWParam)){
+                    	HookKeyController.Instance.DispatchHotKeyEvent(tmpWParam);
+                    }
+                    break;
+                case WM_CREATE: //窗口消息：创建
+                    HookKeyController.Instance.RegisterHotKey(this.Handle);
+                    break;
+                case WM_DESTROY: //窗口消息：销毁
+                    HookKeyController.Instance.UnRegisterHotKey(this.Handle);
+                    break;
+                default:
+                    break;
+            }
+        }
 	}
 }

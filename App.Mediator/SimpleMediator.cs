@@ -7,6 +7,8 @@
  * 
  */
 using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Threading;
 using App.Common;
@@ -25,8 +27,10 @@ namespace App.Mediator
 	/// <summary>
 	/// Description of SimpleMediator.
 	/// </summary>
-	public class SimpleMediator : IMediator
+	public class SimpleMediator : IMediator, ITileManager
 	{
+		private Dictionary<int, IAppTile> TILES = new Dictionary<int, IAppTile>();
+		
 		private Form mainForm;
 		private string codeBase;
 		
@@ -52,15 +56,20 @@ namespace App.Mediator
 			this.codeBase = CodeBase.GetCodePath();
 			
 			//hook keys
-			//AppTile tile1 = new AppTile("Guilder", Keys.A);
-			//HookKeyController.Instance.Register(Keys.A, tile1);
+			AppTile tile1 = new AppTile("Guilder", 1, new Rectangle(100,250,300,260), new Rectangle(100,250,300,260), this);
+			HookKeyController.Instance.RegisterCallback(1, tile1);
+			mainForm.Controls.Add(tile1);
+			
+			AppTile tile2 = new AppTile("Video", 2, new Rectangle(500,250,300,260), new Rectangle(500,250,300,260), this);
+			HookKeyController.Instance.RegisterCallback(2, tile2);
+			mainForm.Controls.Add(tile2);
+			
+			TILES.Add(1, tile1);
+			TILES.Add(2, tile2);
+			
 			
 			//try clean all stale process. e.g. eide, bridge
 			PidRecorder.Instance.CleanOldProcess();
-			
-			//add animation background gif
-			gif = new GifControl(this.codeBase+@"\res\anim1.gif");
-			this.mainForm.Controls.Add(gif);
 			
 			//startup the bridge first. block current thread until done.
 			bridge = new AetherBridge(60001, this, PidRecorder.Instance, this.codeBase +@"\jre", this.codeBase+@"\aether\dist");
@@ -88,19 +97,6 @@ namespace App.Mediator
 			mainForm.Controls.Add(jToolBar);
 			
 			
-			//init forms
-			courseLib = new CourseLib(browser);
-			mainForm.Controls.Add(courseLib);
-			courseLib.Visible = false;
-					
-			coursePlay =  new CoursePlay(browser, this.codeBase);
-			mainForm.Controls.Add(coursePlay);
-			coursePlay.Visible = true;	
-
-			webBrowser = new JWebBrowser(this.browser);
-			webBrowser.Visible = false;
-			mainForm.Controls.Add(webBrowser);
-			
 		}
 		
 		#region form event
@@ -109,36 +105,20 @@ namespace App.Mediator
 			jProfile.SetName("070718A001");
 			jProfile.SetEnergy(85);
 			
-			courseLib.InitCourseLib();
-			courseLib.Visible = false;
-			coursePlay.Visible = false;	
-			webBrowser.Visible = false;
 		}
 		public void FormClosed()
 		{
-			//hide
-			coursePlay.Visible = false;
-			courseLib.Visible = false;
-			webBrowser.Visible = false;
-			gif.Visible = true;
 			
 			//shutdown EIDE
-			aetherClient.SendData("$EXIT", 9);
-			clientDone.WaitOne();
-			System.Diagnostics.Debug.WriteLine("EIDE closed.");
-			
+			//aetherClient.SendData("$EXIT", 9);
+			//clientDone.WaitOne();
+			//System.Diagnostics.Debug.WriteLine("EIDE closed.");
 			
 			//disconnect endpoint
 			aetherClient.Disconnect();
 			
 			//shutdown bridge
 			bridge.Shutdown();
-
-			//form dispose
-			if (coursePlay != null)
-				coursePlay.Dispose();
-			if (courseLib != null)
-				/*courseLib.Dispose();*/	//this may break the app when exit, why?
 			
 			//cefSharp dispose				
 			browser.Dispose();
@@ -154,56 +134,38 @@ namespace App.Mediator
 			jToolBar.Top = 0;
 			jToolBar.Left = 300;
 			jToolBar.Width = newWidth - 300;
-			jToolBar.Height = 100;
-			
-			courseLib.Width = newWidth;
-			courseLib.Height = newHeight - jToolBar.Height - 4;
-			courseLib.Top = 100;
-			
-			coursePlay.Width = newWidth;
-			coursePlay.Height = newHeight - jToolBar.Height -4;
-			coursePlay.Top = 100;
-			
-			webBrowser.Width = newWidth;
-			webBrowser.Height = newHeight - jToolBar.Height -4;;
-			webBrowser.Top = 100;
-			webBrowser.Left = 0;
-			
-
-			gif.Width = 277;
-			gif.Height = 277;
-			gif.Top = (newHeight - gif.Height) / 2;
-			gif.Left = (newWidth  - gif.Width) / 2;
-						
+			jToolBar.Height = 100;		
 		}
 		#endregion form events
 
 		#region toolbar callback
 		public void DisplayCourseLib()
 		{
-			coursePlay.Visible = false;
-			webBrowser.Visible = false;
-			courseLib.Visible = true;
-			gif.Visible = false;
-			courseLib.LoadCourseLib();
+
 		}
 		public void PlayCourseEntry()
 		{
-			coursePlay.Visible = true;
-			courseLib.Visible = false;
-			webBrowser.Visible = false;
-			gif.Visible = false;
+
 		}
 
 		public void DisplayWebBrowser()
 		{
-			gif.Visible = false;
-			coursePlay.Visible = false;
-			courseLib.Visible = false;
-			webBrowser.Visible = true;
-			webBrowser.LoadPage("");
+
 		}
 
+		#region ITileManager implementation
+		public void ActiveTile(int index)
+		{
+			foreach(var tile in TILES)
+			{	
+				if (tile.Value.GetHotKeyId() == index)
+					tile.Value.Deactive();
+				else
+					tile.Value.Active();
+			}
+		}
+		#endregion
+		
 		#endregion toolbar callback
 		
 		#region bridge callback
