@@ -56,11 +56,11 @@ namespace App.Mediator
 			this.codeBase = CodeBase.GetCodePath();
 			
 			//hook keys
-			AppTile tile1 = new AppTile("Guilder", 1, new Rectangle(100,250,300,260), new Rectangle(100,250,300,260), this);
+			AppTile tile1 = new AppTile("Guilder", 1, new Rectangle(50,130,1800,860), new Rectangle(100,250,300,260), this);
 			HookKeyController.Instance.RegisterCallback(1, tile1);
 			mainForm.Controls.Add(tile1);
 			
-			AppTile tile2 = new AppTile("Video", 2, new Rectangle(500,250,300,260), new Rectangle(500,250,300,260), this);
+			AppTile tile2 = new AppTile("Video", 2, new Rectangle(50,130,1800,860), new Rectangle(500,250,300,260), this);
 			HookKeyController.Instance.RegisterCallback(2, tile2);
 			mainForm.Controls.Add(tile2);
 			
@@ -158,10 +158,15 @@ namespace App.Mediator
 		{
 			foreach(var tile in TILES)
 			{	
-				if (tile.Value.GetHotKeyId() == index)
+				if (tile.Value.GetHotKeyId() != index) {
 					tile.Value.Deactive();
-				else
+					tile.Value.Minimized();
+				}
+				else {
 					tile.Value.Active();
+					tile.Value.Maxmized();
+				}
+					
 			}
 		}
 		#endregion

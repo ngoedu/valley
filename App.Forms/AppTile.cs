@@ -23,7 +23,10 @@ namespace App.Forms
 		private int hotKey;
 		private Rectangle maxSize, normalSize;
 		private ITileManager tileManager;
+		private TileStatus status;
 		
+		public enum TileStatus { Min = 0, Max = 1}
+	
 		public AppTile(string name, int key, Rectangle max, Rectangle normal, ITileManager tileManager)
 		{
 			//
@@ -39,7 +42,7 @@ namespace App.Forms
 			
 			this.lblName.Text = this.tileName;
 			
-			Maxmized();	
+			Minimized();	
 		}
 
 		public int GetHotKeyId()
@@ -54,36 +57,45 @@ namespace App.Forms
 
 		public void OnHotKey(int keyCode)
 		{
-			//MessageBox.Show(tileName + " hot key trigger "+keyCode.ToString());
-			this.tileManager.ActiveTile(keyCode);
+			if (this.status == TileStatus.Max) {
+				this.Minimized();
+			} else {
+				this.tileManager.ActiveTile(keyCode);
+			}		
 		}
 
 		public void Active()
 		{
+			this.BringToFront();
 			this.BackColor = Color.DeepSkyBlue;
 		}
 
 		public void Deactive()
 		{
+			this.SendToBack();
 			this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-		}
-
-		public void Maxmized()
-		{
-			this.Width = normalSize.Width;
-			this.Height = normalSize.Height;
 		}
 
 		public void Minimized()
 		{
+			this.Top = normalSize.Top;
+			this.Left = normalSize.Left;
+			this.Width = normalSize.Width;
+			this.Height = normalSize.Height;
+			this.status = TileStatus.Min;
+		}
+
+		public void Maxmized()
+		{
+			this.Top = maxSize.Top;
+			this.Left = maxSize.Left;
 			this.Width = maxSize.Width;
 			this.Height = maxSize.Height;
+			this.status = TileStatus.Max;
 		}
+		
 		void AppTileSizeChanged(object sender, EventArgs e)
 		{
-			this.Left = normalSize.Left;
-			this.Top = normalSize.Top;
-			
 			int titleHeight = 30;
 			this.pContent.Top = titleHeight;
 			this.pContent.Left = 0;
@@ -98,6 +110,17 @@ namespace App.Forms
 		void AppTileLeave(object sender, EventArgs e)
 		{
 			this.Deactive();
+		}
+		void AppTileLoad(object sender, EventArgs e)
+		{
+	
+		}
+		void AppTileDoubleClick(object sender, EventArgs e)
+		{
+			if (this.status == TileStatus.Min)
+				this.Maxmized();
+			else
+				this.Minimized();
 		}
 		
 		#endregion

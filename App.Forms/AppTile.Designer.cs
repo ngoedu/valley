@@ -53,10 +53,10 @@ namespace App.Forms
 			// lblName
 			// 
 			this.lblName.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblName.ForeColor = System.Drawing.Color.Transparent;
+			this.lblName.ForeColor = System.Drawing.Color.WhiteSmoke;
 			this.lblName.Location = new System.Drawing.Point(8, 8);
 			this.lblName.Name = "lblName";
-			this.lblName.Size = new System.Drawing.Size(116, 16);
+			this.lblName.Size = new System.Drawing.Size(72, 16);
 			this.lblName.TabIndex = 1;
 			// 
 			// AppTile
@@ -70,21 +70,7 @@ namespace App.Forms
 			this.Name = "AppTile";
 			this.Size = new System.Drawing.Size(360, 228);
 			this.SizeChanged += new System.EventHandler(this.AppTileSizeChanged);
-			this.Enter += new System.EventHandler(this.AppTileEnter);
-			this.Leave += new System.EventHandler(this.AppTileLeave);
-			this.ResumeLayout(false);
-
-			// AppTile
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.Controls.Add(this.lblName);
-			this.Controls.Add(this.pContent);
-			this.Name = "AppTile";
-			this.Size = new System.Drawing.Size(360, 228);
-			this.SizeChanged += new System.EventHandler(this.AppTileSizeChanged);
+			this.DoubleClick += new System.EventHandler(this.AppTileDoubleClick);
 			this.Enter += new System.EventHandler(this.AppTileEnter);
 			this.Leave += new System.EventHandler(this.AppTileLeave);
 			this.ResumeLayout(false);
