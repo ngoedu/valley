@@ -67,9 +67,6 @@ namespace App.Dashboard
 		private const int WM_HOTKEY = 0x312; //窗口消息：热键
         private const int WM_CREATE = 0x1; //窗口消息：创建
         private const int WM_DESTROY = 0x2; //窗口消息：销毁
-
-        private const int HotKeyID = 1; //热键ID（自定义）
-
         protected override void WndProc(ref Message msg)
         {
             base.WndProc(ref msg);

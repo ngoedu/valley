@@ -21,13 +21,12 @@ namespace App.Forms
 	{
 		private string tileName;
 		private int hotKey;
-		private Rectangle maxSize, normalSize;
 		private ITileManager tileManager;
 		private TileStatus status;
 		
-		public enum TileStatus { Min = 0, Max = 1}
+		public enum TileStatus { Min = 0, Max = 1, Lock = 2, Normal = 3}
 	
-		public AppTile(string name, int key, Rectangle max, Rectangle normal, ITileManager tileManager)
+		public AppTile(string name, int key, ITileManager tileManager)
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
@@ -37,9 +36,6 @@ namespace App.Forms
 			this.tileManager = tileManager;
 			this.tileName = name;
 			this.hotKey = key;
-			this.maxSize = max;
-			this.normalSize = normal;
-			
 			this.lblName.Text = this.tileName;
 			
 			Minimized();	
@@ -57,10 +53,15 @@ namespace App.Forms
 
 		public void OnHotKey(int keyCode)
 		{
-			if (this.status == TileStatus.Max) {
-				this.Minimized();
-			} else {
+			if (this.status == TileStatus.Lock) {
+				this.Active();
+				return;
+			} else if (this.status == TileStatus.Max) {
+				this.tileManager.DeactiveTile(keyCode);
+			} else if (this.status == TileStatus.Min) {
 				this.tileManager.ActiveTile(keyCode);
+			} else if (this.status == TileStatus.Normal){
+				this.tileManager.DeactiveTile(keyCode);
 			}		
 		}
 
@@ -72,26 +73,53 @@ namespace App.Forms
 
 		public void Deactive()
 		{
-			this.SendToBack();
 			this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
 		}
 
 		public void Minimized()
 		{
+			var minSize = tileManager.MinimizedSize(this.hotKey);
+			this.Top = minSize.Top;
+			this.Left = minSize.Left;
+			this.Width = minSize.Width;
+			this.Height = minSize.Height;
+			this.status = TileStatus.Min;
+			cbLock.Visible = false;
+		}
+
+		public void Normal()
+		{
+			var normalSize = tileManager.NormalSize();
 			this.Top = normalSize.Top;
 			this.Left = normalSize.Left;
 			this.Width = normalSize.Width;
 			this.Height = normalSize.Height;
-			this.status = TileStatus.Min;
+			this.status = TileStatus.Normal;
 		}
-
+		
+		public void Lock()
+		{
+			var lockSize = tileManager.LockedSize();
+			this.Top = lockSize.Top;
+			this.Left = lockSize.Left;
+			this.Width = lockSize.Width;
+			this.Height = lockSize.Height;
+			this.status = TileStatus.Lock;
+		}
+		
 		public void Maxmized()
 		{
+			var maxSize = tileManager.MaxmizedSize();
 			this.Top = maxSize.Top;
 			this.Left = maxSize.Left;
 			this.Width = maxSize.Width;
 			this.Height = maxSize.Height;
 			this.status = TileStatus.Max;
+			cbLock.Visible = true;
+		}
+		
+		public bool IsLocked() {
+			return this.status ==  TileStatus.Lock;
 		}
 		
 		void AppTileSizeChanged(object sender, EventArgs e)
@@ -117,12 +145,21 @@ namespace App.Forms
 		}
 		void AppTileDoubleClick(object sender, EventArgs e)
 		{
-			if (this.status == TileStatus.Min)
-				this.Maxmized();
-			else
-				this.Minimized();
+			this.OnHotKey(this.hotKey);
 		}
-		
+		void CheckBox1CheckedChanged(object sender, EventArgs e)
+		{
+			if (cbLock.Checked)
+				this.status = TileStatus.Lock;
+			else 
+				this.status = TileStatus.Max;
+		}
 		#endregion
+		
+		public override string ToString()
+		{
+			return string.Format("[AppTile TileName={0}, HotKey={1}, Status={2}]", tileName, hotKey, status);
+		}
+
 	}
 }

@@ -62,6 +62,7 @@ namespace Control.Toolbar
 			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox1.TabIndex = 0;
 			this.pictureBox1.TabStop = false;
+			this.pictureBox1.Visible = false;
 			this.pictureBox1.Click += new System.EventHandler(this.PictureBox1Click);
 			this.pictureBox1.MouseEnter += new System.EventHandler(this.PictureBox1MouseEnter);
 			this.pictureBox1.MouseLeave += new System.EventHandler(this.PictureBox1MouseLeave);
@@ -75,6 +76,7 @@ namespace Control.Toolbar
 			this.txtIcon1.Size = new System.Drawing.Size(48, 16);
 			this.txtIcon1.TabIndex = 1;
 			this.txtIcon1.Text = "选课";
+			this.txtIcon1.Visible = false;
 			// 
 			// pictureBox2
 			// 
@@ -85,6 +87,7 @@ namespace Control.Toolbar
 			this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox2.TabIndex = 2;
 			this.pictureBox2.TabStop = false;
+			this.pictureBox2.Visible = false;
 			this.pictureBox2.Click += new System.EventHandler(this.PictureBox2Click);
 			this.pictureBox2.MouseEnter += new System.EventHandler(this.PictureBox2MouseEnter);
 			// 
@@ -98,6 +101,7 @@ namespace Control.Toolbar
 			this.label1.Size = new System.Drawing.Size(48, 16);
 			this.label1.TabIndex = 3;
 			this.label1.Text = "编程";
+			this.label1.Visible = false;
 			// 
 			// pictureBox3
 			// 
@@ -108,6 +112,7 @@ namespace Control.Toolbar
 			this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox3.TabIndex = 4;
 			this.pictureBox3.TabStop = false;
+			this.pictureBox3.Visible = false;
 			this.pictureBox3.Click += new System.EventHandler(this.PictureBox3Click);
 			this.pictureBox3.MouseEnter += new System.EventHandler(this.PictureBox3MouseEnter);
 			this.pictureBox3.MouseHover += new System.EventHandler(this.PictureBox3MouseHover);
@@ -122,6 +127,7 @@ namespace Control.Toolbar
 			this.label2.Size = new System.Drawing.Size(48, 18);
 			this.label2.TabIndex = 5;
 			this.label2.Text = "浏览器";
+			this.label2.Visible = false;
 			// 
 			// JToolbar
 			// 

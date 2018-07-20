@@ -7,6 +7,7 @@
  * 
  */
 using System;
+using System.Drawing;
 
 namespace App.Forms
 {
@@ -15,6 +16,13 @@ namespace App.Forms
 	/// </summary>
 	public interface ITileManager
 	{
+		void BuildAppTiles(System.Windows.Forms.Form form);
 		void ActiveTile(int index);
+		void DeactiveTile(int index);
+		Rectangle MaxmizedSize();
+		Rectangle MinimizedSize(int tileId);
+		Rectangle NormalSize();
+		Rectangle LockedSize();
+		
 	}
 }

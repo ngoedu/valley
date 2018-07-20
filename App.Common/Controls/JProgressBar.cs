@@ -68,7 +68,7 @@ namespace App.Common
 			this.pictureBox1.Height = this.Height ;
 			
 			this.pictureBox2.Width = 1;
-			this.pictureBox2.Height = this.Height - 9 ;
+			this.pictureBox2.Height = this.Height - 8 ;
 		}
 	}
 }

@@ -23,7 +23,7 @@ namespace App.Common.Hook
 	/// </summary>
 	public class HookKeyController
 	{
-		private Dictionary<int, HotKeyEntry> REGISTORY;
+		private Dictionary<int, HotKeyEntry> REGISTORY = new Dictionary<int, HotKeyEntry>();
 		
 		private static readonly Lazy<HookKeyController> lazy =
 	        new Lazy<HookKeyController>(() => new HookKeyController());
@@ -33,17 +33,16 @@ namespace App.Common.Hook
 	    
 		private HookKeyController()
 		{
-			REGISTORY = new Dictionary<int, HotKeyEntry>();
 			REGISTORY.Add(1, new HotKeyEntry(1, Keys.F1, null));
 			REGISTORY.Add(2, new HotKeyEntry(2, Keys.F2, null));
-			/*REGISTORY.Add(3, new HotKeyEntry(1, Keys.F3, null));
-			REGISTORY.Add(4, new HotKeyEntry(1, Keys.F4, null));
-			REGISTORY.Add(5, new HotKeyEntry(1, Keys.F5, null));
-			REGISTORY.Add(6, new HotKeyEntry(1, Keys.F6, null));
-			REGISTORY.Add(7, new HotKeyEntry(1, Keys.F7, null));
-			REGISTORY.Add(8, new HotKeyEntry(1, Keys.F8, null));
-			REGISTORY.Add(9, new HotKeyEntry(1, Keys.F9, null));
-			REGISTORY.Add(10, new HotKeyEntry(1, Keys.F10, null));*/
+			REGISTORY.Add(3, new HotKeyEntry(3, Keys.F3, null));
+			/*REGISTORY.Add(4, new HotKeyEntry(4, Keys.F4, null));
+			REGISTORY.Add(5, new HotKeyEntry(5, Keys.F5, null));
+			REGISTORY.Add(6, new HotKeyEntry(6, Keys.F6, null));
+			REGISTORY.Add(7, new HotKeyEntry(7, Keys.F7, null));
+			REGISTORY.Add(8, new HotKeyEntry(8, Keys.F8, null));
+			REGISTORY.Add(9, new HotKeyEntry(9, Keys.F9, null));
+			REGISTORY.Add(10, new HotKeyEntry(10, Keys.F10, null));*/
 		}
 		
 		public bool IsHotKeyTriggered(int keyId) {

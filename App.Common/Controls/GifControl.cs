@@ -28,14 +28,16 @@ namespace App.Common
 			InitializeComponent();
 			
 			//a) Normal way
-			pictureBox1.Image = Image.FromFile(filePath);
+			pictureBox1.Image = global::App.Common.Resource1.animated_bg_2;//Image.FromFile(filePath);
 	
 	        //b) We control the animation
 	        gifImage = new GifImage(filePath);
 	        gifImage.ReverseAtEnd = false; //dont reverse at end
 	        
-	        timer1.Interval = 6000;
+	        timer1.Interval = 12000;
 	        timer1.Enabled = true;
+	        
+	        this.TabStop = false;
 		}
 		
 		

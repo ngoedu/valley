@@ -96,6 +96,7 @@
       <DependentUpon>Resource1.resx</DependentUpon>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="SimpleTileManager.cs" />
     <Compile Include="SyncLoader.cs" />
     <Compile Include="JWebBrowser.cs" />
     <Compile Include="JWebBrowser.Designer.cs">

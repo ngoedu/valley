@@ -51,7 +51,7 @@ namespace Control.Profile
 			// 
 			this.label1.Font = new System.Drawing.Font("微软雅黑", 8F);
 			this.label1.ForeColor = System.Drawing.SystemColors.Menu;
-			this.label1.Location = new System.Drawing.Point(96, 22);
+			this.label1.Location = new System.Drawing.Point(64, 14);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(56, 24);
 			this.label1.TabIndex = 0;
@@ -60,28 +60,28 @@ namespace Control.Profile
 			// pictureBox1
 			// 
 			this.pictureBox1.Image = global::Control.Profile.Resource1.profile_t3;
-			this.pictureBox1.Location = new System.Drawing.Point(24, 15);
+			this.pictureBox1.Location = new System.Drawing.Point(16, 13);
 			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(60, 60);
+			this.pictureBox1.Size = new System.Drawing.Size(40, 40);
 			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox1.TabIndex = 2;
 			this.pictureBox1.TabStop = false;
 			// 
 			// lblName
 			// 
-			this.lblName.Font = new System.Drawing.Font("Consolas", 9F);
+			this.lblName.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblName.ForeColor = System.Drawing.SystemColors.ButtonFace;
-			this.lblName.Location = new System.Drawing.Point(136, 22);
+			this.lblName.Location = new System.Drawing.Point(104, 14);
 			this.lblName.Name = "lblName";
 			this.lblName.Size = new System.Drawing.Size(100, 16);
 			this.lblName.TabIndex = 3;
 			// 
 			// jProgressBar1
 			// 
-			this.jProgressBar1.Location = new System.Drawing.Point(96, 48);
+			this.jProgressBar1.Location = new System.Drawing.Point(64, 32);
 			this.jProgressBar1.MaxValue = 100;
 			this.jProgressBar1.Name = "jProgressBar1";
-			this.jProgressBar1.Size = new System.Drawing.Size(144, 18);
+			this.jProgressBar1.Size = new System.Drawing.Size(144, 16);
 			this.jProgressBar1.TabIndex = 4;
 			// 
 			// Profile
@@ -94,7 +94,7 @@ namespace Control.Profile
 			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.label1);
 			this.Name = "Profile";
-			this.Size = new System.Drawing.Size(300, 88);
+			this.Size = new System.Drawing.Size(300, 62);
 			this.SizeChanged += new System.EventHandler(this.ProfileSizeChanged);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);

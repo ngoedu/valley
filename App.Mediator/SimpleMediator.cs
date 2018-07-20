@@ -12,14 +12,12 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Threading;
 using App.Common;
-using App.Common.Hook;
 using App.Common.Proc;
 using App.Forms;
 using CefSharp;
 using CefSharp.WinForms;
 using Component.Bridge;
 using Control.Profile;
-using Control.Toolbar;
 using NGO.Protocol.AEther;
 
 namespace App.Mediator
@@ -27,23 +25,18 @@ namespace App.Mediator
 	/// <summary>
 	/// Description of SimpleMediator.
 	/// </summary>
-	public class SimpleMediator : IMediator, ITileManager
+	public class SimpleMediator : IMediator
 	{
 		private Dictionary<int, IAppTile> TILES = new Dictionary<int, IAppTile>();
 		
 		private Form mainForm;
+		private Rectangle clientArea;
 		private string codeBase;
 		
 		private GifControl gif;
-		
 		private readonly ChromiumWebBrowser browser;
-		private JToolbar jToolBar;
 		private Profile jProfile;
 
-		private CourseLib courseLib;
-		private CoursePlay coursePlay;
-		private JWebBrowser webBrowser;
-		
 		private AetherBridge bridge;
 		private ManualResetEvent bridgeDone = new ManualResetEvent(false);
 		
@@ -52,24 +45,21 @@ namespace App.Mediator
 		
 		public SimpleMediator(Form mf)
 		{
-			this.mainForm = mf;
-			this.codeBase = CodeBase.GetCodePath();
-			
-			//hook keys
-			AppTile tile1 = new AppTile("Guilder", 1, new Rectangle(50,130,1800,860), new Rectangle(100,250,300,260), this);
-			HookKeyController.Instance.RegisterCallback(1, tile1);
-			mainForm.Controls.Add(tile1);
-			
-			AppTile tile2 = new AppTile("Video", 2, new Rectangle(50,130,1800,860), new Rectangle(500,250,300,260), this);
-			HookKeyController.Instance.RegisterCallback(2, tile2);
-			mainForm.Controls.Add(tile2);
-			
-			TILES.Add(1, tile1);
-			TILES.Add(2, tile2);
-			
-			
 			//try clean all stale process. e.g. eide, bridge
 			PidRecorder.Instance.CleanOldProcess();
+			
+			//init depandencies
+			this.clientArea = new Rectangle();
+			this.mainForm = mf;
+			this.codeBase = CodeBase.GetCodePath();
+
+			//gif
+			gif = new GifControl(this.codeBase + @"/res/anim-bg2.gif");
+			this.mainForm.Controls.Add(gif);
+			
+			
+			//create app tiles
+			SimpleTileManager.Instance.BuildAppTiles(this.mainForm);
 			
 			//startup the bridge first. block current thread until done.
 			bridge = new AetherBridge(60001, this, PidRecorder.Instance, this.codeBase +@"\jre", this.codeBase+@"\aether\dist");
@@ -88,15 +78,8 @@ namespace App.Mediator
 
 			//add profile
 			jProfile = new Profile();
-			jProfile.TabIndex = 0;
-			mainForm.Controls.Add(jProfile);
-			
-			//add toolbar
-			jToolBar = new JToolbar(this);
-			jToolBar.TabIndex = 1;
-			mainForm.Controls.Add(jToolBar);
-			
-			
+			jProfile.Enabled = false;
+			mainForm.Controls.Add(jProfile);	
 		}
 		
 		#region form event
@@ -124,17 +107,26 @@ namespace App.Mediator
 			browser.Dispose();
             Cef.Shutdown();
 		}	
+		
 		public void FormResized(int newHeight, int newWidth)
 		{
+			int headHeight = 62;
+			
+			clientArea.Width = newWidth;
+			clientArea.Height = newHeight;
+			clientArea.X = 0; 
+			clientArea.Y = 62;
+			
 			jProfile.Top = 0;
 			jProfile.Left = 0;
-			jProfile.Width = 300;
-			jProfile.Height = 100;
+			jProfile.Width = newWidth;
+			jProfile.Height = headHeight;
 			
-			jToolBar.Top = 0;
-			jToolBar.Left = 300;
-			jToolBar.Width = newWidth - 300;
-			jToolBar.Height = 100;		
+			gif.Enabled = true;
+			gif.ClientSize = clientArea.Size;
+			gif.Left = clientArea.X;
+			gif.Top = clientArea.Y;
+			gif.SendToBack();
 		}
 		#endregion form events
 
@@ -152,24 +144,6 @@ namespace App.Mediator
 		{
 
 		}
-
-		#region ITileManager implementation
-		public void ActiveTile(int index)
-		{
-			foreach(var tile in TILES)
-			{	
-				if (tile.Value.GetHotKeyId() != index) {
-					tile.Value.Deactive();
-					tile.Value.Minimized();
-				}
-				else {
-					tile.Value.Active();
-					tile.Value.Maxmized();
-				}
-					
-			}
-		}
-		#endregion
 		
 		#endregion toolbar callback
 		

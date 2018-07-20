@@ -21,6 +21,9 @@ namespace App.Forms
 		void Active();
 		void Deactive();
 		void Maxmized();
+		void Normal();
 		void Minimized();
+		void Lock();
+		bool IsLocked();
 	}
 }

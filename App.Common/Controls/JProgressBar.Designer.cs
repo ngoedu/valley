@@ -59,7 +59,7 @@ namespace App.Common
 			// 
 			// pictureBox1
 			// 
-			this.pictureBox1.Image = global::App.Common.Resource1.progressbar6a;
+			this.pictureBox1.Image = global::App.Common.Resource1.progressbar7a1;
 			this.pictureBox1.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Size = new System.Drawing.Size(152, 24);
@@ -69,7 +69,7 @@ namespace App.Common
 			// 
 			// pictureBox2
 			// 
-			this.pictureBox2.Image = global::App.Common.Resource1.progressbar6b;
+			this.pictureBox2.Image = global::App.Common.Resource1.progressbar7b;
 			this.pictureBox2.Location = new System.Drawing.Point(32, 0);
 			this.pictureBox2.Name = "pictureBox2";
 			this.pictureBox2.Size = new System.Drawing.Size(80, 24);

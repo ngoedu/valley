@@ -16,6 +16,7 @@ namespace App.Forms
 		private System.ComponentModel.IContainer components = null;
 		private System.Windows.Forms.Panel pContent;
 		private System.Windows.Forms.Label lblName;
+		private System.Windows.Forms.CheckBox cbLock;
 		
 		/// <summary>
 		/// Disposes resources used by the control.
@@ -40,6 +41,7 @@ namespace App.Forms
 		{
 			this.pContent = new System.Windows.Forms.Panel();
 			this.lblName = new System.Windows.Forms.Label();
+			this.cbLock = new System.Windows.Forms.CheckBox();
 			this.SuspendLayout();
 			// 
 			// pContent
@@ -54,10 +56,21 @@ namespace App.Forms
 			// 
 			this.lblName.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblName.ForeColor = System.Drawing.Color.WhiteSmoke;
-			this.lblName.Location = new System.Drawing.Point(8, 8);
+			this.lblName.Location = new System.Drawing.Point(24, 8);
 			this.lblName.Name = "lblName";
 			this.lblName.Size = new System.Drawing.Size(72, 16);
 			this.lblName.TabIndex = 1;
+			// 
+			// cbLock
+			// 
+			this.cbLock.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cbLock.ForeColor = System.Drawing.SystemColors.ButtonFace;
+			this.cbLock.Location = new System.Drawing.Point(8, 8);
+			this.cbLock.Name = "cbLock";
+			this.cbLock.Size = new System.Drawing.Size(56, 16);
+			this.cbLock.TabIndex = 2;
+			this.cbLock.UseVisualStyleBackColor = true;
+			this.cbLock.CheckedChanged += new System.EventHandler(this.CheckBox1CheckedChanged);
 			// 
 			// AppTile
 			// 
@@ -66,6 +79,7 @@ namespace App.Forms
 			this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.Controls.Add(this.lblName);
+			this.Controls.Add(this.cbLock);
 			this.Controls.Add(this.pContent);
 			this.Name = "AppTile";
 			this.Size = new System.Drawing.Size(360, 228);

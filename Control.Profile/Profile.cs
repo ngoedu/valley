@@ -40,7 +40,7 @@ namespace Control.Profile
 		
 		void ProfileSizeChanged(object sender, EventArgs e)
 		{
-			jProgressBar1.Height = 18;
+			jProgressBar1.Height = 16;
 		}
 	}
 }
