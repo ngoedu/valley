@@ -26,7 +26,7 @@ namespace App.Forms
 		
 		public enum TileStatus { Min = 0, Max = 1, Lock = 2, Normal = 3}
 	
-		public AppTile(string name, int key, ITileManager tileManager)
+		public AppTile(string name, int key, System.Windows.Forms.Control control, ITileManager tileManager)
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.

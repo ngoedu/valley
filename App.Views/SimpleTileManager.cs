@@ -37,30 +37,30 @@ namespace App.Forms
 		private SimpleTileManager()
 		{
 			Rectangle resolution = Screen.PrimaryScreen.Bounds;
-			Point maxPoint = new Point(50,100); 
-			Point normalPoint = new Point(40,100); 
-			Point lockedPoint = new Point(resolution.Width / 2 + 40,100); 
+			Point maxPoint = new Point(20,100); 
+			Point normalPoint = new Point(20,100); 
+			Point lockedPoint = new Point(resolution.Width / 2 + 10,100); 
 						
 			MINS.Add(1,new Rectangle(new Point(100,220),new Size(300, 260)));
 	    	MINS.Add(2,new Rectangle(new Point(500,220),new Size(300, 260)));
 	    	MINS.Add(3,new Rectangle(new Point(900,220),new Size(300, 260)));
 	    	
-	    	tileMaxSize = new Rectangle(maxPoint, new Size(resolution.Width - 80, resolution.Height - 200));
-	    	tileNormalSize = new Rectangle(normalPoint, new Size(resolution.Width / 2 - 80, resolution.Height - 200));
-	    	tileLockedSize = new Rectangle(lockedPoint, new Size(resolution.Width / 2 - 80, resolution.Height - 200));
+	    	tileMaxSize = new Rectangle(maxPoint, new Size(resolution.Width - 40, resolution.Height - 200));
+	    	tileNormalSize = new Rectangle(normalPoint, new Size(resolution.Width / 2 - 40, resolution.Height - 200));
+	    	tileLockedSize = new Rectangle(lockedPoint, new Size(resolution.Width / 2 - 40, resolution.Height - 200));
 		}
 
 		public void BuildAppTiles(System.Windows.Forms.Form mainForm)
 		{	
-			AppTile tile1 = new AppTile("Guilder", 1, this);
+			AppTile tile1 = new AppTile("Guilder", 1, null, this);
 			HookKeyController.Instance.RegisterCallback(1, tile1);
 			mainForm.Controls.Add(tile1);
 			
-			AppTile tile2 = new AppTile("Video", 2, this);
+			AppTile tile2 = new AppTile("Video", 2, null, this);
 			HookKeyController.Instance.RegisterCallback(2, tile2);
 			mainForm.Controls.Add(tile2);
 			
-			AppTile tile3 = new AppTile("EIDE", 3, this);
+			AppTile tile3 = new AppTile("EIDE", 3, null,  this);
 			HookKeyController.Instance.RegisterCallback(3, tile3);
 			mainForm.Controls.Add(tile3);
 					
