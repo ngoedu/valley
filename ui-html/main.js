@@ -1,5 +1,9 @@
 var MAINUI = (function() {
 	
+	function init() {
+		$('.modal').hide();
+	}
+	
 	function buildRollings(box)
 	{
 		var topic = JSON.parse(DATA.topic);	
@@ -60,7 +64,8 @@ var MAINUI = (function() {
 			$(div).append(ul);
 			
 			var hreftext = "";
-			var downloaded = callbackObj.getDownloaded();
+			var downloaded = CourseJScallback.getDownloaded();
+			//var downloaded = "cweb-A01";
 			if (downloaded.indexOf(obj.cid) != -1) {
 				hreftext = "预览";
 				var ahref = $("<a/>",{id:"id"+i,name:"btnPrev",href:"javascript:void(0);",text:hreftext});
@@ -74,17 +79,16 @@ var MAINUI = (function() {
 			}
 			
 			$('#'+box).append(div);
-			//alert("listCourses: div added");
 		}		
 	}
 	
 	function download(event) {
-		callbackObj.startDownload(event.data.name);
+		CourseJScallback.startDownload(event.data.name);
 	}
 		
 	function preview(event) {
 		var cid = event.data.name;
-		var prevSrc = callbackObj.getPreviewSrc(cid);
+		var prevSrc = CourseJScallback.getPreviewSrc(cid);
 		
 		$('#preview_box').children().remove();;
 		var iframe = $('<iframe>', {src: 'file:///'+prevSrc, frameborder: 0,  scrolling: 'no' });
@@ -94,13 +98,21 @@ var MAINUI = (function() {
 		//<iframe width="100%" height="100%" src="file:///D:/neverstop/tutorial/webClient/test2.html" frameborder="0" allowfullscreen></iframe>	
 	}
 	
+	function modalDialog() {
+		$('.modal').show();
+	}
+	
 	return {
+		init: init,
+		modalDialog : modalDialog,
 		listCourses: listCourses,
 		buildRollings: buildRollings,
 		buildCategory: buildCategory
 	};
 })();
 
+/*main entry*/
+MAINUI.init();
 MAINUI.buildCategory('categoryCanvas');
 MAINUI.buildRollings('rollingCanvas');
 ROLL.load('rollingCanvas');
