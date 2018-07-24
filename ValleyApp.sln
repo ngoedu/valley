@@ -6,7 +6,7 @@ VisualStudioVersion = 12.0.20827.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Protocal.AEther", "Protocal.AEther\Protocal.AEther.csproj", "{AC9264E3-925E-4090-877E-457A45A10456}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.TestForms", "App.TestForms\App.TestForms.csproj", "{AA5018A6-C6EE-41D9-A6E2-FDEB16B39856}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Forms", "App.TestForms\Test.Forms.csproj", "{AA5018A6-C6EE-41D9-A6E2-FDEB16B39856}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.DiffPatch", "Common.DiffPatch\Common.DiffPatch.csproj", "{4F7B6163-345B-4311-92DE-392963341AA3}"
 EndProject
@@ -38,7 +38,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Control.Profile", "Control.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.Bridge", "Component.Bridge\Component.Bridge.csproj", "{9A647F24-F0FC-4294-99CF-38D72B7A6ADB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Forms", "App.Forms\App.Forms.csproj", "{66EF4CF8-1381-4F24-B8FA-AD538AE011AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Views", "App.Views\App.Views.csproj", "{66EF4CF8-1381-4F24-B8FA-AD538AE011AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Mediator", "App.Mediator\App.Mediator.csproj", "{D209172F-8595-44CE-B9D7-13347AFDE663}"
 EndProject
