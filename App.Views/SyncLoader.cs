@@ -11,7 +11,7 @@ using System.Threading;
 using CefSharp.WinForms;
 using CefSharp;
 
-namespace App.Forms
+namespace App.Views
 {
 	/// <summary>
 	/// Description of SyncLoad.

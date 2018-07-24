@@ -15,7 +15,7 @@ using CefSharp;
 using Control.Eide;
 using NGO.Train;
 
-namespace App.Forms
+namespace App.Views
 {
 	/// <summary>
 	/// Description of CourseView.

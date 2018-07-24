@@ -12,7 +12,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using App.Common.Hook;
 
-namespace App.Forms
+namespace App.Views
 {
 	/// <summary>
 	/// Description of AppTile.
@@ -37,6 +37,7 @@ namespace App.Forms
 			this.tileName = name;
 			this.hotKey = key;
 			this.lblName.Text = this.tileName;
+			//this.BringToFront();
 			
 			Minimized();	
 		}

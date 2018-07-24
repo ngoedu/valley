@@ -9,7 +9,7 @@
 using System;
 using App.Common.Hook;
 
-namespace App.Forms
+namespace App.Views
 {
 	/// <summary>
 	/// Description of IAppTile.

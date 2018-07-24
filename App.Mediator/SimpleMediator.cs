@@ -13,7 +13,7 @@ using System.Windows.Forms;
 using System.Threading;
 using App.Common;
 using App.Common.Proc;
-using App.Forms;
+using App.Views;
 using CefSharp;
 using CefSharp.WinForms;
 using Component.Bridge;
@@ -34,7 +34,6 @@ namespace App.Mediator
 		private string codeBase;
 		
 		private GifControl gif;
-		private readonly ChromiumWebBrowser browser;
 		private Profile jProfile;
 
 		private AetherBridge bridge;
@@ -45,21 +44,13 @@ namespace App.Mediator
 		
 		public SimpleMediator(Form mf)
 		{
-			//try clean all stale process. e.g. eide, bridge
-			PidRecorder.Instance.CleanOldProcess();
-			
 			//init depandencies
 			this.clientArea = new Rectangle();
 			this.mainForm = mf;
 			this.codeBase = CodeBase.GetCodePath();
 
-			//gif
-			gif = new GifControl(this.codeBase + @"/res/anim-bg2.gif");
-			this.mainForm.Controls.Add(gif);
-			
-			
-			//create app tiles
-			SimpleTileManager.Instance.BuildAppTiles(this.mainForm);
+			//try clean all stale process. e.g. eide, bridge
+			PidRecorder.Instance.CleanOldProcess();
 			
 			//startup the bridge first. block current thread until done.
 			bridge = new AetherBridge(60001, this, PidRecorder.Instance, this.codeBase +@"\jre", this.codeBase+@"\aether\dist");
@@ -72,9 +63,12 @@ namespace App.Mediator
 			aetherClient.Connect("127.0.0.1", 60001);
 			clientDone.WaitOne();
 			System.Diagnostics.Debug.WriteLine("aether client initialized.");
+
 			
-			//the singleton instance of the CefSharp
-			browser = new ChromiumWebBrowser("");
+			//init required UI components
+			//background gif
+			//gif = new GifControl(this.codeBase + @"/res/anim-bg2.gif");
+			//this.mainForm.Controls.Add(gif);
 
 			//add profile
 			jProfile = new Profile();
@@ -85,8 +79,22 @@ namespace App.Mediator
 		#region form event
 		public void FormLoaded()
 		{
+			//check course learning status in order to determine showing the select course page or play course page.
+			
+			//1. in case no course selected or in progress, show course selection page.			
+			CourseForm form = new CourseForm();
+			if (form.ShowDialog() == DialogResult.OK)
+		    {
+		    	//course selected
+		    	
+		    	SimpleTileManager.Instance.BuildAppTiles(this.mainForm);
+		    }
+			
+			//init profile
 			jProfile.SetName("070718A001");
 			jProfile.SetEnergy(85);
+			
+			//init corresponding app tiles
 			
 		}
 		public void FormClosed()
@@ -103,8 +111,8 @@ namespace App.Mediator
 			//shutdown bridge
 			bridge.Shutdown();
 			
-			//cefSharp dispose				
-			browser.Dispose();
+			//cefSharp instances dispose explicitly				
+			JWebBrowser.Dispose();
             Cef.Shutdown();
 		}	
 		
@@ -122,11 +130,11 @@ namespace App.Mediator
 			jProfile.Width = newWidth;
 			jProfile.Height = headHeight;
 			
-			gif.Enabled = true;
-			gif.ClientSize = clientArea.Size;
-			gif.Left = clientArea.X;
-			gif.Top = clientArea.Y;
-			gif.SendToBack();
+//			gif.Enabled = true;
+//			gif.ClientSize = clientArea.Size;
+//			gif.Left = clientArea.X;
+//			gif.Top = clientArea.Y;
+//			gif.SendToBack();
 		}
 		#endregion form events
 

@@ -107,13 +107,13 @@
       <Project>{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}</Project>
       <Name>App.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\App.Forms\App.Forms.csproj">
-      <Project>{66EF4CF8-1381-4F24-B8FA-AD538AE011AF}</Project>
-      <Name>App.Forms</Name>
-    </ProjectReference>
     <ProjectReference Include="..\App.Mediator\App.Mediator.csproj">
       <Project>{D209172F-8595-44CE-B9D7-13347AFDE663}</Project>
       <Name>App.Mediator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\App.Views\App.Views.csproj">
+      <Project>{66EF4CF8-1381-4F24-B8FA-AD538AE011AF}</Project>
+      <Name>App.Views</Name>
     </ProjectReference>
     <ProjectReference Include="..\Component.Bridge\Component.Bridge.csproj">
       <Project>{9A647F24-F0FC-4294-99CF-38D72B7A6ADB}</Project>

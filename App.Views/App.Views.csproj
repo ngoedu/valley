@@ -6,7 +6,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
-    <RootNamespace>App.Forms</RootNamespace>
+    <RootNamespace>App.Views</RootNamespace>
     <AssemblyName>App.Views</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -78,6 +78,11 @@
     <Compile Include="AppTile.Designer.cs">
       <DependentUpon>AppTile.cs</DependentUpon>
     </Compile>
+    <Compile Include="CouresJSCallback.cs" />
+    <Compile Include="CourseForm.cs" />
+    <Compile Include="CourseForm.Designer.cs">
+      <DependentUpon>CourseForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CourseLib.cs" />
     <Compile Include="CourseLib.Designer.cs">
       <DependentUpon>CourseLib.cs</DependentUpon>
@@ -87,6 +92,7 @@
       <DependentUpon>CoursePlay.cs</DependentUpon>
     </Compile>
     <Compile Include="IAppTile.cs" />
+    <Compile Include="IBrowserJSCallback.cs" />
     <Compile Include="ICourseLib.cs" />
     <Compile Include="ICoursePlay.cs" />
     <Compile Include="ITileManager.cs" />
@@ -106,6 +112,9 @@
   <ItemGroup>
     <EmbeddedResource Include="AppTile.resx">
       <DependentUpon>AppTile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CourseForm.resx">
+      <DependentUpon>CourseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CourseLib.resx">
       <DependentUpon>CourseLib.cs</DependentUpon>

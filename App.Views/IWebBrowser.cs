@@ -8,7 +8,7 @@
  */
 using System;
 
-namespace App.Forms
+namespace App.Views
 {
 	/// <summary>
 	/// Description of IWebBrowser.

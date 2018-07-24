@@ -6,7 +6,7 @@
  * 
  * 
  */
-namespace App.Forms
+namespace App.Views
 {
 	partial class AppTile
 	{

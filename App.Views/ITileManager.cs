@@ -9,7 +9,7 @@
 using System;
 using System.Drawing;
 
-namespace App.Forms
+namespace App.Views
 {
 	/// <summary>
 	/// Description of ITileManager.

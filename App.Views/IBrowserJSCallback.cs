@@ -1,22 +1,20 @@
 ﻿/*
  * Created by SharpDevelop.
  * User: Bob (XuYong Hou) houxuyong@hotmail.com
- * Date: 2018/6/28
- * Time: 21:08
+ * Date: 2018/7/24
+ * Time: 15:11
  * 
  * 
  */
 using System;
 
-
 namespace App.Views
 {
 	/// <summary>
-	/// Description of ICourseLib.
+	/// Description of IBrowserJSCallback.
 	/// </summary>
-	public interface ICourseLib
+	public interface IBrowserJSCallback
 	{
-		void LoadCourseLib();
-		void InitCourseLib();
+		string GetJSCallbackName();	
 	}
 }

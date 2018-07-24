@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace App.Forms {
+namespace App.Views {
 	using System;
 	
 	

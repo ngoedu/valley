@@ -1,14 +1,14 @@
 ﻿/*
  * Created by SharpDevelop.
  * User: Bob (XuYong Hou) houxuyong@hotmail.com
- * Date: 2018/6/28
- * Time: 21:08
+ * Date: 2018/7/24
+ * Time: 14:48
  * 
  * 
  */
 namespace App.Views
 {
-	partial class CourseLib
+	partial class CourseForm
 	{
 		/// <summary>
 		/// Designer variable used to keep track of non-visual components.
@@ -16,7 +16,7 @@ namespace App.Views
 		private System.ComponentModel.IContainer components = null;
 		
 		/// <summary>
-		/// Disposes resources used by the control.
+		/// Disposes resources used by the form.
 		/// </summary>
 		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
 		protected override void Dispose(bool disposing)
@@ -38,12 +38,17 @@ namespace App.Views
 		{
 			this.SuspendLayout();
 			// 
-			// CourseLib
+			// CourseForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Name = "CourseLib";
-			this.SizeChanged += new System.EventHandler(this.CourseLibSizeChanged);
+			this.ClientSize = new System.Drawing.Size(1184, 822);
+			this.ControlBox = false;
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.Name = "CourseForm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Text = "选择课程";
+			this.TopMost = true;
 			this.ResumeLayout(false);
 
 		}

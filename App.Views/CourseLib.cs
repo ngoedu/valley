@@ -15,7 +15,7 @@ using App.Common;
 using CefSharp.WinForms;
 using CefSharp;
 
-namespace App.Forms
+namespace App.Views
 {
 	/// <summary>
 	/// Description of CourseLib.
@@ -34,7 +34,7 @@ namespace App.Forms
 			
 			cefBrowser = browser;
 			//only do RegisterJSObj before Dock can works
-			cefBrowser.RegisterJsObject("callbackObj", new CallbackObjectForJs(cefBrowser));
+			//cefBrowser.RegisterJsObject("callbackObj", new CallbackObjectForJs(cefBrowser));
 			//disabel context menu
 			cefBrowser.MenuHandler = new MenuHandler();
 			
@@ -72,53 +72,4 @@ namespace App.Forms
 		}
 	}
 	
-	/// <summary>
-	/// This object interact with JS code
-	/// </summary>
-	public class CallbackObjectForJs{
-		ChromiumWebBrowser browser;
-		public CallbackObjectForJs(ChromiumWebBrowser b) {
-			this.browser = b;
-		}
-	    public void startDownload(string cid){
-	        MessageBox.Show("start download "+cid);
-	        //browser.ExecuteScriptAsync("alert('["+cid+"] downloaded, please refresh ui');");
-	    }
-		public string getPreviewSrc(string cid){
-			return "D:/neverstop/tutorial/webClient/test2.html";
-	        //browser.ExecuteScriptAsync("alert('["+cid+"] downloaded, please refresh ui');");
-	    }
-		
-		public string getDownloaded() {
-			return "cweb-A01";
-		}
-	}
-	
-	/// <summary>
-	/// this handler is for disabling context menu
-	/// </summary>
-	internal class MenuHandler : IContextMenuHandler
-	   {
-		#region IContextMenuHandler implementation
-		public void OnBeforeContextMenu(CefSharp.IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model)
-		{
-			
-		}
-	
-		public bool OnContextMenuCommand(CefSharp.IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags)
-		{
-			return true;  
-		}
-	
-		public void OnContextMenuDismissed(CefSharp.IWebBrowser browserControl, IBrowser browser, IFrame frame)
-		{
-			
-		}
-	
-		public bool RunContextMenu(CefSharp.IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback)
-		{
-			return true;  
-		}
-		#endregion
-    }
 }
