@@ -2,8 +2,11 @@ body {-webkit-user-select: none;  background:#3c3c3c; margin:4 4 4 4; font-famil
 .box {border: 0px solid; }
 .container {}
 
+/*
 .selection {float: left; width:49.4%; height: 100%; }
-.selection .navigate { width:100%; height: 48.2%;  background:#05b5db;}
+*/
+.selection {float: left; width:99.4%; height: 100%; }
+.selection .navigate { width:100%; height: 53.2%;  background:#05b5db;}
 .selection .navigate .rolling-area {float:left;width:64%;  height: 100%;}
 .selection .navigate .course-list {float:left; width:30%; margin-top:30px; box-shadow: 7px 7px 3px #453e3e;}
 .selection .navigate .course-list ul {list-style-type: none; margin: 0px; padding: 0px; }
@@ -12,14 +15,17 @@ body {-webkit-user-select: none;  background:#3c3c3c; margin:4 4 4 4; font-famil
 .course-selected {border: 2px solid #000; background-color: #636466 !important;}
 
 .selection .navigate .course-list ul li a{text-decoration:none; color:black;}
-.selection .details {width:100%;  height: 51%;  margin-top:6px;background-color: #474545;}
+.selection .details {width:100%;  height: 46%;  margin-top:6px;background-color: #474545;}
 .selection .details  .summary {text-align:center;font-size: 19px;float:left;width:16%; margin-right:8px;height: 100%; background-color: #05b5db;}
 .selection .details  .desc {overflow-y:scroll; float:left;width:83.1%; height: 100%;}
 .selection .details  .desc  div {font-size: 18px; width:98%; background-color:#05b5db; padding:5 5 5 5;}
 .selection .details  .desc  div:hover {background-color:#474545; color:#eae4df}
 .selection .details  .desc  div a {display:inline-block; padding:2 6 2 6;height: 26px; text-decoration: none; color:eae4df;border: 2px solid #eae4df;}
 
+/*
 .preview {float: left; width:48.88%; height: 100%; margin-left:6px; background-color: #474545;}
+*/
+.preview {float: left; width:0px; display:none;}
 .preview .preview-head {width:100%; height:80px; background-color: #05b5db; margin-bottom:80px; }
 .preview .preview-head span { font-size:22px; color:#eae4df; line-height:80px;margin-left:60px;}
 .preview .preview-content {border: 2px solid black; width:60%; height:72%; margin:auto; background-color: #9ccde6;box-shadow: 7px 7px 3px #453e3e; border-radius: 5px;}

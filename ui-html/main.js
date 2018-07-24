@@ -74,6 +74,7 @@ var MAINUI = (function() {
 			}
 			
 			$('#'+box).append(div);
+			//alert("listCourses: div added");
 		}		
 	}
 	
