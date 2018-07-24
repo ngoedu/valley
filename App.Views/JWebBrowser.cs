@@ -39,6 +39,7 @@ namespace App.Views
 			
 			this.Controls.Add(cefBrowser);
 			cefBrowser.RegisterJsObject(callback.GetJSCallbackName(), callback);
+			callback.SetCefBrowser(cefBrowser);
 			isNav = isNavBar;
 			if (!isNav) {
 				cefBrowser.Dock = DockStyle.Fill;

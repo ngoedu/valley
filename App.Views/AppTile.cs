@@ -23,6 +23,7 @@ namespace App.Views
 		private int hotKey;
 		private ITileManager tileManager;
 		private TileStatus status;
+		private System.Windows.Forms.Control innerControl;
 		
 		public enum TileStatus { Min = 0, Max = 1, Lock = 2, Normal = 3}
 	
@@ -37,7 +38,10 @@ namespace App.Views
 			this.tileName = name;
 			this.hotKey = key;
 			this.lblName.Text = this.tileName;
-			//this.BringToFront();
+
+			this.innerControl = control;
+			this.pContent.Controls.Add(control);
+			this.innerControl.Dock = DockStyle.Fill;
 			
 			Minimized();	
 		}

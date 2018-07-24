@@ -8,6 +8,7 @@
  */
 using System;
 using System.Windows.Forms;
+using CefSharp;
 
 namespace App.Views
 {
@@ -17,25 +18,36 @@ namespace App.Views
 	public class CouresJSCallback : IBrowserJSCallback
 	{
 		private Form courseForm; 
+		private CefSharp.WinForms.ChromiumWebBrowser internalBrowser;
 		public CouresJSCallback(Form form) {
 			courseForm = form;
 		}
-		
+
+		public void SetCefBrowser(CefSharp.WinForms.ChromiumWebBrowser cefBrowser)
+		{
+			internalBrowser = cefBrowser;
+		}
 		#region IBrowserJSCallback implementation
 		public string GetJSCallbackName()
 		{
-			return "callbackObj";
+			return "CourseJScallback";
 		}
 		#endregion
+		
 	    public void startDownload(string cid){
-	        //MessageBox.Show("start download "+cid);
-	        //browser.ExecuteScriptAsync("alert('["+cid+"] downloaded, please refresh ui');");
+			internalBrowser.ExecuteScriptAsync("MAINUI.modalDialog();");
 	        courseForm.DialogResult = DialogResult.OK;
 	        courseForm.Close();
 	    }
+		
+		public void startPlayCourse(string cid){
+	        courseForm.DialogResult = DialogResult.OK;
+	        courseForm.Close();
+	    }
+		
 		public string getPreviewSrc(string cid){
 			return "D:/neverstop/tutorial/webClient/test2.html";
-	        //browser.ExecuteScriptAsync("alert('["+cid+"] downloaded, please refresh ui');");
+	        
 	    }
 		
 		public string getDownloaded() {

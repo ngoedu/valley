@@ -7,6 +7,7 @@
  * 
  */
 using System;
+using CefSharp.WinForms;
 
 namespace App.Views
 {
@@ -15,6 +16,8 @@ namespace App.Views
 	/// </summary>
 	public interface IBrowserJSCallback
 	{
+		void SetCefBrowser(ChromiumWebBrowser cefBrowser);
+
 		string GetJSCallbackName();	
 	}
 }

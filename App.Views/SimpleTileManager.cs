@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using App.Common.Hook;
+using App.Common.Proc;
+using Control.Eide;
 
 namespace App.Views
 {
@@ -52,15 +54,15 @@ namespace App.Views
 
 		public void BuildAppTiles(System.Windows.Forms.Form mainForm)
 		{	
-			AppTile tile1 = new AppTile("Guilder", 1, null, this);
+			AppTile tile1 = new AppTile("Guilder", 1, new NGO.Pad.Guider.JGuider(), this);
 			HookKeyController.Instance.RegisterCallback(1, tile1);
 			mainForm.Controls.Add(tile1);
 			
-			AppTile tile2 = new AppTile("Video", 2, null, this);
+			AppTile tile2 = new AppTile("Video", 2, new Control.Video.JVideo(), this);
 			HookKeyController.Instance.RegisterCallback(2, tile2);
 			mainForm.Controls.Add(tile2);
 			
-			AppTile tile3 = new AppTile("EIDE", 3, null,  this);
+			AppTile tile3 = new AppTile("EIDE", 3, new JEide("NgoEclipse",  @"D:\NGO\client", PidRecorder.Instance),  this);
 			HookKeyController.Instance.RegisterCallback(3, tile3);
 			mainForm.Controls.Add(tile3);
 					
