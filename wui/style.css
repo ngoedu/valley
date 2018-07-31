@@ -1,0 +1,39 @@
+body {-webkit-user-select: none;  background:#3c3c3c; margin:4 4 4 4; font-family: 'Microsoft YaHei';}
+.box {border: 0px solid red; }
+.container { overflow-y: none;}
+
+/*
+.selection {float: left; width:49.4%; height: 100%; }
+*/
+.selection {float: left; width:1200px; min-width:1200px; height: 100%; }
+.selection .navigate { width:100%; height: 60%; min-height:460px; /*background:#05b5db;*/}
+.ocean1 { background:radial-gradient(ellipse at center, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 1%, #15b5db 90%);}
+.ocean2 { background:radial-gradient(ellipse at center, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 8%, #35b5db 95%);}
+
+.selection .navigate .course-list {float:left; width:200px; height: 86%; margin-top:30px; margin-left:20px; box-shadow: 7px 7px 3px #453e3e;background-color: #f2f2f2;}
+.selection .navigate .course-list ul {list-style-type: none; margin: 0px; padding: 0px; }
+.selection .navigate .course-list ul li { font-size: 16px; line-height: 60px; height: 60px; text-align: center; }
+.selection .navigate .course-list ul li:hover  {background-color: #becdd1;}
+.selection .navigate .course-list ul li a{text-decoration:none; color:black;}
+
+.selection .navigate .rolling-area {float:left;width:550px;  height: 100%;}
+
+.course-selected {border: 2px solid #000; background-color: #15b5db !important;}
+
+.selection .navigate .details {float:left; width:410px;  height: 100%; }
+.selection .navigate  .details  .desc {width:100%; height: 90%; margin: 25 5 5 5; overflow:hidden;}
+.selection .navigate  .details  .desc  div {font-size: 15px; width:98%; background-color:#05b5db; padding:5 5 5 5;}
+.selection .navigate  .details  .desc  div:hover {background-color:#474545; color:#eae4df}
+.selection  .navigate .details  .desc  div a {display:inline-block; padding:2 6 2 6;height: 26px; text-decoration: none; color:eae4df;border: 2px solid #eae4df;}
+
+.modal{width: 100%; position:fixed; top: 0; bottom: 0;left: 0;right: 0; z-index: 999; background-color: rgba(0,0,0,0.6);background-size: 100%; }
+.modal p {color:white; font-size:22px; text-align: center; margin: auto; line-height:600px;}
+	
+#rollingCanvas a {position:absolute; top:0px; left:0px; font-family: Microsoft YaHei; color:#fff; font-weight:bold; text-decoration:none; padding: 3px 6px; }
+#rollingCanvas a:hover {border: 1px solid #eee; background: #000; }
+.rollingChilds-cweb {border: 2px solid #000; background: #702d3f;}
+.rollingChilds-sweb {border: 2px solid #000; background: #335230;}
+.rollingChilds-java {border: 2px solid #000; background: #714eaf;}
+.rollingChilds-mysql {border: 2px solid #000; background: #78753a;}
+.rollingChilds-other {border: 2px solid #000; background: #1a1c4b;}
+
