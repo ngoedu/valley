@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using App.Common.Proc;
 using System.Management;
@@ -34,6 +35,12 @@ namespace App.Common.Proc
 	    private PidRecorder()
 	    {
 	    	pidFile = CodeBase.GetCodePath() + @"\pid";
+	    	
+	    	if (!File.Exists(pidFile))
+	    	{
+	    		File.Create(pidFile).Dispose();
+	    		return;
+	    	}
 	    		
 	    	string pidData = System.IO.File.ReadAllText(pidFile);
 	    	if (string.IsNullOrEmpty(pidData))

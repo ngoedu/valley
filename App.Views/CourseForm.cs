@@ -8,6 +8,7 @@
  */
 using System;
 using System.Windows.Forms;
+using App.Common;
 using App.Views;
 
 namespace App.Views
@@ -27,7 +28,7 @@ namespace App.Views
 			JWebBrowser browser = new JWebBrowser(false, new CouresJSCallback(this));
 			browser.Dock = DockStyle.Fill;
 			this.Controls.Add(browser);
-			browser.GoToUrl(@"D:/NGO/client/pad/src/valley/ui-html/ui.html");
+			browser.GoToUrl(CodeBase.GetCodePath() +@"/ui-html/ui.html");
 		}
 	}
 }

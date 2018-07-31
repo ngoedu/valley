@@ -25,8 +25,12 @@ namespace App.Common
 			#endif
 			
 			#if (DIA_RELEASE)
-            path =  @"D:\NGO\client\dist";
+			if (!Directory.Exists(path+@"\jre"))
+            	path =  @"D:\NGO\client\dist";
+			if (!Directory.Exists(path+@"\jre"))
+           		path =  @"D:\NGO\client";
 			#endif
+			//System.Windows.Forms.MessageBox.Show(path);
 			return path;
 		}
 	
