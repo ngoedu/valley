@@ -75,7 +75,7 @@ var ROLL = (function() {
 		
 		setInterval(update, 50);
 		
-		$(document).everyTime("3s", changeBackground, 0);
+		//$(document).everyTime("3s", changeBackground, 0);
 	};
 	
 	var bgStatus = true;
