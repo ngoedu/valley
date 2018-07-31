@@ -238,7 +238,7 @@ var ROLL = (function() {
 
 	function doPosition()
 	{
-		var l=oDiv.offsetWidth * 0.92;
+		var l=oDiv.offsetWidth * 0.9;
 		var t=oDiv.offsetHeight/2 - 30;
 		for(var i=0;i<mcList.length;i++)
 		{
