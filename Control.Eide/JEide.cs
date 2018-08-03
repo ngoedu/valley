@@ -14,14 +14,17 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using App.Common.Proc;
+using App.Common.Reg;
 
 namespace Control.Eide
 {
 	/// <summary>
 	/// Description of JEide.
 	/// </summary>
-	public partial class JEide : Panel 
+	public partial class JEide : Panel, IAppEntry
 	{
+		
+
 		private IntPtr embedHandle;
 		private string codeBase;
 		private int embedHwd = -1;
@@ -120,6 +123,20 @@ namespace Control.Eide
 			this.SizeChanged += new System.EventHandler(this.PanelSizeChanged);
 		}
 		
+		#region IAppEntry implementation
+		public void Init(AppRegistry reg)
+		{
+			this.LoadEide(false);
+			this.EmbedIde();
+			this.WindowsReStyle();
+		}
+		
+		public void Dispose(AppRegistry reg)
+		{
+			
+		}
+		#endregion
+	
 		void PanelSizeChanged(object sender, EventArgs e)
 		{
 			ResizeEmebed();

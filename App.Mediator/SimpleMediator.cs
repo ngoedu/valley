@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using System.Threading;
 using App.Common;
 using App.Common.Proc;
+using App.Common.Reg;
 using CefSharp;
 using App.Views;
 using Component.Bridge;
@@ -21,6 +22,7 @@ using Control.Profile;
 using Control.Video;
 using NGO.Pad.Guider;
 using NGO.Protocol.AEther;
+using NGO.Train;
 
 namespace App.Mediator
 {
@@ -87,6 +89,39 @@ namespace App.Mediator
 			context.Add(app2);
 			var app3 = new App.Views.AppContext("编码", 3, new JEide("NgoEclipse",  CodeBase.GetCodePath(), PidRecorder.Instance));
 			context.Add(app3);
+			//2. prepare registry
+			AppRegistry reg = new AppRegistry();
+			var course = new Course("Web编程基础A001");
+			course.AddMileStone(new Step(1, "添加一个页面","REF","Code", Course.STATUS_DEFAULT));
+			course.AddMileStone(new Step(2, "第一条文字","REF","Code", Course.STATUS_DEFAULT));
+			course.AddMileStone(new Step(3, "换行试试","REF","Code", Course.STATUS_REFER));
+			course.AddMileStone(new Step(4, "原来需要标签","REF","Code", Course.STATUS_DEFAULT));
+			course.AddMileStone(new Step(5, "样子丑陋","REF","Code", Course.STATUS_DEFAULT));
+			course.AddMileStone(new Step(6, "好多的样式","REF","Code", Course.STATUS_CODE));
+			reg.Add(AppRegKeys.COURSE_KEY, course);
+			var html = @"<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+	<meta http-equiv='X-UA-Compatible' content='IE=Edge' />
+	<meta http-equiv='Content-Language' content='zh-CN'/>
+	<style type='text/css'>
+	  div { height:600px; width:800px; }
+	</style>
+	<script>   
+	</script>
+</head>
+<body>
+	<div>
+		<iframe src='http://open.iqiyi.com/developer/player_js/coopPlayerIndex.html?vid=d52c9431203048a4986bba373d391525&tvId=1043319200&accessToken=2.f22860a2479ad60d8da7697274de9346&appKey=3955c3425820435e86d0f4cdfe56f5e7&appId=1368&height=100%&width=100%' frameborder='0' allowfullscreen='true' width='100%' height='100%'></iframe>
+	</div>
+</body>
+</html>";
+			reg.Add(AppRegKeys.VIDEO_LINK, html);
+			
+			foreach(var app in context) {
+				app.AppControl.Init(reg);		
+			}
 
 			//2. build app tiles
 	    	SimpleTileManager.Instance.BuildAppTiles(this.mainForm,context);

@@ -134,6 +134,7 @@ namespace App.Views
 			this.pContent.Left = 0;
 			this.pContent.Width = this.Width;
 			this.pContent.Height = this.Height;
+			 
 			this.lblFK.Height = titleHeight;
 			this.lblFK.Width = titleHeight;
 			

@@ -8,6 +8,7 @@
  */
 using System;
 using System.Collections.Generic;
+using App.Common.Reg;
 
 namespace App.Views
 {
@@ -18,9 +19,9 @@ namespace App.Views
 	{
 		public string AppId {private set; get;}
 		public int FuncKey {private set; get;}
-		public System.Windows.Forms.Control AppControl {private set; get;}
+		public IAppEntry AppControl {private set; get;}
 		public Dictionary<string, object> Registry = new Dictionary<string, object>();
-		public AppContext(string id, int key, System.Windows.Forms.Control ctl)
+		public AppContext(string id, int key, IAppEntry ctl)
 		{
 			this.AppId = id;
 			this.FuncKey = key;

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using App.Common.Reg;
 using NGO.Train;
 
 namespace NGO.Pad.Guider
@@ -20,9 +21,12 @@ namespace NGO.Pad.Guider
 	/// </summary>
 	public partial class JGuider : UserControl, IGuider
 	{
+		
+
 		private Box boxCourse;
 		private List<MileStone> mileStones = new List<MileStone>();
 		private System.Windows.Forms.Panel panelMileStone;
+		
 		public JGuider()
 		{
 			//
@@ -37,6 +41,17 @@ namespace NGO.Pad.Guider
 			panelMileStone = new Panel();
 			panelMileStone.AutoScroll = true;
 			this.Controls.Add(panelMileStone);
+		}
+
+		public void Init(App.Common.Reg.AppRegistry reg)
+		{
+			NGO.Train.Course course = (Course)reg[AppRegKeys.COURSE_KEY];
+			this.BindCourse(course);
+		}
+		
+		public void Dispose(AppRegistry reg)
+		{
+			
 		}
 		
 		private void RemoveMileStones() {

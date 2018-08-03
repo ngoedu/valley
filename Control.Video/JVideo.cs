@@ -10,13 +10,14 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using App.Common.Reg;
 
 namespace Control.Video
 {
 	/// <summary>
 	/// Description of JVideo.
 	/// </summary>
-	public partial class JVideo : UserControl
+	public partial class JVideo : UserControl, IAppEntry
 	{
 		public JVideo()
 		{
@@ -27,7 +28,19 @@ namespace Control.Video
 			
 			this.webBrowser1.AllowNavigation = true;
 		}
+
+		#region IAppEntry implementation
+		public void Init(AppRegistry reg)
+		{
+			string html = (string)reg[AppRegKeys.VIDEO_LINK];
+			LoadHtml(html);
+		}
+		public void Dispose(AppRegistry reg)
+		{
+			
+		}
 		
+		#endregion		
 		public void NavigatgeTo(string Url) {
 			this.webBrowser1.DocumentText="";
 			this.webBrowser1.Navigate(Url);//"http://localhost/s1web/iqiyi.html");

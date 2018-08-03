@@ -7,6 +7,7 @@
  * 
  */
 using System;
+using App.Common.Reg;
 using NGO.Train;
 
 namespace NGO.Pad.Guider
@@ -14,7 +15,7 @@ namespace NGO.Pad.Guider
 	/// <summary>
 	/// Description of IGuider.
 	/// </summary>
-	public interface IGuider
+	public interface IGuider : IAppEntry
 	{
 		void BindCourse(Course course);
 	}

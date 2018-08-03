@@ -75,7 +75,7 @@ namespace App.Views
 			*/
 			
 			foreach(var app in context) {
-				var tile = new AppTile(app.AppId, app.FuncKey, app.AppControl, this);
+				var tile = new AppTile(app.AppId, app.FuncKey, (System.Windows.Forms.Control)app.AppControl, this);
 				HookKeyController.Instance.RegisterCallback(app.FuncKey, tile);
 				mainForm.Controls.Add(tile);
 				TILES.Add(app.FuncKey, tile);

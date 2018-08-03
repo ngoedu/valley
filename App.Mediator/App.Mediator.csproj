@@ -100,6 +100,10 @@
       <Project>{AC9264E3-925E-4090-877E-457A45A10456}</Project>
       <Name>Protocal.AEther</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Training.Course\Training.Course.csproj">
+      <Project>{8761863D-4875-41ED-A001-EEA384F04084}</Project>
+      <Name>Training.Course</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

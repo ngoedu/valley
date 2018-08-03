@@ -85,6 +85,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\App.Common\App.Common.csproj">
+      <Project>{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}</Project>
+      <Name>App.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Training.Course\Training.Course.csproj">
       <Project>{8761863D-4875-41ED-A001-EEA384F04084}</Project>
       <Name>Training.Course</Name>
