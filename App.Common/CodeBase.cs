@@ -22,6 +22,8 @@ namespace App.Common
 		
 			#if (DIA_DEBUG)
             path =  @"D:\NGO\client";
+			if (!Directory.Exists(path+@"\jre"))
+            	path =  @"c:\NGO\client";
 			#endif
 			
 			#if (DIA_RELEASE)

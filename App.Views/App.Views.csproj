@@ -74,6 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppContext.cs" />
     <Compile Include="AppTile.cs" />
     <Compile Include="AppTile.Designer.cs">
       <DependentUpon>AppTile.cs</DependentUpon>

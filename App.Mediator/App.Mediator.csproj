@@ -76,6 +76,14 @@
       <Project>{9A647F24-F0FC-4294-99CF-38D72B7A6ADB}</Project>
       <Name>Component.Bridge</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Control.Eide\Control.Eide.csproj">
+      <Project>{9588C636-7568-453A-9A1B-299416A1B8DD}</Project>
+      <Name>Control.Eide</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Control.Guider\Control.Guider.csproj">
+      <Project>{99F78AAD-6781-4EC4-8CEB-928D69DEBEFD}</Project>
+      <Name>Control.Guider</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Control.Profile\Control.Profile.csproj">
       <Project>{BBB857C2-514A-47E0-8988-0456B4CF10B8}</Project>
       <Name>Control.Profile</Name>
@@ -83,6 +91,10 @@
     <ProjectReference Include="..\Control.Toolbar\Control.Toolbar.csproj">
       <Project>{DE45D941-991A-4EB9-AC9B-288ABBD52525}</Project>
       <Name>Control.Toolbar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Control.Video\Control.Video.csproj">
+      <Project>{6C117197-6D3B-485B-9B52-A20BD6E34918}</Project>
+      <Name>Control.Video</Name>
     </ProjectReference>
     <ProjectReference Include="..\Protocal.AEther\Protocal.AEther.csproj">
       <Project>{AC9264E3-925E-4090-877E-457A45A10456}</Project>

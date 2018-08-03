@@ -37,6 +37,7 @@ namespace App.Views
 	    public void startDownload(string cid){
 			internalBrowser.ExecuteScriptAsync("MAINUI.modalDialog();");
 	        courseForm.DialogResult = DialogResult.OK;
+	        courseForm.Tag = cid;
 	        courseForm.Close();
 	    }
 		

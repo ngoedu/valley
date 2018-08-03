@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using App.Common;
 using App.Common.Hook;
 using App.Common.Proc;
 using Control.Eide;
@@ -52,9 +53,11 @@ namespace App.Views
 	    	tileLockedSize = new Rectangle(lockedPoint, new Size(resolution.Width / 2 - 40, resolution.Height - 200));
 		}
 
-		public void BuildAppTiles(System.Windows.Forms.Form mainForm)
+		public void BuildAppTiles(System.Windows.Forms.Form mainForm, List<AppContext> context)
 		{	
-			AppTile tile1 = new AppTile("Guilder", 1, new NGO.Pad.Guider.JGuider(), this);
+			
+			/*
+ 			AppTile tile1 = new AppTile("Guilder", 1, new NGO.Pad.Guider.JGuider(), this);
 			HookKeyController.Instance.RegisterCallback(1, tile1);
 			mainForm.Controls.Add(tile1);
 			
@@ -62,13 +65,21 @@ namespace App.Views
 			HookKeyController.Instance.RegisterCallback(2, tile2);
 			mainForm.Controls.Add(tile2);
 			
-			AppTile tile3 = new AppTile("EIDE", 3, new JEide("NgoEclipse",  @"D:\NGO\client", PidRecorder.Instance),  this);
+			AppTile tile3 = new AppTile("EIDE", 3, new JEide("NgoEclipse",  CodeBase.GetCodePath(), PidRecorder.Instance),  this);
 			HookKeyController.Instance.RegisterCallback(3, tile3);
 			mainForm.Controls.Add(tile3);
 					
 			TILES.Add(1, tile1);
 			TILES.Add(2, tile2);
 			TILES.Add(3, tile3);
+			*/
+			
+			foreach(var app in context) {
+				var tile = new AppTile(app.AppId, app.FuncKey, app.AppControl, this);
+				HookKeyController.Instance.RegisterCallback(app.FuncKey, tile);
+				mainForm.Controls.Add(tile);
+				TILES.Add(app.FuncKey, tile);
+			}
 		}
 		
 		#region ITileManager implementation
@@ -103,6 +114,10 @@ namespace App.Views
 					if (!tile.Value.IsLocked()) {
 						tile.Value.Minimized();
 						tile.Value.Deactive();
+					} 
+					else
+					{
+						tile.Value.Active();
 					}
 				}
 			}

@@ -38,7 +38,7 @@ namespace App.Views
 			this.tileName = name;
 			this.hotKey = key;
 			this.lblName.Text = this.tileName;
-
+			this.lblFK.Text = "F"+key;
 			this.innerControl = control;
 			this.pContent.Controls.Add(control);
 			this.innerControl.Dock = DockStyle.Fill;
@@ -134,6 +134,8 @@ namespace App.Views
 			this.pContent.Left = 0;
 			this.pContent.Width = this.Width;
 			this.pContent.Height = this.Height;
+			this.lblFK.Height = titleHeight;
+			this.lblFK.Width = titleHeight;
 			
 		}
 		void AppTileEnter(object sender, EventArgs e)

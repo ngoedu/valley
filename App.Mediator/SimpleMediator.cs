@@ -13,11 +13,13 @@ using System.Windows.Forms;
 using System.Threading;
 using App.Common;
 using App.Common.Proc;
-using App.Views;
 using CefSharp;
-using CefSharp.WinForms;
+using App.Views;
 using Component.Bridge;
+using Control.Eide;
 using Control.Profile;
+using Control.Video;
+using NGO.Pad.Guider;
 using NGO.Protocol.AEther;
 
 namespace App.Mediator
@@ -76,26 +78,34 @@ namespace App.Mediator
 			mainForm.Controls.Add(jProfile);	
 		}
 		
+		private void LoadCoursePlayForm(string cid) {
+			//1.load course content
+			var context = new List<App.Views.AppContext>();
+			var app1 = new App.Views.AppContext("导航", 1, new JGuider());
+			context.Add(app1);
+			var app2 = new App.Views.AppContext("视频", 2, new JVideo());
+			context.Add(app2);
+			var app3 = new App.Views.AppContext("编码", 3, new JEide("NgoEclipse",  CodeBase.GetCodePath(), PidRecorder.Instance));
+			context.Add(app3);
+
+			//2. build app tiles
+	    	SimpleTileManager.Instance.BuildAppTiles(this.mainForm,context);
+	    	
+	    				
+			//4.init profile
+			jProfile.SetName("070718A001");
+			jProfile.SetEnergy(85);
+		}
+		
 		#region form event
 		public void FormLoaded()
 		{
-			//check course learning status in order to determine showing the select course page or play course page.
-			
-			//1. in case no course selected or in progress, show course selection page.			
 			CourseForm form = new CourseForm();
 			if (form.ShowDialog() == DialogResult.OK)
 		    {
-		    	//course selected
-		    	
-		    	SimpleTileManager.Instance.BuildAppTiles(this.mainForm);
+				//course selected
+				LoadCoursePlayForm(form.Tag.ToString());
 		    }
-			
-			//init profile
-			jProfile.SetName("070718A001");
-			jProfile.SetEnergy(85);
-			
-			//init corresponding app tiles
-			
 		}
 		public void FormClosed()
 		{
@@ -129,31 +139,10 @@ namespace App.Mediator
 			jProfile.Left = 0;
 			jProfile.Width = newWidth;
 			jProfile.Height = headHeight;
-			
-//			gif.Enabled = true;
-//			gif.ClientSize = clientArea.Size;
-//			gif.Left = clientArea.X;
-//			gif.Top = clientArea.Y;
-//			gif.SendToBack();
 		}
 		#endregion form events
 
-		#region toolbar callback
-		public void DisplayCourseLib()
-		{
-
-		}
-		public void PlayCourseEntry()
-		{
-
-		}
-
-		public void DisplayWebBrowser()
-		{
-
-		}
 		
-		#endregion toolbar callback
 		
 		#region bridge callback
 		/// <summary>
