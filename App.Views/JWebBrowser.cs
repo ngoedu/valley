@@ -97,6 +97,7 @@ namespace App.Views
 		public static void Dispose()
 		{
 			cefBrowser.Dispose();
+			System.Diagnostics.Debug.WriteLine("[JwebBrowser] ChromiumWebBrowser disposed.");
 		}
 	}
 	

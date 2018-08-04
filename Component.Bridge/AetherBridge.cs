@@ -12,7 +12,9 @@ using System.Net.Sockets;
 using System.Text;
 using System.Diagnostics;
 using System.Threading;
+using App.Common.Debug;
 using App.Common.Proc;
+using App.Common.Signal;
 
 namespace Component.Bridge
 {
@@ -27,6 +29,7 @@ namespace Component.Bridge
 		private IPidCallback pidCallback;
 		private String jrePath;
 		private String aetherPath;
+		private WaitSignal externalSignal;
 		
 		/// <summary>
 		/// initial status = 0
@@ -42,6 +45,19 @@ namespace Component.Bridge
 			this.PORT_NO = port;
 			this.jrePath = jre;
 			this.aetherPath = aether;
+		}
+		
+		public void StartupSync() {
+			externalSignal = new WaitSignal();
+			Startup();
+			externalSignal.WaitOne();
+			
+			string output = externalSignal.AttechedObject.ToString();
+			if (output !=null && output.Contains("[aether bridge v1.1] launched")) {
+				externalSignal.Reset();
+				externalSignal = null;
+				Diagnostics.Debug(string.Format("[aether bridge] {0} initialized.", pid));
+			}	
 		}
 		
 		public void Startup() {
@@ -82,7 +98,6 @@ namespace Component.Bridge
 		    						pid = process.Id;
 		    						this.pidCallback.PidCreated("bridge", pid);
 		    					}
-		    					System.Diagnostics.Debug.WriteLine("process {0} started", pid);
 		    					}
 		    				);
 		    Thread th = new Thread(ths);
@@ -90,12 +105,18 @@ namespace Component.Bridge
 		}
 		
 		private void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine) {
-		    //* Do your stuff with the output (write to console/log/StringBuilder)
+		    //notify signal if any
+		    if (externalSignal !=null)
+		    {
+		    	externalSignal.PushObject(outLine.Data);
+		    	externalSignal.Set();
+		    }
+		    
 		    callback.OutputArrived(outLine.Data);
 		}
         
         private void OnExited(object sender, System.EventArgs e) {
-        	System.Diagnostics.Debug.WriteLine("process {0} Exited", pid);
+        	Diagnostics.Debug(string.Format("[aether bridge] pid={0} Exited", pid));					
 		    pid = -1; 
         }
 		

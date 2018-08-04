@@ -8,10 +8,12 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Threading;
 using App.Common;
+using App.Common.Debug;
 using App.Common.Proc;
 using App.Common.Reg;
 using CefSharp;
@@ -31,20 +33,17 @@ namespace App.Mediator
 	/// </summary>
 	public class SimpleMediator : IMediator
 	{
-		private Dictionary<int, IAppTile> TILES = new Dictionary<int, IAppTile>();
-		
 		private Form mainForm;
 		private Rectangle clientArea;
 		private string codeBase;
 		
-		private GifControl gif;
+		private List<App.Views.AppContext> appContexts = new List<App.Views.AppContext>();
+		private AppRegistry appRegistry = new AppRegistry();
+				
 		private Profile jProfile;
 
-		private AetherBridge bridge;
-		private ManualResetEvent bridgeDone = new ManualResetEvent(false);
-		
+		private AetherBridge aetherBridge;		
 		private Endpoint aetherClient;
-		private ManualResetEvent clientDone = new ManualResetEvent(false);
 		
 		public SimpleMediator(Form mf)
 		{
@@ -56,24 +55,14 @@ namespace App.Mediator
 			//try clean all stale process. e.g. eide, bridge
 			PidRecorder.Instance.CleanOldProcess();
 			
-			//startup the bridge first. block current thread until done.
-			bridge = new AetherBridge(60001, this, PidRecorder.Instance, this.codeBase +@"\jre", this.codeBase+@"\aether\dist");
-			bridge.Startup();
-			bridgeDone.WaitOne();
-			System.Diagnostics.Debug.WriteLine("bridge initialized.");
+			//startup the bridge first in sync mode - block current thread until done.
+			aetherBridge = new AetherBridge(60001, this, PidRecorder.Instance, this.codeBase +@"\jre", this.codeBase+@"\aether\dist");
+			aetherBridge.StartupSync();
 			
-			//startup aether client. make sure it connect to bridge
+			//startup aether client in sync mode - make sure it connect to bridge
 			aetherClient = new Endpoint(this);
-			aetherClient.Connect("127.0.0.1", 60001);
-			clientDone.WaitOne();
-			System.Diagnostics.Debug.WriteLine("aether client initialized.");
-
+			aetherClient.ConnectSync("127.0.0.1", 60001);
 			
-			//init required UI components
-			//background gif
-			//gif = new GifControl(this.codeBase + @"/res/anim-bg2.gif");
-			//this.mainForm.Controls.Add(gif);
-
 			//add profile
 			jProfile = new Profile();
 			jProfile.Enabled = false;
@@ -82,15 +71,13 @@ namespace App.Mediator
 		
 		private void LoadCoursePlayForm(string cid) {
 			//1.load course content
-			var context = new List<App.Views.AppContext>();
 			var app1 = new App.Views.AppContext("导航", 1, new JGuider());
-			context.Add(app1);
+			appContexts.Add(app1);
 			var app2 = new App.Views.AppContext("视频", 2, new JVideo());
-			context.Add(app2);
+			appContexts.Add(app2);
 			var app3 = new App.Views.AppContext("编码", 3, new JEide("NgoEclipse",  CodeBase.GetCodePath(), PidRecorder.Instance));
-			context.Add(app3);
+			appContexts.Add(app3);
 			//2. prepare registry
-			AppRegistry reg = new AppRegistry();
 			var course = new Course("Web编程基础A001");
 			course.AddMileStone(new Step(1, "添加一个页面","REF","Code", Course.STATUS_DEFAULT));
 			course.AddMileStone(new Step(2, "第一条文字","REF","Code", Course.STATUS_DEFAULT));
@@ -98,7 +85,7 @@ namespace App.Mediator
 			course.AddMileStone(new Step(4, "原来需要标签","REF","Code", Course.STATUS_DEFAULT));
 			course.AddMileStone(new Step(5, "样子丑陋","REF","Code", Course.STATUS_DEFAULT));
 			course.AddMileStone(new Step(6, "好多的样式","REF","Code", Course.STATUS_CODE));
-			reg.Add(AppRegKeys.COURSE_KEY, course);
+			appRegistry.Add(AppRegKeys.COURSE_KEY, course);
 			var html = @"<!DOCTYPE html>
 <html>
 <head>
@@ -117,15 +104,19 @@ namespace App.Mediator
 	</div>
 </body>
 </html>";
-			reg.Add(AppRegKeys.VIDEO_LINK, html);
+			appRegistry.Add(AppRegKeys.VIDEO_LINK, html);
+			appRegistry.Add(AppRegKeys.AETHER_CLIENT, aetherClient);
 			
-			foreach(var app in context) {
-				app.AppControl.Init(reg);		
+			foreach(var app in appContexts) {
+				app.AppControl.Init(appRegistry);		
 			}
+			Diagnostics.Debug("[app controls] initiated.");
+
 
 			//2. build app tiles
-	    	SimpleTileManager.Instance.BuildAppTiles(this.mainForm,context);
-	    	
+	    	SimpleTileManager.Instance.BuildAppTiles(this.mainForm, appContexts);
+			Diagnostics.Debug("[app tiles] initiated.");
+
 	    				
 			//4.init profile
 			jProfile.SetName("070718A001");
@@ -138,23 +129,24 @@ namespace App.Mediator
 			CourseForm form = new CourseForm();
 			if (form.ShowDialog() == DialogResult.OK)
 		    {
+				Diagnostics.Debug(string.Format("course form closed with cid={0}", form.Tag.ToString()));
+
 				//course selected
-				LoadCoursePlayForm(form.Tag.ToString());
+				LoadCoursePlayForm("");//form.Tag.ToString());
 		    }
 		}
 		public void FormClosed()
 		{
 			
-			//shutdown EIDE
-			//aetherClient.SendData("$EXIT", 9);
-			//clientDone.WaitOne();
-			//System.Diagnostics.Debug.WriteLine("EIDE closed.");
+			foreach(var app in appContexts) {
+				app.AppControl.Dispose(appRegistry);		
+			}
 			
 			//disconnect endpoint
 			aetherClient.Disconnect();
 			
 			//shutdown bridge
-			bridge.Shutdown();
+			aetherBridge.Shutdown();
 			
 			//cefSharp instances dispose explicitly				
 			JWebBrowser.Dispose();
@@ -186,11 +178,7 @@ namespace App.Mediator
 		/// <param name="output"></param>
 		public void OutputArrived(string output)
 		{
-			System.Diagnostics.Debug.WriteLine(output);
-			if (output !=null && output.Contains("[aether bridge v1.1] launched")) {
-				bridgeDone.Set();
-				bridgeDone.Reset();
-			}			
+					
 		}
 		#endregion bridge callback
 
@@ -200,8 +188,7 @@ namespace App.Mediator
 		/// </summary>
 		public void Connected()
 		{
-			clientDone.Set();
-			clientDone.Reset();
+
 		}
 		public void DataSent(string info)
 		{
@@ -209,8 +196,7 @@ namespace App.Mediator
 		}
 		public void MessageReceived(string message)
 		{
-			if (message.Equals("<EIDE status='closed'/>"))
-				clientDone.Set();
+			
 		}
 		#endregion aether endpoint callback
 

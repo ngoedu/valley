@@ -74,7 +74,10 @@
     <Compile Include="Controls\JProgressBar.Designer.cs">
       <DependentUpon>JProgressBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Debug\Diagnostics.cs" />
+    <Compile Include="Dpi\DpiUtil.cs" />
     <Compile Include="Hook\SystemHotKey.cs" />
+    <Compile Include="Net\IClient.cs" />
     <Compile Include="Proc\IPidCallback.cs" />
     <Compile Include="Proc\IPidCleaner.cs" />
     <Compile Include="CodeBase.cs" />
@@ -90,6 +93,7 @@
       <DependentUpon>Resource1.resx</DependentUpon>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="Signal\WaitSignal.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\GifControl.resx">
@@ -105,6 +109,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls" />
+    <Folder Include="Net" />
+    <Folder Include="Debug" />
+    <Folder Include="Dpi" />
+    <Folder Include="Signal" />
     <Folder Include="Reg" />
     <Folder Include="Proc" />
     <Folder Include="Hook" />

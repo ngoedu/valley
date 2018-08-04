@@ -11,6 +11,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using App.Common.Net;
+using App.Common.Signal;
 
 
 namespace NGO.Protocol.AEther
@@ -35,7 +37,7 @@ namespace NGO.Protocol.AEther
 	/// Socket disconnection detection
 	/// https://stackoverflow.com/questions/2661764/how-to-check-if-a-socket-is-connected-disconnected-in-c
 	/// </summary>
-	public class Endpoint
+	public class Endpoint : IClient
 	{
 		//this is a unique ID in aether system.
 	    // SwingConsole.ID = 12
@@ -46,6 +48,7 @@ namespace NGO.Protocol.AEther
 		
 		private IEndpointCallback callback;
 		private Socket client;
+		private static bool IsDebug = false;
 		//
 		//https://docs.microsoft.com/en-us/dotnet/api/system.threading.manualresetevent?view=netframework-4.7.2
 		//
@@ -53,13 +56,44 @@ namespace NGO.Protocol.AEther
 		ManualResetEvent sendDone = new ManualResetEvent(false);
 		readonly ManualResetEvent receiveDone = new ManualResetEvent(false);
 		
+		private WaitSignal externalSignal;
 		public Endpoint(IEndpointCallback callback)
 		{
 			this.callback = callback;
 		}
-		
+
+		#region IClient implementation
+		public void SendToRemote(string message, int target)
+		{
+			SendData(message, target);
+		}
+		public string SendToRemoteSync(string message, int target)
+		{
+			externalSignal = new WaitSignal();
+			SendData(message, target);
+			externalSignal.WaitOne();
+			
+			string response = externalSignal.AttechedObject.ToString();
+			externalSignal.Reset();
+			externalSignal = null;
+			
+			return response;
+		}
+		#endregion		
 		public static void DebugDump(string message) {
-			System.Diagnostics.Debug.WriteLine("[{0}] - {1}", Thread.CurrentThread.Name, message);
+			if (IsDebug)
+				System.Diagnostics.Debug.WriteLine("[{0}] - {1}", Thread.CurrentThread.Name, message);
+		}
+
+		public void ConnectSync(string ipAddress, int port)
+		{
+			externalSignal = new WaitSignal();
+			Connect(ipAddress, port);
+			externalSignal.WaitOne();
+			
+			externalSignal.Reset();
+			externalSignal = null;
+			System.Diagnostics.Debug.WriteLine(string.Format("[aether client] is connected to bridge {0}:{1}.",ipAddress,port));
 		}
 		
 		public void Connect(string ipAddress, int port)
@@ -79,7 +113,7 @@ namespace NGO.Protocol.AEther
 		/// "GET / HTTP/1.1\r\nHost:www.bing.com\r\n\r\n"
 		/// </summary>
 		/// <param name="data"></param>
-		public  void  SendData(string data, int dest)
+		private  void  SendData(string data, int dest)
 		{
 			Send(client, PackType.DAT.ToPackage(dest,data));
 		}
@@ -93,17 +127,15 @@ namespace NGO.Protocol.AEther
 			client.Shutdown(SocketShutdown.Both);
 			client.Disconnect(false);
 			if (client.Connected) {
-			    System.Diagnostics.Debug.WriteLine("We're still connnected");
+			    System.Diagnostics.Debug.WriteLine("[aether client] still connnected");
 			    client = null;
 			    return false;
 			}
 			else  {
-				System.Diagnostics.Debug.WriteLine("We're disconnected");
+				System.Diagnostics.Debug.WriteLine("[aether client] disconnected");
 				client = null;
 				return true;
 			}
-			   	
-			
 		}
         
               
@@ -113,6 +145,13 @@ namespace NGO.Protocol.AEther
         	connectDone.WaitOne();
         	
         	DebugDump(string.Format("connectDone signal recieved!"));
+        	
+        	//notify signal for sync connec.
+        	if (externalSignal !=null)
+        	{
+        		externalSignal.Set();
+        	}
+        	
 			this.callback.Connected();
 		}
         
@@ -212,11 +251,19 @@ namespace NGO.Protocol.AEther
         		case 127 : { //PackType.DAT
         			//application DATA, deliver to callback
         			DebugDump(string.Format("<DAT> arrived from - src={0}", package.Source));
-	        		callback.MessageReceived(package.ToString());
+        			
+        			//external signal event callback for IClient
+        			if (externalSignal != null) {
+        				externalSignal.PushObject(package.ToString());
+        				externalSignal.Set();
+        			}
+        			
+        			callback.MessageReceived(package.ToString());
 	        		break;
 	        	}
 	        }	           
-		}		
+		}	
+
         
 		private  void ReceiveCallback(IAsyncResult ar)
 		{  

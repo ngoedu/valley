@@ -69,7 +69,7 @@ namespace AppTestForms
 		
 		void Button1Click(object sender, EventArgs e)
 		{
-			client.SendData(this.textBox1.Text, Int16.Parse(this.textBox2.Text));
+			client.SendToRemote(this.textBox1.Text, Int16.Parse(this.textBox2.Text));
 		}
 		void Button2Click(object sender, EventArgs e)
 		{

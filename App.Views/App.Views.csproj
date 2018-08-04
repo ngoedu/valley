@@ -84,18 +84,18 @@
     <Compile Include="CourseForm.Designer.cs">
       <DependentUpon>CourseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CourseLib.cs" />
-    <Compile Include="CourseLib.Designer.cs">
+    <Compile Include="deprecated\CourseLib.cs" />
+    <Compile Include="deprecated\CourseLib.Designer.cs">
       <DependentUpon>CourseLib.cs</DependentUpon>
     </Compile>
-    <Compile Include="CoursePlay.cs" />
-    <Compile Include="CoursePlay.Designer.cs">
+    <Compile Include="deprecated\CoursePlay.cs" />
+    <Compile Include="deprecated\CoursePlay.Designer.cs">
       <DependentUpon>CoursePlay.cs</DependentUpon>
     </Compile>
+    <Compile Include="deprecated\ICourseLib.cs" />
+    <Compile Include="deprecated\ICoursePlay.cs" />
     <Compile Include="IAppTile.cs" />
     <Compile Include="IBrowserJSCallback.cs" />
-    <Compile Include="ICourseLib.cs" />
-    <Compile Include="ICoursePlay.cs" />
     <Compile Include="ITileManager.cs" />
     <Compile Include="IWebBrowser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -104,7 +104,6 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="SimpleTileManager.cs" />
-    <Compile Include="SyncLoader.cs" />
     <Compile Include="JWebBrowser.cs" />
     <Compile Include="JWebBrowser.Designer.cs">
       <DependentUpon>JWebBrowser.cs</DependentUpon>
@@ -117,10 +116,10 @@
     <EmbeddedResource Include="CourseForm.resx">
       <DependentUpon>CourseForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CourseLib.resx">
+    <EmbeddedResource Include="deprecated\CourseLib.resx">
       <DependentUpon>CourseLib.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CoursePlay.resx">
+    <EmbeddedResource Include="deprecated\CoursePlay.resx">
       <DependentUpon>CoursePlay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resource1.resx">
@@ -152,6 +151,9 @@
       <Project>{8761863D-4875-41ED-A001-EEA384F04084}</Project>
       <Name>Training.Course</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="deprecated" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

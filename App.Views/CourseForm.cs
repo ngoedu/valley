@@ -11,6 +11,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using App.Common;
+using App.Common.Dpi;
 using App.Views;
 
 namespace App.Views
@@ -31,13 +32,7 @@ namespace App.Views
 			browser.Dock = DockStyle.Fill;
 			this.Controls.Add(browser);
 			
-			float dpiX = this.CreateGraphics().DpiX;
-			double scale = 1;
-			if (dpiX == 120) {
-				scale = 1.25;
-			} else if (dpiX==144) {
-				scale = 1.5;
-			}
+			double scale = DpiUtil.GetScale(this.CreateGraphics());
 			
 			var newSize = new Size((int)(1200*scale), (int)(460*scale));
 			this.ClientSize = newSize;

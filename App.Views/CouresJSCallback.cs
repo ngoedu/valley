@@ -8,6 +8,7 @@
  */
 using System;
 using System.Windows.Forms;
+using App.Common.Debug;
 using CefSharp;
 
 namespace App.Views
@@ -35,12 +36,13 @@ namespace App.Views
 		#endregion
 		
 	    public void startDownload(string cid){
-			internalBrowser.ExecuteScriptAsync("MAINUI.modalDialog();");
+			//internalBrowser.ExecuteScriptAsync("MAINUI.modalDialog();");
 	        courseForm.DialogResult = DialogResult.OK;
 	        courseForm.Tag = cid;
+	        Diagnostics.Debug("about to close dialog of course");
 	        courseForm.Close();
 	    }
-		
+			
 		public void startPlayCourse(string cid){
 	        courseForm.DialogResult = DialogResult.OK;
 	        courseForm.Close();

@@ -13,6 +13,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
+using App.Common.Net;
 using App.Common.Proc;
 using App.Common.Reg;
 
@@ -24,13 +25,19 @@ namespace Control.Eide
 	public partial class JEide : Panel, IAppEntry
 	{
 		
-
+		public static int ENDPOINT_ID = 9;
+		
+		private static string CMD_EXIT = "$EXIT";
+		private static string RESP_EXIT = "<EIDE status='closed'/>";
+		
 		private IntPtr embedHandle;
 		private string codeBase;
 		private int embedHwd = -1;
 		private Process embedEclipse = null;
 		private IPidCallback pidCallback;
+		private string eideTitle = "Eclipse";
 		
+		#region form dll
 		const int SW_HIDE =              0;
 		const int SW_SHOWNORMAL   =    1;
 		const int SW_NORMAL         =  1;
@@ -101,9 +108,8 @@ namespace Control.Eide
 		
 		[DllImport("user32.dll")]
 		static extern bool RemoveMenu(IntPtr hMenu, uint uPosition, uint uFlags);
-		
-		
-		
+		#endregion form dll
+	
 		/// <summary>
 		/// initial status = 0
 		/// in shutdown process = 1
@@ -129,11 +135,16 @@ namespace Control.Eide
 			this.LoadEide(false);
 			this.EmbedIde();
 			this.WindowsReStyle();
+			System.Diagnostics.Debug.WriteLine(string.Format("[EIDE] pid={0} Load + Enbed + ReStyle done.",pid));
 		}
 		
 		public void Dispose(AppRegistry reg)
 		{
-			
+			//shutdown EIDE
+			IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];
+			string response = client.SendToRemoteSync(CMD_EXIT, ENDPOINT_ID);
+			if (response.Equals(RESP_EXIT))
+				System.Diagnostics.Debug.WriteLine("[EIDE] workspace sucessfully closed.");
 		}
 		#endregion
 	
@@ -218,16 +229,15 @@ namespace Control.Eide
 		}
 		
 		private void OnExited(object sender, System.EventArgs e) {
-        	System.Diagnostics.Debug.WriteLine("process {0} Exited", pid);
+        	System.Diagnostics.Debug.WriteLine("[EIDE] process pid={0} Exited", pid);
         	pid = -1; 
         }
 		
 		private void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine) {
-		    System.Diagnostics.Debug.WriteLine("OutputHandler {0} ", outLine.Data);  
+		    //System.Diagnostics.Debug.WriteLine("OutputHandler {0} ", outLine.Data);  
 		}
 		
 		
-		private String eideTitle = "Eclipse";
 		
 		/// <summary>
 		/// embed EIDE into anther window
@@ -243,7 +253,7 @@ namespace Control.Eide
 					embedHandle = theprocess.MainWindowHandle;
 					var resul1 = SetParent(embedHandle, this.Handle);
 					int errCode = Marshal.GetLastWin32Error();
-					System.Diagnostics.Debug.WriteLine(GetSysErrMsg(errCode));
+					System.Diagnostics.Debug.WriteLine("[EIDE] embeding result - " +GetSysErrMsg(errCode));
 					break;
 				}
 			}
@@ -318,7 +328,6 @@ namespace Control.Eide
 			Process[] processlist = Process.GetProcesses();
 			foreach (Process theprocess in processlist) {
 				if (theprocess.MainWindowTitle.Contains(eideTitle)) {
-					System.Diagnostics.Debug.WriteLine("MainWindowHandle="+theprocess.MainWindowHandle);
 					return theprocess.Id;
 				}
 			}

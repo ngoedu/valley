@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using App.Common.Debug;
 using App.Common.Proc;
 using System.Management;
 
@@ -100,15 +101,15 @@ namespace App.Common.Proc
 					if (p != null && !p.HasExited && IsExecutable(ProcessExecutablePath(p))) {
 						p.Kill();
 						p.WaitForExit(); // possibly with a timeout
-						System.Diagnostics.Debug.WriteLine("pid={0} killed", pid);
+						Diagnostics.Debug(string.Format("[Proc] pid={0} killed", pid));
 					}
 				}
 			} catch (Win32Exception winException) {
 				// process was terminating or can't be terminated - deal with it
-				System.Diagnostics.Debug.WriteLine("pid={0} kill exception", winException.Message);
+				Diagnostics.Debug(string.Format("[Proc] pid={0} kill exception", winException.Message));
 			} catch (InvalidOperationException invalidException) {
 				// process has already exited - might be able to let this one go
-				System.Diagnostics.Debug.WriteLine("pid={0} kill exception", invalidException.Message);
+				Diagnostics.Debug(string.Format("[Proc] pid={0} kill exception", invalidException.Message));
 			}
 			
 			//remove pid from cached file
@@ -119,6 +120,7 @@ namespace App.Common.Proc
 		public void CleanOldProcess()
 		{
 			foreach(var entry in OLD_PIDS) {
+				Diagnostics.Debug(string.Format("Stale pid={0} found", Int16.Parse(entry.Value)));
 				KillProcessById(entry.Key, Int16.Parse(entry.Value));
 			}
 		}
