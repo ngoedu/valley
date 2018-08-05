@@ -8,7 +8,6 @@
  */
 using System;
 using Component.Bridge;
-using Control.Toolbar;
 using NGO.Protocol.AEther;
 
 namespace App.Mediator

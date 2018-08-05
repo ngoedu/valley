@@ -8,21 +8,15 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Threading;
 using App.Common;
 using App.Common.Debug;
 using App.Common.Proc;
 using App.Common.Reg;
-using CefSharp;
 using App.Views;
 using Component.Bridge;
-using Control.Eide;
 using Control.Profile;
-using Control.Video;
-using NGO.Pad.Guider;
 using NGO.Protocol.AEther;
 using NGO.Train;
 
@@ -71,15 +65,7 @@ namespace App.Mediator
 		
 		private void LoadCoursePlayForm(string cid) {
 			
-			//1.load course content
-			var app1 = new App.Views.AppContext("导航", 1, new JGuider());
-			appContexts.Add(app1);
-			var app2 = new App.Views.AppContext("视频", 2, new JVideo());
-			appContexts.Add(app2);
-			var app3 = new App.Views.AppContext("编码", 3, new JEide("NgoEclipse",  CodeBase.GetCodePath(), PidRecorder.Instance));
-			appContexts.Add(app3);
-			
-			//2. prepare registry
+			//1.load course content, prepare registry
 			var courseName = "sweb-a01";//cid;
 			var cpath = CodeBase.GetCodePath() +@"\crd";
 			var course = CourseLoader.Instance.Load(cpath, courseName, false);
@@ -90,14 +76,15 @@ namespace App.Mediator
 			appRegistry.Add(AppRegKeys.AETHER_CLIENT, aetherClient);
 			appRegistry.Add(AppRegKeys.EIDE_WS, cpath+@"\"+courseName+@"\"+course.Workspace);
 			
-			
+			//2. prepare app controls
+			appContexts = App.Views.AppContext.CreateAppContext(course.GetApps());
 			foreach(var app in appContexts) {
 				app.AppControl.Init(appRegistry);		
 			}
 			Diagnostics.Debug("[app controls] initiated.");
 
 
-			//2. build app tiles
+			//3. build app tiles
 	    	SimpleTileManager.Instance.BuildAppTiles(this.mainForm, appContexts);
 			Diagnostics.Debug("[app tiles] initiated.");
 
@@ -110,6 +97,7 @@ namespace App.Mediator
 		#region form event
 		public void FormLoaded()
 		{
+			//TODO: uncoment below when go-prod
 			/*
 			CourseForm form = new CourseForm();
 			if (form.ShowDialog() == DialogResult.OK)
@@ -137,7 +125,7 @@ namespace App.Mediator
 			
 			//cefSharp instances dispose explicitly				
 			JWebBrowser.Dispose();
-            Cef.Shutdown();
+            
 		}	
 		
 		public void FormResized(int newHeight, int newWidth)

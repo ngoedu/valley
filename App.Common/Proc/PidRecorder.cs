@@ -23,9 +23,7 @@ namespace App.Common.Proc
 	/// </summary>
 	public sealed class PidRecorder :  IPidCallback
 	{
-	    private static readonly Lazy<PidRecorder> lazy =
-	        new Lazy<PidRecorder>(() => new PidRecorder());
-	    
+	    private static readonly Lazy<PidRecorder> lazy = new Lazy<PidRecorder>(() => new PidRecorder());
 	    public static PidRecorder Instance { get { return lazy.Value; } }
 	
 	    private string pidFile;

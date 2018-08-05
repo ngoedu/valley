@@ -98,6 +98,7 @@ namespace App.Views
 		{
 			cefBrowser.Dispose();
 			System.Diagnostics.Debug.WriteLine("[JwebBrowser] ChromiumWebBrowser disposed.");
+			CefSharp.Cef.Shutdown();
 		}
 	}
 	

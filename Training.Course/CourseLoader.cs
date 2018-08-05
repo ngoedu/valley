@@ -50,6 +50,11 @@ namespace NGO.Train
             
             Course course = new Course(courseId, courseName, ews);
             
+             var apps=root.SelectNodes("/course/app/tile");  
+            for(int i=0;i<apps.Count;i++)  
+            {    
+            	course.AddApp(new App(apps[i].Attributes["id"].Value));
+            }
             
             var videos=root.SelectNodes("/course/video/link");  
             for(int i=0;i<videos.Count;i++)  

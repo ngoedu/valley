@@ -41,10 +41,19 @@ namespace NGO.Train
 		
 		private List<Step> Steps = new List<Step>();
 		private List<Video> Videos = new List<Video>();
+		private List<App> Apps = new List<App>();
 		
 		public Style Css {set; get;}
 		
 		public Video Video {set; get;}
+		
+		public void AddApp(App app) {
+			Apps.Add(app);
+		}
+		
+		public List<App> GetApps() {
+			return Apps;
+		}
 		
 		public void AddMileStone(Step step) {
 			Steps.Add(step);
@@ -116,6 +125,14 @@ namespace NGO.Train
 			ID = id;
 			title = Title;
 			Link = link;
+		}
+	}
+	
+	public class App {
+		public string ID {set; get;}
+		
+		public App(string id) {
+			ID = id;
 		}
 	}
 }

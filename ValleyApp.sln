@@ -6,7 +6,7 @@ VisualStudioVersion = 12.0.20827.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Protocal.AEther", "Protocal.AEther\Protocal.AEther.csproj", "{AC9264E3-925E-4090-877E-457A45A10456}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Forms", "App.TestForms\Test.Forms.csproj", "{AA5018A6-C6EE-41D9-A6E2-FDEB16B39856}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XTest.Forms", "App.TestForms\XTest.Forms.csproj", "{AA5018A6-C6EE-41D9-A6E2-FDEB16B39856}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.DiffPatch", "Common.DiffPatch\Common.DiffPatch.csproj", "{4F7B6163-345B-4311-92DE-392963341AA3}"
 EndProject

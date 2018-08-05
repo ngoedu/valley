@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{AA5018A6-C6EE-41D9-A6E2-FDEB16B39856}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>AppTestForms</RootNamespace>
+    <AssemblyName>AppTestForms</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <NoWin32Manifest>False</NoWin32Manifest>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AetherForm.cs" />
+    <Compile Include="AetherForm.Designer.cs" />
+    <Compile Include="BridgeForm1.cs" />
+    <Compile Include="BridgeForm1.Designer.cs">
+      <DependentUpon>BridgeForm1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CatalinaForm.cs" />
+    <Compile Include="CatalinaForm.Designer.cs">
+      <DependentUpon>CatalinaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EideForm.cs" />
+    <Compile Include="EideForm.Designer.cs">
+      <DependentUpon>EideForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GuiderForm.cs" />
+    <Compile Include="GuiderForm.Designer.cs" />
+    <Compile Include="JeditorForm.cs" />
+    <Compile Include="JeditorForm.Designer.cs">
+      <DependentUpon>JeditorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JFilesForm.cs" />
+    <Compile Include="JFilesForm.Designer.cs">
+      <DependentUpon>JFilesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs" />
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TinyServerForm1.cs" />
+    <Compile Include="TinyServerForm1.Designer.cs">
+      <DependentUpon>TinyServerForm1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VideoForm1.cs" />
+    <Compile Include="VideoForm1.Designer.cs">
+      <DependentUpon>VideoForm1.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AetherForm.resx">
+      <DependentUpon>AetherForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BridgeForm1.resx">
+      <DependentUpon>BridgeForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CatalinaForm.resx">
+      <DependentUpon>CatalinaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EideForm.resx">
+      <DependentUpon>EideForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GuiderForm.resx">
+      <DependentUpon>GuiderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JeditorForm.resx">
+      <DependentUpon>JeditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JFilesForm.resx">
+      <DependentUpon>JFilesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TinyServerForm1.resx">
+      <DependentUpon>TinyServerForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VideoForm1.resx">
+      <DependentUpon>VideoForm1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\App.Common\App.Common.csproj">
+      <Project>{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}</Project>
+      <Name>App.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Component.Bridge\Component.Bridge.csproj">
+      <Project>{9A647F24-F0FC-4294-99CF-38D72B7A6ADB}</Project>
+      <Name>Component.Bridge</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Component.Catalina\Component.Catalina.csproj">
+      <Project>{ECBE8FB1-549C-44AB-A8B2-A80CE5F32D70}</Project>
+      <Name>Component.Catalina</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Component.TinyServer\Component.TinyServer.csproj">
+      <Project>{562F0953-4BC8-4643-B759-0F8402DA59C5}</Project>
+      <Name>Component.TinyServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Control.Editor\Control.Editor.csproj">
+      <Project>{CD942A27-6733-42BB-BDA8-66E3B3A03755}</Project>
+      <Name>Control.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Control.Eide\Control.Eide.csproj">
+      <Project>{9588C636-7568-453A-9A1B-299416A1B8DD}</Project>
+      <Name>Control.Eide</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Control.Guider\Control.Guider.csproj">
+      <Project>{99F78AAD-6781-4EC4-8CEB-928D69DEBEFD}</Project>
+      <Name>Control.Guider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Control.JFiles\Control.JFiles.csproj">
+      <Project>{42EA2E8A-410D-45A9-B830-4F698397A731}</Project>
+      <Name>Control.JFiles</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Control.Video\Control.Video.csproj">
+      <Project>{6C117197-6D3B-485B-9B52-A20BD6E34918}</Project>
+      <Name>Control.Video</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Protocal.AEther\Protocal.AEther.csproj">
+      <Project>{AC9264E3-925E-4090-877E-457A45A10456}</Project>
+      <Name>Protocal.AEther</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Training.Course\Training.Course.csproj">
+      <Project>{8761863D-4875-41ED-A001-EEA384F04084}</Project>
+      <Name>Training.Course</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
