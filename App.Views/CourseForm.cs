@@ -40,6 +40,8 @@ namespace App.Views
 			var path = CodeBase.GetCodePath();
 			#if (DIA_DEBUG)
 			path =  @"C:/NGO/client/pad/src/valley";
+			if (!Directory.Exists(path+@"\wui"))
+            	path =  @"D:/NGO/client/pad/src/valley";
 			#endif
 			browser.GoToUrl(path +@"/wui/ui.html");
 		}
