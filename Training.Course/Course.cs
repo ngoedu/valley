@@ -26,9 +26,21 @@ namespace NGO.Train
 			Name = cname;
 		}
 		
+		public Course(string cid, string cname, string ews)
+		{
+			ID = cid;
+			Name = cname;
+			Workspace = ews;
+		}
+		
+		public string ID {private set; get;}
+		
 		public string Name {set; get;}
 		
+		public string Workspace {set; get;}
+		
 		private List<Step> Steps = new List<Step>();
+		private List<Video> Videos = new List<Video>();
 		
 		public Style Css {set; get;}
 		
@@ -38,12 +50,29 @@ namespace NGO.Train
 			Steps.Add(step);
 		}
 		
+		public void AddVideo(Video video) {
+			Videos.Add(video);
+		}
+		
+		public Video GetVideoByID(int id) {
+			return Videos[id-1];
+		}
+		
 		public List<Step> GetMileStones() {
 			return Steps;
 		}
 		
+		public Step GetMileStoneByID(int id) {
+			return Steps[id-1];
+		}
+		
 		public void ClearMileStones() {
 			Steps.Clear();
+		}
+		
+		public Step GetLatestMileStone() {
+			var ms = GetMileStoneByID(Steps.Count - 1);
+			return ms;
 		}
 	}
 	
@@ -51,10 +80,11 @@ namespace NGO.Train
 	/// mile stone of the course
 	/// </summary>
 	public class Step {
-		public Step(int id, string name, string refer, string code, int status) {
+		public Step(int id, string name, string refer, int link, string code, int status) {
 			Id = id;
 			Name = name;
 			Reference = refer;
+			Link = link;
 			SourceCode = code;
 			Status = status;
 		}
@@ -62,6 +92,7 @@ namespace NGO.Train
 		public int Id {set; get;}
 		public string Name {set; get;}
 		public string Reference {set; get;}
+		public int Link {set; get;}
 		public string SourceCode {set; get;}
 		public int Status {set; get;}
 	}
@@ -77,7 +108,14 @@ namespace NGO.Train
 	/// course Video
 	/// </summary>
 	public class Video {
-		public string Url {set; get;}
-		public string Html {set; get;}
+		public int ID {set; get;}
+		public string Title {set; get;}
+		public string Link {set; get;}
+		
+		public Video (int id, string title, string link) {
+			ID = id;
+			title = Title;
+			Link = link;
+		}
 	}
 }

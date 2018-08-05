@@ -39,7 +39,7 @@ namespace AppTestForms
 
 		void Button1Click(object sender, EventArgs e)
 		{
-			ide.LoadEide(false);
+			ide.LoadEide(false,"");
 		}
 		void Button2Click(object sender, EventArgs e)
 		{

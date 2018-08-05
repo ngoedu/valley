@@ -70,6 +70,7 @@ namespace App.Mediator
 		}
 		
 		private void LoadCoursePlayForm(string cid) {
+			
 			//1.load course content
 			var app1 = new App.Views.AppContext("导航", 1, new JGuider());
 			appContexts.Add(app1);
@@ -77,35 +78,18 @@ namespace App.Mediator
 			appContexts.Add(app2);
 			var app3 = new App.Views.AppContext("编码", 3, new JEide("NgoEclipse",  CodeBase.GetCodePath(), PidRecorder.Instance));
 			appContexts.Add(app3);
+			
 			//2. prepare registry
-			var course = new Course("Web编程基础A001");
-			course.AddMileStone(new Step(1, "添加一个页面","REF","Code", Course.STATUS_DEFAULT));
-			course.AddMileStone(new Step(2, "第一条文字","REF","Code", Course.STATUS_DEFAULT));
-			course.AddMileStone(new Step(3, "换行试试","REF","Code", Course.STATUS_REFER));
-			course.AddMileStone(new Step(4, "原来需要标签","REF","Code", Course.STATUS_DEFAULT));
-			course.AddMileStone(new Step(5, "样子丑陋","REF","Code", Course.STATUS_DEFAULT));
-			course.AddMileStone(new Step(6, "好多的样式","REF","Code", Course.STATUS_CODE));
+			var courseName = "sweb-a01";//cid;
+			var cpath = CodeBase.GetCodePath() +@"\crd";
+			var course = CourseLoader.Instance.Load(cpath, courseName, false);
 			appRegistry.Add(AppRegKeys.COURSE_KEY, course);
-			var html = @"<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-	<meta http-equiv='X-UA-Compatible' content='IE=Edge' />
-	<meta http-equiv='Content-Language' content='zh-CN'/>
-	<style type='text/css'>
-	  div { height:600px; width:800px; }
-	</style>
-	<script>   
-	</script>
-</head>
-<body>
-	<div>
-		<iframe src='http://open.iqiyi.com/developer/player_js/coopPlayerIndex.html?vid=d52c9431203048a4986bba373d391525&tvId=1043319200&accessToken=2.f22860a2479ad60d8da7697274de9346&appKey=3955c3425820435e86d0f4cdfe56f5e7&appId=1368&height=100%&width=100%' frameborder='0' allowfullscreen='true' width='100%' height='100%'></iframe>
-	</div>
-</body>
-</html>";
-			appRegistry.Add(AppRegKeys.VIDEO_LINK, html);
+			
+			var milestone = course.GetLatestMileStone();
+			appRegistry.Add(AppRegKeys.VIDEO_LINK, course.GetVideoByID(milestone.Link).Link);
 			appRegistry.Add(AppRegKeys.AETHER_CLIENT, aetherClient);
+			appRegistry.Add(AppRegKeys.EIDE_WS, cpath+@"\"+courseName+@"\"+course.Workspace);
+			
 			
 			foreach(var app in appContexts) {
 				app.AppControl.Init(appRegistry);		
@@ -126,14 +110,17 @@ namespace App.Mediator
 		#region form event
 		public void FormLoaded()
 		{
+			/*
 			CourseForm form = new CourseForm();
 			if (form.ShowDialog() == DialogResult.OK)
 		    {
 				Diagnostics.Debug(string.Format("course form closed with cid={0}", form.Tag.ToString()));
 
 				//course selected
-				LoadCoursePlayForm("");//form.Tag.ToString());
+				LoadCoursePlayForm("sweb-a01");
 		    }
+			*/
+			LoadCoursePlayForm("sweb-a01");
 		}
 		public void FormClosed()
 		{

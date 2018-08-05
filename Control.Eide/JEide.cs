@@ -132,7 +132,7 @@ namespace Control.Eide
 		#region IAppEntry implementation
 		public void Init(AppRegistry reg)
 		{
-			this.LoadEide(false);
+			this.LoadEide(false, (string)reg[AppRegKeys.EIDE_WS]);
 			this.EmbedIde();
 			this.WindowsReStyle();
 			System.Diagnostics.Debug.WriteLine(string.Format("[EIDE] pid={0} Load + Enbed + ReStyle done.",pid));
@@ -169,7 +169,7 @@ namespace Control.Eide
 			base.Dispose(disposing);
 		}
 		
-		private string getParameter() {
+		private string GenParameters(string ws) {
 		                            
 			var osgiRequiredJavaVer_0 = "-Dosgi.requiredJavaVersion=1.8";
 			var jvmXX_1 = "-XX:+UseG1GC -XX:+UseStringDeduplication";
@@ -185,11 +185,8 @@ namespace Control.Eide
 			var startup_11 = @"-startup "+this.codeBase+@"\eide\dist\eclipse\\plugins/org.eclipse.equinox.launcher_1.3.201.v20161025-1711.jar";
 			var launcher_appVmarg_12 = @"--launcher.appendVmargs -exitdata 11ec_80 -product org.eclipse.epp.package.java.product";
 			var vm_13 = @"-vm "+this.codeBase+@"/jre/bin/javaw.exe";		
-			var data_14 = @"-data "+this.codeBase+@"\eide\dist\ws.5";		
-			
-			#if (DIA_RELEASE)
-            data_14 =  @"-data "+this.codeBase+@"\ws.5";	
-			#endif
+			//var data_14 = @"-data "+this.codeBase+@"\eide\dist\ws.5";		
+			var data_14 = @"-data "+ws;		
 			
 			var arguments = String.Format("{0} {1} {2} {3} {4} {5} {6} {7}  {8} {9} {10} {11} {12} {13} {14}",
 			                              osgiRequiredJavaVer_0,jvmXX_1,aether_2,jvmXX_3,jar_4,os_5,ws_6,arch_7,splash_8,launcher_9,launchlib_10,startup_11,launcher_appVmarg_12,vm_13,data_14);			
@@ -201,9 +198,9 @@ namespace Control.Eide
 			return arguments;
 		}
 		
-		private bool CreateByProcess() {
+		private bool CreateByProcess(string ws) {
 			var fileName = this.codeBase+@"\jre\bin\javaw.exe";
-			var arguments = getParameter();
+			var arguments = GenParameters(ws);
 
 			ProcessStartInfo psi = new ProcessStartInfo();
 			psi.WindowStyle = ProcessWindowStyle.Hidden;
@@ -277,12 +274,12 @@ namespace Control.Eide
 		/// launch the EIDE
 		/// </summary>
 		/// <param name="visible"></param>
-		public void LoadEide(bool visible) {
+		public void LoadEide(bool visible, string ws) {
 			if ( pid != -1 )
         		return;
 			
 			//create process
-			bool started = CreateByProcess();
+			bool started = CreateByProcess(ws);
 
 			//wait until launched and then hide it
 			while (started && pid == -1) {

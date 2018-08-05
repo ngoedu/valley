@@ -77,6 +77,7 @@
     <Compile Include="Diag\Diagnostics.cs" />
     <Compile Include="Dpi\DpiUtil.cs" />
     <Compile Include="Hook\SystemHotKey.cs" />
+    <Compile Include="Md5\MD5Util.cs" />
     <Compile Include="Net\IClient.cs" />
     <Compile Include="Proc\IPidCallback.cs" />
     <Compile Include="Proc\IPidCleaner.cs" />
@@ -93,6 +94,7 @@
       <DependentUpon>Resource1.resx</DependentUpon>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="Secure\StringClipher.cs" />
     <Compile Include="Signal\WaitSignal.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +114,8 @@
     <Folder Include="Net" />
     <Folder Include="Diag" />
     <Folder Include="Dpi" />
+    <Folder Include="Md5" />
+    <Folder Include="Secure" />
     <Folder Include="Signal" />
     <Folder Include="Reg" />
     <Folder Include="Proc" />
