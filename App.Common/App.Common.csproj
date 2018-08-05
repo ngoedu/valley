@@ -74,7 +74,7 @@
     <Compile Include="Controls\JProgressBar.Designer.cs">
       <DependentUpon>JProgressBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Debug\Diagnostics.cs" />
+    <Compile Include="Diag\Diagnostics.cs" />
     <Compile Include="Dpi\DpiUtil.cs" />
     <Compile Include="Hook\SystemHotKey.cs" />
     <Compile Include="Net\IClient.cs" />
@@ -110,7 +110,7 @@
   <ItemGroup>
     <Folder Include="Controls" />
     <Folder Include="Net" />
-    <Folder Include="Debug" />
+    <Folder Include="Diag" />
     <Folder Include="Dpi" />
     <Folder Include="Signal" />
     <Folder Include="Reg" />
