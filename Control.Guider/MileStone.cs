@@ -36,8 +36,10 @@ namespace NGO.Pad.Guider
 		private Color COLOR_DEF = Color.FromArgb(255,255,238);
 		
 		private Color[] COLOR_INDEX = new Color[4];
+		private IGuider guider;
+		private int index;
 		
-		public MileStone(string name, int status)
+		public MileStone(int idx, string name, int status, IGuider guider)
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
@@ -59,6 +61,8 @@ namespace NGO.Pad.Guider
 			//set name
 			this.Name = name;
 			
+			this.index = idx;
+			
 			// Set up the delays for the ToolTip.
 			toolTip1.AutoPopDelay = 5000;
 			toolTip1.InitialDelay = 500;
@@ -71,6 +75,7 @@ namespace NGO.Pad.Guider
 			//trigger resizes
 			this.Size = new Size(STONE_WIDTH + 160, STONE_HEIGHT);
 			
+			this.guider = guider;
 		}
 		
 		/// <summary>
@@ -111,7 +116,6 @@ namespace NGO.Pad.Guider
 		
 		void StoneDoubleClick(object sender, EventArgs e)
 		{
-			System.Diagnostics.Debug.WriteLine("dbclick");
 			switch (STATUS) {
 				case 0:
 					{
@@ -119,6 +123,7 @@ namespace NGO.Pad.Guider
 						stone.BackColor = COLOR_INDEX[STATUS];
 						toolTip1.RemoveAll();
 						toolTip1.SetToolTip(stone, "当前“讲解模式”,如继续双击将进入代码演示模式.");
+						this.guider.ShowRef(this.index);
 						break;
 					}
 				case 1:
@@ -127,6 +132,7 @@ namespace NGO.Pad.Guider
 						stone.BackColor = COLOR_INDEX[STATUS];
 						toolTip1.RemoveAll();
 						toolTip1.SetToolTip(stone, "当前“代码演示模式”,如继续双击将自动复制(覆盖)代码到你的工作区.");
+						this.guider.ShowCode(this.index);
 						break;
 					}
 				case 2:
@@ -138,6 +144,7 @@ namespace NGO.Pad.Guider
 							STATUS = Course.STATUS_SAVE;
 							stone.BackColor = COLOR_INDEX[STATUS];
 							toolTip1.RemoveAll();
+							this.guider.ReplicateCode(this.index);
 							toolTip1.SetToolTip(stone, "已执行过拷贝覆盖代码操作！");
 							
 						} else {

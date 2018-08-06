@@ -143,16 +143,16 @@ namespace App.Views
 		
 		private Course BuildCourse() {		
 			var course = new Course("Web编程基础A001");
-			course.AddMileStone(new Step(1, "添加一个页面","REF",0,"Code", Course.STATUS_DEFAULT));
-			course.AddMileStone(new Step(2, "第一条文字","REF",0,"Code", Course.STATUS_DEFAULT));
-			course.AddMileStone(new Step(3, "换行试试","REF",0,"Code", Course.STATUS_REFER));
-			course.AddMileStone(new Step(4, "原来需要标签","REF",0,"Code", Course.STATUS_DEFAULT));
-			course.AddMileStone(new Step(5, "样子丑陋","REF",0,"Code", Course.STATUS_DEFAULT));
-			course.AddMileStone(new Step(6, "好多的样式","REF",0,"Code", Course.STATUS_CODE));
-			course.AddMileStone(new Step(7, "好多的样式","REF",0,"Code", Course.STATUS_CODE));
-			course.AddMileStone(new Step(8, "好多的样式","REF",0,"Code", Course.STATUS_CODE));
-			course.AddMileStone(new Step(9, "好多的样式","REF",0,"Code", Course.STATUS_DEFAULT));
-			course.AddMileStone(new Step(10, "结束","REF",0,"Code", Course.STATUS_CODE));
+			course.AddMileStone(new Step(1, "添加一个页面",1,0,"Code", Course.STATUS_DEFAULT));
+			course.AddMileStone(new Step(2, "第一条文字",1,0,"Code", Course.STATUS_DEFAULT));
+			course.AddMileStone(new Step(3, "换行试试",1,0,"Code", Course.STATUS_REFER));
+			course.AddMileStone(new Step(4, "原来需要标签",1,0,"Code", Course.STATUS_DEFAULT));
+			course.AddMileStone(new Step(5, "样子丑陋",1,0,"Code", Course.STATUS_DEFAULT));
+			course.AddMileStone(new Step(6, "好多的样式",1,0,"Code", Course.STATUS_CODE));
+			course.AddMileStone(new Step(7, "好多的样式",1,0,"Code", Course.STATUS_CODE));
+			course.AddMileStone(new Step(8, "好多的样式",1,0,"Code", Course.STATUS_CODE));
+			course.AddMileStone(new Step(9, "好多的样式",1,0,"Code", Course.STATUS_DEFAULT));
+			course.AddMileStone(new Step(10, "结束",1,0,"Code", Course.STATUS_CODE));
 			return course;
 		}
 	}

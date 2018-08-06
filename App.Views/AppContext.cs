@@ -27,7 +27,7 @@ namespace App.Views
 		public int FuncKey {private set; get;}
 		public IAppEntry AppControl {private set; get;}
 		
-		private static Dictionary<string, AppContext> APPREG = new Dictionary<string, AppContext>();
+		private static readonly Dictionary<string, AppContext> APPREG = new Dictionary<string, AppContext>();
 		static AppContext() {
 			APPREG.Add("guider", new App.Views.AppContext("导航", 1, new JGuider()));
 			APPREG.Add("video", new App.Views.AppContext("视频", 2, new JVideo()));

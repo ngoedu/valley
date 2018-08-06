@@ -65,13 +65,21 @@ namespace NGO.Train
 				course.AddVideo(new Video(vid, vtitle, vlink));
             }
             
+            var refs=root.SelectNodes("/course/ref/item");  
+            for(int i=0;i<refs.Count;i++)  
+            {    
+            	var fid = Int16.Parse(refs[i].Attributes["id"].Value);
+                var finfo = refs[i].InnerText;
+				course.AddRef(new Refer(fid, finfo));
+            }
+            
 			var mileStones=root.SelectNodes("/course/milestone/entry");  
             for(int i=0;i<mileStones.Count;i++)  
             {    
             	var eid = Int16.Parse(mileStones[i].Attributes["id"].Value);
                 var etitle = mileStones[i].Attributes["title"].Value;
                 var elink = Int16.Parse(mileStones[i].Attributes["link"].Value);
-				var eref = mileStones[i].Attributes["ref"].Value;
+                var eref = Int16.Parse(mileStones[i].Attributes["ref"].Value);
 				var esrc = mileStones[i].InnerText;
 				course.AddMileStone(new Step(eid, etitle, eref, elink, esrc, 0));
             }

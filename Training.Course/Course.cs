@@ -42,7 +42,12 @@ namespace NGO.Train
 		private List<Step> Steps = new List<Step>();
 		private List<Video> Videos = new List<Video>();
 		private List<App> Apps = new List<App>();
-		
+		private List<Refer> Refs = new List<Refer>();
+
+		public void AddRef(Refer refer)
+		{
+			Refs.Add(refer);
+		}
 		public Style Css {set; get;}
 		
 		public Video Video {set; get;}
@@ -67,6 +72,10 @@ namespace NGO.Train
 			return Videos[id-1];
 		}
 		
+		public Refer GetReferByID(int id) {
+			return Refs[id-1];
+		}
+		
 		public List<Step> GetMileStones() {
 			return Steps;
 		}
@@ -89,7 +98,7 @@ namespace NGO.Train
 	/// mile stone of the course
 	/// </summary>
 	public class Step {
-		public Step(int id, string name, string refer, int link, string code, int status) {
+		public Step(int id, string name, int refer, int link, string code, int status) {
 			Id = id;
 			Name = name;
 			Reference = refer;
@@ -100,7 +109,7 @@ namespace NGO.Train
 		
 		public int Id {set; get;}
 		public string Name {set; get;}
-		public string Reference {set; get;}
+		public int Reference {set; get;}
 		public int Link {set; get;}
 		public string SourceCode {set; get;}
 		public int Status {set; get;}
@@ -133,6 +142,16 @@ namespace NGO.Train
 		
 		public App(string id) {
 			ID = id;
+		}
+	}
+	
+	public class Refer {
+		public int ID {set; get;}
+		public string Text {set; get;}
+		
+		public Refer(int id, string info) {
+			ID = id;
+			Text = info;
 		}
 	}
 }
