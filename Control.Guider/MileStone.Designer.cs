@@ -44,19 +44,22 @@ namespace NGO.Pad.Guider
 			// 
 			this.stone.BackColor = System.Drawing.SystemColors.Info;
 			this.stone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.stone.Location = new System.Drawing.Point(28, 19);
+			this.stone.Location = new System.Drawing.Point(37, 24);
+			this.stone.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.stone.Name = "stone";
-			this.stone.Size = new System.Drawing.Size(17, 14);
+			this.stone.Size = new System.Drawing.Size(22, 17);
 			this.stone.TabIndex = 0;
+			this.stone.Click += new System.EventHandler(this.StoneClick);
 			this.stone.DoubleClick += new System.EventHandler(this.StoneDoubleClick);
 			// 
 			// MileStone
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.stone);
+			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.Name = "MileStone";
-			this.Size = new System.Drawing.Size(76, 55);
+			this.Size = new System.Drawing.Size(101, 69);
 			this.Paint += new System.Windows.Forms.PaintEventHandler(this.MileStonePaint);
 			this.ResumeLayout(false);
 

@@ -34,7 +34,7 @@ namespace NGO.Train
 			}
 			
 			//2. read course into memory
-			string courseData = System.IO.File.ReadAllText(cFolder+@"\"+md5Folder+@"\package.dat");
+			string courseData = System.IO.File.ReadAllText(cFolder+@"\"+md5Folder+@"\pack.dat");
 	    	
 			var xdoc = new XmlDocument();
             xdoc.LoadXml(courseData);
@@ -80,8 +80,21 @@ namespace NGO.Train
                 var etitle = mileStones[i].Attributes["title"].Value;
                 var elink = Int16.Parse(mileStones[i].Attributes["link"].Value);
                 var eref = Int16.Parse(mileStones[i].Attributes["ref"].Value);
-				var esrc = mileStones[i].InnerText;
-				course.AddMileStone(new Step(eid, etitle, eref, elink, esrc, 0));
+				
+				
+				var ms = new Step(eid, etitle, eref, elink, 0);
+				
+				//populate src file
+				var files=mileStones[i].ChildNodes;
+				for(int j=0; j<files.Count; j++) {
+					var fname = files[j].Attributes["name"].Value;
+					var fpath = files[j].Attributes["path"].Value;
+					var ftext = files[j].InnerText;
+					
+					var esrc = new File(fname, fpath, ftext);
+					ms.SourceFiles.Add(esrc);
+				}
+				course.AddMileStone(ms);
             }
             
             

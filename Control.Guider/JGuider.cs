@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using App.Common.Reg;
+using NGO.Pad.Editor;
 using NGO.Train;
 
 namespace NGO.Pad.Guider
@@ -27,7 +28,7 @@ namespace NGO.Pad.Guider
 		private List<MileStone> mileStones = new List<MileStone>();
 		private System.Windows.Forms.Panel panelMileStone;
 		private WebBrowser refBrowser;
-		
+		private TabControl codeTabs;
 		public JGuider()
 		{
 			//
@@ -45,6 +46,9 @@ namespace NGO.Pad.Guider
 			
 			refBrowser = new WebBrowser();
 			this.Controls.Add(refBrowser);
+			
+			codeTabs = new TabControl();
+			this.Controls.Add(codeTabs);
 		}
 
 		public void Init(App.Common.Reg.AppRegistry reg)
@@ -63,10 +67,36 @@ namespace NGO.Pad.Guider
 			var ms = course.GetMileStoneByID(index);
 			var refInfo = course.GetReferByID(ms.Reference);
 			LoadHtml(refInfo.Text);
+			this.codeTabs.Visible = false;
+			this.refBrowser.Visible = true;
 		}
 		public void ShowCode(int index)
 		{
+			var ms = course.GetMileStoneByID(index);
+			List<File> srcFiles = ms.SourceFiles;
 			
+			//clean all page
+			foreach (TabPage tp in this.codeTabs.TabPages) {
+				this.codeTabs.TabPages.Remove(tp);
+			}
+			
+			//add new files 
+			foreach(var file in srcFiles) {
+				var page  = new TabPage();
+				page.Width = this.codeTabs.ClientSize.Width;
+				page.Height = this.codeTabs.ClientSize.Height;
+				page.Text = file.Name;
+				JEditor.Languages lan = JEditor.CheckLanguage(file.Name.Split('.')[1]);
+				var editor = new JEditor(lan);
+				editor.Dock = DockStyle.Fill;
+				editor.Name = "JEditor";
+				editor.AppendText(file.Src);
+				page.Controls.Add(editor);
+				this.codeTabs.Controls.Add(page);
+			}
+			
+			this.codeTabs.Visible = true;
+			this.refBrowser.Visible = false;
 		}
 		public void ReplicateCode(int index)
 		{
@@ -125,6 +155,11 @@ namespace NGO.Pad.Guider
 			refBrowser.Left = boxCourse.Width;
 			refBrowser.Width = this.Width - boxCourse.Width;
 			refBrowser.Height = this.Height;
+			
+			codeTabs.Top = boxCourse.Top;
+			codeTabs.Left = boxCourse.Width;
+			codeTabs.Width = this.Width - boxCourse.Width;
+			codeTabs.Height = this.Height;
 		}
 	}
 }

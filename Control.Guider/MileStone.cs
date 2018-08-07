@@ -197,5 +197,25 @@ namespace NGO.Pad.Guider
 			path.CloseFigure();
 			return path;
 		}
+		void StoneClick(object sender, EventArgs e)
+		{
+			switch (STATUS) {
+				case 1:
+					{
+						this.guider.ShowRef(this.index);
+						break;
+					}
+				case 2:
+					{
+						this.guider.ShowCode(this.index);
+						break;
+					}
+				case 3:
+					{
+						this.guider.ShowCode(this.index);
+						break;
+					}
+			}
+		}
 	}
 }

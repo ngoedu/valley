@@ -14,6 +14,7 @@ using System.Xml;
 using System.IO;  
 using System.Reflection;  
 using System.Drawing;
+using App.Common;
 using Snow.X.Algorithm; 
 
 namespace NGO.Pad.Editor
@@ -59,8 +60,8 @@ namespace NGO.Pad.Editor
                 default:  
                     break;  
             } 
-            
-            StreamReader reader= new StreamReader(filename,  System.Text.Encoding.UTF8); 
+            var path = CodeBase.GetCodePath() + "/conf/editor/";
+            StreamReader reader= new StreamReader(path+filename,  System.Text.Encoding.UTF8); 
             xdoc = new XmlDocument();
             xdoc.Load(reader); 
         }

@@ -72,6 +72,10 @@
       <Project>{4DD1007A-4F02-4B50-8BBC-E7F2F98A4DD6}</Project>
       <Name>Algorithm.JSnow</Name>
     </ProjectReference>
+    <ProjectReference Include="..\App.Common\App.Common.csproj">
+      <Project>{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}</Project>
+      <Name>App.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

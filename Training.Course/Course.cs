@@ -94,24 +94,35 @@ namespace NGO.Train
 		}
 	}
 	
+	public class File {
+		public File(string name, string path, string src) {
+			Path = path;
+			Name = name;
+			Src = src;
+		}
+		public string Name {set; get;}
+		public string Path {set; get;}
+		public string Src {set; get;}
+	}
+	
 	/// <summary>
 	/// mile stone of the course
 	/// </summary>
 	public class Step {
-		public Step(int id, string name, int refer, int link, string code, int status) {
+		public Step(int id, string name, int refer, int link, int status) {
 			Id = id;
 			Name = name;
 			Reference = refer;
 			Link = link;
-			SourceCode = code;
 			Status = status;
+			SourceFiles = new List<File>();
 		}
 		
 		public int Id {set; get;}
 		public string Name {set; get;}
 		public int Reference {set; get;}
 		public int Link {set; get;}
-		public string SourceCode {set; get;}
+		public List<File> SourceFiles {set; get;}
 		public int Status {set; get;}
 	}
 	

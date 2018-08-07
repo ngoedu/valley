@@ -69,6 +69,17 @@ namespace NGO.Pad.Editor
         private delegate void RenderAllHandler(RenderEventArgs e);
         private event RenderAllHandler RenderAll;
         
+        public static JEditor.Languages CheckLanguage(string suffix) {
+			if (suffix.Equals("js")) {
+				return JEditor.Languages.JAVASCRIPT;
+			} else if (suffix.Equals("html")) {
+				return JEditor.Languages.HTML;
+			} else if (suffix.Equals("css")) {
+				return JEditor.Languages.CSS;
+			}
+			return JEditor.Languages.HTML;
+		}
+        
         /// <summary>
         /// force re-render keywords line by line
         /// </summary>

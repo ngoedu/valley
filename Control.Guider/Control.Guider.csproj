@@ -89,6 +89,10 @@
       <Project>{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}</Project>
       <Name>App.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Control.Editor\Control.Editor.csproj">
+      <Project>{CD942A27-6733-42BB-BDA8-66E3B3A03755}</Project>
+      <Name>Control.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Training.Course\Training.Course.csproj">
       <Project>{8761863D-4875-41ED-A001-EEA384F04084}</Project>
       <Name>Training.Course</Name>
