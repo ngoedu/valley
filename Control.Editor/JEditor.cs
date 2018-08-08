@@ -29,14 +29,14 @@ namespace NGO.Pad.Editor
  		[DllImport("user32")]  
         private static extern int SendMessage(HWND hwnd, int wMsg, int wParam, IntPtr lParam);  
         private const int WM_SETREDRAW = 0xB;  
+        private bool editable = true;
         public static Font DEFAULT_FONT = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         
         public JEditor(Languages language, bool editable)  : this (language)
         {
         	Multiline = true;
         	ScrollBars = RichTextBoxScrollBars.Both;
-        	//this.ShortcutsEnabled = editable;
-        	//this.ReadOnly = editable;
+        	this.editable = editable;
         }
 
         public JEditor(Languages language)
@@ -107,7 +107,17 @@ namespace NGO.Pad.Editor
                 base.Refresh();  
             }  
             base.OnTextChanged(e);  
-        }  
+        } 
+        
+        private const Keys CopyKey = Keys.Control | Keys.C;
+		protected override bool ProcessCmdKey(ref Message msg, Keys keyData) { 
+        	if (!this.editable) {
+        		MessageBox.Show("预览模式不能编辑，拷贝", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information); 
+        		return true;
+        	}
+        	
+		     return base.ProcessCmdKey(ref msg, keyData);
+		}
   
         /// <summary>
         /// persist to file
