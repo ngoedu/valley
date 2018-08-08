@@ -83,16 +83,21 @@ namespace NGO.Pad.Guider
 			//add new files 
 			foreach(var file in srcFiles) {
 				var page  = new TabPage();
-				page.Width = this.codeTabs.ClientSize.Width;
-				page.Height = this.codeTabs.ClientSize.Height;
+				//page.Width = this.codeTabs.ClientSize.Width;
+				//page.Height = this.codeTabs.ClientSize.Height;
+				page.Dock = DockStyle.Fill;
+				this.codeTabs.Controls.Add(page);
 				page.Text = file.Name;
 				JEditor.Languages lan = JEditor.CheckLanguage(file.Name.Split('.')[1]);
-				var editor = new JEditor(lan);
-				editor.Dock = DockStyle.Fill;
+				var editor = new JEditor(lan, false);
+				//editor.Dock = DockStyle.Fill;
+				//editor.Width = page.ClientSize.Width;
+				//editor.Height = page.ClientSize.Height;
 				editor.Name = "JEditor";
-				editor.AppendText(file.Src);
+				editor.AcceptText(file.Src);
 				page.Controls.Add(editor);
-				this.codeTabs.Controls.Add(page);
+				editor.Width = page.ClientSize.Width ;
+				editor.Height = page.ClientSize.Height - 25;
 			}
 			
 			this.codeTabs.Visible = true;
@@ -138,7 +143,7 @@ namespace NGO.Pad.Guider
 		{
 			boxCourse.Top = 0;
 			boxCourse.Left = 0;
-			boxCourse.Width = 260;
+			boxCourse.Width = 220;
 			
 			panelMileStone.Top = boxCourse.Height + 1;
 			panelMileStone.Left = 0;
@@ -160,6 +165,14 @@ namespace NGO.Pad.Guider
 			codeTabs.Left = boxCourse.Width;
 			codeTabs.Width = this.Width - boxCourse.Width;
 			codeTabs.Height = this.Height;
+			
+			foreach (TabPage tp in this.codeTabs.TabPages) {
+				tp.Width = codeTabs.ClientSize.Width;
+				tp.Height = codeTabs.ClientSize.Height;
+				tp.Controls["JEditor"].Width = tp.ClientSize.Width ;
+				tp.Controls["JEditor"].Height = tp.ClientSize.Height - 25;
+				
+			}
 		}
 	}
 }

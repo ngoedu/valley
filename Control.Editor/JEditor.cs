@@ -31,7 +31,15 @@ namespace NGO.Pad.Editor
         private const int WM_SETREDRAW = 0xB;  
         public static Font DEFAULT_FONT = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         
-        public JEditor(Languages language)  
+        public JEditor(Languages language, bool editable)  : this (language)
+        {
+        	Multiline = true;
+        	ScrollBars = RichTextBoxScrollBars.Both;
+        	//this.ShortcutsEnabled = editable;
+        	//this.ReadOnly = editable;
+        }
+
+        public JEditor(Languages language)
         {  
         	render = Render.Instance(language);
         	WordWrap = false;
@@ -113,6 +121,11 @@ namespace NGO.Pad.Editor
         	OnRenderAll(new RenderEventArgs() { target = this });
         	//below is the equvilent
         	//RenderAll.Invoke(new RenderEventArgs() { target = this });
+        }
+        
+        public void AcceptText(string text) {
+        	this.AppendText(text);
+        	OnRenderAll(new RenderEventArgs() { target = this });
         }
         
         public new bool WordWrap  
