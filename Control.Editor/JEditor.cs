@@ -112,7 +112,7 @@ namespace NGO.Pad.Editor
         private const Keys CopyKey = Keys.Control | Keys.C;
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData) { 
         	if (!this.editable) {
-        		MessageBox.Show("预览模式不能编辑，拷贝", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information); 
+        		MessageBox.Show("预览模式不允许拷贝和编辑", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information); 
         		return true;
         	}
         	

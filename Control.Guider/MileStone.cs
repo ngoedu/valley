@@ -122,7 +122,7 @@ namespace NGO.Pad.Guider
 						STATUS = Course.STATUS_REFER;
 						stone.BackColor = COLOR_INDEX[STATUS];
 						toolTip1.RemoveAll();
-						toolTip1.SetToolTip(stone, "当前“讲解模式”,如继续双击将进入代码演示模式.");
+						toolTip1.SetToolTip(stone, "参考模式 -- 回顾示例知识点");
 						this.guider.ShowRef(this.index);
 						break;
 					}
@@ -131,13 +131,13 @@ namespace NGO.Pad.Guider
 						STATUS = Course.STATUS_CODE;
 						stone.BackColor = COLOR_INDEX[STATUS];
 						toolTip1.RemoveAll();
-						toolTip1.SetToolTip(stone, "当前“代码演示模式”,如继续双击将自动复制(覆盖)代码到你的工作区.");
+						toolTip1.SetToolTip(stone, "代码预览模式 -- 可以参考示例代码");
 						this.guider.ShowCode(this.index);
 						break;
 					}
 				case 2:
 					{
-						var confirmResult = MessageBox.Show("你确定执行此操作吗? 该操作会将参考代码拷贝并覆盖到你的工作区。",
+						var confirmResult = MessageBox.Show("该操作将示例代码覆盖到你的工作区，确定执行此操作吗? ",
 							                    "覆盖确认!",
 							                    MessageBoxButtons.YesNo);
 						if (confirmResult == DialogResult.Yes) {
@@ -145,7 +145,7 @@ namespace NGO.Pad.Guider
 							stone.BackColor = COLOR_INDEX[STATUS];
 							toolTip1.RemoveAll();
 							this.guider.ReplicateCode(this.index);
-							toolTip1.SetToolTip(stone, "已执行过拷贝覆盖代码操作！");
+							toolTip1.SetToolTip(stone, "已执行覆盖代码操作！");
 							
 						} else {
 							//do nothing

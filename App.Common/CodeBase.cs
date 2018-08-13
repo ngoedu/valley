@@ -16,6 +16,12 @@ namespace App.Common
 	/// </summary>
 	public class CodeBase
 	{
+		public static string COURSE_FOLDER = "cdat";
+		
+		public static string GetCoursePath() {
+			return GetCodePath() +@"\"+ COURSE_FOLDER;
+		}
+		
 		public static string GetCodePath() {
 			string path =  Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\",string.Empty);
 			path =  path.Replace(@"bin\debug\", string.Empty);

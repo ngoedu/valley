@@ -67,7 +67,7 @@ namespace App.Mediator
 			
 			//1.load course content, prepare registry
 			var courseName = "sweb-a01";//cid;
-			var cpath = CodeBase.GetCodePath() +@"\crd";
+			var cpath = CodeBase.GetCoursePath();
 			var course = CourseLoader.Instance.Load(cpath, courseName, false);
 			appRegistry.Add(AppRegKeys.COURSE_KEY, course);
 			
