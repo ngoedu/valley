@@ -75,19 +75,15 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JEditor\Jeditor.csproj">
-      <Project>{1294D2E4-EB9B-48F7-ABCE-1B358CA3039A}</Project>
-      <Name>JEditor</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\JFiles\JFiles.csproj">
-      <Project>{5E345561-3861-4E82-9B2E-9CC9DD77915B}</Project>
-      <Name>JFiles</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Training.Course\Training.Course.csproj">
+      <Project>{8761863D-4875-41ED-A001-EEA384F04084}</Project>
+      <Name>Training.Course</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

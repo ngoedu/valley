@@ -44,6 +44,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Mediator", "App.Mediato
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Common", "App.Common\App.Common.csproj", "{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCodeRec", "XCodeRec\XCodeRec.csproj", "{00801848-0520-4F25-AF30-9ABE6A655167}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -130,5 +132,9 @@ Global
 		{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00801848-0520-4F25-AF30-9ABE6A655167}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00801848-0520-4F25-AF30-9ABE6A655167}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00801848-0520-4F25-AF30-9ABE6A655167}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00801848-0520-4F25-AF30-9ABE6A655167}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
