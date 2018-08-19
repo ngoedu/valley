@@ -25,19 +25,13 @@ namespace NGO.Train
 		{
 		}
 		
-		public Course Load(string cFolder, string cid, bool md5) {
-			
-			//1. check if specific md5 hashed folder existed
-			string md5Folder = md5 ? MD5Util.StringMD5(cid) : cid;
-			if (!Directory.Exists(cFolder+@"\"+md5Folder)) {
+		
+		public Course Load(string packDate, string trData) {
+			if (string.IsNullOrEmpty(packDate))
 				return null;
-			}
 			
-			//2. read course into memory
-			string courseData = System.IO.File.ReadAllText(cFolder+@"\"+md5Folder+@"\pack.dat");
-	    	
 			var xdoc = new XmlDocument();
-            xdoc.LoadXml(courseData);
+            xdoc.LoadXml(packDate);
             var root=xdoc.DocumentElement;  
            
             var courseId	=root.SelectNodes("/course/schema/id")[0].InnerText;
@@ -97,10 +91,12 @@ namespace NGO.Train
 				course.AddMileStone(ms);
             }
             
-            
-			
+
 			//3. read trainig records into memory
-			string trainingRecords = System.IO.File.ReadAllText(cFolder+@"\"+md5Folder+@"\tr.dat");
+			if (string.IsNullOrEmpty(trData))
+				return course;
+			
+			string trainingRecords = trData; 
 			var xtr = new XmlDocument();
             xtr.LoadXml(trainingRecords);
             var troot=xtr.DocumentElement; 
@@ -115,6 +111,21 @@ namespace NGO.Train
 				course.GetMileStoneByID(eid).Status = estat;
             }
 			return course;
+		}
+		
+		public Course Load(string cFolder, string cid, bool md5) {
+			
+			//1. check if specific md5 hashed folder existed
+			string md5Folder = md5 ? MD5Util.StringMD5(cid) : cid;
+			if (!Directory.Exists(cFolder+@"\"+md5Folder)) {
+				return null;
+			}
+			
+			//2. read course into memory
+			string courseData = System.IO.File.ReadAllText(cFolder+@"\"+md5Folder+@"\pack.dat");
+	    	string trainingRecords = System.IO.File.ReadAllText(cFolder+@"\"+md5Folder+@"\tr.dat");
+			
+	    	return Load(courseData, trainingRecords);
 		}
 	}
 }
