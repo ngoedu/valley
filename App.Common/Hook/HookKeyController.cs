@@ -30,8 +30,8 @@ namespace App.Common.Hook
 			REGISTORY.Add(1, new HotKeyEntry(1, Keys.F1, null));
 			REGISTORY.Add(2, new HotKeyEntry(2, Keys.F2, null));
 			REGISTORY.Add(3, new HotKeyEntry(3, Keys.F3, null));
-			/*REGISTORY.Add(4, new HotKeyEntry(4, Keys.F4, null));
-			REGISTORY.Add(5, new HotKeyEntry(5, Keys.F5, null));
+			REGISTORY.Add(4, new HotKeyEntry(4, Keys.F4, null));
+			/*REGISTORY.Add(5, new HotKeyEntry(5, Keys.F5, null));
 			REGISTORY.Add(6, new HotKeyEntry(6, Keys.F6, null));
 			REGISTORY.Add(7, new HotKeyEntry(7, Keys.F7, null));
 			REGISTORY.Add(8, new HotKeyEntry(8, Keys.F8, null));

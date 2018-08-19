@@ -10,6 +10,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using App.Common.Reg;
 using CefSharp;
 using CefSharp.WinForms;
 
@@ -18,9 +19,9 @@ namespace App.Views
 	/// <summary>
 	/// Description of WebBrowser.
 	/// </summary>
-	public partial class JWebBrowser : UserControl, IWebBrowser
+	public partial class JWebBrowser : UserControl, IWebBrowser, IAppEntry
 	{
-		private static ChromiumWebBrowser cefBrowser = new ChromiumWebBrowser("");
+		private ChromiumWebBrowser cefBrowser ;
 		private static string CEF_ACTIVE = "CEF_ACTIVE";
 		private static string CEF_DEACTIVE = "CEF_DEACTIVE";
 		private bool isNav = false;
@@ -32,14 +33,19 @@ namespace App.Views
 			//
 			InitializeComponent();
 
+			cefBrowser = new ChromiumWebBrowser("");
+				
 			if (cefBrowser.Parent != null) {
-				cefBrowser.Parent.Controls.Remove(cefBrowser);
 				cefBrowser.Parent.Tag = CEF_DEACTIVE;
+				cefBrowser.Parent.Controls.Remove(cefBrowser);
 			}
 			
 			this.Controls.Add(cefBrowser);
-			cefBrowser.RegisterJsObject(callback.GetJSCallbackName(), callback);
-			callback.SetCefBrowser(cefBrowser);
+			if (callback != null) {
+				cefBrowser.RegisterJsObject(callback.GetJSCallbackName(), callback);
+				callback.SetCefBrowser(cefBrowser);
+			}
+
 			isNav = isNavBar;
 			if (!isNav) {
 				cefBrowser.Dock = DockStyle.Fill;
@@ -49,21 +55,51 @@ namespace App.Views
 			}
 			Tag = CEF_ACTIVE;
 		}
+		
+		public void ShowDevTools() {
+			var panel = this; //TODO: panel here
+			var windowInfo = new WindowInfo();
+			var browser = cefBrowser.GetBrowser().GetHost();
+			var rect = panel.ClientRectangle;
+			windowInfo.SetAsChild(panel.Handle, rect.Left, rect.Top, rect.Right, rect.Bottom);
+			browser.ShowDevTools(windowInfo);
+		}
+		
+		private void OnBrowserLoadingStateChanged(object sender, LoadingStateChangedEventArgs args)
+        {
+			if (!args.IsLoading){
+				cefBrowser.BringToFront();
+			}
+        }
 
+		#region IAppEntry implementation
+		public void Init(AppRegistry reg)
+		{
+			//TODO: check below action if required.
+		}
+		public void Dispose(AppRegistry reg)
+		{
+			//do nothing, as the static Dispose will handle the real dispostion of CEF instalces.
+		}
+		#endregion
 		#region IWebBrowser implementation
 
 		public void LoadPage(string content)
 		{
-			if (Tag == CEF_ACTIVE)
-				CefSharp.WebBrowserExtensions.LoadHtml(cefBrowser, content,"http://localhost/test.html");
+			if (Tag == CEF_ACTIVE) {
+				//CefSharp.WebBrowserExtensions.LoadHtml(cefBrowser, content,"http://localhost/test.html");
+				cefBrowser.LoadHtml(content, "about:blank");
+			}
+				
 			else
 				throw new InvalidOperationException("cef is not active");
 		}
 
 		public void GoToUrl(string url)
 		{
-			if (Tag == CEF_ACTIVE)
+			if (Tag == CEF_ACTIVE) {
 				cefBrowser.Load(url);	
+			}	
 			else
 				throw new InvalidOperationException("cef is not active");
 		}
@@ -82,6 +118,10 @@ namespace App.Views
 					cefBrowser.Top = this.txtAddress.Height;
 					cefBrowser.Width = this.ClientSize.Width;
 					cefBrowser.Height = this.ClientSize.Height - this.txtAddress.Height;
+
+				} else {
+					
+					
 				}
 			}
 		}
@@ -96,7 +136,7 @@ namespace App.Views
 		
 		public static void Dispose()
 		{
-			cefBrowser.Dispose();
+			//cefBrowser.Dispose();
 			System.Diagnostics.Debug.WriteLine("[JwebBrowser] ChromiumWebBrowser disposed.");
 			CefSharp.Cef.Shutdown();
 		}

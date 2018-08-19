@@ -47,6 +47,7 @@ namespace App.Views
 			MINS.Add(1,new Rectangle(new Point(100,220),new Size(300, 260)));
 	    	MINS.Add(2,new Rectangle(new Point(500,220),new Size(300, 260)));
 	    	MINS.Add(3,new Rectangle(new Point(900,220),new Size(300, 260)));
+	    	MINS.Add(4,new Rectangle(new Point(100,520),new Size(300, 260)));
 	    	
 	    	tileMaxSize = new Rectangle(maxPoint, new Size(resolution.Width - 40, resolution.Height - 200));
 	    	tileNormalSize = new Rectangle(normalPoint, new Size(resolution.Width / 2 - 40, resolution.Height - 200));
@@ -54,26 +55,7 @@ namespace App.Views
 		}
 
 		public void BuildAppTiles(System.Windows.Forms.Form mainForm, List<AppContext> context)
-		{	
-			
-			/*
- 			AppTile tile1 = new AppTile("Guilder", 1, new NGO.Pad.Guider.JGuider(), this);
-			HookKeyController.Instance.RegisterCallback(1, tile1);
-			mainForm.Controls.Add(tile1);
-			
-			AppTile tile2 = new AppTile("Video", 2, new Control.Video.JVideo(), this);
-			HookKeyController.Instance.RegisterCallback(2, tile2);
-			mainForm.Controls.Add(tile2);
-			
-			AppTile tile3 = new AppTile("EIDE", 3, new JEide("NgoEclipse",  CodeBase.GetCodePath(), PidRecorder.Instance),  this);
-			HookKeyController.Instance.RegisterCallback(3, tile3);
-			mainForm.Controls.Add(tile3);
-					
-			TILES.Add(1, tile1);
-			TILES.Add(2, tile2);
-			TILES.Add(3, tile3);
-			*/
-			
+		{
 			foreach(var app in context) {
 				var tile = new AppTile(app.AppId, app.FuncKey, (System.Windows.Forms.Control)app.AppControl, this);
 				HookKeyController.Instance.RegisterCallback(app.FuncKey, tile);

@@ -32,6 +32,7 @@ namespace App.Views
 			APPREG.Add("guider", new App.Views.AppContext("导航", 1, new JGuider()));
 			APPREG.Add("video", new App.Views.AppContext("视频", 2, new JVideo()));
 			APPREG.Add("jeide", new App.Views.AppContext("编码", 3, new JEide("NgoEclipse",  CodeBase.GetCodePath(), PidRecorder.Instance)));
+			APPREG.Add("browser", new App.Views.AppContext("浏览器", 4, new JWebBrowser(true, null)));
 		}
 		
 		public AppContext(string id, int key, IAppEntry ctl)
