@@ -226,7 +226,7 @@ var ROLL = (function() {
 				phi = Math.random()*(Math.PI);
 				theta = Math.random()*(2*Math.PI);
 			}
-			//×ø±ê±ä»»
+			
 			mcList[i-1].cx = radius * Math.cos(theta)*Math.sin(phi);
 			mcList[i-1].cy = radius * Math.sin(theta)*Math.sin(phi);
 			mcList[i-1].cz = radius * Math.cos(phi);
