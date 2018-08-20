@@ -46,6 +46,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Common", "App.Common\Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCodeRec", "XCodeRec\XCodeRec.csproj", "{00801848-0520-4F25-AF30-9ABE6A655167}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XTendLibs", "XtendLibs\XtendLibs.csproj", "{24AE7A28-A447-4973-9E75-24C8A4E607CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XWebTool", "XWebTool\XWebTool.csproj", "{92756D40-0985-41C9-BB46-3F0AB265837D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -136,5 +140,13 @@ Global
 		{00801848-0520-4F25-AF30-9ABE6A655167}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00801848-0520-4F25-AF30-9ABE6A655167}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00801848-0520-4F25-AF30-9ABE6A655167}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24AE7A28-A447-4973-9E75-24C8A4E607CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24AE7A28-A447-4973-9E75-24C8A4E607CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24AE7A28-A447-4973-9E75-24C8A4E607CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24AE7A28-A447-4973-9E75-24C8A4E607CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92756D40-0985-41C9-BB46-3F0AB265837D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92756D40-0985-41C9-BB46-3F0AB265837D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92756D40-0985-41C9-BB46-3F0AB265837D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92756D40-0985-41C9-BB46-3F0AB265837D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
