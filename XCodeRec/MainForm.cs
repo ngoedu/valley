@@ -24,7 +24,7 @@ namespace XCodeRec
 	public partial class MainForm : Form
 	{
 		
-		private static string CodeFolder = @"c:\ngo\client\cdat";
+		private static string CodeFolder = @"c:\ngo\client\cdat\sweb-a01";
 		public MainForm()
 		{
 			//
@@ -61,7 +61,7 @@ namespace XCodeRec
 		void BtVideoAddClick(object sender, EventArgs e)
 		{
 			string[] lvData = new string[2];
-			lvData[0] = txtVideoID.Text;
+			lvData[0] = tbVideoID.Text;
 			lvData[1] = rtbVideoLink.Text;
             ListViewItem lvItem = new ListViewItem(lvData, 0);
 			lvVideo.Items.Add(lvItem);
@@ -74,7 +74,7 @@ namespace XCodeRec
 		void BtnRefAddClick(object sender, EventArgs e)
 		{
 			string[] lvData = new string[2];
-			lvData[0] = txtRefID.Text;
+			lvData[0] = tbRefID.Text;
 			lvData[1] = rtbRefText.Text;
             ListViewItem lvItem = new ListViewItem(lvData, 0);
 			lvRef.Items.Add(lvItem);
@@ -88,9 +88,7 @@ namespace XCodeRec
 			
 			    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
 			    {
-			        //string[] files = Directory.GetFiles(fbd.SelectedPath);
-			        this.txtSrcPath.Text = fbd.SelectedPath;
-			        //System.Windows.Forms.MessageBox.Show("Files found: " + files.Length.ToString(), "Message");
+			        this.tbMSSrcPath.Text = fbd.SelectedPath;
 			    }
 			}
 		}
@@ -103,19 +101,19 @@ namespace XCodeRec
 			
 			    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
 			    {
-			        this.txtOutputFile.Text = fbd.SelectedPath + @"\pack.dat";
+			        this.tbPackOutputFile.Text = fbd.SelectedPath + @"\pack.dat";
 			    }
 			}
 		}
 		void BtnLoadPackageClick(object sender, EventArgs e)
 		{
-			if (!System.IO.File.Exists(this.txtOutputFile.Text))
+			if (!System.IO.File.Exists(this.tbPackOutputFile.Text))
 	    	{
-	    		System.IO.File.Create(this.txtOutputFile.Text).Dispose();
+				MessageBox.Show("file "+this.tbPackOutputFile.Text + " does not exit.");
 	    		return;
 	    	}
 			
-			this.LoadPackage(this.txtOutputFile.Text);
+			this.LoadPackage(this.tbPackOutputFile.Text);
 			
 		}
 		
@@ -127,6 +125,7 @@ namespace XCodeRec
 			this.tbSchemaName.Text = course.Name;
 			this.tbScheamWs.Text = course.Workspace;
 			
+			
 			//this.clbApp.Items
 			for (int i = 0; i < clbApp.Items.Count; i++)
 			{
@@ -134,6 +133,90 @@ namespace XCodeRec
 				if (course.GetApps().Any(x => x.ID == aid))
 			    {
 			       clbApp.SetItemChecked(i, true); 
+			    }
+			}
+			
+			//add video items
+			lvVideo.Items.Clear();
+			foreach (var v in course.GetVideos()) {
+				string[] lvData = new string[2];
+				lvData[0]= v.ID.ToString();
+				lvData[1] = v.Link;
+				ListViewItem lvItem = new ListViewItem(lvData, 0);
+				lvItem.Tag = v;
+				lvVideo.Items.Add(lvItem);
+			}
+			
+			//add refer items
+			lvRef.Items.Clear();
+			foreach (var r in course.GetRefs()) {
+				string[] lvData = new string[2];
+				lvData[0]= r.ID.ToString();
+				lvData[1] = r.Text;
+				ListViewItem lvItem = new ListViewItem(lvData, 0);
+				lvItem.Tag = r;
+				lvRef.Items.Add(lvItem);
+			}
+			
+		}
+		void BtnVideoSaveClick(object sender, EventArgs e)
+		{
+			Video v = new Video(Int16.Parse(tbVideoID.Text),"", rtbVideoLink.Text);
+			var item = lvVideo.FindItemWithText(tbVideoID.Text);
+			item.SubItems[1].Text = rtbVideoLink.Text;
+			item.Tag = v;
+		}
+		void LvVideoItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+		{
+			Video v = (Video)e.Item.Tag;
+			rtbVideoLink.Text = v.Link;
+			tbVideoID.Text = v.ID.ToString();
+		}
+		void BtnRefSaveClick(object sender, EventArgs e)
+		{
+			Refer r = new Refer(Int16.Parse(tbRefID.Text), rtbRefText.Text);
+			var item = lvRef.FindItemWithText(tbRefID.Text);
+			item.SubItems[1].Text = rtbRefText.Text;
+			item.Tag = r;
+		}
+		void LvRefItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+		{
+			Refer r = (Refer)e.Item.Tag;
+			rtbRefText.Text = r.Text;
+			tbRefID.Text = r.ID.ToString();
+		}
+		
+		//create MS folders
+		void Button1Click(object sender, EventArgs e)
+		{
+			if (string.IsNullOrEmpty(tbMSoutPath.Text) || string.IsNullOrEmpty(tbMSSrcPath.Text))
+			{
+				MessageBox.Show("MileStone src or output path empty！");
+				return;
+			}
+			
+			var directories = Directory.GetDirectories(tbMSoutPath.Text);
+			var maxDir = directories.Length	 ==0 ? "0" : directories.Last();
+			string[] sd = maxDir.Split('\\');
+			maxDir = sd[sd.Length - 1];
+			int curr = Int16.Parse(maxDir) + 1;
+			
+			string[] ignore1 = {".project", ".classpath"};
+			string[] ignore2 = {"classes",  ".settings"};
+			FolderCopy.DirectoryCopy(tbMSSrcPath.Text,tbMSoutPath.Text+ @"\"+curr, true, ignore1, ignore2);
+			MessageBox.Show("MS folder copy done!");
+		}
+		
+		void BtnMSoutPathClick(object sender, EventArgs e)
+		{
+			using(var fbd = new FolderBrowserDialog())
+			{
+				fbd.SelectedPath = CodeFolder;
+			    DialogResult result = fbd.ShowDialog();
+			
+			    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+			    {
+			        this.tbMSoutPath.Text = fbd.SelectedPath;
 			    }
 			}
 		}
