@@ -44,6 +44,14 @@ namespace NGO.Train
 		private List<App> Apps = new List<App>();
 		private List<Refer> Refs = new List<Refer>();
 
+		public List<Video> GetVideos() {
+			return Videos;
+		}
+		
+		public List<Refer> GetRefs() {
+			return Refs;
+		}
+		
 		public void AddRef(Refer refer)
 		{
 			Refs.Add(refer);
