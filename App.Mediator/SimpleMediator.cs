@@ -68,16 +68,16 @@ namespace App.Mediator
 			//1.load course content, prepare registry
 			var courseName = "sweb-a01";//cid;
 			var cpath = CodeBase.GetCoursePath();
-			var course = CourseLoader.Instance.Load(cpath, courseName, false);
+			var course = CourseReader.Instance.ReadFromFolder(cpath, courseName, false);
 			appRegistry.Add(AppRegKeys.COURSE_KEY, course);
 			
 			var milestone = course.GetLatestMileStone();
-			appRegistry.Add(AppRegKeys.VIDEO_LINK, course.GetVideoByID(milestone.Link).Link);
+			appRegistry.Add(AppRegKeys.VIDEO_LINK, course.GetVideoByID(milestone.LinkID).Content);
 			appRegistry.Add(AppRegKeys.AETHER_CLIENT, aetherClient);
-			appRegistry.Add(AppRegKeys.EIDE_WS, cpath+@"\"+courseName+@"\"+course.Workspace);
+			appRegistry.Add(AppRegKeys.EIDE_WS, cpath+@"\"+courseName+@"\"+course.Schema.Workspace);
 			
 			//2. prepare app controls
-			appContexts = App.Views.AppContext.CreateAppContext(course.GetApps());
+			appContexts = App.Views.AppContext.CreateAppContext(course.Apps);
 			foreach(var app in appContexts) {
 				app.AppControl.Init(appRegistry);		
 			}

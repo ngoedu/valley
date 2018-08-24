@@ -9,6 +9,7 @@
 using System;
 using System.Xml;
 using System.Xml.Serialization;
+using NGO.Train.Entity;
 
 namespace NGO.Train
 {

@@ -12,6 +12,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using NGO.Train;
+using NGO.Train.Entity;
 
 namespace NGO.Pad.Guider
 {

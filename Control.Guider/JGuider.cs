@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using App.Common.Reg;
 using NGO.Pad.Editor;
 using NGO.Train;
+using NGO.Train.Entity;
 
 namespace NGO.Pad.Guider
 {
@@ -23,7 +24,7 @@ namespace NGO.Pad.Guider
 	public partial class JGuider : UserControl, IGuider
 	{
 		
-		NGO.Train.Course course;
+		NGO.Train.Entity.Course course;
 		private Box boxCourse;
 		private List<MileStone> mileStones = new List<MileStone>();
 		private System.Windows.Forms.Panel panelMileStone;
@@ -65,15 +66,15 @@ namespace NGO.Pad.Guider
 		public void ShowRef(int index)
 		{
 			var ms = course.GetMileStoneByID(index);
-			var refInfo = course.GetReferByID(ms.Reference);
-			LoadHtml(refInfo.Text);
+			var refInfo = course.GetReferByID(ms.RefID);
+			LoadHtml(refInfo.Content);
 			this.codeTabs.Visible = false;
 			this.refBrowser.Visible = true;
 		}
 		public void ShowCode(int index)
 		{
 			var ms = course.GetMileStoneByID(index);
-			List<File> srcFiles = ms.SourceFiles;
+			List<File> srcFiles = ms.Files;
 			
 			//clean all page
 			foreach (TabPage tp in this.codeTabs.TabPages) {
@@ -94,7 +95,7 @@ namespace NGO.Pad.Guider
 				//editor.Width = page.ClientSize.Width;
 				//editor.Height = page.ClientSize.Height;
 				editor.Name = "JEditor";
-				editor.AcceptText(file.Src);
+				editor.AcceptText(file.Content);
 				page.Controls.Add(editor);
 				editor.Width = page.ClientSize.Width ;
 				editor.Height = page.ClientSize.Height - 25;
@@ -122,15 +123,15 @@ namespace NGO.Pad.Guider
 		}
 
 		#region IGuider implementation
-		public void BindCourse(NGO.Train.Course course)
+		public void BindCourse(NGO.Train.Entity.Course course)
 		{
-			boxCourse.SetName(course.Name);
+			boxCourse.SetName(course.Schema.Name);
 			RemoveMileStones();
-			List<Step> steps = course.GetMileStones();
+			List<Revision> steps = course.Milestons;
 			int index = 0;
-			foreach (Step step in steps)
+			foreach (var step in steps)
 			{
-				var stone = new MileStone(step.Id, step.Id+"."+step.Name, step.Status, this);
+				var stone = new MileStone(step.ID, step.ID+"."+step.Tile, step.Status, this);
 				stone.Top = (stone.Height - 2 ) * index++ ;
 				stone.Left = 20;
 				mileStones.Add(stone);

@@ -35,8 +35,11 @@ namespace NGO.Train.Entity
 	        }
 	    }
 	    
-		public VLink()
+		public VLink(int id, string title, string content)
 		{
+			ID = id;
+			Title = title;
+			Content = content;
 		}
 	}
 }

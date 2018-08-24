@@ -7,8 +7,11 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using App.Common.Md5;
+using NGO.Train.Entity;
 
 namespace NGO.Train
 {
@@ -22,6 +25,15 @@ namespace NGO.Train
 	    
 		private CourseReader()
 		{
+		}
+		
+		public Course ReadFromFolder(string folder, string fileName, bool isHashed) {
+			string md5Folder = isHashed ? MD5Util.StringMD5(fileName) : fileName;
+			if (!Directory.Exists(folder+@"\"+md5Folder)) {
+				return null;
+			}
+			
+			return ReadFromFile(folder+@"\"+md5Folder);
 		}
 		
 		public Course ReadFromFile(string fileName) {

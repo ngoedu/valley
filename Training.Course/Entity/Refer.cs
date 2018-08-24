@@ -34,5 +34,11 @@ namespace NGO.Train.Entity
 	            Content = value.Value;
 	        }
 	    }
+	    
+	    public Refer(int id, string title, string content) {
+	    	ID = id;
+	    	Title = title;
+	    	Content = content;
+	    }
 	}
 }

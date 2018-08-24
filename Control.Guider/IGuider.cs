@@ -8,7 +8,7 @@
  */
 using System;
 using App.Common.Reg;
-using NGO.Train;
+using NGO.Train.Entity;
 
 namespace NGO.Pad.Guider
 {

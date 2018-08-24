@@ -23,6 +23,13 @@ namespace NGO.Train.Entity
 		public int LinkID {set; get;}
 		public int RefID {set; get;}
 		
+		public int Status {set;get;}
+		
 		public List<File> Files {set; get;}
+		
+		public override string ToString()
+		{
+			return string.Join("\r\n", this.Files);
+		} 
 	}
 }

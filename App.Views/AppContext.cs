@@ -42,11 +42,11 @@ namespace App.Views
 			this.AppControl = ctl;
 		}
 
-		public static List<App.Views.AppContext> CreateAppContext(List<NGO.Train.App> apps)
+		public static List<App.Views.AppContext> CreateAppContext(List<NGO.Train.Entity.Tile> apps)
 		{
 			List<App.Views.AppContext> appContexts = new List<App.Views.AppContext>();
 			foreach(var app in apps) {
-				appContexts.Add(APPREG[app.ID]);	
+				appContexts.Add(APPREG[app.TileID]);	
 			}
 			return appContexts;
 		}
