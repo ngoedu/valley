@@ -65,12 +65,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FolderCopy.cs" />
+    <Compile Include="FolderDiff.cs" />
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RevBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -81,6 +83,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common.DiffPatch\Common.DiffPatch.csproj">
+      <Project>{4F7B6163-345B-4311-92DE-392963341AA3}</Project>
+      <Name>Common.DiffPatch</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Training.Course\Training.Course.csproj">
       <Project>{8761863D-4875-41ED-A001-EEA384F04084}</Project>
       <Name>Training.Course</Name>

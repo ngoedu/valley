@@ -8,12 +8,12 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
 using NGO.Train;
+using NGO.Train.Entity;
 
 
 namespace XCodeRec
@@ -24,7 +24,7 @@ namespace XCodeRec
 	public partial class MainForm : Form
 	{
 		
-		private static string CodeFolder = @"c:\ngo\client\cdat\sweb-a01";
+		private static string CodeFolder = @"D:\NGO\client\cdat\sweb-a01";//@"c:\ngo\client\cdat\sweb-a01";
 		public MainForm()
 		{
 			//
@@ -55,6 +55,11 @@ namespace XCodeRec
 		    lvRef.Items.Clear();
 		    lvRef.Columns.Add("ID", -2,HorizontalAlignment.Left);
 		    lvRef.Columns.Add("Text", -2, HorizontalAlignment.Left);
+		    
+		    lvMileStones.Items.Clear();
+		    lvMileStones.Columns.Add("ID", -2,HorizontalAlignment.Left);
+		    lvMileStones.Columns.Add("LinkID", -2, HorizontalAlignment.Left);
+		   	lvMileStones.Columns.Add("RefID", -2, HorizontalAlignment.Left);
 		   
 		}
 		
@@ -64,7 +69,11 @@ namespace XCodeRec
 			lvData[0] = tbVideoID.Text;
 			lvData[1] = rtbVideoLink.Text;
             ListViewItem lvItem = new ListViewItem(lvData, 0);
-			lvVideo.Items.Add(lvItem);
+            
+            var vlink = new VLink(Int16.Parse(lvData[0] ), "", lvData[1] );
+            lvItem.Tag = vlink;
+            
+            lvVideo.Items.Add(lvItem);
 	
 		}
 		void TabPage4Click(object sender, EventArgs e)
@@ -117,20 +126,19 @@ namespace XCodeRec
 			
 		}
 		
-		private void LoadPackage(string pack) {
-			string packDate = System.IO.File.ReadAllText(pack);
-			Course course = CourseLoader.Instance.Load(packDate, "");
+		private void LoadPackage(string packFile) {
+			Course course = CourseReader.Instance.ReadFromFile(packFile);
 			
-			this.tbSchemaID.Text = course.ID;
-			this.tbSchemaName.Text = course.Name;
-			this.tbScheamWs.Text = course.Workspace;
+			this.tbSchemaID.Text = course.Schema.ID.ToString();
+			this.tbSchemaName.Text = course.Schema.Name;
+			this.tbScheamWs.Text = course.Schema.Workspace;
 			
 			
 			//this.clbApp.Items
 			for (int i = 0; i < clbApp.Items.Count; i++)
 			{
 				var aid = clbApp.GetItemText(clbApp.Items[i]);
-				if (course.GetApps().Any(x => x.ID == aid))
+				if (course.Apps.Any(x => x.TileID == aid))
 			    {
 			       clbApp.SetItemChecked(i, true); 
 			    }
@@ -138,10 +146,10 @@ namespace XCodeRec
 			
 			//add video items
 			lvVideo.Items.Clear();
-			foreach (var v in course.GetVideos()) {
+			foreach (var v in course.Videos) {
 				string[] lvData = new string[2];
 				lvData[0]= v.ID.ToString();
-				lvData[1] = v.Link;
+				lvData[1] = v.Content;
 				ListViewItem lvItem = new ListViewItem(lvData, 0);
 				lvItem.Tag = v;
 				lvVideo.Items.Add(lvItem);
@@ -149,32 +157,46 @@ namespace XCodeRec
 			
 			//add refer items
 			lvRef.Items.Clear();
-			foreach (var r in course.GetRefs()) {
+			foreach (var r in course.Refs) {
 				string[] lvData = new string[2];
 				lvData[0]= r.ID.ToString();
-				lvData[1] = r.Text;
+				lvData[1] = r.Content;
 				ListViewItem lvItem = new ListViewItem(lvData, 0);
 				lvItem.Tag = r;
 				lvRef.Items.Add(lvItem);
 			}
 			
+			
+			//add refer items
+			lvMileStones.Items.Clear();
+			foreach (var rev in course.Milestons) {
+				string[] lvData = new string[3];
+				lvData[0]= rev.ID.ToString();
+				lvData[1] = rev.LinkID.ToString();
+				lvData[2] = rev.RefID.ToString();
+				
+				ListViewItem lvItem = new ListViewItem(lvData, 0);
+				lvItem.Tag = rev;
+				lvMileStones.Items.Add(lvItem);
+			}
+			
 		}
 		void BtnVideoSaveClick(object sender, EventArgs e)
 		{
-			Video v = new Video(Int16.Parse(tbVideoID.Text),"", rtbVideoLink.Text);
+			VLink v = new VLink(Int16.Parse(tbVideoID.Text),"", rtbVideoLink.Text);
 			var item = lvVideo.FindItemWithText(tbVideoID.Text);
 			item.SubItems[1].Text = rtbVideoLink.Text;
 			item.Tag = v;
 		}
 		void LvVideoItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
 		{
-			Video v = (Video)e.Item.Tag;
-			rtbVideoLink.Text = v.Link;
+			VLink v = (VLink)e.Item.Tag;
+			rtbVideoLink.Text = v.Content;
 			tbVideoID.Text = v.ID.ToString();
 		}
 		void BtnRefSaveClick(object sender, EventArgs e)
 		{
-			Refer r = new Refer(Int16.Parse(tbRefID.Text), rtbRefText.Text);
+			Refer r = new Refer(Int16.Parse(tbRefID.Text), "", rtbRefText.Text);
 			var item = lvRef.FindItemWithText(tbRefID.Text);
 			item.SubItems[1].Text = rtbRefText.Text;
 			item.Tag = r;
@@ -182,7 +204,7 @@ namespace XCodeRec
 		void LvRefItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
 		{
 			Refer r = (Refer)e.Item.Tag;
-			rtbRefText.Text = r.Text;
+			rtbRefText.Text = r.Content;
 			tbRefID.Text = r.ID.ToString();
 		}
 		
@@ -219,6 +241,59 @@ namespace XCodeRec
 			        this.tbMSoutPath.Text = fbd.SelectedPath;
 			    }
 			}
+		}
+		void BtnGenMSClick(object sender, EventArgs e)
+		{
+			//treeViewMS
+		}
+		void BtnBuildMSClick(object sender, EventArgs e)
+		{
+			var directories = Directory.GetDirectories(tbMSoutPath.Text);
+			
+			if (directories.Length == 0)
+			{	
+				MessageBox.Show("Milestone src folder empty!");
+				return;
+			}
+			
+			var firstRev = RevBuilder.FirstRevision(directories.First());
+			AddMileStoneRev(firstRev);
+			if (directories.Length == 1)
+			{
+				return;
+			}
+			
+			for (int i = 1; i< directories.Length; i++) {
+				var rev = RevBuilder.NextRevision(i+1, directories[i-1], directories[i]);
+				AddMileStoneRev(rev);	
+			}
+		}
+		
+		private void AddMileStoneRev(Revision rev) {
+			string[] lvData = new string[3];
+			lvData[0] = rev.ID.ToString();
+			lvData[1] = "";
+			lvData[2] = "";
+			
+            ListViewItem lvItem = new ListViewItem(lvData, 0);
+            lvItem.Tag = rev;
+			lvMileStones.Items.Add(lvItem);
+		}
+		void LvMileStonesSelectedIndexChanged(object sender, EventArgs e)
+		{
+			
+		}
+		void LvMileStonesItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+		{
+			Revision rev = (Revision)e.Item.Tag;
+			
+			tbMSID.Text = rev.ID.ToString();
+			tbMSLinkID.Text = rev.LinkID.ToString();
+			tbMSRefID.Text = rev.RefID.ToString();
+			tbMSTitle.Text = rev.Tile;
+			
+			rtbFiles.Text = rev.ToString();
+			
 		}
 	}
 }
