@@ -44,7 +44,15 @@
   <ItemGroup>
     <Compile Include="Course.cs" />
     <Compile Include="CourseLoader.cs" />
+    <Compile Include="CourseReader.cs" />
     <Compile Include="CourseWriter.cs" />
+    <Compile Include="Entity\File.cs" />
+    <Compile Include="Entity\Refer.cs" />
+    <Compile Include="Entity\Revision.cs" />
+    <Compile Include="Entity\Tile.cs" />
+    <Compile Include="Entity\Course.cs" />
+    <Compile Include="Entity\Schema.cs" />
+    <Compile Include="Entity\VLink.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +60,9 @@
       <Project>{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}</Project>
       <Name>App.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entity" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

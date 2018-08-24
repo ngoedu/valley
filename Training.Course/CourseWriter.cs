@@ -7,6 +7,8 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace NGO.Train
 {
@@ -23,7 +25,11 @@ namespace NGO.Train
 		}
 		
 		public void WriteToFile(Course course, string file) {
-			
+			var serializer = new XmlSerializer(course.GetType());
+			using (var writer = XmlWriter.Create(file))
+			{
+			    serializer.Serialize(writer, course);
+			}
 		}
 	
 	}
