@@ -131,7 +131,7 @@ namespace NGO.Pad.Guider
 			int index = 0;
 			foreach (var step in steps)
 			{
-				var stone = new MileStone(step.ID, step.ID+"."+step.Tile, step.Status, this);
+				var stone = new MileStone(step.ID, step.ID+"."+step.Title, step.Status, this);
 				stone.Top = (stone.Height - 2 ) * index++ ;
 				stone.Left = 20;
 				mileStones.Add(stone);

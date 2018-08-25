@@ -68,7 +68,10 @@ namespace App.Mediator
 			//1.load course content, prepare registry
 			var courseName = "sweb-a01";//cid;
 			var cpath = CodeBase.GetCoursePath();
-			var course = CourseReader.Instance.ReadFromFolder(cpath, courseName, false);
+			var course = CourseReader.Instance.ReadCourseFrom(cpath, courseName, false);
+			//var trSession = CourseReader.Instance.ReadTrainingSessionFrom(cpath, courseName, false);
+			//TODO: setup training records in course
+			
 			appRegistry.Add(AppRegKeys.COURSE_KEY, course);
 			
 			var milestone = course.GetLatestMileStone();
@@ -91,7 +94,7 @@ namespace App.Mediator
 	    				
 			//4.init profile
 			jProfile.SetName("070718A001");
-			jProfile.SetEnergy(85);
+			jProfile.SetEnergy(85);//trSession.Point);
 		}
 		
 		#region form event
