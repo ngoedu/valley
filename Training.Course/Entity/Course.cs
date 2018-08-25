@@ -36,7 +36,7 @@ namespace NGO.Train.Entity
 
 		public Revision GetMileStoneByID(int index)
 		{
-			if (index <0 || index >= Milestons.Count)
+			if (index <0 || index > Milestons.Count)
 				return null;
 			
 			return Milestons[index - 1];
@@ -44,7 +44,7 @@ namespace NGO.Train.Entity
 
 		public VLink GetVideoByID(int index)
 		{
-			if (index <0 || index >= Videos.Count)
+			if (index <0 || index > Videos.Count)
 				return null;
 			
 			return Videos[index - 1];
@@ -52,7 +52,7 @@ namespace NGO.Train.Entity
 		
 		public Refer GetReferByID(int reference)
 		{
-			if (reference <0 || reference >= Refs.Count)
+			if (reference <0 || reference > Refs.Count)
 				return null;
 			
 			return Refs[reference - 1];

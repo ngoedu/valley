@@ -27,21 +27,40 @@ namespace NGO.Train
 		{
 		}
 		
-		public Course ReadFromFolder(string folder, string fileName, bool isHashed) {
+		public Course ReadCourseFrom(string folder, string fileName, bool isHashed) {
 			string md5Folder = isHashed ? MD5Util.StringMD5(fileName) : fileName;
 			if (!Directory.Exists(folder+@"\"+md5Folder)) {
 				return null;
 			}
 			
-			return ReadFromFile(folder+@"\"+md5Folder);
+			return ReadCourseFromFile(folder+@"\"+md5Folder+@"\pack.dat");
 		}
 		
-		public Course ReadFromFile(string fileName) {
+		public TrainingSession ReadTrainingSessionFrom(string folder, string fileName, bool isHashed) {
+			string md5Folder = isHashed ? MD5Util.StringMD5(fileName) : fileName;
+			if (!Directory.Exists(folder+@"\"+md5Folder)) {
+				return null;
+			}
+			
+			return ReadTrainingSessionFromFile(folder+@"\"+md5Folder+@"\tr.dat");
+		}
+		
+		
+		public Course ReadCourseFromFile(string fileName) {
 			var serializer = new XmlSerializer(typeof(Course));
 			using (var reader = XmlReader.Create(fileName))
 			{
 			    var course = (Course)serializer.Deserialize(reader);
 			    return course;
+			}
+		}
+		
+		public TrainingSession ReadTrainingSessionFromFile(string fileName) {
+			var serializer = new XmlSerializer(typeof(TrainingSession));
+			using (var reader = XmlReader.Create(fileName))
+			{
+			    var trSession = (TrainingSession)serializer.Deserialize(reader);
+			    return trSession;
 			}
 		}
 	}

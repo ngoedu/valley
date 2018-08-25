@@ -52,6 +52,7 @@
     <Compile Include="Entity\Schema.cs" />
     <Compile Include="Entity\VLink.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TrainingSession.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\App.Common\App.Common.csproj">

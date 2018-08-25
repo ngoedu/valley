@@ -15,7 +15,7 @@ namespace NGO.Train.Entity
 	/// </summary>
 	public class Schema
 	{
-		public int ID {set; get;}
+		public string ID {set; get;}
 		public string Name {set; get;}
 		public int Duration {set; get;}
 		public int Sessions {set; get;}

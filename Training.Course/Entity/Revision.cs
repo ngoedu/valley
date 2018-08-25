@@ -18,7 +18,7 @@ namespace NGO.Train.Entity
 	public class Revision
 	{
 		public int ID {set; get;}
-		public string Tile {set;get;}
+		public string Title {set;get;}
 		
 		public int LinkID {set; get;}
 		public int RefID {set; get;}
@@ -26,6 +26,10 @@ namespace NGO.Train.Entity
 		public int Status {set;get;}
 		
 		public List<File> Files {set; get;}
+		
+		public Revision() {
+	    	
+	    }
 		
 		public override string ToString()
 		{

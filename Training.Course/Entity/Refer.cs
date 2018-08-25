@@ -35,6 +35,11 @@ namespace NGO.Train.Entity
 	        }
 	    }
 	    
+	    public Refer() {
+	    	
+	    }
+	    
+	    
 	    public Refer(int id, string title, string content) {
 	    	ID = id;
 	    	Title = title;

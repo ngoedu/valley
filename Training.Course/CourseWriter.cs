@@ -25,11 +25,19 @@ namespace NGO.Train
 		{
 		}
 		
-		public void WriteToFile(Course course, string file) {
+		public void WriteCourseToFile(Course course, string file) {
 			var serializer = new XmlSerializer(course.GetType());
 			using (var writer = XmlWriter.Create(file))
 			{
 			    serializer.Serialize(writer, course);
+			}
+		}
+		
+		public void WriteTrainSessToFile(TrainingSession ts, string file) {
+			var serializer = new XmlSerializer(ts.GetType());
+			using (var writer = XmlWriter.Create(file))
+			{
+			    serializer.Serialize(writer, ts);
 			}
 		}
 	

@@ -35,9 +35,15 @@ namespace NGO.Train.Entity
 	        }
 	    }
 	    
+	    public File() {
+	    	
+	    }
+	    
 		public override string ToString()
 		{
 			return string.Format("name=[{0}],path=[{1}],content=[{2}]", Name, Path, Content);;
 		} 
+		
+		
 	}
 }

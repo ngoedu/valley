@@ -17,6 +17,11 @@ namespace NGO.Train.Entity
 	{
 		public string TileID {set; get;}
 		
+		public Tile(string tid)
+		{
+			TileID = tid;
+		}
+		
 		public Tile()
 		{
 		}
