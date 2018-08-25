@@ -62,7 +62,7 @@ namespace XCodeRec
                 	 List<Patch> patches;
 				    diff_match_patch patch = new diff_match_patch();
 				    
-				    string oldText = System.IO.File.ReadAllText(oldDir+@"\"+fileName);;
+				    string oldText = System.IO.File.ReadAllText(oldDir+@"\"+fileName);
 				    string newText = System.IO.File.ReadAllText(currentFile);
 				    //1. make patch obj
 				    patches = patch.patch_make(oldText, newText);

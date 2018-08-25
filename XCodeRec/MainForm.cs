@@ -40,11 +40,6 @@ namespace XCodeRec
 			
 		}
 
-		
-		void Button2Click(object sender, EventArgs e)
-		{
-			
-		}
 		void MainFormLoad(object sender, EventArgs e)
 		{
 			ResizeControl();
@@ -60,6 +55,7 @@ namespace XCodeRec
 		    lvMileStones.Columns.Add("ID", -2,HorizontalAlignment.Left);
 		    lvMileStones.Columns.Add("LinkID", -2, HorizontalAlignment.Left);
 		   	lvMileStones.Columns.Add("RefID", -2, HorizontalAlignment.Left);
+		    lvMileStones.Columns.Add("Title", -2, HorizontalAlignment.Left);
 		   
 		}
 		
@@ -127,7 +123,7 @@ namespace XCodeRec
 		}
 		
 		private void LoadPackage(string packFile) {
-			Course course = CourseReader.Instance.ReadFromFile(packFile);
+			Course course = CourseReader.Instance.ReadCourseFromFile(packFile);
 			
 			this.tbSchemaID.Text = course.Schema.ID.ToString();
 			this.tbSchemaName.Text = course.Schema.Name;
@@ -211,13 +207,13 @@ namespace XCodeRec
 		//create MS folders
 		void Button1Click(object sender, EventArgs e)
 		{
-			if (string.IsNullOrEmpty(tbMSoutPath.Text) || string.IsNullOrEmpty(tbMSSrcPath.Text))
+			if (string.IsNullOrEmpty(tbPkgInPath.Text) || string.IsNullOrEmpty(tbMSSrcPath.Text))
 			{
 				MessageBox.Show("MileStone src or output path empty！");
 				return;
 			}
 			
-			var directories = Directory.GetDirectories(tbMSoutPath.Text);
+			var directories = Directory.GetDirectories(tbPkgInPath.Text);
 			var maxDir = directories.Length	 ==0 ? "0" : directories.Last();
 			string[] sd = maxDir.Split('\\');
 			maxDir = sd[sd.Length - 1];
@@ -225,7 +221,7 @@ namespace XCodeRec
 			
 			string[] ignore1 = {".project", ".classpath"};
 			string[] ignore2 = {"classes",  ".settings"};
-			FolderCopy.DirectoryCopy(tbMSSrcPath.Text,tbMSoutPath.Text+ @"\"+curr, true, ignore1, ignore2);
+			FolderCopy.DirectoryCopy(tbMSSrcPath.Text,tbPkgInPath.Text+ @"\ms\"+curr, true, ignore1, ignore2);
 			MessageBox.Show("MS folder copy done!");
 		}
 		
@@ -238,17 +234,30 @@ namespace XCodeRec
 			
 			    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
 			    {
-			        this.tbMSoutPath.Text = fbd.SelectedPath;
+			        this.tbPkgInPath.Text = fbd.SelectedPath;
 			    }
 			}
 		}
+		
+		//update ms
 		void BtnGenMSClick(object sender, EventArgs e)
 		{
-			//treeViewMS
+			var item = lvMileStones.FindItemWithText(tbMSID.Text);
+			Revision rev = (Revision)item.Tag;
+			rev.RefID = Int16.Parse(tbMSRefID.Text);
+			rev.LinkID = Int16.Parse(tbMSLinkID.Text);
+			rev.Title = tbMSTitle.Text;
+					
+				
+			item.SubItems[1].Text =tbMSLinkID.Text;
+			item.SubItems[2].Text =tbMSRefID.Text;
+			//item.SubItems[3].Text =tbMSTitle.Text;
 		}
+		
+		
 		void BtnBuildMSClick(object sender, EventArgs e)
 		{
-			var directories = Directory.GetDirectories(tbMSoutPath.Text);
+			var directories = Directory.GetDirectories(tbPkgInPath.Text+"/ms");
 			
 			if (directories.Length == 0)
 			{	
@@ -290,10 +299,98 @@ namespace XCodeRec
 			tbMSID.Text = rev.ID.ToString();
 			tbMSLinkID.Text = rev.LinkID.ToString();
 			tbMSRefID.Text = rev.RefID.ToString();
-			tbMSTitle.Text = rev.Tile;
+			tbMSTitle.Text = rev.Title;
 			
 			rtbFiles.Text = rev.ToString();
 			
+		}
+		void BtnBuildVideosClick(object sender, EventArgs e)
+		{
+			var files =Directory.GetFiles(tbPkgInPath.Text+ @"\video\");
+			for (int i = 0; i< files.Length; i++) {
+				
+				var id = Path.GetFileNameWithoutExtension(files[i]);
+				var vlink = new VLink(Int16.Parse(id), "", System.IO.File.ReadAllText(files[i]));
+				AddVideo(vlink);
+			}
+		}
+		
+		private void AddRefs(Refer refer) {
+			string[] lvData = new string[2];
+			lvData[0] = refer.ID.ToString();
+			lvData[1] = refer.Content;
+			
+            ListViewItem lvItem = new ListViewItem(lvData, 0);
+            lvItem.Tag = refer;
+			lvRef.Items.Add(lvItem);
+		}
+		
+		private void AddVideo(VLink vlink) {
+			string[] lvData = new string[2];
+			lvData[0] = vlink.ID.ToString();
+			lvData[1] = vlink.Content;
+			
+            ListViewItem lvItem = new ListViewItem(lvData, 0);
+            lvItem.Tag = vlink;
+			lvVideo.Items.Add(lvItem);
+		}
+		void BtnBuildRefsClick(object sender, EventArgs e)
+		{
+			var files =Directory.GetFiles(tbPkgInPath.Text+ @"\ref\");
+			for (int i = 0; i< files.Length; i++) {
+				
+				var id = Path.GetFileNameWithoutExtension(files[i]);
+				var refer = new Refer(Int16.Parse(id), "", System.IO.File.ReadAllText(files[i]));
+				AddRefs(refer);
+			}
+		}
+		void BtnGenPkgClick(object sender, EventArgs e)
+		{
+			var pkg = new Course();
+			var schema = new Schema();
+			
+			//schema
+			schema.ID = tbSchemaID.Text;
+			schema.Name = tbSchemaName.Text;
+			schema.Duration = Int16.Parse(tbSchemaDur.Text);
+			schema.Sessions = Int16.Parse(tbSchemaSess.Text);
+			schema.Workspace = tbScheamWs.Text;
+			
+			pkg.Schema = schema;
+			
+			//app
+			pkg.Apps = new List<Tile>();
+			
+			for (int i = 0; i < clbApp.Items.Count; i++)
+			{
+				if (clbApp.GetItemChecked(i))
+			    {
+					pkg.Apps.Add(new Tile( clbApp.GetItemText(clbApp.Items[i])));
+			    }
+			}
+			
+			//video
+			pkg.Videos = new List<VLink>();
+			for (int i = 0; i < lvVideo.Items.Count; i++)
+			{
+				pkg.Videos.Add((VLink)lvVideo.Items[i].Tag);
+			}
+			
+			//ref
+			pkg.Refs = new List<Refer>();
+			for (int i = 0; i < lvRef.Items.Count; i++)
+			{
+				pkg.Refs.Add((Refer)lvRef.Items[i].Tag);
+			}
+			
+			//milestone
+			pkg.Milestons = new List<Revision>();
+			for (int i = 0; i < lvMileStones.Items.Count; i++)
+			{
+				pkg.Milestons.Add((Revision)lvMileStones.Items[i].Tag);
+			}
+			
+			CourseWriter.Instance.WriteCourseToFile(pkg, tbPackOutputFile.Text);
 		}
 	}
 }

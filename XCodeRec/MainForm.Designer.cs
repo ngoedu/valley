@@ -14,7 +14,7 @@ namespace XCodeRec
 		/// Designer variable used to keep track of non-visual components.
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
-		private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.Button btnGenPkg;
 		private System.Windows.Forms.TextBox tbMSSrcPath;
 		private System.Windows.Forms.Button btnPath1;
 		private System.Windows.Forms.Label label1;
@@ -59,7 +59,7 @@ namespace XCodeRec
 		private System.Windows.Forms.TabPage tabPage5;
 		private System.Windows.Forms.Button btnCreateMSF;
 		private System.Windows.Forms.Label label14;
-		private System.Windows.Forms.TextBox tbMSoutPath;
+		private System.Windows.Forms.TextBox tbPkgInPath;
 		private System.Windows.Forms.Button btnMSoutPath;
 		private System.Windows.Forms.Button btnUpdateMS;
 		private System.Windows.Forms.TextBox tbMSRefID;
@@ -73,6 +73,8 @@ namespace XCodeRec
 		private System.Windows.Forms.TextBox tbMSID;
 		private System.Windows.Forms.Label label18;
 		private System.Windows.Forms.RichTextBox rtbFiles;
+		private System.Windows.Forms.Button btnBuildRefs;
+		private System.Windows.Forms.Button btnBuildVideos;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -94,7 +96,7 @@ namespace XCodeRec
 		/// not be able to load this method if it was changed manually.
 		private void InitializeComponent()
 		{
-			this.button2 = new System.Windows.Forms.Button();
+			this.btnGenPkg = new System.Windows.Forms.Button();
 			this.tbMSSrcPath = new System.Windows.Forms.TextBox();
 			this.btnPath1 = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
@@ -120,6 +122,7 @@ namespace XCodeRec
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.clbApp = new System.Windows.Forms.CheckedListBox();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.btnBuildVideos = new System.Windows.Forms.Button();
 			this.btnVideoSave = new System.Windows.Forms.Button();
 			this.btVideoAdd = new System.Windows.Forms.Button();
 			this.label10 = new System.Windows.Forms.Label();
@@ -128,6 +131,7 @@ namespace XCodeRec
 			this.tbVideoID = new System.Windows.Forms.TextBox();
 			this.lvVideo = new System.Windows.Forms.ListView();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
+			this.btnBuildRefs = new System.Windows.Forms.Button();
 			this.btnRefSave = new System.Windows.Forms.Button();
 			this.btnRefAdd = new System.Windows.Forms.Button();
 			this.rtbRefText = new System.Windows.Forms.RichTextBox();
@@ -136,6 +140,7 @@ namespace XCodeRec
 			this.label11 = new System.Windows.Forms.Label();
 			this.lvRef = new System.Windows.Forms.ListView();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.rtbFiles = new System.Windows.Forms.RichTextBox();
 			this.tbMSID = new System.Windows.Forms.TextBox();
 			this.label18 = new System.Windows.Forms.Label();
 			this.btnBuildMS = new System.Windows.Forms.Button();
@@ -150,9 +155,8 @@ namespace XCodeRec
 			this.btnLoadPackage = new System.Windows.Forms.Button();
 			this.btnCreateMSF = new System.Windows.Forms.Button();
 			this.label14 = new System.Windows.Forms.Label();
-			this.tbMSoutPath = new System.Windows.Forms.TextBox();
+			this.tbPkgInPath = new System.Windows.Forms.TextBox();
 			this.btnMSoutPath = new System.Windows.Forms.Button();
-			this.rtbFiles = new System.Windows.Forms.RichTextBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
@@ -161,15 +165,15 @@ namespace XCodeRec
 			this.tabPage5.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// button2
+			// btnGenPkg
 			// 
-			this.button2.Location = new System.Drawing.Point(406, 526);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(140, 23);
-			this.button2.TabIndex = 2;
-			this.button2.Text = "Generate Package";
-			this.button2.UseVisualStyleBackColor = true;
-			this.button2.Click += new System.EventHandler(this.Button2Click);
+			this.btnGenPkg.Location = new System.Drawing.Point(406, 526);
+			this.btnGenPkg.Name = "btnGenPkg";
+			this.btnGenPkg.Size = new System.Drawing.Size(140, 23);
+			this.btnGenPkg.TabIndex = 2;
+			this.btnGenPkg.Text = "Generate Package";
+			this.btnGenPkg.UseVisualStyleBackColor = true;
+			this.btnGenPkg.Click += new System.EventHandler(this.BtnGenPkgClick);
 			// 
 			// tbMSSrcPath
 			// 
@@ -206,7 +210,7 @@ namespace XCodeRec
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(95, 18);
 			this.label2.TabIndex = 5;
-			this.label2.Text = "MS output Path";
+			this.label2.Text = "Pkg in Path";
 			// 
 			// tbPackOutputFile
 			// 
@@ -414,6 +418,7 @@ namespace XCodeRec
 			// 
 			// tabPage3
 			// 
+			this.tabPage3.Controls.Add(this.btnBuildVideos);
 			this.tabPage3.Controls.Add(this.btnVideoSave);
 			this.tabPage3.Controls.Add(this.btVideoAdd);
 			this.tabPage3.Controls.Add(this.label10);
@@ -430,9 +435,19 @@ namespace XCodeRec
 			this.tabPage3.Text = "Video";
 			this.tabPage3.UseVisualStyleBackColor = true;
 			// 
+			// btnBuildVideos
+			// 
+			this.btnBuildVideos.Location = new System.Drawing.Point(432, 360);
+			this.btnBuildVideos.Name = "btnBuildVideos";
+			this.btnBuildVideos.Size = new System.Drawing.Size(75, 23);
+			this.btnBuildVideos.TabIndex = 7;
+			this.btnBuildVideos.Text = "Build Videos";
+			this.btnBuildVideos.UseVisualStyleBackColor = true;
+			this.btnBuildVideos.Click += new System.EventHandler(this.BtnBuildVideosClick);
+			// 
 			// btnVideoSave
 			// 
-			this.btnVideoSave.Location = new System.Drawing.Point(429, 355);
+			this.btnVideoSave.Location = new System.Drawing.Point(432, 328);
 			this.btnVideoSave.Margin = new System.Windows.Forms.Padding(2);
 			this.btnVideoSave.Name = "btnVideoSave";
 			this.btnVideoSave.Size = new System.Drawing.Size(56, 18);
@@ -443,7 +458,7 @@ namespace XCodeRec
 			// 
 			// btVideoAdd
 			// 
-			this.btVideoAdd.Location = new System.Drawing.Point(429, 332);
+			this.btVideoAdd.Location = new System.Drawing.Point(432, 304);
 			this.btVideoAdd.Margin = new System.Windows.Forms.Padding(2);
 			this.btVideoAdd.Name = "btVideoAdd";
 			this.btVideoAdd.Size = new System.Drawing.Size(56, 18);
@@ -454,25 +469,25 @@ namespace XCodeRec
 			// 
 			// label10
 			// 
-			this.label10.Location = new System.Drawing.Point(14, 335);
+			this.label10.Location = new System.Drawing.Point(16, 308);
 			this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label10.Name = "label10";
-			this.label10.Size = new System.Drawing.Size(33, 18);
+			this.label10.Size = new System.Drawing.Size(32, 20);
 			this.label10.TabIndex = 4;
 			this.label10.Text = "Link";
 			// 
 			// label9
 			// 
-			this.label9.Location = new System.Drawing.Point(14, 307);
+			this.label9.Location = new System.Drawing.Point(16, 280);
 			this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(33, 18);
+			this.label9.Size = new System.Drawing.Size(33, 13);
 			this.label9.TabIndex = 3;
 			this.label9.Text = "ID";
 			// 
 			// rtbVideoLink
 			// 
-			this.rtbVideoLink.Location = new System.Drawing.Point(51, 330);
+			this.rtbVideoLink.Location = new System.Drawing.Point(48, 296);
 			this.rtbVideoLink.Margin = new System.Windows.Forms.Padding(2);
 			this.rtbVideoLink.Name = "rtbVideoLink";
 			this.rtbVideoLink.Size = new System.Drawing.Size(374, 87);
@@ -481,7 +496,7 @@ namespace XCodeRec
 			// 
 			// tbVideoID
 			// 
-			this.tbVideoID.Location = new System.Drawing.Point(51, 306);
+			this.tbVideoID.Location = new System.Drawing.Point(48, 272);
 			this.tbVideoID.Margin = new System.Windows.Forms.Padding(2);
 			this.tbVideoID.Name = "tbVideoID";
 			this.tbVideoID.Size = new System.Drawing.Size(119, 21);
@@ -493,7 +508,7 @@ namespace XCodeRec
 			this.lvVideo.Location = new System.Drawing.Point(5, 6);
 			this.lvVideo.Margin = new System.Windows.Forms.Padding(2);
 			this.lvVideo.Name = "lvVideo";
-			this.lvVideo.Size = new System.Drawing.Size(540, 296);
+			this.lvVideo.Size = new System.Drawing.Size(540, 250);
 			this.lvVideo.TabIndex = 0;
 			this.lvVideo.UseCompatibleStateImageBehavior = false;
 			this.lvVideo.View = System.Windows.Forms.View.Details;
@@ -501,6 +516,7 @@ namespace XCodeRec
 			// 
 			// tabPage4
 			// 
+			this.tabPage4.Controls.Add(this.btnBuildRefs);
 			this.tabPage4.Controls.Add(this.btnRefSave);
 			this.tabPage4.Controls.Add(this.btnRefAdd);
 			this.tabPage4.Controls.Add(this.rtbRefText);
@@ -518,9 +534,19 @@ namespace XCodeRec
 			this.tabPage4.UseVisualStyleBackColor = true;
 			this.tabPage4.Click += new System.EventHandler(this.TabPage4Click);
 			// 
+			// btnBuildRefs
+			// 
+			this.btnBuildRefs.Location = new System.Drawing.Point(432, 336);
+			this.btnBuildRefs.Name = "btnBuildRefs";
+			this.btnBuildRefs.Size = new System.Drawing.Size(75, 23);
+			this.btnBuildRefs.TabIndex = 7;
+			this.btnBuildRefs.Text = "Build Refs";
+			this.btnBuildRefs.UseVisualStyleBackColor = true;
+			this.btnBuildRefs.Click += new System.EventHandler(this.BtnBuildRefsClick);
+			// 
 			// btnRefSave
 			// 
-			this.btnRefSave.Location = new System.Drawing.Point(438, 360);
+			this.btnRefSave.Location = new System.Drawing.Point(432, 304);
 			this.btnRefSave.Margin = new System.Windows.Forms.Padding(2);
 			this.btnRefSave.Name = "btnRefSave";
 			this.btnRefSave.Size = new System.Drawing.Size(56, 18);
@@ -531,7 +557,7 @@ namespace XCodeRec
 			// 
 			// btnRefAdd
 			// 
-			this.btnRefAdd.Location = new System.Drawing.Point(439, 337);
+			this.btnRefAdd.Location = new System.Drawing.Point(432, 280);
 			this.btnRefAdd.Margin = new System.Windows.Forms.Padding(2);
 			this.btnRefAdd.Name = "btnRefAdd";
 			this.btnRefAdd.Size = new System.Drawing.Size(56, 18);
@@ -542,16 +568,16 @@ namespace XCodeRec
 			// 
 			// rtbRefText
 			// 
-			this.rtbRefText.Location = new System.Drawing.Point(56, 334);
+			this.rtbRefText.Location = new System.Drawing.Point(56, 280);
 			this.rtbRefText.Margin = new System.Windows.Forms.Padding(2);
 			this.rtbRefText.Name = "rtbRefText";
-			this.rtbRefText.Size = new System.Drawing.Size(378, 81);
+			this.rtbRefText.Size = new System.Drawing.Size(368, 80);
 			this.rtbRefText.TabIndex = 4;
 			this.rtbRefText.Text = "";
 			// 
 			// tbRefID
 			// 
-			this.tbRefID.Location = new System.Drawing.Point(56, 307);
+			this.tbRefID.Location = new System.Drawing.Point(56, 253);
 			this.tbRefID.Margin = new System.Windows.Forms.Padding(2);
 			this.tbRefID.Name = "tbRefID";
 			this.tbRefID.Size = new System.Drawing.Size(164, 21);
@@ -559,7 +585,7 @@ namespace XCodeRec
 			// 
 			// label12
 			// 
-			this.label12.Location = new System.Drawing.Point(6, 337);
+			this.label12.Location = new System.Drawing.Point(8, 275);
 			this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(75, 18);
@@ -568,7 +594,7 @@ namespace XCodeRec
 			// 
 			// label11
 			// 
-			this.label11.Location = new System.Drawing.Point(6, 310);
+			this.label11.Location = new System.Drawing.Point(8, 248);
 			this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(75, 18);
@@ -581,7 +607,7 @@ namespace XCodeRec
 			this.lvRef.Location = new System.Drawing.Point(5, 6);
 			this.lvRef.Margin = new System.Windows.Forms.Padding(2);
 			this.lvRef.Name = "lvRef";
-			this.lvRef.Size = new System.Drawing.Size(537, 298);
+			this.lvRef.Size = new System.Drawing.Size(537, 234);
 			this.lvRef.TabIndex = 0;
 			this.lvRef.UseCompatibleStateImageBehavior = false;
 			this.lvRef.View = System.Windows.Forms.View.Details;
@@ -610,16 +636,24 @@ namespace XCodeRec
 			this.tabPage5.Text = "MileStone";
 			this.tabPage5.UseVisualStyleBackColor = true;
 			// 
+			// rtbFiles
+			// 
+			this.rtbFiles.Location = new System.Drawing.Point(72, 288);
+			this.rtbFiles.Name = "rtbFiles";
+			this.rtbFiles.Size = new System.Drawing.Size(432, 64);
+			this.rtbFiles.TabIndex = 12;
+			this.rtbFiles.Text = "";
+			// 
 			// tbMSID
 			// 
-			this.tbMSID.Location = new System.Drawing.Point(80, 272);
+			this.tbMSID.Location = new System.Drawing.Point(72, 224);
 			this.tbMSID.Name = "tbMSID";
 			this.tbMSID.Size = new System.Drawing.Size(176, 21);
 			this.tbMSID.TabIndex = 11;
 			// 
 			// label18
 			// 
-			this.label18.Location = new System.Drawing.Point(16, 280);
+			this.label18.Location = new System.Drawing.Point(8, 232);
 			this.label18.Name = "label18";
 			this.label18.Size = new System.Drawing.Size(100, 23);
 			this.label18.TabIndex = 10;
@@ -627,7 +661,7 @@ namespace XCodeRec
 			// 
 			// btnBuildMS
 			// 
-			this.btnBuildMS.Location = new System.Drawing.Point(408, 272);
+			this.btnBuildMS.Location = new System.Drawing.Point(384, 360);
 			this.btnBuildMS.Name = "btnBuildMS";
 			this.btnBuildMS.Size = new System.Drawing.Size(120, 23);
 			this.btnBuildMS.TabIndex = 9;
@@ -637,14 +671,14 @@ namespace XCodeRec
 			// 
 			// tbMSRefID
 			// 
-			this.tbMSRefID.Location = new System.Drawing.Point(80, 368);
+			this.tbMSRefID.Location = new System.Drawing.Point(328, 264);
 			this.tbMSRefID.Name = "tbMSRefID";
 			this.tbMSRefID.Size = new System.Drawing.Size(176, 21);
 			this.tbMSRefID.TabIndex = 8;
 			// 
 			// label17
 			// 
-			this.label17.Location = new System.Drawing.Point(16, 360);
+			this.label17.Location = new System.Drawing.Point(264, 256);
 			this.label17.Name = "label17";
 			this.label17.Size = new System.Drawing.Size(100, 23);
 			this.label17.TabIndex = 7;
@@ -652,14 +686,14 @@ namespace XCodeRec
 			// 
 			// tbMSLinkID
 			// 
-			this.tbMSLinkID.Location = new System.Drawing.Point(80, 336);
+			this.tbMSLinkID.Location = new System.Drawing.Point(328, 232);
 			this.tbMSLinkID.Name = "tbMSLinkID";
 			this.tbMSLinkID.Size = new System.Drawing.Size(176, 21);
 			this.tbMSLinkID.TabIndex = 6;
 			// 
 			// label16
 			// 
-			this.label16.Location = new System.Drawing.Point(16, 328);
+			this.label16.Location = new System.Drawing.Point(264, 224);
 			this.label16.Name = "label16";
 			this.label16.Size = new System.Drawing.Size(100, 23);
 			this.label16.TabIndex = 5;
@@ -667,7 +701,7 @@ namespace XCodeRec
 			// 
 			// label15
 			// 
-			this.label15.Location = new System.Drawing.Point(16, 304);
+			this.label15.Location = new System.Drawing.Point(8, 256);
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(64, 23);
 			this.label15.TabIndex = 4;
@@ -675,7 +709,7 @@ namespace XCodeRec
 			// 
 			// tbMSTitle
 			// 
-			this.tbMSTitle.Location = new System.Drawing.Point(80, 304);
+			this.tbMSTitle.Location = new System.Drawing.Point(72, 256);
 			this.tbMSTitle.Name = "tbMSTitle";
 			this.tbMSTitle.Size = new System.Drawing.Size(176, 21);
 			this.tbMSTitle.TabIndex = 3;
@@ -685,7 +719,7 @@ namespace XCodeRec
 			this.lvMileStones.GridLines = true;
 			this.lvMileStones.Location = new System.Drawing.Point(8, 8);
 			this.lvMileStones.Name = "lvMileStones";
-			this.lvMileStones.Size = new System.Drawing.Size(528, 256);
+			this.lvMileStones.Size = new System.Drawing.Size(528, 208);
 			this.lvMileStones.TabIndex = 2;
 			this.lvMileStones.UseCompatibleStateImageBehavior = false;
 			this.lvMileStones.View = System.Windows.Forms.View.Details;
@@ -693,7 +727,7 @@ namespace XCodeRec
 			// 
 			// btnUpdateMS
 			// 
-			this.btnUpdateMS.Location = new System.Drawing.Point(272, 272);
+			this.btnUpdateMS.Location = new System.Drawing.Point(72, 360);
 			this.btnUpdateMS.Name = "btnUpdateMS";
 			this.btnUpdateMS.Size = new System.Drawing.Size(128, 23);
 			this.btnUpdateMS.TabIndex = 1;
@@ -703,7 +737,7 @@ namespace XCodeRec
 			// 
 			// btnLoadPackage
 			// 
-			this.btnLoadPackage.Location = new System.Drawing.Point(443, 61);
+			this.btnLoadPackage.Location = new System.Drawing.Point(448, 64);
 			this.btnLoadPackage.Margin = new System.Windows.Forms.Padding(2);
 			this.btnLoadPackage.Name = "btnLoadPackage";
 			this.btnLoadPackage.Size = new System.Drawing.Size(78, 18);
@@ -714,7 +748,7 @@ namespace XCodeRec
 			// 
 			// btnCreateMSF
 			// 
-			this.btnCreateMSF.Location = new System.Drawing.Point(443, 37);
+			this.btnCreateMSF.Location = new System.Drawing.Point(448, 40);
 			this.btnCreateMSF.Margin = new System.Windows.Forms.Padding(2);
 			this.btnCreateMSF.Name = "btnCreateMSF";
 			this.btnCreateMSF.Size = new System.Drawing.Size(78, 18);
@@ -732,13 +766,13 @@ namespace XCodeRec
 			this.label14.TabIndex = 5;
 			this.label14.Text = "Package output Path";
 			// 
-			// tbMSoutPath
+			// tbPkgInPath
 			// 
-			this.tbMSoutPath.Location = new System.Drawing.Point(100, 34);
-			this.tbMSoutPath.Margin = new System.Windows.Forms.Padding(2);
-			this.tbMSoutPath.Name = "tbMSoutPath";
-			this.tbMSoutPath.Size = new System.Drawing.Size(302, 21);
-			this.tbMSoutPath.TabIndex = 11;
+			this.tbPkgInPath.Location = new System.Drawing.Point(100, 34);
+			this.tbPkgInPath.Margin = new System.Windows.Forms.Padding(2);
+			this.tbPkgInPath.Name = "tbPkgInPath";
+			this.tbPkgInPath.Size = new System.Drawing.Size(302, 21);
+			this.tbPkgInPath.TabIndex = 11;
 			// 
 			// btnMSoutPath
 			// 
@@ -751,21 +785,13 @@ namespace XCodeRec
 			this.btnMSoutPath.UseVisualStyleBackColor = true;
 			this.btnMSoutPath.Click += new System.EventHandler(this.BtnMSoutPathClick);
 			// 
-			// rtbFiles
-			// 
-			this.rtbFiles.Location = new System.Drawing.Point(280, 312);
-			this.rtbFiles.Name = "rtbFiles";
-			this.rtbFiles.Size = new System.Drawing.Size(248, 80);
-			this.rtbFiles.TabIndex = 12;
-			this.rtbFiles.Text = "";
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(556, 559);
 			this.Controls.Add(this.btnMSoutPath);
-			this.Controls.Add(this.tbMSoutPath);
+			this.Controls.Add(this.tbPkgInPath);
 			this.Controls.Add(this.btnCreateMSF);
 			this.Controls.Add(this.btnLoadPackage);
 			this.Controls.Add(this.tabControl1);
@@ -776,7 +802,7 @@ namespace XCodeRec
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.btnPath1);
 			this.Controls.Add(this.tbMSSrcPath);
-			this.Controls.Add(this.button2);
+			this.Controls.Add(this.btnGenPkg);
 			this.MaximizeBox = false;
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
