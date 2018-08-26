@@ -22,6 +22,9 @@ namespace NGO.Train.Entity
 		[XmlIgnore]
 		public string Content {set; get;}
 		
+		[XmlIgnore]
+		public string Code{set; get;}
+		
 		[XmlElement("Content")]
 	    public System.Xml.XmlCDataSection ContentCDATA
 	    {

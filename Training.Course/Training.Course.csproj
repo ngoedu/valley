@@ -59,6 +59,10 @@
       <Project>{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}</Project>
       <Name>App.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Common.DiffPatch\Common.DiffPatch.csproj">
+      <Project>{4F7B6163-345B-4311-92DE-392963341AA3}</Project>
+      <Name>Common.DiffPatch</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entity" />
