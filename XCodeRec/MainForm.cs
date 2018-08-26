@@ -32,17 +32,7 @@ namespace XCodeRec
 			//
 			InitializeComponent();
 			string path = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
-			
-			
-		}
 		
-		private void ResizeControl() {
-			
-		}
-
-		void MainFormLoad(object sender, EventArgs e)
-		{
-			ResizeControl();
 			lvVideo.Items.Clear();
 		    lvVideo.Columns.Add("ID", -2,HorizontalAlignment.Left);
 		    lvVideo.Columns.Add("Link", -2, HorizontalAlignment.Left);
@@ -55,35 +45,20 @@ namespace XCodeRec
 		    lvMileStones.Columns.Add("ID", -2,HorizontalAlignment.Left);
 		    lvMileStones.Columns.Add("LinkID", -2, HorizontalAlignment.Left);
 		   	lvMileStones.Columns.Add("RefID", -2, HorizontalAlignment.Left);
-		    lvMileStones.Columns.Add("Title", -2, HorizontalAlignment.Left);
-		   
+		    lvMileStones.Columns.Add("Title", -2, HorizontalAlignment.Left);			
+			
 		}
 		
-		void BtVideoAddClick(object sender, EventArgs e)
-		{
-			string[] lvData = new string[2];
-			lvData[0] = tbVideoID.Text;
-			lvData[1] = rtbVideoLink.Text;
-            ListViewItem lvItem = new ListViewItem(lvData, 0);
-            
-            var vlink = new VLink(Int16.Parse(lvData[0] ), "", lvData[1] );
-            lvItem.Tag = vlink;
-            
-            lvVideo.Items.Add(lvItem);
-	
+		private void ResizeControl() {
+			
 		}
-		void TabPage4Click(object sender, EventArgs e)
+
+		void MainFormLoad(object sender, EventArgs e)
 		{
-	
+			ResizeControl();
 		}
-		void BtnRefAddClick(object sender, EventArgs e)
-		{
-			string[] lvData = new string[2];
-			lvData[0] = tbRefID.Text;
-			lvData[1] = rtbRefText.Text;
-            ListViewItem lvItem = new ListViewItem(lvData, 0);
-			lvRef.Items.Add(lvItem);
-		}
+		
+		
 		void BtnPath1Click(object sender, EventArgs e)
 		{
 			using(var fbd = new FolderBrowserDialog())
@@ -110,6 +85,44 @@ namespace XCodeRec
 			    }
 			}
 		}
+		
+		void BtnMSoutPathClick(object sender, EventArgs e)
+		{
+			using(var fbd = new FolderBrowserDialog())
+			{
+				fbd.SelectedPath = CodeFolder;
+			    DialogResult result = fbd.ShowDialog();
+			
+			    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+			    {
+			        this.tbPkgInPath.Text = fbd.SelectedPath;
+			    }
+			}
+		}
+		
+		void BtVideoAddClick(object sender, EventArgs e)
+		{
+			string[] lvData = new string[2];
+			lvData[0] = tbVideoID.Text;
+			lvData[1] = rtbVideoLink.Text;
+            ListViewItem lvItem = new ListViewItem(lvData, 0);
+            
+            var vlink = new VLink(Int16.Parse(lvData[0] ), "", lvData[1] );
+            lvItem.Tag = vlink;
+            
+            lvVideo.Items.Add(lvItem);
+	
+		}
+
+		void BtnRefAddClick(object sender, EventArgs e)
+		{
+			string[] lvData = new string[2];
+			lvData[0] = tbRefID.Text;
+			lvData[1] = rtbRefText.Text;
+            ListViewItem lvItem = new ListViewItem(lvData, 0);
+			lvRef.Items.Add(lvItem);
+		}
+		
 		void BtnLoadPackageClick(object sender, EventArgs e)
 		{
 			if (!System.IO.File.Exists(this.tbPackOutputFile.Text))
@@ -128,7 +141,10 @@ namespace XCodeRec
 			this.tbSchemaID.Text = course.Schema.ID.ToString();
 			this.tbSchemaName.Text = course.Schema.Name;
 			this.tbScheamWs.Text = course.Schema.Workspace;
-			
+			this.tbSchemaDur.Text = course.Schema.Duration.ToString();
+			this.tbSchemaSess.Text = course.Schema.Sessions.ToString();
+			this.tbSchemaMS.Text = course.Schema.Milestones.ToString();
+			this.tbSchemaLevel.Text = course.Schema.Level.ToString();
 			
 			//this.clbApp.Items
 			for (int i = 0; i < clbApp.Items.Count; i++)
@@ -166,10 +182,11 @@ namespace XCodeRec
 			//add refer items
 			lvMileStones.Items.Clear();
 			foreach (var rev in course.Milestons) {
-				string[] lvData = new string[3];
+				string[] lvData = new string[4];
 				lvData[0]= rev.ID.ToString();
 				lvData[1] = rev.LinkID.ToString();
 				lvData[2] = rev.RefID.ToString();
+				lvData[3] = rev.Title;
 				
 				ListViewItem lvItem = new ListViewItem(lvData, 0);
 				lvItem.Tag = rev;
@@ -205,7 +222,7 @@ namespace XCodeRec
 		}
 		
 		//create MS folders
-		void Button1Click(object sender, EventArgs e)
+		void BtnBuildMSFolderCopy(object sender, EventArgs e)
 		{
 			if (string.IsNullOrEmpty(tbPkgInPath.Text) || string.IsNullOrEmpty(tbMSSrcPath.Text))
 			{
@@ -225,22 +242,10 @@ namespace XCodeRec
 			MessageBox.Show("MS folder copy done!");
 		}
 		
-		void BtnMSoutPathClick(object sender, EventArgs e)
-		{
-			using(var fbd = new FolderBrowserDialog())
-			{
-				fbd.SelectedPath = CodeFolder;
-			    DialogResult result = fbd.ShowDialog();
-			
-			    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-			    {
-			        this.tbPkgInPath.Text = fbd.SelectedPath;
-			    }
-			}
-		}
+		
 		
 		//update ms
-		void BtnGenMSClick(object sender, EventArgs e)
+		void BtnUpdateMSClick(object sender, EventArgs e)
 		{
 			var item = lvMileStones.FindItemWithText(tbMSID.Text);
 			Revision rev = (Revision)item.Tag;
@@ -251,7 +256,7 @@ namespace XCodeRec
 				
 			item.SubItems[1].Text =tbMSLinkID.Text;
 			item.SubItems[2].Text =tbMSRefID.Text;
-			//item.SubItems[3].Text =tbMSTitle.Text;
+			item.SubItems[3].Text =tbMSTitle.Text;
 		}
 		
 		
@@ -279,10 +284,12 @@ namespace XCodeRec
 		}
 		
 		private void AddMileStoneRev(Revision rev) {
-			string[] lvData = new string[3];
+			string[] lvData = new string[4];
 			lvData[0] = rev.ID.ToString();
 			lvData[1] = "";
 			lvData[2] = "";
+			lvData[3] = "";
+			
 			
             ListViewItem lvItem = new ListViewItem(lvData, 0);
             lvItem.Tag = rev;
@@ -355,6 +362,8 @@ namespace XCodeRec
 			schema.Duration = Int16.Parse(tbSchemaDur.Text);
 			schema.Sessions = Int16.Parse(tbSchemaSess.Text);
 			schema.Workspace = tbScheamWs.Text;
+			schema.Milestones = Int16.Parse(tbSchemaMS.Text);
+			schema.Level = Int16.Parse(tbSchemaLevel.Text);
 			
 			pkg.Schema = schema;
 			
@@ -391,6 +400,8 @@ namespace XCodeRec
 			}
 			
 			CourseWriter.Instance.WriteCourseToFile(pkg, tbPackOutputFile.Text);
+			
+			MessageBox.Show("pack.dat has been serilized!");
 		}
 	}
 }

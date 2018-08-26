@@ -51,7 +51,7 @@ namespace XCodeRec
 		private System.Windows.Forms.Label label12;
 		private System.Windows.Forms.Label label11;
 		private System.Windows.Forms.ListView lvRef;
-		private System.Windows.Forms.TextBox txtLevel;
+		private System.Windows.Forms.TextBox tbSchemaLevel;
 		private System.Windows.Forms.Label label13;
 		private System.Windows.Forms.Button btnVideoSave;
 		private System.Windows.Forms.TextBox tbVideoID;
@@ -105,7 +105,7 @@ namespace XCodeRec
 			this.btnPkgPath = new System.Windows.Forms.Button();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
-			this.txtLevel = new System.Windows.Forms.TextBox();
+			this.tbSchemaLevel = new System.Windows.Forms.TextBox();
 			this.label13 = new System.Windows.Forms.Label();
 			this.tbSchemaMS = new System.Windows.Forms.TextBox();
 			this.label8 = new System.Windows.Forms.Label();
@@ -140,6 +140,7 @@ namespace XCodeRec
 			this.label11 = new System.Windows.Forms.Label();
 			this.lvRef = new System.Windows.Forms.ListView();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.tbMSTitle = new System.Windows.Forms.TextBox();
 			this.rtbFiles = new System.Windows.Forms.RichTextBox();
 			this.tbMSID = new System.Windows.Forms.TextBox();
 			this.label18 = new System.Windows.Forms.Label();
@@ -149,7 +150,6 @@ namespace XCodeRec
 			this.tbMSLinkID = new System.Windows.Forms.TextBox();
 			this.label16 = new System.Windows.Forms.Label();
 			this.label15 = new System.Windows.Forms.Label();
-			this.tbMSTitle = new System.Windows.Forms.TextBox();
 			this.lvMileStones = new System.Windows.Forms.ListView();
 			this.btnUpdateMS = new System.Windows.Forms.Button();
 			this.btnLoadPackage = new System.Windows.Forms.Button();
@@ -167,6 +167,7 @@ namespace XCodeRec
 			// 
 			// btnGenPkg
 			// 
+			this.btnGenPkg.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnGenPkg.Location = new System.Drawing.Point(406, 526);
 			this.btnGenPkg.Name = "btnGenPkg";
 			this.btnGenPkg.Size = new System.Drawing.Size(140, 23);
@@ -177,10 +178,11 @@ namespace XCodeRec
 			// 
 			// tbMSSrcPath
 			// 
+			this.tbMSSrcPath.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.tbMSSrcPath.Location = new System.Drawing.Point(100, 10);
 			this.tbMSSrcPath.Margin = new System.Windows.Forms.Padding(2);
 			this.tbMSSrcPath.Name = "tbMSSrcPath";
-			this.tbMSSrcPath.Size = new System.Drawing.Size(302, 21);
+			this.tbMSSrcPath.Size = new System.Drawing.Size(302, 22);
 			this.tbMSSrcPath.TabIndex = 3;
 			// 
 			// btnPath1
@@ -196,6 +198,7 @@ namespace XCodeRec
 			// 
 			// label1
 			// 
+			this.label1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label1.Location = new System.Drawing.Point(9, 13);
 			this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label1.Name = "label1";
@@ -205,6 +208,7 @@ namespace XCodeRec
 			// 
 			// label2
 			// 
+			this.label2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label2.Location = new System.Drawing.Point(9, 38);
 			this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label2.Name = "label2";
@@ -214,10 +218,11 @@ namespace XCodeRec
 			// 
 			// tbPackOutputFile
 			// 
+			this.tbPackOutputFile.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.tbPackOutputFile.Location = new System.Drawing.Point(131, 58);
 			this.tbPackOutputFile.Margin = new System.Windows.Forms.Padding(2);
 			this.tbPackOutputFile.Name = "tbPackOutputFile";
-			this.tbPackOutputFile.Size = new System.Drawing.Size(271, 21);
+			this.tbPackOutputFile.Size = new System.Drawing.Size(271, 22);
 			this.tbPackOutputFile.TabIndex = 6;
 			// 
 			// btnPkgPath
@@ -238,6 +243,7 @@ namespace XCodeRec
 			this.tabControl1.Controls.Add(this.tabPage3);
 			this.tabControl1.Controls.Add(this.tabPage4);
 			this.tabControl1.Controls.Add(this.tabPage5);
+			this.tabControl1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.tabControl1.Location = new System.Drawing.Point(0, 95);
 			this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
 			this.tabControl1.Name = "tabControl1";
@@ -247,7 +253,7 @@ namespace XCodeRec
 			// 
 			// tabPage1
 			// 
-			this.tabPage1.Controls.Add(this.txtLevel);
+			this.tabPage1.Controls.Add(this.tbSchemaLevel);
 			this.tabPage1.Controls.Add(this.label13);
 			this.tabPage1.Controls.Add(this.tbSchemaMS);
 			this.tabPage1.Controls.Add(this.label8);
@@ -261,25 +267,27 @@ namespace XCodeRec
 			this.tabPage1.Controls.Add(this.label4);
 			this.tabPage1.Controls.Add(this.tbSchemaID);
 			this.tabPage1.Controls.Add(this.label3);
-			this.tabPage1.Location = new System.Drawing.Point(4, 22);
+			this.tabPage1.Location = new System.Drawing.Point(4, 23);
 			this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-			this.tabPage1.Size = new System.Drawing.Size(544, 399);
+			this.tabPage1.Size = new System.Drawing.Size(544, 398);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Schema";
 			this.tabPage1.UseVisualStyleBackColor = true;
 			// 
-			// txtLevel
+			// tbSchemaLevel
 			// 
-			this.txtLevel.Location = new System.Drawing.Point(84, 203);
-			this.txtLevel.Margin = new System.Windows.Forms.Padding(2);
-			this.txtLevel.Name = "txtLevel";
-			this.txtLevel.Size = new System.Drawing.Size(140, 21);
-			this.txtLevel.TabIndex = 13;
+			this.tbSchemaLevel.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.tbSchemaLevel.Location = new System.Drawing.Point(84, 203);
+			this.tbSchemaLevel.Margin = new System.Windows.Forms.Padding(2);
+			this.tbSchemaLevel.Name = "tbSchemaLevel";
+			this.tbSchemaLevel.Size = new System.Drawing.Size(140, 26);
+			this.tbSchemaLevel.TabIndex = 13;
 			// 
 			// label13
 			// 
+			this.label13.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label13.Location = new System.Drawing.Point(26, 206);
 			this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label13.Name = "label13";
@@ -289,14 +297,16 @@ namespace XCodeRec
 			// 
 			// tbSchemaMS
 			// 
+			this.tbSchemaMS.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.tbSchemaMS.Location = new System.Drawing.Point(84, 174);
 			this.tbSchemaMS.Margin = new System.Windows.Forms.Padding(2);
 			this.tbSchemaMS.Name = "tbSchemaMS";
-			this.tbSchemaMS.Size = new System.Drawing.Size(140, 21);
+			this.tbSchemaMS.Size = new System.Drawing.Size(140, 26);
 			this.tbSchemaMS.TabIndex = 11;
 			// 
 			// label8
 			// 
+			this.label8.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label8.Location = new System.Drawing.Point(26, 174);
 			this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label8.Name = "label8";
@@ -306,14 +316,16 @@ namespace XCodeRec
 			// 
 			// tbScheamWs
 			// 
+			this.tbScheamWs.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.tbScheamWs.Location = new System.Drawing.Point(84, 139);
 			this.tbScheamWs.Margin = new System.Windows.Forms.Padding(2);
 			this.tbScheamWs.Name = "tbScheamWs";
-			this.tbScheamWs.Size = new System.Drawing.Size(140, 21);
+			this.tbScheamWs.Size = new System.Drawing.Size(140, 26);
 			this.tbScheamWs.TabIndex = 9;
 			// 
 			// label7
 			// 
+			this.label7.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label7.Location = new System.Drawing.Point(26, 142);
 			this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label7.Name = "label7";
@@ -323,14 +335,16 @@ namespace XCodeRec
 			// 
 			// tbSchemaSess
 			// 
+			this.tbSchemaSess.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.tbSchemaSess.Location = new System.Drawing.Point(84, 107);
 			this.tbSchemaSess.Margin = new System.Windows.Forms.Padding(2);
 			this.tbSchemaSess.Name = "tbSchemaSess";
-			this.tbSchemaSess.Size = new System.Drawing.Size(140, 21);
+			this.tbSchemaSess.Size = new System.Drawing.Size(140, 26);
 			this.tbSchemaSess.TabIndex = 7;
 			// 
 			// label6
 			// 
+			this.label6.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label6.Location = new System.Drawing.Point(26, 110);
 			this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label6.Name = "label6";
@@ -340,14 +354,16 @@ namespace XCodeRec
 			// 
 			// tbSchemaDur
 			// 
+			this.tbSchemaDur.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.tbSchemaDur.Location = new System.Drawing.Point(84, 80);
 			this.tbSchemaDur.Margin = new System.Windows.Forms.Padding(2);
 			this.tbSchemaDur.Name = "tbSchemaDur";
-			this.tbSchemaDur.Size = new System.Drawing.Size(140, 21);
+			this.tbSchemaDur.Size = new System.Drawing.Size(140, 26);
 			this.tbSchemaDur.TabIndex = 5;
 			// 
 			// label5
 			// 
+			this.label5.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label5.Location = new System.Drawing.Point(26, 82);
 			this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label5.Name = "label5";
@@ -357,14 +373,16 @@ namespace XCodeRec
 			// 
 			// tbSchemaName
 			// 
+			this.tbSchemaName.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.tbSchemaName.Location = new System.Drawing.Point(84, 53);
 			this.tbSchemaName.Margin = new System.Windows.Forms.Padding(2);
 			this.tbSchemaName.Name = "tbSchemaName";
-			this.tbSchemaName.Size = new System.Drawing.Size(140, 21);
+			this.tbSchemaName.Size = new System.Drawing.Size(140, 26);
 			this.tbSchemaName.TabIndex = 3;
 			// 
 			// label4
 			// 
+			this.label4.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label4.Location = new System.Drawing.Point(26, 55);
 			this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label4.Name = "label4";
@@ -374,14 +392,16 @@ namespace XCodeRec
 			// 
 			// tbSchemaID
 			// 
+			this.tbSchemaID.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.tbSchemaID.Location = new System.Drawing.Point(84, 26);
 			this.tbSchemaID.Margin = new System.Windows.Forms.Padding(2);
 			this.tbSchemaID.Name = "tbSchemaID";
-			this.tbSchemaID.Size = new System.Drawing.Size(140, 21);
+			this.tbSchemaID.Size = new System.Drawing.Size(140, 26);
 			this.tbSchemaID.TabIndex = 1;
 			// 
 			// label3
 			// 
+			this.label3.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label3.Location = new System.Drawing.Point(26, 26);
 			this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label3.Name = "label3";
@@ -392,17 +412,18 @@ namespace XCodeRec
 			// tabPage2
 			// 
 			this.tabPage2.Controls.Add(this.clbApp);
-			this.tabPage2.Location = new System.Drawing.Point(4, 22);
+			this.tabPage2.Location = new System.Drawing.Point(4, 23);
 			this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-			this.tabPage2.Size = new System.Drawing.Size(544, 399);
+			this.tabPage2.Size = new System.Drawing.Size(544, 398);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "App";
 			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
 			// clbApp
 			// 
+			this.clbApp.Font = new System.Drawing.Font("Consolas", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.clbApp.FormattingEnabled = true;
 			this.clbApp.Items.AddRange(new object[] {
 			"guider",
@@ -410,10 +431,10 @@ namespace XCodeRec
 			"jeide",
 			"browser",
 			"devtool"});
-			this.clbApp.Location = new System.Drawing.Point(22, 31);
+			this.clbApp.Location = new System.Drawing.Point(8, 8);
 			this.clbApp.Margin = new System.Windows.Forms.Padding(2);
 			this.clbApp.Name = "clbApp";
-			this.clbApp.Size = new System.Drawing.Size(506, 196);
+			this.clbApp.Size = new System.Drawing.Size(520, 137);
 			this.clbApp.TabIndex = 0;
 			// 
 			// tabPage3
@@ -426,23 +447,24 @@ namespace XCodeRec
 			this.tabPage3.Controls.Add(this.rtbVideoLink);
 			this.tabPage3.Controls.Add(this.tbVideoID);
 			this.tabPage3.Controls.Add(this.lvVideo);
-			this.tabPage3.Location = new System.Drawing.Point(4, 22);
+			this.tabPage3.Location = new System.Drawing.Point(4, 23);
 			this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.Padding = new System.Windows.Forms.Padding(2);
-			this.tabPage3.Size = new System.Drawing.Size(544, 399);
+			this.tabPage3.Size = new System.Drawing.Size(544, 398);
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = "Video";
 			this.tabPage3.UseVisualStyleBackColor = true;
 			// 
 			// btnBuildVideos
 			// 
+			this.btnBuildVideos.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.btnBuildVideos.Location = new System.Drawing.Point(432, 360);
 			this.btnBuildVideos.Name = "btnBuildVideos";
 			this.btnBuildVideos.Size = new System.Drawing.Size(75, 23);
 			this.btnBuildVideos.TabIndex = 7;
 			this.btnBuildVideos.Text = "Build Videos";
-			this.btnBuildVideos.UseVisualStyleBackColor = true;
+			this.btnBuildVideos.UseVisualStyleBackColor = false;
 			this.btnBuildVideos.Click += new System.EventHandler(this.BtnBuildVideosClick);
 			// 
 			// btnVideoSave
@@ -450,7 +472,7 @@ namespace XCodeRec
 			this.btnVideoSave.Location = new System.Drawing.Point(432, 328);
 			this.btnVideoSave.Margin = new System.Windows.Forms.Padding(2);
 			this.btnVideoSave.Name = "btnVideoSave";
-			this.btnVideoSave.Size = new System.Drawing.Size(56, 18);
+			this.btnVideoSave.Size = new System.Drawing.Size(56, 24);
 			this.btnVideoSave.TabIndex = 6;
 			this.btnVideoSave.Text = "Save";
 			this.btnVideoSave.UseVisualStyleBackColor = true;
@@ -461,7 +483,7 @@ namespace XCodeRec
 			this.btVideoAdd.Location = new System.Drawing.Point(432, 304);
 			this.btVideoAdd.Margin = new System.Windows.Forms.Padding(2);
 			this.btVideoAdd.Name = "btVideoAdd";
-			this.btVideoAdd.Size = new System.Drawing.Size(56, 18);
+			this.btVideoAdd.Size = new System.Drawing.Size(56, 24);
 			this.btVideoAdd.TabIndex = 5;
 			this.btVideoAdd.Text = "Add";
 			this.btVideoAdd.UseVisualStyleBackColor = true;
@@ -469,16 +491,16 @@ namespace XCodeRec
 			// 
 			// label10
 			// 
-			this.label10.Location = new System.Drawing.Point(16, 308);
+			this.label10.Location = new System.Drawing.Point(16, 296);
 			this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label10.Name = "label10";
-			this.label10.Size = new System.Drawing.Size(32, 20);
+			this.label10.Size = new System.Drawing.Size(40, 20);
 			this.label10.TabIndex = 4;
 			this.label10.Text = "Link";
 			// 
 			// label9
 			// 
-			this.label9.Location = new System.Drawing.Point(16, 280);
+			this.label9.Location = new System.Drawing.Point(16, 272);
 			this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(33, 13);
@@ -487,23 +509,26 @@ namespace XCodeRec
 			// 
 			// rtbVideoLink
 			// 
-			this.rtbVideoLink.Location = new System.Drawing.Point(48, 296);
+			this.rtbVideoLink.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.rtbVideoLink.Location = new System.Drawing.Point(56, 304);
 			this.rtbVideoLink.Margin = new System.Windows.Forms.Padding(2);
 			this.rtbVideoLink.Name = "rtbVideoLink";
-			this.rtbVideoLink.Size = new System.Drawing.Size(374, 87);
+			this.rtbVideoLink.Size = new System.Drawing.Size(366, 79);
 			this.rtbVideoLink.TabIndex = 2;
 			this.rtbVideoLink.Text = "";
 			// 
 			// tbVideoID
 			// 
-			this.tbVideoID.Location = new System.Drawing.Point(48, 272);
+			this.tbVideoID.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.tbVideoID.Location = new System.Drawing.Point(56, 272);
 			this.tbVideoID.Margin = new System.Windows.Forms.Padding(2);
 			this.tbVideoID.Name = "tbVideoID";
-			this.tbVideoID.Size = new System.Drawing.Size(119, 21);
+			this.tbVideoID.Size = new System.Drawing.Size(111, 26);
 			this.tbVideoID.TabIndex = 1;
 			// 
 			// lvVideo
 			// 
+			this.lvVideo.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lvVideo.GridLines = true;
 			this.lvVideo.Location = new System.Drawing.Point(5, 6);
 			this.lvVideo.Margin = new System.Windows.Forms.Padding(2);
@@ -524,24 +549,24 @@ namespace XCodeRec
 			this.tabPage4.Controls.Add(this.label12);
 			this.tabPage4.Controls.Add(this.label11);
 			this.tabPage4.Controls.Add(this.lvRef);
-			this.tabPage4.Location = new System.Drawing.Point(4, 22);
+			this.tabPage4.Location = new System.Drawing.Point(4, 23);
 			this.tabPage4.Margin = new System.Windows.Forms.Padding(2);
 			this.tabPage4.Name = "tabPage4";
 			this.tabPage4.Padding = new System.Windows.Forms.Padding(2);
-			this.tabPage4.Size = new System.Drawing.Size(544, 399);
+			this.tabPage4.Size = new System.Drawing.Size(544, 398);
 			this.tabPage4.TabIndex = 3;
 			this.tabPage4.Text = "Ref";
 			this.tabPage4.UseVisualStyleBackColor = true;
-			this.tabPage4.Click += new System.EventHandler(this.TabPage4Click);
 			// 
 			// btnBuildRefs
 			// 
+			this.btnBuildRefs.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.btnBuildRefs.Location = new System.Drawing.Point(432, 336);
 			this.btnBuildRefs.Name = "btnBuildRefs";
 			this.btnBuildRefs.Size = new System.Drawing.Size(75, 23);
 			this.btnBuildRefs.TabIndex = 7;
 			this.btnBuildRefs.Text = "Build Refs";
-			this.btnBuildRefs.UseVisualStyleBackColor = true;
+			this.btnBuildRefs.UseVisualStyleBackColor = false;
 			this.btnBuildRefs.Click += new System.EventHandler(this.BtnBuildRefsClick);
 			// 
 			// btnRefSave
@@ -549,7 +574,7 @@ namespace XCodeRec
 			this.btnRefSave.Location = new System.Drawing.Point(432, 304);
 			this.btnRefSave.Margin = new System.Windows.Forms.Padding(2);
 			this.btnRefSave.Name = "btnRefSave";
-			this.btnRefSave.Size = new System.Drawing.Size(56, 18);
+			this.btnRefSave.Size = new System.Drawing.Size(64, 24);
 			this.btnRefSave.TabIndex = 6;
 			this.btnRefSave.Text = "Save";
 			this.btnRefSave.UseVisualStyleBackColor = true;
@@ -557,10 +582,10 @@ namespace XCodeRec
 			// 
 			// btnRefAdd
 			// 
-			this.btnRefAdd.Location = new System.Drawing.Point(432, 280);
+			this.btnRefAdd.Location = new System.Drawing.Point(432, 272);
 			this.btnRefAdd.Margin = new System.Windows.Forms.Padding(2);
 			this.btnRefAdd.Name = "btnRefAdd";
-			this.btnRefAdd.Size = new System.Drawing.Size(56, 18);
+			this.btnRefAdd.Size = new System.Drawing.Size(64, 26);
 			this.btnRefAdd.TabIndex = 5;
 			this.btnRefAdd.Text = "Add";
 			this.btnRefAdd.UseVisualStyleBackColor = true;
@@ -568,6 +593,7 @@ namespace XCodeRec
 			// 
 			// rtbRefText
 			// 
+			this.rtbRefText.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.rtbRefText.Location = new System.Drawing.Point(56, 280);
 			this.rtbRefText.Margin = new System.Windows.Forms.Padding(2);
 			this.rtbRefText.Name = "rtbRefText";
@@ -577,10 +603,11 @@ namespace XCodeRec
 			// 
 			// tbRefID
 			// 
-			this.tbRefID.Location = new System.Drawing.Point(56, 253);
+			this.tbRefID.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.tbRefID.Location = new System.Drawing.Point(56, 248);
 			this.tbRefID.Margin = new System.Windows.Forms.Padding(2);
 			this.tbRefID.Name = "tbRefID";
-			this.tbRefID.Size = new System.Drawing.Size(164, 21);
+			this.tbRefID.Size = new System.Drawing.Size(164, 26);
 			this.tbRefID.TabIndex = 3;
 			// 
 			// label12
@@ -603,6 +630,7 @@ namespace XCodeRec
 			// 
 			// lvRef
 			// 
+			this.lvRef.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lvRef.GridLines = true;
 			this.lvRef.Location = new System.Drawing.Point(5, 6);
 			this.lvRef.Margin = new System.Windows.Forms.Padding(2);
@@ -615,6 +643,7 @@ namespace XCodeRec
 			// 
 			// tabPage5
 			// 
+			this.tabPage5.Controls.Add(this.tbMSTitle);
 			this.tabPage5.Controls.Add(this.rtbFiles);
 			this.tabPage5.Controls.Add(this.tbMSID);
 			this.tabPage5.Controls.Add(this.label18);
@@ -624,36 +653,44 @@ namespace XCodeRec
 			this.tabPage5.Controls.Add(this.tbMSLinkID);
 			this.tabPage5.Controls.Add(this.label16);
 			this.tabPage5.Controls.Add(this.label15);
-			this.tabPage5.Controls.Add(this.tbMSTitle);
 			this.tabPage5.Controls.Add(this.lvMileStones);
 			this.tabPage5.Controls.Add(this.btnUpdateMS);
-			this.tabPage5.Location = new System.Drawing.Point(4, 22);
+			this.tabPage5.Location = new System.Drawing.Point(4, 23);
 			this.tabPage5.Margin = new System.Windows.Forms.Padding(2);
 			this.tabPage5.Name = "tabPage5";
 			this.tabPage5.Padding = new System.Windows.Forms.Padding(2);
-			this.tabPage5.Size = new System.Drawing.Size(544, 399);
+			this.tabPage5.Size = new System.Drawing.Size(544, 398);
 			this.tabPage5.TabIndex = 4;
 			this.tabPage5.Text = "MileStone";
 			this.tabPage5.UseVisualStyleBackColor = true;
 			// 
+			// tbMSTitle
+			// 
+			this.tbMSTitle.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.tbMSTitle.Location = new System.Drawing.Point(56, 256);
+			this.tbMSTitle.Name = "tbMSTitle";
+			this.tbMSTitle.Size = new System.Drawing.Size(176, 26);
+			this.tbMSTitle.TabIndex = 3;
+			// 
 			// rtbFiles
 			// 
-			this.rtbFiles.Location = new System.Drawing.Point(72, 288);
+			this.rtbFiles.Location = new System.Drawing.Point(56, 288);
 			this.rtbFiles.Name = "rtbFiles";
-			this.rtbFiles.Size = new System.Drawing.Size(432, 64);
+			this.rtbFiles.Size = new System.Drawing.Size(448, 64);
 			this.rtbFiles.TabIndex = 12;
 			this.rtbFiles.Text = "";
 			// 
 			// tbMSID
 			// 
-			this.tbMSID.Location = new System.Drawing.Point(72, 224);
+			this.tbMSID.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.tbMSID.Location = new System.Drawing.Point(56, 224);
 			this.tbMSID.Name = "tbMSID";
-			this.tbMSID.Size = new System.Drawing.Size(176, 21);
+			this.tbMSID.Size = new System.Drawing.Size(176, 26);
 			this.tbMSID.TabIndex = 11;
 			// 
 			// label18
 			// 
-			this.label18.Location = new System.Drawing.Point(8, 232);
+			this.label18.Location = new System.Drawing.Point(8, 224);
 			this.label18.Name = "label18";
 			this.label18.Size = new System.Drawing.Size(100, 23);
 			this.label18.TabIndex = 10;
@@ -661,19 +698,21 @@ namespace XCodeRec
 			// 
 			// btnBuildMS
 			// 
+			this.btnBuildMS.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.btnBuildMS.Location = new System.Drawing.Point(384, 360);
 			this.btnBuildMS.Name = "btnBuildMS";
 			this.btnBuildMS.Size = new System.Drawing.Size(120, 23);
 			this.btnBuildMS.TabIndex = 9;
 			this.btnBuildMS.Text = "Build MS";
-			this.btnBuildMS.UseVisualStyleBackColor = true;
+			this.btnBuildMS.UseVisualStyleBackColor = false;
 			this.btnBuildMS.Click += new System.EventHandler(this.BtnBuildMSClick);
 			// 
 			// tbMSRefID
 			// 
-			this.tbMSRefID.Location = new System.Drawing.Point(328, 264);
+			this.tbMSRefID.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.tbMSRefID.Location = new System.Drawing.Point(328, 256);
 			this.tbMSRefID.Name = "tbMSRefID";
-			this.tbMSRefID.Size = new System.Drawing.Size(176, 21);
+			this.tbMSRefID.Size = new System.Drawing.Size(176, 26);
 			this.tbMSRefID.TabIndex = 8;
 			// 
 			// label17
@@ -686,14 +725,15 @@ namespace XCodeRec
 			// 
 			// tbMSLinkID
 			// 
-			this.tbMSLinkID.Location = new System.Drawing.Point(328, 232);
+			this.tbMSLinkID.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.tbMSLinkID.Location = new System.Drawing.Point(328, 224);
 			this.tbMSLinkID.Name = "tbMSLinkID";
-			this.tbMSLinkID.Size = new System.Drawing.Size(176, 21);
+			this.tbMSLinkID.Size = new System.Drawing.Size(176, 26);
 			this.tbMSLinkID.TabIndex = 6;
 			// 
 			// label16
 			// 
-			this.label16.Location = new System.Drawing.Point(264, 224);
+			this.label16.Location = new System.Drawing.Point(256, 224);
 			this.label16.Name = "label16";
 			this.label16.Size = new System.Drawing.Size(100, 23);
 			this.label16.TabIndex = 5;
@@ -701,21 +741,15 @@ namespace XCodeRec
 			// 
 			// label15
 			// 
-			this.label15.Location = new System.Drawing.Point(8, 256);
+			this.label15.Location = new System.Drawing.Point(8, 248);
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(64, 23);
 			this.label15.TabIndex = 4;
 			this.label15.Text = "Title";
 			// 
-			// tbMSTitle
-			// 
-			this.tbMSTitle.Location = new System.Drawing.Point(72, 256);
-			this.tbMSTitle.Name = "tbMSTitle";
-			this.tbMSTitle.Size = new System.Drawing.Size(176, 21);
-			this.tbMSTitle.TabIndex = 3;
-			// 
 			// lvMileStones
 			// 
+			this.lvMileStones.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lvMileStones.GridLines = true;
 			this.lvMileStones.Location = new System.Drawing.Point(8, 8);
 			this.lvMileStones.Name = "lvMileStones";
@@ -727,20 +761,21 @@ namespace XCodeRec
 			// 
 			// btnUpdateMS
 			// 
-			this.btnUpdateMS.Location = new System.Drawing.Point(72, 360);
+			this.btnUpdateMS.Location = new System.Drawing.Point(48, 360);
 			this.btnUpdateMS.Name = "btnUpdateMS";
 			this.btnUpdateMS.Size = new System.Drawing.Size(128, 23);
 			this.btnUpdateMS.TabIndex = 1;
 			this.btnUpdateMS.Text = "Update";
 			this.btnUpdateMS.UseVisualStyleBackColor = true;
-			this.btnUpdateMS.Click += new System.EventHandler(this.BtnGenMSClick);
+			this.btnUpdateMS.Click += new System.EventHandler(this.BtnUpdateMSClick);
 			// 
 			// btnLoadPackage
 			// 
-			this.btnLoadPackage.Location = new System.Drawing.Point(448, 64);
+			this.btnLoadPackage.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnLoadPackage.Location = new System.Drawing.Point(448, 56);
 			this.btnLoadPackage.Margin = new System.Windows.Forms.Padding(2);
 			this.btnLoadPackage.Name = "btnLoadPackage";
-			this.btnLoadPackage.Size = new System.Drawing.Size(78, 18);
+			this.btnLoadPackage.Size = new System.Drawing.Size(96, 24);
 			this.btnLoadPackage.TabIndex = 9;
 			this.btnLoadPackage.Text = "Load Pack";
 			this.btnLoadPackage.UseVisualStyleBackColor = true;
@@ -748,17 +783,20 @@ namespace XCodeRec
 			// 
 			// btnCreateMSF
 			// 
-			this.btnCreateMSF.Location = new System.Drawing.Point(448, 40);
+			this.btnCreateMSF.BackColor = System.Drawing.SystemColors.ActiveCaption;
+			this.btnCreateMSF.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnCreateMSF.Location = new System.Drawing.Point(448, 8);
 			this.btnCreateMSF.Margin = new System.Windows.Forms.Padding(2);
 			this.btnCreateMSF.Name = "btnCreateMSF";
-			this.btnCreateMSF.Size = new System.Drawing.Size(78, 18);
+			this.btnCreateMSF.Size = new System.Drawing.Size(96, 40);
 			this.btnCreateMSF.TabIndex = 10;
 			this.btnCreateMSF.Text = "Create MSF";
-			this.btnCreateMSF.UseVisualStyleBackColor = true;
-			this.btnCreateMSF.Click += new System.EventHandler(this.Button1Click);
+			this.btnCreateMSF.UseVisualStyleBackColor = false;
+			this.btnCreateMSF.Click += new System.EventHandler(this.BtnBuildMSFolderCopy);
 			// 
 			// label14
 			// 
+			this.label14.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label14.Location = new System.Drawing.Point(9, 66);
 			this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label14.Name = "label14";
@@ -768,10 +806,11 @@ namespace XCodeRec
 			// 
 			// tbPkgInPath
 			// 
+			this.tbPkgInPath.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.tbPkgInPath.Location = new System.Drawing.Point(100, 34);
 			this.tbPkgInPath.Margin = new System.Windows.Forms.Padding(2);
 			this.tbPkgInPath.Name = "tbPkgInPath";
-			this.tbPkgInPath.Size = new System.Drawing.Size(302, 21);
+			this.tbPkgInPath.Size = new System.Drawing.Size(302, 22);
 			this.tbPkgInPath.TabIndex = 11;
 			// 
 			// btnMSoutPath
