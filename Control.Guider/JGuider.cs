@@ -95,7 +95,7 @@ namespace NGO.Pad.Guider
 				//editor.Width = page.ClientSize.Width;
 				//editor.Height = page.ClientSize.Height;
 				editor.Name = "JEditor";
-				editor.AcceptText(file.Content);
+				editor.AcceptText(file.Code);
 				page.Controls.Add(editor);
 				editor.Width = page.ClientSize.Width ;
 				editor.Height = page.ClientSize.Height - 25;
