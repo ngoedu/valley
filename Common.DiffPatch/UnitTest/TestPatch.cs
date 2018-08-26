@@ -65,7 +65,7 @@ namespace XDiffPatch.UnitTest
 		    var myPatch = dmp.patch_fromText(patchText);
 		
 			//4. apply patch to get new text    
-		    var results = dmp.patch_apply(patches, old);
+		    var results = dmp.patch_apply(myPatch, old);
 		    //bool[] boolArray = (bool[])results[1];
 		    string resultStr = (string)results[0];
 		    //5. do url decode
