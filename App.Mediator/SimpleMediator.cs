@@ -72,6 +72,8 @@ namespace App.Mediator
 			//var trSession = CourseReader.Instance.ReadTrainingSessionFrom(cpath, courseName, false);
 			//TODO: setup training records in course
 			
+			course.RestoreRevFiles();
+			
 			appRegistry.Add(AppRegKeys.COURSE_KEY, course);
 			
 			var milestone = course.GetLatestMileStone();
