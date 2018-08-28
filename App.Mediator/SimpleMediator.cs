@@ -9,12 +9,14 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using App.Common;
 using App.Common.Debug;
 using App.Common.Proc;
 using App.Common.Reg;
 using App.Views;
+using CefSharp;
 using Component.Bridge;
 using Control.Profile;
 using NGO.Protocol.AEther;
@@ -41,6 +43,16 @@ namespace App.Mediator
 		
 		public SimpleMediator(Form mf)
 		{
+			
+			var settings = new CefSettings(){
+                //By default CefSharp will use an in-memory cache, you need to specify a Cache Folder to persist data
+                CachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CefSharp\\Cache")
+            };
+            //Perform dependency check to make sure all relevant resources are in our output directory.
+            Cef.Initialize(settings,shutdownOnProcessExit:true, performDependencyCheck: true);
+            App.Views.AppContext.AppContextsInitializer();
+          
+			
 			//init depandencies
 			this.clientArea = new Rectangle();
 			this.mainForm = mf;

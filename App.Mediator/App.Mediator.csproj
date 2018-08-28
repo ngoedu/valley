@@ -31,6 +31,9 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CefSharp.Core">
+      <HintPath>..\App.Dashboard\packages\CefSharp.Common.49.0.0\CefSharp\x86\CefSharp.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
