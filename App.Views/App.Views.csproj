@@ -77,6 +77,7 @@
     <Compile Include="AppContext.cs" />
     <Compile Include="Browser\IBrowserJSCallback.cs" />
     <Compile Include="Browser\IWebBrowser.cs" />
+    <Compile Include="Browser\JDevBrowser.cs" />
     <Compile Include="Browser\JWebBrowser.cs" />
     <Compile Include="Browser\JWebBrowser.Designer.cs">
       <DependentUpon>JWebBrowser.cs</DependentUpon>

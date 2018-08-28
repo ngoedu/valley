@@ -15,6 +15,7 @@ using Control.Eide;
 using Control.Video;
 using NGO.Pad.Guider;
 using NGO.Train;
+using App.Views.Browser;
 
 namespace App.Views
 {
@@ -28,11 +29,16 @@ namespace App.Views
 		public IAppEntry AppControl {private set; get;}
 		
 		private static readonly Dictionary<string, AppContext> APPREG = new Dictionary<string, AppContext>();
+		
+		public static void AppContextsInitializer() {
+			
+		}
+		
 		static AppContext() {
 			APPREG.Add("guider", new App.Views.AppContext("导航", 1, new JGuider()));
 			APPREG.Add("video", new App.Views.AppContext("视频", 2, new JVideo()));
 			APPREG.Add("jeide", new App.Views.AppContext("编码", 3, new JEide("NgoEclipse",  CodeBase.GetCodePath(), PidRecorder.Instance)));
-			APPREG.Add("browser", new App.Views.AppContext("浏览器", 4, new JWebBrowser(true, null)));
+			APPREG.Add("browser", new App.Views.AppContext("浏览器", 4, new JDevBrowser()));
 		}
 		
 		public AppContext(string id, int key, IAppEntry ctl)
