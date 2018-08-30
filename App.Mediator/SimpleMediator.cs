@@ -115,7 +115,7 @@ namespace App.Mediator
 		public void FormLoaded()
 		{
 			//TODO: uncoment below when go-prod
-			/**/
+			/*
 			CourseForm form = new CourseForm();
 			if (form.ShowDialog() == DialogResult.OK)
 		    {
@@ -123,9 +123,9 @@ namespace App.Mediator
 
 				//course selected
 				LoadCoursePlayForm("sweb-a01");
-		    }
+		    }*/
 			
-			//LoadCoursePlayForm("sweb-a01");
+			LoadCoursePlayForm("sweb-a01");
 		}
 		public void FormClosed()
 		{

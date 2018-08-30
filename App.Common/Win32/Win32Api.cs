@@ -7,6 +7,7 @@
  * 
  */
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace App.Common.Win32
@@ -87,6 +88,53 @@ namespace App.Common.Win32
 		
 		[DllImport("user32.dll")]
 		public static extern bool RemoveMenu(IntPtr hMenu, uint uPosition, uint uFlags);
+		
+		[DllImport("user32.dll", EntryPoint = "FindWindow")]
+		public static extern IntPtr FindWindowEx( IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow );
+
 		#endregion form dll
+		
+		
+		
+		public delegate bool EnumWindowProc(IntPtr hwnd, IntPtr lParam);
+
+		[DllImport("user32")]
+	    [return: MarshalAs(UnmanagedType.Bool)]
+	    public static extern bool EnumChildWindows(IntPtr window, EnumWindowProc callback, IntPtr lParam);
+	
+	    public static List<IntPtr> GetAllChildHandles(IntPtr _MainHandle)
+	    {
+	        List<IntPtr> childHandles = new List<IntPtr>();
+	
+	        GCHandle gcChildhandlesList = GCHandle.Alloc(childHandles);
+	        IntPtr pointerChildHandlesList = GCHandle.ToIntPtr(gcChildhandlesList);
+	
+	        try
+	        {
+	            EnumWindowProc childProc = new EnumWindowProc(EnumWindow);
+	            EnumChildWindows(_MainHandle, childProc, pointerChildHandlesList);
+	        }
+	        finally
+	        {
+	            gcChildhandlesList.Free();
+	        }
+	
+	        return childHandles;
+	    }
+	    
+	    private static bool EnumWindow(IntPtr hWnd, IntPtr lParam)
+	    {
+	        GCHandle gcChildhandlesList = GCHandle.FromIntPtr(lParam);
+	
+	        if (gcChildhandlesList == null || gcChildhandlesList.Target == null)
+	        {
+	            return false;
+	        }
+	
+	        List<IntPtr> childHandles = gcChildhandlesList.Target as List<IntPtr>;
+	        childHandles.Add(hWnd);
+	
+	        return true;
+	    }
 	}
 }

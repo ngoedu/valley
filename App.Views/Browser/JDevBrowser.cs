@@ -7,10 +7,13 @@
  * 
  */
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 using App.Common.Reg;
+using App.Common.Win32;
 
 namespace App.Views.Browser
 {
@@ -25,6 +28,7 @@ namespace App.Views.Browser
 		private System.Windows.Forms.Panel panelRight;
 		private JWebBrowser innerBrowser;
 		private bool isDevToolEnabled = false;
+		private IntPtr embedHandle;
 		
 		public JDevBrowser()
 		{
@@ -84,19 +88,10 @@ namespace App.Views.Browser
 		{
 			if (leftPanelSize == 0)
 			{
-				this.panelLeft.Size = new System.Drawing.Size(this.ClientSize.Width - 60, this.ClientSize.Height);
+				this.panelLeft.Size = new System.Drawing.Size(10, this.ClientSize.Height);
 			}
 		}
 		
-		
-		const short SWP_NOZORDER = 0X4;
-		const int SWP_SHOWWINDOW = 0x0040;
-		
-		[DllImport("user32.dll", EntryPoint = "SetWindowPos")]
-		public static extern IntPtr SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int x, int Y, int cx, int cy, int wFlags);
-		void DevToolResize(IntPtr devPtr, int width, int height) {
-			SetWindowPos(devPtr, 0, 4, 2, width, height, SWP_NOZORDER | SWP_SHOWWINDOW);   
-		}
 		
 		public void LoadPage(string content)
 		{
@@ -122,7 +117,6 @@ namespace App.Views.Browser
 		#endregion
 		
 		private int leftPanelSize = 0;
-		private IntPtr devToolPtr = IntPtr.Zero;
 		private void splitterPanelLeft_Click(object sender, System.EventArgs e)
 		{
 			if (splitterPanelLeft.IsCollapsed)
@@ -134,25 +128,55 @@ namespace App.Views.Browser
 			}
 			
 			if (!this.isDevToolEnabled) {
-				devToolPtr = this.innerBrowser.ShowDevTools(panelRight);
-				this.isDevToolEnabled = true;
+				string winTitle = this.innerBrowser.ShowDevTools(panelRight);
+				isDevToolEnabled = true;
 			}
 		}
+		
+		private IntPtr FindDevToolHandle(IntPtr handle) {
+			var childWindows = Win32Api.GetAllChildHandles(handle);
+			if (childWindows.Count > 0) {
+				System.Diagnostics.Debug.WriteLine("child window.size > 0");
+				return childWindows[0];
+			}
+			return IntPtr.Zero;
+		}
+		
+		/// <summary>
+		/// resize the windwo
+		/// </summary>
+		private void ResizeDevTool(IntPtr handle, int width, int height)
+		{
+			Win32Api.SetWindowPos(handle, 0, 4, 2, width, height-2, Win32Api.SWP_NOZORDER | Win32Api.SWP_SHOWWINDOW);   
+			
+			//try set window no border
+	        int style = Win32Api.GetWindowLong(handle, Win32Api.GWL_STYLE);
+			Win32Api.SetWindowLong(handle, Win32Api.GWL_STYLE, (style & ~ Win32Api.WS_THICKFRAME )); 
+		}
 
+		/*
+		private IntPtr EmbedDevToolWindow(string title) {
+			embedHandle = Win32Api.FindWindowByCaption(IntPtr.Zero, title);
+			var resul1 = Win32Api.SetParent(embedHandle, this.panelRight.Handle);
+			return IntPtr.Zero;
+		}
+		*/
 		
 		void LeftPanelSizeChanged(object sender, EventArgs e)
 		{
 			this.innerBrowser.Width = this.panelLeft.Width;
 			this.innerBrowser.Height = this.panelLeft.Height;
 			
+			
 			this.panelRight.Left  = this.panelLeft.Width;
 			this.panelRight.Top  = 0;
 			this.panelRight.Width  = this.ClientSize.Width - this.panelLeft.Width;
 			this.panelRight.Height  = this.ClientSize.Height;
 			
-			if (devToolPtr != IntPtr.Zero)
-				DevToolResize(devToolPtr, this.panelRight.Width, this.panelRight.Height);
-			
+			IntPtr dtoolPtr = FindDevToolHandle(panelRight.Handle);
+			if (dtoolPtr != IntPtr.Zero)
+				ResizeDevTool(dtoolPtr, this.panelRight.Width, this.panelRight.Height);
+						
 			System.Diagnostics.Debug.WriteLine("JDevBrowser.SpliterPanelSizeChanged w="+this.panelLeft.Width + ",h="+this.panelLeft.Height);
 		}
 	}
