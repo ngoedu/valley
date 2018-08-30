@@ -93,6 +93,7 @@
     </Compile>
     <Compile Include="Secure\StringClipher.cs" />
     <Compile Include="Signal\WaitSignal.cs" />
+    <Compile Include="Win32\Win32Api.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\GifControl.resx">
@@ -112,6 +113,7 @@
     <Folder Include="Diag" />
     <Folder Include="Dpi" />
     <Folder Include="Md5" />
+    <Folder Include="Win32" />
     <Folder Include="Secure" />
     <Folder Include="Signal" />
     <Folder Include="Reg" />

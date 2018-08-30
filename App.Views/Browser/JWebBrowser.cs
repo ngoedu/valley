@@ -9,6 +9,7 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using App.Common.Reg;
 using App.Common.Signal;
@@ -58,12 +59,25 @@ namespace App.Views
 			Tag = CEF_ACTIVE;
 		}
 		
-		public void ShowDevTools(Panel panel) {
+		[DllImport("user32.dll", EntryPoint = "FindWindow")]
+		private static extern IntPtr FindWindowEx( IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow );
+		[DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        
+		public IntPtr ShowDevTools(Panel panel) {
 			var windowInfo = new WindowInfo();
 			var browser = cefBrowser.GetBrowser().GetHost();
 			var rect = panel.ClientRectangle;
 			windowInfo.SetAsChild(panel.Handle, rect.Left, rect.Top, rect.Right, rect.Bottom);
 			browser.ShowDevTools(windowInfo);
+			
+			IntPtr childHwnd =  FindWindow(String.Empty, "chrome-devtools://devtools/inspector.html");
+        	if (childHwnd != IntPtr.Zero)   
+		    {   
+		    	return childHwnd;
+		    }
+			 
+			return IntPtr.Zero;
 		}
 
 		#region IAppEntry implementation
