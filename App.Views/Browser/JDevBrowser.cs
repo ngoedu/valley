@@ -28,7 +28,6 @@ namespace App.Views.Browser
 		private System.Windows.Forms.Panel panelRight;
 		private JWebBrowser innerBrowser;
 		private bool isDevToolEnabled = false;
-		private IntPtr embedHandle;
 		
 		public JDevBrowser()
 		{
@@ -50,18 +49,18 @@ namespace App.Views.Browser
 			this.splitterPanelLeft.AnimationStep = 20;
 			this.splitterPanelLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.splitterPanelLeft.ControlToHide = this.panelLeft;
-			
 			this.splitterPanelLeft.ExpandParentForm = false;
-			this.splitterPanelLeft.Location = new System.Drawing.Point(20, 20);
+			this.splitterPanelLeft.Location = new System.Drawing.Point(0, 80);
 			this.splitterPanelLeft.Name = "splitterPanelLeft";
 			this.splitterPanelLeft.TabIndex = 20;
 			this.splitterPanelLeft.TabStop = false;
 			this.splitterPanelLeft.UseAnimations = false;
 			this.splitterPanelLeft.VisualStyle = NJFLib.Controls.VisualStyles.Mozilla;
 			this.splitterPanelLeft.BackColor = Color.LightBlue;
-			this.splitterPanelLeft.Width = 28;
+			this.splitterPanelLeft.Dock = DockStyle.Left;
 			
 			// panelLeft
+			this.panelLeft.Visible = false;
 			this.panelLeft.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.panelLeft.BackColor = Color.Black;
 			this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
@@ -78,7 +77,7 @@ namespace App.Views.Browser
 			
 			//add broswer
 			this.innerBrowser.Dock = DockStyle.Fill;
-			this.panelLeft.Controls.Add(this.innerBrowser);
+			this.panelRight.Controls.Add(this.innerBrowser);
 			
 			//add devtool panel
 			this.Controls.Add(this.panelRight);
@@ -86,9 +85,9 @@ namespace App.Views.Browser
 		
 		void JDevBrowserSizeChanged(object sender, EventArgs e)
 		{
-			if (leftPanelSize == 0)
+			if (defaultPanelSize == 360)
 			{
-				this.panelLeft.Size = new System.Drawing.Size(10, this.ClientSize.Height);
+				this.panelLeft.Size = new System.Drawing.Size(0, this.ClientSize.Height);
 			}
 		}
 		
@@ -116,19 +115,19 @@ namespace App.Views.Browser
 		}
 		#endregion
 		
-		private int leftPanelSize = 0;
+		private int defaultPanelSize = 360;
 		private void splitterPanelLeft_Click(object sender, System.EventArgs e)
 		{
 			if (splitterPanelLeft.IsCollapsed)
 			{
-				leftPanelSize = this.panelLeft.Width;
+				defaultPanelSize = this.panelLeft.Width;
 				this.panelLeft.Width = 0;		
 			} else {
-				this.panelLeft.Width = leftPanelSize;
+				this.panelLeft.Width = defaultPanelSize;
 			}
 			
 			if (!this.isDevToolEnabled) {
-				string winTitle = this.innerBrowser.ShowDevTools(panelRight);
+				string winTitle = this.innerBrowser.ShowDevTools(panelLeft);
 				isDevToolEnabled = true;
 			}
 		}
@@ -173,9 +172,9 @@ namespace App.Views.Browser
 			this.panelRight.Width  = this.ClientSize.Width - this.panelLeft.Width;
 			this.panelRight.Height  = this.ClientSize.Height;
 			
-			IntPtr dtoolPtr = FindDevToolHandle(panelRight.Handle);
+			IntPtr dtoolPtr = FindDevToolHandle(panelLeft.Handle);
 			if (dtoolPtr != IntPtr.Zero)
-				ResizeDevTool(dtoolPtr, this.panelRight.Width, this.panelRight.Height);
+				ResizeDevTool(dtoolPtr, this.panelLeft.Width, this.panelLeft.Height);
 						
 			System.Diagnostics.Debug.WriteLine("JDevBrowser.SpliterPanelSizeChanged w="+this.panelLeft.Width + ",h="+this.panelLeft.Height);
 		}
