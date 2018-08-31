@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using App.Common.Reg;
+using DiffMatchPatch;
 using NGO.Pad.Editor;
 using NGO.Train;
 using NGO.Train.Entity;
@@ -96,6 +97,13 @@ namespace NGO.Pad.Guider
 				//editor.Height = page.ClientSize.Height;
 				editor.Name = "JEditor";
 				editor.AcceptText(file.Code);
+				
+				//TODO: create diff and render in JEditor
+				if (file.IsPatch()) {
+		   			System.Diagnostics.Debug.WriteLine("MarkupText for file={0}", file.Name);
+		   			editor.MarkupText(file.Diff);
+				}
+				
 				page.Controls.Add(editor);
 				editor.Width = page.ClientSize.Width ;
 				editor.Height = page.ClientSize.Height - 25;

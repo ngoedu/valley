@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Drawing;  
 using System.Runtime.InteropServices;  
 using System.Windows.Forms;
+using DiffMatchPatch;
 using HWND = System.IntPtr;  
 
 namespace NGO.Pad.Editor
@@ -108,7 +109,12 @@ namespace NGO.Pad.Editor
             }  
             base.OnTextChanged(e);  
         } 
-        
+
+		public void MarkupText(my.utils.MyDiff.Item[] patch)
+		{
+			render.HandleTextMarkup(this, patch);
+		}
+		
         private const Keys CopyKey = Keys.Control | Keys.C;
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData) { 
         	if (!this.editable) {

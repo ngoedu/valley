@@ -16,6 +16,12 @@ namespace NGO.Train.Entity
 	/// </summary>
 	public class File
 	{
+		[XmlIgnore]
+		public my.utils.MyDiff.Item[] Diff {
+			get;
+			set;
+		}
+
 		public string Name {set; get;}
 		public string Path {set;get;}
 		
@@ -47,6 +53,8 @@ namespace NGO.Train.Entity
 			return string.Format("name=[{0}],path=[{1}],content=[{2}]", Name, Path, Content);;
 		} 
 		
-		
+		public bool IsPatch() {
+			return !Code.Equals(Content);
+		}
 	}
 }

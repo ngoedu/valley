@@ -89,11 +89,16 @@ namespace NGO.Train.Entity
 						f.Code = f.Content;
 					else {
 						f.Code = RestoreFileCode(bf.Code, f.Content);
+						f.Diff = CreateDiff(bf.Code,f.Code);
 					}				
 				}
 				
 				revBase = rev;
 			}
+		}
+		
+		private my.utils.MyDiff.Item[] CreateDiff(string textA, string textB) {
+			return new my.utils.MyDiff().DiffText(textA, textB);
 		}
 		
 		private string RestoreFileCode(string baseSrc, string patchText) {

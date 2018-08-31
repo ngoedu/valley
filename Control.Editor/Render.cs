@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using DiffMatchPatch;
 
 namespace NGO.Pad.Editor
 {
@@ -74,6 +75,59 @@ namespace NGO.Pad.Editor
 		}
 		
 		public abstract bool HandleKey(char key, RichTextBox rtb);
+
+		public void HandleTextMarkup(RichTextBox rtb, my.utils.MyDiff.Item[] diffs)
+		{
+			//backup selection status
+			int selectStartBak = rtb.SelectionStart;
+            
+			
+            for(int i=0; i< diffs.Length; i++) {
+            	my.utils.MyDiff.Item item = diffs[i];
+            	
+            	//locate line 
+            	int lineNum = item.StartB;
+	            string lineText = rtb.Lines[lineNum];  
+	            int firstIdx = rtb.GetFirstCharIndexFromLine(lineNum);
+            
+	            //markup whole line
+	            rtb.SelectionStart = firstIdx;
+	            rtb.SelectionLength = lineText.Length;
+				rtb.SelectionBackColor = Color.Green;
+				
+				int insertLines = item.insertedB - 1;
+				if ((insertLines) > 0) {
+					
+					for (int j=insertLines; j>0; j--)
+						lineText += rtb.Lines[lineNum+j]+1;
+					rtb.SelectionLength = lineText.Length;
+					rtb.SelectionBackColor = Color.Green;
+				}
+            }
+
+			/*
+			//1.nav to first diff            
+            rtb.SelectionStart = patch.start2;
+
+			//2.render diffs
+			int delete = 0;
+			foreach (var df in patch.diffs)
+			{
+				if (df.operation == Operation.EQUAL) {
+					rtb.SelectionStart += df.text.Length -1; //skip over by length of equal string
+				} else if (df.operation ==Operation.DELETE) {
+					delete = df.text.Length;
+				} else if (df.operation ==Operation.INSERT) {
+					rtb.SelectionLength = df.text.Length;
+					rtb.SelectionBackColor = Color.Green;					
+				}
+			}
+			*/
+			
+			//restore selection status
+			rtb.SelectionStart = selectStartBak;
+            rtb.SelectionLength = 0; 
+		}
 		
 		public virtual void HandleTextChanged(RichTextBox rtb) {
 			int selectStart = rtb.SelectionStart;  

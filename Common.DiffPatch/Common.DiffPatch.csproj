@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DiffMatchPatch.cs" />
+    <Compile Include="MyDiff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTest\TestPatch.cs" />
   </ItemGroup>
