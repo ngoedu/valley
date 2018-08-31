@@ -9,7 +9,7 @@
 using System;
 using System.Windows.Forms;
 using App.Common.Debug;
-using CefSharp;
+using Control.JBrowser;
 
 namespace App.Views
 {

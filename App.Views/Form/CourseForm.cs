@@ -12,6 +12,7 @@ using System.IO;
 using System.Windows.Forms;
 using App.Common;
 using App.Common.Dpi;
+using Control.JBrowser;
 using App.Views;
 
 namespace App.Views
