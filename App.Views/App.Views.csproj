@@ -48,14 +48,8 @@
     <Reference Include="CefSharp">
       <HintPath>..\App.Dashboard\packages\CefSharp.Common.49.0.0\CefSharp\x86\CefSharp.dll</HintPath>
     </Reference>
-    <Reference Include="CefSharp.Core">
-      <HintPath>..\App.Dashboard\packages\CefSharp.Common.49.0.0\CefSharp\x86\CefSharp.Core.dll</HintPath>
-    </Reference>
     <Reference Include="CefSharp.WinForms">
       <HintPath>..\App.Dashboard\packages\CefSharp.WinForms.49.0.0\CefSharp\x86\CefSharp.WinForms.dll</HintPath>
-    </Reference>
-    <Reference Include="CollapsibleSplitter">
-      <HintPath>..\packages\Spliter\CollapsibleSplitter.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
@@ -75,23 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppContext.cs" />
-    <Compile Include="Browser\IBrowserJSCallback.cs" />
-    <Compile Include="Browser\IWebBrowser.cs" />
-    <Compile Include="Browser\JDevBrowser.cs" />
-    <Compile Include="Browser\JWebBrowser.cs" />
-    <Compile Include="Browser\JWebBrowser.Designer.cs">
-      <DependentUpon>JWebBrowser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="deprecated\CourseLib.cs" />
-    <Compile Include="deprecated\CourseLib.Designer.cs">
-      <DependentUpon>CourseLib.cs</DependentUpon>
-    </Compile>
-    <Compile Include="deprecated\CoursePlay.cs" />
-    <Compile Include="deprecated\CoursePlay.Designer.cs">
-      <DependentUpon>CoursePlay.cs</DependentUpon>
-    </Compile>
-    <Compile Include="deprecated\ICourseLib.cs" />
-    <Compile Include="deprecated\ICoursePlay.cs" />
     <Compile Include="Form\CouresJSCallback.cs" />
     <Compile Include="Form\CourseForm.cs" />
     <Compile Include="Form\CourseForm.Designer.cs">
@@ -111,15 +88,6 @@
     <Compile Include="Tile\SimpleTileManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Browser\JWebBrowser.resx">
-      <DependentUpon>JWebBrowser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="deprecated\CourseLib.resx">
-      <DependentUpon>CourseLib.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="deprecated\CoursePlay.resx">
-      <DependentUpon>CoursePlay.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form\CourseForm.resx">
       <DependentUpon>CourseForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -144,6 +112,10 @@
       <Project>{99F78AAD-6781-4EC4-8CEB-928D69DEBEFD}</Project>
       <Name>Control.Guider</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Control.JBrowser\Control.JBrowser.csproj">
+      <Project>{57CDD418-D8D1-4B9B-AEF1-36B2A22355AF}</Project>
+      <Name>Control.JBrowser</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Control.Video\Control.Video.csproj">
       <Project>{6C117197-6D3B-485B-9B52-A20BD6E34918}</Project>
       <Name>Control.Video</Name>
@@ -154,9 +126,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="deprecated" />
     <Folder Include="Form" />
-    <Folder Include="Browser" />
     <Folder Include="Tile" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

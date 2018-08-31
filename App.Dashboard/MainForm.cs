@@ -32,8 +32,8 @@ namespace App.Dashboard
 			InitializeComponent();
 			
 			//show splash screen
-			//splash = new SplashForm();
-			//splash.ShowSplashScreen();
+			splash = new SplashForm();
+			splash.ShowSplashScreen();
 			
 			//init mediator
 			mediator = new SimpleMediator(this);
@@ -42,7 +42,7 @@ namespace App.Dashboard
 		void MainFormResize(object sender, EventArgs e)
 		{
 			mediator.FormResized(this.ClientSize.Height, this.ClientSize.Width);
-			//splash.CloseForm();
+			splash.CloseForm();
 			
 			//prevent user from resize the main-form
 			this.MinimumSize = new Size(this.Width, this.Height);

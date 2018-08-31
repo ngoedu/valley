@@ -12,10 +12,11 @@ using App.Common;
 using App.Common.Proc;
 using App.Common.Reg;
 using Control.Eide;
+using Control.JBrowser;
 using Control.Video;
 using NGO.Pad.Guider;
 using NGO.Train;
-using App.Views.Browser;
+
 
 namespace App.Views
 {

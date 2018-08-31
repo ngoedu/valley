@@ -19,7 +19,7 @@ namespace App.Common.Debug
 		static Diagnostics() {
 			TextWriterTraceListener tr1 = new TextWriterTraceListener(System.Console.Out);
 			System.Diagnostics.Debug.Listeners.Add(tr1);
-			TextWriterTraceListener tr2 = new TextWriterTraceListener(System.IO.File.CreateText(CodeBase.GetCodePath()+@"\padOutput.txt"));
+			TextWriterTraceListener tr2 = new TextWriterTraceListener(System.IO.File.CreateText(CodeBase.GetCodePath()+@"\PadDebugDump.log"));
 			System.Diagnostics.Debug.Listeners.Add(tr2);
 		}
 		

@@ -18,9 +18,11 @@ using App.Common.Reg;
 using App.Views;
 using CefSharp;
 using Component.Bridge;
+using Control.JBrowser;
 using Control.Profile;
 using NGO.Protocol.AEther;
 using NGO.Train;
+
 
 namespace App.Mediator
 {
@@ -43,13 +45,15 @@ namespace App.Mediator
 		
 		public SimpleMediator(Form mf)
 		{
-			
-			var settings = new CefSettings(){
-                //By default CefSharp will use an in-memory cache, you need to specify a Cache Folder to persist data
+			var settings = new CefSettings
+            {
+               	//By default CefSharp will use an in-memory cache, you need to specify a Cache Folder to persist data
                 CachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CefSharp\\Cache")
+            	,Locale = "zh-CN"
             };
             //Perform dependency check to make sure all relevant resources are in our output directory.
             Cef.Initialize(settings,shutdownOnProcessExit:true, performDependencyCheck: true);
+            
             App.Views.AppContext.AppContextsInitializer();
           
 			
