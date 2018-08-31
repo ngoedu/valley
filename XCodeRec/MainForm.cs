@@ -284,16 +284,35 @@ namespace XCodeRec
 		}
 		
 		private void AddMileStoneRev(Revision rev) {
-			string[] lvData = new string[4];
-			lvData[0] = rev.ID.ToString();
-			lvData[1] = "";
-			lvData[2] = "";
-			lvData[3] = "";
+			//lalalala
+			var item = lvMileStones.FindItemWithText(rev.ID.ToString());
+			if (item == null) {
+				string[] lvData = new string[4];
+				lvData[0] = rev.ID.ToString();
+				lvData[1] = "";
+				lvData[2] = "";
+				lvData[3] = "";
+				ListViewItem lvItem = new ListViewItem(lvData, 0);
+	            lvItem.Tag = rev;
+				lvMileStones.Items.Add(lvItem);
+			} else {
+				item.Tag = rev;
+				
+				rev.ID = Int16.Parse(tbMSID.Text);
+				rev.LinkID = Int16.Parse(tbMSLinkID.Text);
+				rev.RefID = Int16.Parse(tbMSRefID.Text) ;
+				rev.Title = tbMSTitle.Text;
+				
+				
+				tbMSID.Text = rev.ID.ToString();
+				tbMSLinkID.Text = rev.LinkID.ToString();
+				tbMSRefID.Text = rev.RefID.ToString();
+				tbMSTitle.Text = rev.Title;
+				
+				rtbFiles.Text = rev.ToString();
+			}
 			
-			
-            ListViewItem lvItem = new ListViewItem(lvData, 0);
-            lvItem.Tag = rev;
-			lvMileStones.Items.Add(lvItem);
+            
 		}
 		void LvMileStonesSelectedIndexChanged(object sender, EventArgs e)
 		{
