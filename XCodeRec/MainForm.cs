@@ -141,6 +141,7 @@ namespace XCodeRec
 			this.tbSchemaID.Text = course.Schema.ID.ToString();
 			this.tbSchemaName.Text = course.Schema.Name;
 			this.tbScheamWs.Text = course.Schema.Workspace;
+			this.tbSchemaProj.Text = course.Schema.ProjName;
 			this.tbSchemaDur.Text = course.Schema.Duration.ToString();
 			this.tbSchemaSess.Text = course.Schema.Sessions.ToString();
 			this.tbSchemaMS.Text = course.Schema.Milestones.ToString();
@@ -381,6 +382,7 @@ namespace XCodeRec
 			schema.Duration = Int16.Parse(tbSchemaDur.Text);
 			schema.Sessions = Int16.Parse(tbSchemaSess.Text);
 			schema.Workspace = tbScheamWs.Text;
+			schema.ProjName = tbSchemaName.Text;
 			schema.Milestones = Int16.Parse(tbSchemaMS.Text);
 			schema.Level = Int16.Parse(tbSchemaLevel.Text);
 			

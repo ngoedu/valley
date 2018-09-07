@@ -22,6 +22,7 @@ namespace NGO.Train.Entity
 		public int Milestones {set; get;}
 		public int Level {set; get;}
 		public string Workspace {set; get;}
+		public string ProjName {set; get;}
 		
 		public Schema()
 		{
