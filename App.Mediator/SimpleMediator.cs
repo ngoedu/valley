@@ -96,6 +96,7 @@ namespace App.Mediator
 			appRegistry.Add(AppRegKeys.VIDEO_LINK, course.GetVideoByID(milestone.LinkID).Content);
 			appRegistry.Add(AppRegKeys.AETHER_CLIENT, aetherClient);
 			appRegistry.Add(AppRegKeys.EIDE_WS, cpath+@"\"+courseName+@"\"+course.Schema.Workspace);
+			appRegistry.Add(AppRegKeys.EIDE_PROJ, cpath+@"\"+courseName+@"\"+course.Schema.ProjName);
 			
 			//2. prepare app controls
 			appContexts = App.Views.AppContext.CreateAppContext(course.Apps);

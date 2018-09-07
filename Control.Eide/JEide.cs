@@ -29,7 +29,9 @@ namespace Control.Eide
 		public static int ENDPOINT_ID = 9;
 		
 		private static string CMD_EXIT = "$EXIT";
+		private static string CMD_ADDPROJ = "$ADDPROJ=";
 		private static string RESP_EXIT = "<EIDE status='closed'/>";
+		private static string RESP_ADDPROJ = "<EIDE proj='added'/>";
 		
 		private IntPtr embedHandle;
 		private string codeBase;
@@ -66,6 +68,13 @@ namespace Control.Eide
 			this.EmbedIde();
 			this.WindowsReStyle();
 			System.Diagnostics.Debug.WriteLine(string.Format("[EIDE] pid={0} Load + Enbed + ReStyle done.",pid));
+			
+			//shutdown EIDE
+			IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];
+			var projName = (string)reg[AppRegKeys.EIDE_PROJ];
+			string response = client.SendToRemoteSync(CMD_ADDPROJ+projName, ENDPOINT_ID);
+			if (response.Equals(RESP_ADDPROJ))
+				System.Diagnostics.Debug.WriteLine("[EIDE] project "+projName+" is sucessfully added into workspace.");
 		}
 		
 		public void Dispose(AppRegistry reg)
