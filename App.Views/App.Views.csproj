@@ -84,8 +84,11 @@
       <DependentUpon>AppTile.cs</DependentUpon>
     </Compile>
     <Compile Include="Tile\IAppTile.cs" />
+    <Compile Include="Tile\ThreeColumnLayout.cs" />
+    <Compile Include="Tile\TileLayout.cs" />
     <Compile Include="Tile\ITileManager.cs" />
     <Compile Include="Tile\SimpleTileManager.cs" />
+    <Compile Include="Tile\TwoColumnLayout.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form\CourseForm.resx">

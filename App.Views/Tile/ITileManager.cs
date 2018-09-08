@@ -17,7 +17,7 @@ namespace App.Views
 	/// </summary>
 	public interface ITileManager
 	{
-		void BuildAppTiles(System.Windows.Forms.Form form, List<AppContext> context);
+		void BuildAppTiles(List<AppContext> context);
 		void ActiveTile(int index);
 		void DeactiveTile(int index);
 		Rectangle MaxmizedSize();
