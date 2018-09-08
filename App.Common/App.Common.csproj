@@ -72,6 +72,7 @@
       <DependentUpon>JProgressBar.cs</DependentUpon>
     </Compile>
     <Compile Include="Diag\Diagnostics.cs" />
+    <Compile Include="Dpi\DPI.cs" />
     <Compile Include="Dpi\DpiUtil.cs" />
     <Compile Include="Hook\SystemHotKey.cs" />
     <Compile Include="Md5\MD5Util.cs" />

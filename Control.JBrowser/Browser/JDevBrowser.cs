@@ -172,7 +172,7 @@ namespace  Control.JBrowser
 			if (dtoolPtr != IntPtr.Zero)
 				ResizeDevTool(dtoolPtr, this.panelLeft.Width, this.panelLeft.Height);
 						
-			System.Diagnostics.Debug.WriteLine("JDevBrowser.SpliterPanelSizeChanged w="+this.panelLeft.Width + ",h="+this.panelLeft.Height);
+			//System.Diagnostics.Debug.WriteLine("JDevBrowser.SpliterPanelSizeChanged w="+this.panelLeft.Width + ",h="+this.panelLeft.Height);
 		}
 	}
 }

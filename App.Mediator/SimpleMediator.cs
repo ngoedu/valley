@@ -32,6 +32,7 @@ namespace App.Mediator
 	public class SimpleMediator : IMediator
 	{
 		private Form mainForm;
+		private ITileManager tileManager;
 		private Rectangle clientArea;
 		private string codeBase;
 		
@@ -60,6 +61,7 @@ namespace App.Mediator
 			//init depandencies
 			this.clientArea = new Rectangle();
 			this.mainForm = mf;
+			this.tileManager = new SimpleTileManager(mf);
 			this.codeBase = CodeBase.GetCodePath();
 
 			//try clean all stale process. e.g. eide, bridge
@@ -107,7 +109,7 @@ namespace App.Mediator
 
 
 			//3. build app tiles
-	    	SimpleTileManager.Instance.BuildAppTiles(this.mainForm, appContexts);
+	    	tileManager.BuildAppTiles(appContexts);
 			Diagnostics.Debug("[app tiles] initiated.");
 
 	    				
@@ -120,7 +122,7 @@ namespace App.Mediator
 		public void FormLoaded()
 		{
 			//TODO: uncoment below when go-prod
-			/*
+			/**/
 			CourseForm form = new CourseForm();
 			if (form.ShowDialog() == DialogResult.OK)
 		    {
@@ -128,9 +130,9 @@ namespace App.Mediator
 
 				//course selected
 				LoadCoursePlayForm("sweb-a01");
-		    }*/
+		    }
 			
-			LoadCoursePlayForm("sweb-a01");
+			//LoadCoursePlayForm("sweb-a01");
 		}
 		public void FormClosed()
 		{

@@ -69,7 +69,7 @@ namespace Control.Eide
 			this.WindowsReStyle();
 			System.Diagnostics.Debug.WriteLine(string.Format("[EIDE] pid={0} Load + Enbed + ReStyle done.",pid));
 			
-			//shutdown EIDE
+			//import project to EIDE
 			IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];
 			var projName = (string)reg[AppRegKeys.EIDE_PROJ];
 			string response = client.SendToRemoteSync(CMD_ADDPROJ+projName, ENDPOINT_ID);

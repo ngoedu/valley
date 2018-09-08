@@ -8,24 +8,31 @@
  */
 using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace App.Common.Dpi
 {
 	/// <summary>
-	/// Description of DpiUtil.
+	/// https://stackoverflow.com/questions/5977445/how-to-get-windows-display-settings
 	/// </summary>
 	public class DpiUtil
 	{
 		public static double GetScale(Graphics g)
 		{
-			float dpiX = g.DpiX;
-			double scale = 1;
-			if (dpiX == 120) {
-				scale = 1.25;
-			} else if (dpiX==144) {
-				scale = 1.5;
-			}
+			double scale = DPI.SMALL; //1;
+			using (Graphics graphics = Graphics.FromHwnd(IntPtr.Zero))
+            {
+                float dpiX = graphics.DpiX;
+                float dpiY = graphics.DpiY;
 			
+				if (dpiX.Equals(120)) {
+					scale = DPI.MIDDLE; //1.25;
+				} else if (dpiX.Equals(144)) {
+					scale = DPI.LARGE; //1.5
+				}
+                MessageBox.Show(dpiX.ToString());
+			
+			}
 			return scale;
 		}
 	}
