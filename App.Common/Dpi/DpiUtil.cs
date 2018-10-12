@@ -30,7 +30,7 @@ namespace App.Common.Dpi
 				} else if (dpiX.Equals(144)) {
 					scale = DPI.LARGE; //1.5
 				}
-                MessageBox.Show(dpiX.ToString());
+                //MessageBox.Show(dpiX.ToString());
 			
 			}
 			return scale;
