@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<definition name="java" caseSensitive="true">
+	<color-schema>
+		<comment color="#117,113,94"><![CDATA[//]]></comment>
+		<background color="#39,40,34"></background>
+		<foreground color="#204,206,209"></foreground>
+	</color-schema>
+	
+	<keywords>
+		<sword color="#249,6,91">public</sword>
+		<sword color="#249,6,91">protected</sword>
+		<sword color="#249,6,91">private</sword>
+		<sword color="#249,6,91">class</sword>
+		<sword color="#249,6,91">static</sword>
+		<sword color="#102,219,239">void</sword>
+		<sword color="#102,219,239">String</sword>
+		<sword color="#102,219,239">new</sword>
+		<sword color="#102,219,239">java</sword>
+		<sword color="#102,219,239">util</sword>
+		<sword color="#102,219,239">Date</sword>
+		<sword color="#102,219,239">System</sword>
+		<sword color="#166,226,46">main</sword>		
+		<sword color="ROYALBLUE">case</sword>
+		<sword color="ROYALBLUE">catch</sword>
+		<sword color="ROYALBLUE">continue</sword>
+		<sword color="ROYALBLUE">default</sword>
+		<sword color="ROYALBLUE">do</sword>
+		<sword color="ROYALBLUE">else</sword>
+		<sword color="ROYALBLUE">false</sword>
+		<sword color="ROYALBLUE">finally</sword>
+		<sword color="ROYALBLUE">for</sword>
+		<sword color="ROYALBLUE">if</sword>
+		<sword color="ROYALBLUE">in</sword>
+		<sword color="ROYALBLUE">instanceof</sword>
+		<sword color="ROYALBLUE">new</sword>
+		<sword color="ROYALBLUE">null</sword>
+		<sword color="ROYALBLUE">return</sword>
+		<sword color="ROYALBLUE">this</sword>
+		<sword color="ROYALBLUE">throw</sword>
+		<sword color="ROYALBLUE">true</sword>
+		<sword color="ROYALBLUE">try</sword>
+		<sword color="ROYALBLUE">typeof</sword>
+		<sword color="ROYALBLUE">while</sword>
+		<fword color="CHOCOLATE">"*"</fword>
+	</keywords>
+</definition>

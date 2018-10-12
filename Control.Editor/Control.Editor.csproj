@@ -60,6 +60,7 @@
   <ItemGroup>
     <None Include="Words\css.xml" />
     <None Include="Words\html.xml" />
+    <None Include="Words\java.xml" />
     <None Include="Words\javascript.xml" />
     <None Include="words_dist.bat" />
   </ItemGroup>

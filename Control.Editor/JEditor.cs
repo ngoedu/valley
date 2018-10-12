@@ -85,6 +85,8 @@ namespace NGO.Pad.Editor
 				return JEditor.Languages.HTML;
 			} else if (suffix.Equals("css")) {
 				return JEditor.Languages.CSS;
+			} else if (suffix.Equals("java")) {
+				return JEditor.Languages.JAVA;
 			}
 			return JEditor.Languages.HTML;
 		}

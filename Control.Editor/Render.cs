@@ -31,6 +31,7 @@ namespace NGO.Pad.Editor
 		{         
 			Renders[JEditor.Languages.HTML.ToString()] = new HTMLRender();
 			Renders[JEditor.Languages.JAVASCRIPT.ToString()] = new JavascriptRender();
+			Renders[JEditor.Languages.JAVA.ToString()] = new JavaRender();
 			Renders[JEditor.Languages.CSS.ToString()] = new CSSRender();
 		}
 		
@@ -93,7 +94,7 @@ namespace NGO.Pad.Editor
 	            //markup whole line
 	            rtb.SelectionStart = firstIdx;
 	            rtb.SelectionLength = lineText.Length;
-				rtb.SelectionBackColor = Color.Green;
+	            rtb.SelectionBackColor = Color.Green;
 				
 				int insertLines = item.insertedB - 1;
 				if ((insertLines) > 0) {
@@ -398,7 +399,7 @@ namespace NGO.Pad.Editor
 	/// </summary>
 	internal class JavascriptRender : Render
 	{
-		private Parser parser = Parser.Instance(JEditor.Languages.JAVASCRIPT);
+		protected Parser parser = Parser.Instance(JEditor.Languages.JAVASCRIPT);
         
       	public JavascriptRender() {
 			 spliter = (JavascriptSplitor)Spliter.Instance(JEditor.Languages.JAVASCRIPT);
@@ -414,7 +415,58 @@ namespace NGO.Pad.Editor
 			return parser.ForeColor();
 		}
 		
-		private string AutoComplete(string candidate)
+		protected string AutoComplete(string candidate)
+		{
+			//TODO: change to a efficient way for mapping fill Text
+			return "2:XXXXXXXXXX";	
+		}
+
+		public override bool HandleKey(char key, RichTextBox rtb)
+		{	
+			return false;
+		}
+		
+		public override void Coloring(Word word, RichTextBox tbase, int selectStart, int lineStart)
+		{
+			//System.Diagnostics.Debug.WriteLine("ls={0},idx={1}",lineStart,index);
+			bool fuzzy = false;
+			var color = parser.IsKeyword(word.Inner, ref fuzzy);
+			if (color == Color.Empty)
+				return;
+			tbase.SelectionStart = lineStart + word.Index;
+			tbase.SelectionLength = word.Inner.Length;  
+			tbase.SelectionColor = color;
+		}
+		
+		public override void Comment(string line, RichTextBox tbase, int selectStart, int lineStart)
+		{
+			var color = parser.CommentColor();
+			tbase.SelectionStart = lineStart + 0;
+			tbase.SelectionLength = line.Length;  
+			tbase.SelectionColor = color;
+		}
+	}
+	
+	
+	internal class JavaRender : Render
+	{
+		protected Parser parser = Parser.Instance(JEditor.Languages.JAVA);
+        
+      	public JavaRender() {
+			 spliter = (JavaSplitor)Spliter.Instance(JEditor.Languages.JAVA);
+		}
+        
+		public override Color BackColor()
+		{
+			return parser.BackColor();
+		}
+		
+		public override Color ForeColor()
+		{
+			return parser.ForeColor();
+		}
+		
+		protected string AutoComplete(string candidate)
 		{
 			//TODO: change to a efficient way for mapping fill Text
 			return "2:XXXXXXXXXX";	

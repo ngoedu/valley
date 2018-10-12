@@ -36,6 +36,7 @@ namespace NGO.Pad.Editor
         	Parsers[JEditor.Languages.HTML.ToString()] = new HTMLParser();
         	Parsers[JEditor.Languages.JAVASCRIPT.ToString()] = new JavascriptParser();
         	Parsers[JEditor.Languages.CSS.ToString()] = new CSSParser();
+        	Parsers[JEditor.Languages.JAVA.ToString()] = new JavaParser();
         } 
 
 		protected void LoadConfig(JEditor.Languages language) {
@@ -252,8 +253,8 @@ namespace NGO.Pad.Editor
 	/// </summary>
 	internal class JavascriptParser : Parser
 	{
-		readonly TrieDict dict = new TrieDict();
-		private int FUZZY = 0;
+		protected readonly TrieDict dict = new TrieDict();
+		protected int FUZZY = 0;
 		protected ArrayList swords=null;
 		protected ArrayList fwords=null;        
  		protected ArrayList scolors=null;	//static words
@@ -278,7 +279,119 @@ namespace NGO.Pad.Editor
 			}			
 		}
 		
-		private void ParseConfig() {
+		protected void ParseConfig() {
+			swords=new ArrayList();  
+            fwords=new ArrayList();
+			scolors=new ArrayList();  
+            fcolors=new ArrayList();
+           
+            XmlElement root=xdoc.DocumentElement;  
+            
+            string colorName = null, value = null;
+            XmlNodeList xnl=root.SelectNodes("/definition/keywords/sword");  
+            this.caseSensitive = bool.Parse(root.Attributes["caseSensitive"].Value);  
+            
+            for(int i=0;i<xnl.Count;i++)
+            {   
+            	value = xnl[i].ChildNodes[0].Value;
+            	swords.Add(this.caseSensitive ? value : value.ToLower());
+                colorName = xnl[i].Attributes["color"].Value;
+                scolors.Add(ParseColor(colorName));
+            }
+            
+            xnl=root.SelectNodes("/definition/keywords/fword");  
+            for(int i=0;i<xnl.Count;i++)  
+            {    
+            	value = xnl[i].ChildNodes[0].Value;
+            	fwords.Add(this.caseSensitive ? value : value.ToLower());
+                colorName = xnl[i].Attributes["color"].Value;
+                fcolors.Add(ParseColor(colorName));                  
+            }
+            
+            xnl=root.SelectNodes("/definition/color-schema/comment");   
+            colorName = xnl[0].Attributes["color"].Value;
+            comment = ParseColor(colorName);                  
+
+            xnl=root.SelectNodes("/definition/color-schema/background");  
+            colorName = xnl[0].Attributes["color"].Value;
+            backColor = ParseColor(colorName);
+            
+            xnl=root.SelectNodes("/definition/color-schema/foreground");  
+            colorName = xnl[0].Attributes["color"].Value;
+            foreColor = ParseColor(colorName);
+
+		}
+		
+		public override Color IsKeyword(string word, ref bool fuzzy) {
+			string key = this.caseSensitive ? word : word.ToLower();
+			var stopWatch = Stopwatch.StartNew();
+			int idx = dict.Scan(key);
+			stopWatch.Stop();
+			//System.Diagnostics.Debug.WriteLine(string.Format("javascript scan: {0}ms", stopWatch.Elapsed.TotalMilliseconds));
+			if (idx == -1)
+				return Color.Empty;
+			if (idx < FUZZY)
+				return (Color)scolors[idx];
+			return (Color)fcolors[idx - FUZZY];
+		}
+		
+		public override string ToAutoComplete(string key) {
+			return null;
+		}
+        
+		public override string ToAutoClose(string key) {
+			return null;
+		}
+		
+		public override Color CommentColor()
+		{
+			return comment;
+		}
+		
+		public override Color BackColor()
+		{
+			return backColor;
+		}
+		
+		public override Color ForeColor()
+		{
+			return foreColor;
+		}
+	}
+	
+	
+	internal class JavaParser : Parser
+	{
+		protected readonly TrieDict dict = new TrieDict();
+		protected int FUZZY = 0;
+		protected ArrayList swords=null;
+		protected ArrayList fwords=null;        
+ 		protected ArrayList scolors=null;	//static words
+ 		protected ArrayList fcolors=null; 	//fuzzy words
+		protected Color comment; 	
+		protected bool caseSensitive = false;  
+		protected Color backColor;
+		protected Color foreColor;
+		
+		
+		public JavaParser() {
+			LoadConfig(JEditor.Languages.JAVA);
+			ParseConfig();
+			for(int i=0; i<this.swords.Count; i++)
+				dict.Insert((string)this.swords[i], i);
+			FUZZY = swords.Count;
+			string spart = null;
+			for(int i=0; i<this.fwords.Count; i++) {
+				spart = (string)this.fwords[i];
+				//'*' represents plain string 
+				spart = spart.Split('*')[0]; 
+				dict.Insert(spart, FUZZY + i);
+			}			
+		}
+		
+		
+		
+		protected void ParseConfig() {
 			swords=new ArrayList();  
             fwords=new ArrayList();
 			scolors=new ArrayList();  

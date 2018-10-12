@@ -56,6 +56,7 @@ namespace NGO.Pad.Editor
         {         
         	Spliters[JEditor.Languages.HTML.ToString()] = new HTMLSplitor();
         	Spliters[JEditor.Languages.JAVASCRIPT.ToString()] = new JavascriptSplitor();
+        	Spliters[JEditor.Languages.JAVA.ToString()] = new JavaSplitor();
         	Spliters[JEditor.Languages.CSS.ToString()] = new CSSSplitor();
         }  
 	}
@@ -283,6 +284,181 @@ namespace NGO.Pad.Editor
 						if ((cArray.Length > i+1) && (cArray[i+1]=='/' || cArray[i+1]=='*'))
 							return true;
 						return false;
+	    			}
+					case '*' : {
+						return true;
+	    			}						
+					default: {
+						return false;
+					}        
+		    	}
+			}
+			return false;
+		}
+	}
+	
+	public class JavaSplitor : Spliter {
+		private List<Word> EMPTY = new List<Word>();
+		
+		public override List<Word>  Split(string line) {
+			if (line.Length == 0)
+				return EMPTY;
+			var result = new List<Word>();
+			var temp = new StringBuilder();
+			bool sqopen = false, dqopen = false;
+			char[] cArray = line.ToCharArray();
+			for( int i = 0; i < cArray.Length; i++) {
+				switch (cArray[i]) {
+				    case '\'' : {
+						temp.Append(cArray[i]);
+						if (sqopen) {
+							if ( temp.Length > 0)
+								result.Add(new Word(i + 1 - temp.Length, temp.ToString()));
+							sqopen = false;
+							temp.Clear();
+						} else {
+							sqopen = true;
+						}
+						break;
+	    			}
+					case '"' : {
+						temp.Append(cArray[i]);
+						if (dqopen ) {
+							if (temp.Length > 0)
+								result.Add(new Word(i + 1 - temp.Length, temp.ToString()));
+							dqopen = false;
+							temp.Clear();
+						} else {
+							dqopen = true;	
+						}
+						break;
+	    			}	
+					case ' ' :{
+						if (dqopen || sqopen) {
+							temp.Append(cArray[i]); break;
+						}
+						if (temp.Length > 0)
+							result.Add(new Word(i - temp.Length, temp.ToString()));
+						temp.Clear();
+						break;
+	    			}
+					case '.' :{
+						if (dqopen || sqopen) {
+							temp.Append(cArray[i]); break;
+						}
+						if (temp.Length > 0)
+							result.Add(new Word(i - temp.Length, temp.ToString()));
+						temp.Clear();
+						break;
+	    			}
+		    		case ';':{
+						if (dqopen || sqopen) {
+							temp.Append(cArray[i]); break;
+						}
+						if (temp.Length > 0)
+							result.Add(new Word(i - temp.Length, temp.ToString()));
+						temp.Clear();					
+	    				break;
+	    			}
+				    case '{':{
+						if (dqopen || sqopen) {
+							temp.Append(cArray[i]); break;
+						}
+						if (temp.Length > 0)
+							result.Add(new Word(i - temp.Length, temp.ToString()));
+						temp.Clear();
+						break;
+	    			}
+ 					case '(':{
+						if (dqopen || sqopen) {
+							temp.Append(cArray[i]); break;
+						}
+						if (temp.Length > 0)
+							result.Add(new Word(i - temp.Length, temp.ToString()));
+						temp.Clear();
+						break;
+	    			}
+					case ')':{
+						if (dqopen || sqopen) {
+							temp.Append(cArray[i]); break;
+						}
+						if (temp.Length > 0)
+							result.Add(new Word(i - temp.Length, temp.ToString()));
+						temp.Clear();
+						break;
+	    			}
+					case '}':{
+						if (dqopen || sqopen) {
+							temp.Append(cArray[i]); break;
+						}
+						if (temp.Length > 0)
+							result.Add(new Word(i - temp.Length, temp.ToString()));
+						temp.Clear();
+						break;
+	    			}
+					case '[':{
+						if (dqopen || sqopen) {
+							temp.Append(cArray[i]); break;
+						}
+						if (temp.Length > 0)
+							result.Add(new Word(i - temp.Length, temp.ToString()));
+						temp.Clear();
+						break;
+	    			}						
+					case ']':{
+						if (dqopen || sqopen) {
+							temp.Append(cArray[i]); break;
+						}
+						if (temp.Length > 0)
+							result.Add(new Word(i - temp.Length, temp.ToString()));
+						temp.Clear();
+						break;
+	    			}
+					case '\t':{
+						if (dqopen || sqopen) {
+							temp.Append(cArray[i]); break;
+						}
+						if (temp.Length > 0)
+							result.Add(new Word(i - temp.Length, temp.ToString()));
+						temp.Clear();
+						break;
+	    			}
+					case '\n':{
+						if (dqopen || sqopen) {
+							temp.Append(cArray[i]); break;
+						}
+						if (temp.Length > 0)
+							result.Add(new Word(i - temp.Length, temp.ToString()));
+						temp.Clear();
+						break;
+	    			}						
+					default: {
+						temp.Append(cArray[i]);
+				        break;
+					}
+				        
+		    	}
+			}
+			return result;
+		}
+		
+		public override bool IsComment(string line) {
+			char[] cArray = line.ToCharArray();
+			for( int i = 0; i < cArray.Length; i++) {
+				switch (cArray[i]) {
+				    case '\t' : {
+						break;
+	    			}
+					case ' ' : {
+						break;
+	    			}
+					case '/' : {
+						if ((cArray.Length > i+1) && (cArray[i+1]=='/' || cArray[i+1]=='*'))
+							return true;
+						return false;
+	    			}
+					case '*' : {
+						return true;
 	    			}						
 					default: {
 						return false;
