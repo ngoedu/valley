@@ -9,11 +9,45 @@
 	</color-schema>
 	
 	<keywords>
+		<sword color="#249,6,91">body</sword>
+		<sword color="#249,6,91">h1</sword>
+		<sword color="#249,6,91">h2</sword>
+		<sword color="#249,6,91">h3</sword>
+		<sword color="#249,6,91">h4</sword>
+		<sword color="#249,6,91">h5</sword>
+		<sword color="#249,6,91">div</sword>
+		<sword color="#249,6,91">p</sword>
+		<sword color="#249,6,91">span</sword>
+		<sword color="#249,6,91">table</sword>
+		<sword color="#249,6,91">th</sword>
+		<sword color="#249,6,91">td</sword>
+		<sword color="#249,6,91">ul</sword>
+		<sword color="#249,6,91">ol</sword>
+		<sword color="#249,6,91">li</sword>
+		<sword color="#249,6,91">strong</sword>
+		<sword color="#249,6,91">dl</sword>
+		<sword color="#249,6,91">dt</sword>
+		<sword color="#249,6,91">dd</sword>	
+		<sword color="#130,199,99">font-size</sword>
+		<sword color="#130,199,99">color</sword>
+		<sword color="#130,199,99">color</sword>
+		<sword color="#130,199,99">font-family</sword>
+		<sword color="#130,199,99">margin</sword>
+		<sword color="#130,199,99">padding</sword>
+		<sword color="#130,199,99">list-style</sword>
+		<sword color="#130,199,99">border</sword>
+		<sword color="#130,199,99">style</sword>
+		<sword color="#130,199,99">position</sword>
+		<sword color="#130,199,99">left</sword>
+		<sword color="#130,199,99">right</sword>
+		<sword color="#130,199,99">float</sword>
 		<sword color="#130,199,99">background</sword>
+		<sword color="#130,199,99">text-indent</sword>
+		<sword color="#130,199,99">background-image</sword>
+		<sword color="#130,199,99">height</sword>
 		<sword color="#130,199,99">width</sword>
 		<sword color="#130,199,99">border</sword>
 		<sword color="#130,199,99">background-color</sword>	
-		<sword color="#130,199,99">div</sword>
 		<sword color="#130,199,99">box-sizing</sword>
 	</keywords>
 </definition>

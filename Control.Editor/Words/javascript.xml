@@ -7,36 +7,36 @@
 	</color-schema>
 	
 	<keywords>
-		<sword color="ROYALBLUE">alert</sword>
-		<sword color="ROYALBLUE">break</sword>
-		<sword color="ROYALBLUE">case</sword>
-		<sword color="ROYALBLUE">catch</sword>
-		<sword color="ROYALBLUE">continue</sword>
-		<sword color="ROYALBLUE">debugger</sword>
-		<sword color="ROYALBLUE">default</sword>
-		<sword color="ROYALBLUE">delete</sword>
-		<sword color="ROYALBLUE">do</sword>
-		<sword color="ROYALBLUE">else</sword>
-		<sword color="ROYALBLUE">false</sword>
-		<sword color="ROYALBLUE">finally</sword>
-		<sword color="ROYALBLUE">for</sword>
-		<sword color="ROYALBLUE">function</sword>
-		<sword color="ROYALBLUE">if</sword>
-		<sword color="ROYALBLUE">in</sword>
-		<sword color="ROYALBLUE">instanceof</sword>
-		<sword color="ROYALBLUE">new</sword>
-		<sword color="ROYALBLUE">null</sword>
-		<sword color="ROYALBLUE">return</sword>
-		<sword color="ROYALBLUE">this</sword>
-		<sword color="ROYALBLUE">throw</sword>
-		<sword color="ROYALBLUE">true</sword>
-		<sword color="ROYALBLUE">try</sword>
-		<sword color="ROYALBLUE">typeof</sword>
-		<sword color="ROYALBLUE">var</sword>
-		<sword color="ROYALBLUE">void</sword>
-		<sword color="ROYALBLUE">while</sword>
-		<sword color="ROYALBLUE">with</sword>
-		<fword color="CHOCOLATE">"*"</fword>
-		<fword color="CHOCOLATE">'*'</fword>
+		<sword color="#102,217,239">alert</sword>
+		<sword color="#102,217,239">break</sword>
+		<sword color="#102,217,239">case</sword>
+		<sword color="#102,217,239">catch</sword>
+		<sword color="#102,217,239">continue</sword>
+		<sword color="#102,217,239">debugger</sword>
+		<sword color="#102,217,239">default</sword>
+		<sword color="#102,217,239">delete</sword>
+		<sword color="#102,217,239">do</sword>
+		<sword color="#102,217,239">else</sword>
+		<sword color="#102,217,239">false</sword>
+		<sword color="#102,217,239">finally</sword>
+		<sword color="#102,217,239">for</sword>
+		<sword color="#102,217,239">function</sword>
+		<sword color="#102,217,239">if</sword>
+		<sword color="#102,217,239">in</sword>
+		<sword color="#102,217,239">instanceof</sword>
+		<sword color="#249,38,114">new</sword>
+		<sword color="#102,217,239">null</sword>
+		<sword color="#102,217,239">return</sword>
+		<sword color="#102,217,239">this</sword>
+		<sword color="#102,217,239">throw</sword>
+		<sword color="#102,217,239">true</sword>
+		<sword color="#102,217,239">try</sword>
+		<sword color="#102,217,239">typeof</sword>
+		<sword color="#102,217,239">var</sword>
+		<sword color="#102,217,239">void</sword>
+		<sword color="#102,217,239">while</sword>
+		<sword color="#102,217,239">with</sword>
+		<fword color="#230,219,116">"*"</fword>
+		<fword color="#230,219,116">'*'</fword>
 	</keywords>
 </definition>
