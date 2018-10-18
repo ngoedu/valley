@@ -49,6 +49,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FolderDelete.cs" />
+    <Compile Include="FolderCopy.cs" />
     <Compile Include="WebSrcMerger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

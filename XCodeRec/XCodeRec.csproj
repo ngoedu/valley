@@ -64,7 +64,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FolderCopy.cs" />
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -89,6 +88,10 @@
     <ProjectReference Include="..\Training.Course\Training.Course.csproj">
       <Project>{8761863D-4875-41ED-A001-EEA384F04084}</Project>
       <Name>Training.Course</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XtendLibs\XtendLibs.csproj">
+      <Project>{24AE7A28-A447-4973-9E75-24C8A4E607CC}</Project>
+      <Name>XTendLibs</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

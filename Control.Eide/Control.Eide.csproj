@@ -68,6 +68,10 @@
       <Project>{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}</Project>
       <Name>App.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\XtendLibs\XtendLibs.csproj">
+      <Project>{24AE7A28-A447-4973-9E75-24C8A4E607CC}</Project>
+      <Name>XTendLibs</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

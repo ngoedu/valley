@@ -97,6 +97,10 @@
       <Project>{CD942A27-6733-42BB-BDA8-66E3B3A03755}</Project>
       <Name>Control.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Control.Eide\Control.Eide.csproj">
+      <Project>{9588C636-7568-453A-9A1B-299416A1B8DD}</Project>
+      <Name>Control.Eide</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Training.Course\Training.Course.csproj">
       <Project>{8761863D-4875-41ED-A001-EEA384F04084}</Project>
       <Name>Training.Course</Name>

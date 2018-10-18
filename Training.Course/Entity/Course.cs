@@ -40,7 +40,9 @@ namespace NGO.Train.Entity
 			if (index <0 || index > Milestons.Count)
 				return null;
 			
-			return Milestons[index - 1];
+			Revision rev = Milestons[index - 1];
+			rev.Project = this.Schema.ProjName;
+			return rev;
 		}
 
 		public VLink GetVideoByID(int index)

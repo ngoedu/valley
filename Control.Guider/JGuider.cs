@@ -10,8 +10,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
+using App.Common.Net;
 using App.Common.Reg;
+using Control.Eide;
 using DiffMatchPatch;
 using NGO.Pad.Editor;
 using NGO.Train;
@@ -31,6 +36,9 @@ namespace NGO.Pad.Guider
 		private System.Windows.Forms.Panel panelMileStone;
 		private WebBrowser refBrowser;
 		private TabControl codeTabs;
+		private IClient eideClient;
+		
+		
 		public JGuider()
 		{
 			//
@@ -57,6 +65,9 @@ namespace NGO.Pad.Guider
 		{
 			course = (Course)reg[AppRegKeys.COURSE_KEY];
 			this.BindCourse(course);
+			
+			eideClient = (IClient)reg[AppRegKeys.AETHER_CLIENT];
+			
 		}
 		
 		public void Dispose(AppRegistry reg)
@@ -75,7 +86,7 @@ namespace NGO.Pad.Guider
 		public void ShowCode(int index)
 		{
 			var ms = course.GetMileStoneByID(index);
-			List<File> srcFiles = ms.Files;
+			List<NGO.Train.Entity.File> srcFiles = ms.Files;
 			
 			//clean all page
 			foreach (TabPage tp in this.codeTabs.TabPages) {
@@ -112,9 +123,20 @@ namespace NGO.Pad.Guider
 			this.codeTabs.Visible = true;
 			this.refBrowser.Visible = false;
 		}
+		
 		public void ReplicateCode(int index)
 		{
+			var revision = course.GetMileStoneByID(index);
+			string xmlRevision = revision.ToXml();
 			
+			string mileStoneCmd = "$MILESTONE:"+xmlRevision;
+			string response = eideClient.SendToRemoteSync(mileStoneCmd, JEide.ENDPOINT_ID);
+			if (response.Equals(JEide.RESP_MILESTONE))
+				System.Diagnostics.Debug.WriteLine("[EIDE] rev"+index+" is sucessfully synced to eide workspace.");
+			else {
+				System.Diagnostics.Debug.WriteLine("[EIDE] rev"+index+" sync failed - " + response);
+				MessageBox.Show("[EIDE] rev"+index+" sync failed - " + response);
+			}
 		}
 
 		private void LoadHtml(string html) {		

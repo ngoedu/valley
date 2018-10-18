@@ -123,7 +123,7 @@ namespace NGO.Pad.Guider
 						STATUS = Course.STATUS_REFER;
 						stone.BackColor = COLOR_INDEX[STATUS];
 						toolTip1.RemoveAll();
-						toolTip1.SetToolTip(stone, "参考模式 -- 回顾示例知识点");
+						toolTip1.SetToolTip(stone, "回顾知识点");
 						this.guider.ShowRef(this.index);
 						break;
 					}
@@ -132,13 +132,13 @@ namespace NGO.Pad.Guider
 						STATUS = Course.STATUS_CODE;
 						stone.BackColor = COLOR_INDEX[STATUS];
 						toolTip1.RemoveAll();
-						toolTip1.SetToolTip(stone, "代码预览模式 -- 可以参考示例代码");
+						toolTip1.SetToolTip(stone, "参考示例代码");
 						this.guider.ShowCode(this.index);
 						break;
 					}
 				case 2:
 					{
-						var confirmResult = MessageBox.Show("该操作将示例代码覆盖到你的工作区，确定执行此操作吗? ",
+						var confirmResult = MessageBox.Show("将示例代码覆盖工作区，确定执行此操作吗? ",
 							                    "覆盖确认!",
 							                    MessageBoxButtons.YesNo);
 						if (confirmResult == DialogResult.Yes) {

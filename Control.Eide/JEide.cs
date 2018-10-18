@@ -10,6 +10,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -28,10 +29,11 @@ namespace Control.Eide
 		
 		public static int ENDPOINT_ID = 9;
 		
-		private static string CMD_EXIT = "$EXIT";
-		private static string CMD_ADDPROJ = "$ADDPROJ=";
-		private static string RESP_EXIT = "<EIDE status='closed'/>";
-		private static string RESP_ADDPROJ = "<EIDE proj='added'/>";
+		public static string CMD_EXIT = "$EXIT";
+		public static string CMD_ADDPROJ = "$ADDPROJ=";
+		public static string RESP_EXIT = "<EIDE status='closed'/>";
+		public static string RESP_ADDPROJ = "<EIDE proj='added'/>";
+		public static string RESP_MILESTONE = "<EIDE mileStone='success'/>";
 		
 		private IntPtr embedHandle;
 		private string codeBase;
@@ -64,10 +66,20 @@ namespace Control.Eide
 		#region IAppEntry implementation
 		public void Init(AppRegistry reg)
 		{
-			this.LoadEide(false, (string)reg[AppRegKeys.EIDE_WS]);
+			//1.delete current ews and then make a copy of raw workspace.
+			string raw_ws = (string)reg[AppRegKeys.EIDE_RAW_WS];
+			string workspace = (string)reg[AppRegKeys.EIDE_WS];
+			
+			XTendLibs.FolderDelete.DeleteDirectory(workspace);
+			XTendLibs.FolderCopy.DirectoryCopy(raw_ws, workspace, true, null, null);
+			
+			//2.launch EIDE
+			this.LoadEide(false, workspace);
 			this.EmbedIde();
 			this.WindowsReStyle();
 			System.Diagnostics.Debug.WriteLine(string.Format("[EIDE] pid={0} Load + Enbed + ReStyle done.",pid));
+			
+			
 			
 			//import project to EIDE
 			IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];
@@ -75,6 +87,11 @@ namespace Control.Eide
 			string response = client.SendToRemoteSync(CMD_ADDPROJ+projName, ENDPOINT_ID);
 			if (response.Equals(RESP_ADDPROJ))
 				System.Diagnostics.Debug.WriteLine("[EIDE] project "+projName+" is sucessfully added into workspace.");
+			else {
+				System.Diagnostics.Debug.WriteLine("[EIDE] add project "+projName+" to workspace is failed - " + response);
+				MessageBox.Show("[EIDE] add project "+projName+" to workspace is failed - " + response);
+			}
+				
 		}
 		
 		public void Dispose(AppRegistry reg)

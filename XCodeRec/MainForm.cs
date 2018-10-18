@@ -239,7 +239,7 @@ namespace XCodeRec
 			
 			string[] ignore1 = {".project", ".classpath"};
 			string[] ignore2 = {"classes",  ".settings"};
-			FolderCopy.DirectoryCopy(tbMSSrcPath.Text,tbPkgInPath.Text+ @"\ms\"+curr, true, ignore1, ignore2);
+			XTendLibs.FolderCopy.DirectoryCopy(tbMSSrcPath.Text,tbPkgInPath.Text+ @"\ms\"+curr, true, ignore1, ignore2);
 			MessageBox.Show("MS folder copy done!");
 		}
 		
