@@ -15,6 +15,7 @@ using App.Common;
 using App.Common.Debug;
 using App.Common.Proc;
 using App.Common.Reg;
+using App.Common.Tasks;
 using App.Views;
 using CefSharp;
 using Component.Bridge;
@@ -122,17 +123,21 @@ namespace App.Mediator
 		#region form event
 		public void FormLoaded()
 		{
+			//launch Course Upgrade task
+			UpgradeTask task = new UpgradeTask();
+			task.LaunchTask();
+			
 			//TODO: uncoment below when go-prod
-			/*
-			CourseForm form = new CourseForm();
-			if (form.ShowDialog() == DialogResult.OK)
-		    {
-				Diagnostics.Debug(string.Format("course form closed with cid={0}", form.Tag.ToString()));
-
-				//course selected
-				LoadCoursePlayForm("sweb-a01");
-		    }
-			*/
+			if (true) {
+				CourseForm form = new CourseForm();
+				if (form.ShowDialog() == DialogResult.OK)
+			    {
+					Diagnostics.Debug(string.Format("course form closed with cid={0}", form.Tag.ToString()));
+	
+					//course selected
+					LoadCoursePlayForm("sweb-a01");
+			    }
+			}
 			
 			
 			LoadCoursePlayForm("sweb-a01");

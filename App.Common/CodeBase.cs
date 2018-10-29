@@ -21,6 +21,21 @@ namespace App.Common
 		public static string GetCoursePath() {
 			return GetCodePath() +@"\"+ COURSE_FOLDER;
 		}
+
+		public static string GetCourseDataPath()
+		{
+			
+				
+			#if (DIA_DEBUG)
+			return "D:\\NGO\\client\\pad\\src\\valley\\wui";
+			#endif
+			
+			#if (DIA_RELEASE)
+			string path =  Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\",string.Empty);
+			path =  path+"wui";
+			return Path;
+			#endif
+		}
 		
 		public static string GetCodePath() {
 			string path =  Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\",string.Empty);
