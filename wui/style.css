@@ -27,9 +27,15 @@ body {-webkit-user-select: none;  background:#3c3c3c; margin:0 0 0 0; font-famil
 
 .modal{width: 100%; position:fixed; top: 0; bottom: 0;left: 0;right: 0; z-index: 999; background-color: rgba(0,0,0,0.6);background-size: 100%; }
 .modal p {color:white; font-size:22px; text-align: center; margin: auto; line-height:600px;}
-	
+
+
+#porgressControl {width:1226px; height:20;background: #0f0;}
+#porgressBar {width:1226px; height:20;background: red;}
+
 #rollingCanvas a {position:absolute; top:0px; left:0px; font-family: Microsoft YaHei; color:#fff; font-weight:bold; text-decoration:none; padding: 3px 6px; }
 #rollingCanvas a:hover {border: 1px solid #eee; background: #000; }
+.rollingChilds-msprog {border: 2px solid #000; background: #702d3f;}
+.rollingChilds-hsprog {border: 2px solid #000; background: #702d3f;}
 .rollingChilds-cweb {border: 2px solid #000; background: #702d3f;}
 .rollingChilds-sweb {border: 2px solid #000; background: #335230;}
 .rollingChilds-java {border: 2px solid #000; background: #714eaf;}

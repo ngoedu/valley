@@ -64,10 +64,10 @@ var MAINUI = (function() {
 			$(div).append(ul);
 			
 			var hreftext = "";
-			//var downloaded = CourseJScallback.getDownloaded();
+			//var downloaded = CourseJScallback.getDownloadedList();
 			var downloaded = "cweb-A01";
 			if (downloaded.indexOf(obj.cid) != -1) {
-				hreftext = "预览";
+				hreftext = "开始";
 				var ahref = $("<a/>",{id:"id"+i,name:"btnPrev",href:"javascript:void(0);",text:hreftext});
 				$(div).append(ahref);
 				$(ahref).on( "click", { name: obj.cid}, preview );
@@ -83,7 +83,20 @@ var MAINUI = (function() {
 	}
 	
 	function download(event) {
+		modalDialogShow();
 		CourseJScallback.startDownload(event.data.name);
+	}
+	
+	function downloadStatusChanged(value) {
+		$("#progressBar").width(value / 100 * 1226);
+		if (value==100)
+			modalDialogHide();
+	}
+	
+	function downloadCompleted() {
+		alert("download completed");
+		modalDialogHide();
+		
 	}
 		
 	function preview(event) {
@@ -98,13 +111,19 @@ var MAINUI = (function() {
 		//<iframe width="100%" height="100%" src="file:///D:/neverstop/tutorial/webClient/test2.html" frameborder="0" allowfullscreen></iframe>	
 	}
 	
-	function modalDialog() {
+	function modalDialogShow() {
 		$('.modal').show();
+	}
+	
+	function modalDialogHide() {
+		$('.modal').hide();
 	}
 	
 	return {
 		init: init,
-		modalDialog : modalDialog,
+		downloadCompleted:downloadCompleted,
+		modalDialog : modalDialogShow,
+		modalDialog : modalDialogHide,
 		listCourses: listCourses,
 		buildRollings: buildRollings,
 		buildCategory: buildCategory
