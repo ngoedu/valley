@@ -22,6 +22,20 @@ namespace App.Common
 			return GetCodePath() +@"\"+ COURSE_FOLDER;
 		}
 
+		public static string GetCoursePackPath()
+		{
+			#if (DIA_DEBUG)
+			return "D:\\NGO\\client\\cdat";
+			#endif
+			
+			#if (DIA_RELEASE)
+			string path =  Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\",string.Empty);
+			path =  path+"cdata";
+			return Path;
+			#endif
+		}
+		
+		
 		public static string GetCourseDataPath()
 		{
 			

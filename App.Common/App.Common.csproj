@@ -94,6 +94,7 @@
     </Compile>
     <Compile Include="Secure\StringClipher.cs" />
     <Compile Include="Signal\WaitSignal.cs" />
+    <Compile Include="Tasks\DownloadTask.cs" />
     <Compile Include="Tasks\UpgradeTask.cs" />
     <Compile Include="Win32\Win32Api.cs" />
   </ItemGroup>
