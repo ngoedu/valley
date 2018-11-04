@@ -38,8 +38,15 @@ var MAINUI = (function() {
 	  listCourses(event.data.name,'course_desc');
 	}
 	
+	var currMid;
+	var currBox;
+	
 	function listCourses(mid, box)
 	{
+		//cache mid,box
+		currMid = mid;
+		currBox = box;
+		
 		//remove all childs course info
 		$('#'+box).children().remove();
 		
@@ -64,16 +71,20 @@ var MAINUI = (function() {
 			$(div).append(ul);
 			
 			var hreftext = "";
-			//var downloaded = CourseJScallback.getDownloadedList();
-			var downloaded = "cweb-A01";
-			if (downloaded.indexOf(obj.cid) != -1) {
+			var downloadedList = CourseJScallback.getDownloadedList();
+			var downloaded = downloadedList.split(',');
+			//var downloaded = "cweb-A01";
+			alert(downloaded);
+			
+			if (downloaded.indexOf(obj.cid) > -1) {
 				hreftext = "开始";
-				var ahref = $("<a/>",{id:"id"+i,name:"btnPrev",href:"javascript:void(0);",text:hreftext});
+				var ahref = $("<a/>",{id:"id"+i,name:"btnStart",href:"javascript:void(0);",text:hreftext});
+				ahref.css("background-color","green");
 				$(div).append(ahref);
-				$(ahref).on( "click", { name: obj.cid}, preview );
+				$(ahref).on( "click", { name: obj.cid}, startCourse );
 			} else {
 				hreftext = "下载";
-				var ahref = $("<a/>",{id:"id"+i,name:"btnPrev",href:"javascript:void(0);",text:hreftext});
+				var ahref = $("<a/>",{id:"id"+i,name:"btnDown",href:"javascript:void(0);",text:hreftext});
 				$(div).append(ahref);
 				$(ahref).on( "click", { name: obj.cid}, download );
 			}
@@ -87,16 +98,19 @@ var MAINUI = (function() {
 		CourseJScallback.startDownload(event.data.name);
 	}
 	
+	function startCourse(event) {
+		var cid = event.data.name;
+		CourseJScallback.startPlayCourse(cid);
+	}
+	
 	function downloadStatusChanged(value) {
 		$("#progressBar").width(value / 100 * 1226);
-		if (value==100)
-			modalDialogHide();
 	}
 	
 	function downloadCompleted() {
-		alert("download completed");
 		modalDialogHide();
-		
+		//location.reload(true);
+		listCourses(currMid, currBox);
 	}
 		
 	function preview(event) {

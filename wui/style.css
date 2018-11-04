@@ -24,13 +24,15 @@ body {-webkit-user-select: none;  background:#3c3c3c; margin:0 0 0 0; font-famil
 .selection .navigate  .details  .desc  div {font-size: 14px; width:97%;  padding:6 5 6 5;}
 .selection .navigate  .details  .desc  div:hover {background-color:#474545; color:#eae4df}
 .selection .navigate  .details  .desc  div a {display:inline-block; padding:4 6 2 6;height: 26px; text-decoration: none; color:eae4df;border: 2px solid #eae4df;}
+.course_startBtn {display:inline-block; padding:4 6 2 6;height: 26px; text-decoration: none; color:green; border: 2px solid #eae4df;}
+
 
 .modal{width: 100%; position:fixed; top: 0; bottom: 0;left: 0;right: 0; z-index: 999; background-color: rgba(0,0,0,0.6);background-size: 100%; }
 .modal p {color:white; font-size:22px; text-align: center; margin: auto; line-height:600px;}
 
 
-#porgressControl {width:1226px; height:20;background: #0f0;}
-#porgressBar {width:1226px; height:20;background: red;}
+#porgressControl {width:1226px; height:10;background: #0f0; border: 2px solid black;}
+#porgressBar {width:1226px; height:10;background: red;}
 
 #rollingCanvas a {position:absolute; top:0px; left:0px; font-family: Microsoft YaHei; color:#fff; font-weight:bold; text-decoration:none; padding: 3px 6px; }
 #rollingCanvas a:hover {border: 1px solid #eee; background: #000; }
