@@ -33,7 +33,7 @@ namespace App.Common.Tasks
             {
 			    //int radomTimeSlot = new Random().Next(100,200); //TODO: CHANGE IT TO LARGER ONE
 				//Thread.Sleep(radomTimeSlot);
-				//DownloadCourseMetaFile();
+				DownloadCourseMetaFile();
             });
 　　　　　　
 			taskForAction.Start();

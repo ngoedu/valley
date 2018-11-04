@@ -7,7 +7,9 @@
  * 
  */
 using System;
+using System.Collections;
 using System.ComponentModel;
+using System.IO;
 using System.Net;
 using System.Threading;
 using System.Windows.Forms;
@@ -114,7 +116,13 @@ namespace App.Views
 	    }
 		
 		public string getDownloadedList() {
-			return "cweb-A01";
+			string extractPath = CodeBase.GetCoursePath();
+			var list = new ArrayList();
+			foreach (var d in System.IO.Directory.GetDirectories(extractPath)) {
+			    var dirName = new DirectoryInfo(d).Name;
+			    list.Add(dirName);
+			 }
+			return string.Join(",", list.ToArray());
 		}
 	}
 }
