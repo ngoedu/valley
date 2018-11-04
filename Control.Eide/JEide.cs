@@ -29,7 +29,7 @@ namespace Control.Eide
 		
 		public static int ENDPOINT_ID = 9;
 		
-		public static string CMD_EXIT = "$EXIT";
+		public static string CMD_EXIT = "$EXIT=0";
 		public static string CMD_ADDPROJ = "$ADDPROJ=";
 		public static string RESP_EXIT = "<EIDE status='closed'/>";
 		public static string RESP_ADDPROJ = "<EIDE proj='added'/>";
@@ -85,7 +85,9 @@ namespace Control.Eide
 			IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];
 			var projName = (string)reg[AppRegKeys.EIDE_PROJ];
 			string response = client.SendToRemoteSync(CMD_ADDPROJ+projName, ENDPOINT_ID);
-			if (response.Equals(RESP_ADDPROJ))
+			
+			var eideResponse = EideResponse.Parse(response);
+			if (eideResponse.status.Equals(EideResponse.STATUS_OK))
 				System.Diagnostics.Debug.WriteLine("[EIDE] project "+projName+" is sucessfully added into workspace.");
 			else {
 				System.Diagnostics.Debug.WriteLine("[EIDE] add project "+projName+" to workspace is failed - " + response);
@@ -99,7 +101,8 @@ namespace Control.Eide
 			//shutdown EIDE
 			IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];
 			string response = client.SendToRemoteSync(CMD_EXIT, ENDPOINT_ID);
-			if (response.Equals(RESP_EXIT))
+			var eideResponse = EideResponse.Parse(response);
+			if (eideResponse.status.Equals(EideResponse.STATUS_OK))
 				System.Diagnostics.Debug.WriteLine("[EIDE] workspace sucessfully closed.");
 		}
 		#endregion

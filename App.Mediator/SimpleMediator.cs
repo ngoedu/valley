@@ -128,7 +128,7 @@ namespace App.Mediator
 			task.LaunchTask();
 			
 			//TODO: uncoment below when go-prod
-			if (true) {
+			if (!true) {
 				CourseForm form = new CourseForm();
 				if (form.ShowDialog() == DialogResult.OK)
 			    {

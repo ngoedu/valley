@@ -49,8 +49,12 @@ namespace App.Views
 		        
 	    public void startDownload(string cid){
 			
+			
 			if (isDownloadInProgress == true)
 				return;
+			
+			//Directory.Delete(zipFile + "\\"+cid, true);
+			
 			
 			using (WebClient wc = new WebClient())
 		    {

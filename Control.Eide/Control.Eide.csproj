@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EideResponse.cs" />
     <Compile Include="JEide.cs" />
     <Compile Include="JEide.Designer.cs">
       <DependentUpon>JEide.cs</DependentUpon>
