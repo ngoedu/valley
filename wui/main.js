@@ -73,8 +73,7 @@ var MAINUI = (function() {
 			var hreftext = "";
 			var downloadedList = CourseJScallback.getDownloadedList();
 			var downloaded = downloadedList.split(',');
-			//var downloaded = "cweb-A01";
-			alert(downloaded);
+			//alert(downloaded);
 			
 			if (downloaded.indexOf(obj.cid) > -1) {
 				hreftext = "开始";
