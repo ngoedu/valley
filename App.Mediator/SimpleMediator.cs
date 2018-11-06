@@ -85,7 +85,7 @@ namespace App.Mediator
 		private void LoadCoursePlayForm(string cid) {
 			
 			//1.load course content, prepare registry
-			var courseName = "sweb-a01";//cid;
+			var courseName = cid;
 			var cpath = CodeBase.GetCoursePath();
 			var course = CourseReader.Instance.ReadCourseFrom(cpath, courseName, false);
 			//var trSession = CourseReader.Instance.ReadTrainingSessionFrom(cpath, courseName, false);
@@ -128,19 +128,21 @@ namespace App.Mediator
 			task.LaunchTask();
 			
 			//TODO: uncoment below when go-prod
-			if (!true) {
+			if (true) {
 				CourseForm form = new CourseForm();
 				if (form.ShowDialog() == DialogResult.OK)
 			    {
+					var cid = (string)form.Tag;
+					form.Close();
 					Diagnostics.Debug(string.Format("course form closed with cid={0}", form.Tag.ToString()));
 	
 					//course selected
-					LoadCoursePlayForm("sweb-a01");
+					LoadCoursePlayForm(cid);
 			    }
 			}
 			
 			
-			LoadCoursePlayForm("sweb-a01");
+			//LoadCoursePlayForm("sweb-a01");
 		}
 		public void FormClosed()
 		{

@@ -45,6 +45,7 @@ namespace App.Views
 		private const string path = "/cpack/";
 		private const string site = "http://192.168.0.12/scup";
 		private bool isDownloadInProgress = false;
+		private bool isStartTriggered = false;
 		private string zipFile = CodeBase.GetCoursePackPath();
 		        
 	    public void startDownload(string cid){
@@ -109,9 +110,12 @@ namespace App.Views
 		}
 			
 		public void startPlayCourse(string cid){
-	        courseForm.DialogResult = DialogResult.OK;
-	        courseForm.Tag = cid;
-	        courseForm.Close();
+			if (!isStartTriggered) {
+				isStartTriggered = true;
+	       	 	courseForm.DialogResult = DialogResult.OK;
+	        	courseForm.Tag = cid;
+	        	internalBrowser.Dispose();
+			}
 	    }
 		
 		public string getPreviewSrc(string cid){
