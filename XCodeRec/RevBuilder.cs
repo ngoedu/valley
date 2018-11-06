@@ -34,9 +34,10 @@ namespace XCodeRec
             foreach (string currentFile in txtFiles)
             {
             	var file = new NGO.Train.Entity.File();
-            	file.Name =  currentFile.Substring(firstDir.Length + 1);
-            	file.Path = firstDir;
-            	file.Content = System.IO.File.ReadAllText(currentFile);;
+            	file.Path = currentFile.Substring(firstDir.Length + 1);
+            	int lidx = file.Path.LastIndexOf('\\');
+            	file.Name =  lidx == -1 ? file.Path : file.Path.Substring(lidx+1);
+            	file.Content = System.IO.File.ReadAllText(currentFile);
             	rev.Files.Add(file);
             }
             
@@ -71,8 +72,10 @@ namespace XCodeRec
 				    var patchText = patch.patch_toText(patches);
 				    
 				    var file = new NGO.Train.Entity.File();
-	            	file.Name =  fileName;
-	            	file.Path = newDir;
+	            	file.Path =  fileName;
+	            	int lidx = file.Path.LastIndexOf('\\');
+            		file.Name =  lidx == -1 ? file.Path : file.Path.Substring(lidx+1);
+            	
 	            	file.Content = patchText;
 	            	rev.Files.Add(file);
                 }

@@ -364,6 +364,7 @@ namespace XCodeRec
 		void BtnBuildRefsClick(object sender, EventArgs e)
 		{
 			var files =Directory.GetFiles(tbPkgInPath.Text+ @"\ref\");
+			lvRef.Items.Clear();
 			for (int i = 0; i< files.Length; i++) {
 				
 				var id = Path.GetFileNameWithoutExtension(files[i]);
@@ -382,7 +383,7 @@ namespace XCodeRec
 			schema.Duration = Int16.Parse(tbSchemaDur.Text);
 			schema.Sessions = Int16.Parse(tbSchemaSess.Text);
 			schema.Workspace = tbScheamWs.Text;
-			schema.ProjName = tbSchemaName.Text;
+			schema.ProjName = this.tbSchemaProj.Text;
 			schema.Milestones = Int16.Parse(tbSchemaMS.Text);
 			schema.Level = Int16.Parse(tbSchemaLevel.Text);
 			
