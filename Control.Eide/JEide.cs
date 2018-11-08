@@ -85,8 +85,6 @@ namespace Control.Eide
 			var projName = (string)reg[AppRegKeys.EIDE_PROJ];
 			string response = client.SendToRemoteSync(CMD_ADDPROJ+projName, ENDPOINT_ID);
 			
-			//MessageBox.Show("response="+response);
-			
 			var eideResponse = EideResponse.Parse(response);
 			if (eideResponse.status.Equals(EideResponse.STATUS_OK))
 				System.Diagnostics.Debug.WriteLine("[EIDE] project "+projName+" is sucessfully added into workspace.");

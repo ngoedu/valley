@@ -129,9 +129,11 @@ namespace NGO.Pad.Guider
 			var revision = course.GetMileStoneByID(index);
 			string xmlRevision = revision.ToXml();
 			
-			string mileStoneCmd = "$MILESTONE:"+xmlRevision;
+			string mileStoneCmd = "$MILESTONE="+xmlRevision;
 			string response = eideClient.SendToRemoteSync(mileStoneCmd, JEide.ENDPOINT_ID);
-			if (response.Equals(JEide.RESP_MILESTONE))
+			
+			var eideResponse = EideResponse.Parse(response);
+			if (eideResponse.status.Equals(EideResponse.STATUS_OK))
 				System.Diagnostics.Debug.WriteLine("[EIDE] rev"+index+" is sucessfully synced to eide workspace.");
 			else {
 				System.Diagnostics.Debug.WriteLine("[EIDE] rev"+index+" sync failed - " + response);
