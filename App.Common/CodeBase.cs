@@ -8,6 +8,7 @@
  */
 using System;
 using System.IO;
+using System.Windows.Forms;
 
 namespace App.Common
 {
@@ -16,45 +17,49 @@ namespace App.Common
 	/// </summary>
 	public class CodeBase
 	{
-		public static string COURSE_FOLDER = "cdat";
+		public static string COURSE_PACK_FOLDER = "cdat";
+		public static string COURSE_WUI_FOLDER = "wui";
+		public static string SYS_CONF_FOLDER = "conf";
 		
-		public static string GetCoursePath() {
-			return GetCodePath() +@"\"+ COURSE_FOLDER;
-		}
 
 		public static string GetCoursePackPath()
 		{
+			string path = string.Empty;
+			
 			#if (DIA_DEBUG)
 			return "D:\\NGO\\client\\cdat";
 			#endif
 			
 			#if (DIA_RELEASE)
-			string path =  Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\",string.Empty);
-			path =  path+"cdata";
-			return Path;
+			path =  Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\",string.Empty);
+			path =  path+"\\"+COURSE_PACK_FOLDER;
 			#endif
+			
+			//MessageBox.Show("GetCoursePackPath"+path);
+			return path;
 		}
 		
 		
-		public static string GetCourseDataPath()
+		public static string GetWUIDataPath()
 		{
-			
+			string path = string.Empty;
 				
 			#if (DIA_DEBUG)
-			return "D:\\NGO\\client\\pad\\src\\valley\\wui";
+			path =  "D:\\NGO\\client\\pad\\src\\valley\\wui";
 			#endif
 			
 			#if (DIA_RELEASE)
-			string path =  Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\",string.Empty);
-			path =  path+"wui";
-			return Path;
+			path =  Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\",string.Empty);
+			path =  path+"\\"+COURSE_WUI_FOLDER;
 			#endif
+			
+			//MessageBox.Show("GetWUIDataPath"+path);
+			return path;
+			
 		}
 		
 		public static string GetCodePath() {
-			string path =  Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\",string.Empty);
-			path =  path.Replace(@"bin\debug\", string.Empty);
-		
+			string path = string.Empty;
 			#if (DIA_DEBUG)
             path =  @"D:\NGO\client";
 			if (!Directory.Exists(path+@"\jre"))
@@ -62,12 +67,11 @@ namespace App.Common
 			#endif
 			
 			#if (DIA_RELEASE)
-			if (!Directory.Exists(path+@"\jre"))
-            	path =  @"D:\NGO\client\dist";
-			if (!Directory.Exists(path+@"\jre"))
-           		path =  @"D:\NGO\client";
+			path =  Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\",string.Empty);
+			path =  path.Replace(@"bin\Release\", string.Empty);
 			#endif
-			//System.Windows.Forms.MessageBox.Show(path);
+			
+			//System.Windows.Forms.MessageBox.Show("GetCodePath="+path);
 			return path;
 		}
 	

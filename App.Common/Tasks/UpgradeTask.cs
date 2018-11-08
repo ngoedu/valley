@@ -47,7 +47,7 @@ namespace App.Common.Tasks
 			try {
 				//normally http 200 returned
 				fileUrl = webClient.DownloadString(site+path);
-				string destFile = CodeBase.GetCourseDataPath() + "\\dat.ngjs";
+				string destFile = CodeBase.GetWUIDataPath() + "\\dat.ngjs";
 				webClient.DownloadFile(new System.Uri(site+fileUrl), destFile);
 	
 				UnGzipFile(destFile);

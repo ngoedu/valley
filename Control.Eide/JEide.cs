@@ -77,13 +77,15 @@ namespace Control.Eide
 			this.EmbedIde();
 			this.WindowsReStyle();
 			System.Diagnostics.Debug.WriteLine(string.Format("[EIDE] pid={0} Load + Enbed + ReStyle done.",pid));
-			
+			MessageBox.Show("即将导入工程到工作区！", "提示", MessageBoxButtons.OK);
 			
 			
 			//import project to EIDE
 			IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];
 			var projName = (string)reg[AppRegKeys.EIDE_PROJ];
 			string response = client.SendToRemoteSync(CMD_ADDPROJ+projName, ENDPOINT_ID);
+			
+			//MessageBox.Show("response="+response);
 			
 			var eideResponse = EideResponse.Parse(response);
 			if (eideResponse.status.Equals(EideResponse.STATUS_OK))

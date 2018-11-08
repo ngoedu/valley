@@ -101,7 +101,7 @@ namespace App.Views
 		    }
 		    
 		    string zipPath = zipFile;
-      		string extractPath = CodeBase.GetCoursePath();
+      		string extractPath = CodeBase.GetCoursePackPath();
 
       		System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
 		
@@ -124,7 +124,7 @@ namespace App.Views
 	    }
 		
 		public string getDownloadedList() {
-			string extractPath = CodeBase.GetCoursePath();
+			string extractPath = CodeBase.GetCoursePackPath();
 			var list = new ArrayList();
 			foreach (var d in System.IO.Directory.GetDirectories(extractPath)) {
 			    var dirName = new DirectoryInfo(d).Name;

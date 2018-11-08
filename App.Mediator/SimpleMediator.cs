@@ -86,7 +86,7 @@ namespace App.Mediator
 			
 			//1.load course content, prepare registry
 			var courseName = cid;
-			var cpath = CodeBase.GetCoursePath();
+			var cpath = CodeBase.GetCoursePackPath();
 			var course = CourseReader.Instance.ReadCourseFrom(cpath, courseName, false);
 			//var trSession = CourseReader.Instance.ReadTrainingSessionFrom(cpath, courseName, false);
 			//TODO: setup training records in course
