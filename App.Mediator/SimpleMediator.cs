@@ -17,6 +17,7 @@ using App.Common.Proc;
 using App.Common.Reg;
 using App.Common.Tasks;
 using App.Views;
+using App.Views.Tile;
 using CefSharp;
 using Component.Bridge;
 using Control.JBrowser;
@@ -62,7 +63,8 @@ namespace App.Mediator
 			//init depandencies
 			this.clientArea = new Rectangle();
 			this.mainForm = mf;
-			this.tileManager = new SimpleTileManager(mf);
+			this.tileManager = new SideBySideTileManager(mf);
+			//this.tileManager = new SimpleTileManager(mf);
 			this.codeBase = CodeBase.GetCodePath();
 
 			//try clean all stale process. e.g. eide, bridge
@@ -146,10 +148,14 @@ namespace App.Mediator
 		}
 		public void FormClosed()
 		{
+			//Hide all tiles
+			tileManager.HideAppTiles(appContexts);
 			
 			foreach(var app in appContexts) {
-				app.AppControl.Dispose(appRegistry);		
+				app.AppControl.Dispose(appRegistry);	
+								
 			}
+			
 			
 			//disconnect endpoint
 			aetherClient.Disconnect();

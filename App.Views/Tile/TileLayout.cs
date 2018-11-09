@@ -17,9 +17,9 @@ namespace App.Views.Tile
 	/// </summary>
 	public abstract class TileLayout
 	{
-		protected Dictionary<int, IAppTile> TILES = new Dictionary<int, IAppTile>();
+		protected Dictionary<int, AppTile> TILES = new Dictionary<int, AppTile>();
 		
-		public  virtual void AddTile(int key, IAppTile tile) {
+		public  virtual void AddTile(int key, AppTile tile) {
 			TILES.Add(key, tile);
 		}
 		
@@ -31,7 +31,7 @@ namespace App.Views.Tile
 
 		public abstract Rectangle MinimizedSize(int tileId);
 
-		public abstract Rectangle NormalSize();
+		public abstract Rectangle NormalSize(int sideCode);
 
 		public abstract Rectangle LockedSize();
 	}

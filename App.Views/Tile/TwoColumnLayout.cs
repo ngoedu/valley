@@ -109,7 +109,7 @@ namespace App.Views.Tile
 			return MINS[tileId];
 		}
 
-		public override Rectangle NormalSize()
+		public override Rectangle NormalSize(int sc)
 		{
 			return tileNormalSize;
 		}

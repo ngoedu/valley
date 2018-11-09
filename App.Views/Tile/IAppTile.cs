@@ -18,6 +18,7 @@ namespace App.Views
 	{
 		int GetHotKeyId();
 		string GetTileName();
+		int GetSGroup();
 		void Active();
 		void Deactive();
 		void Maxmized();

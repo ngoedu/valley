@@ -36,10 +36,11 @@ namespace App.Views
 		public void BuildAppTiles(List<AppContext> context)
 		{
 			foreach(var app in context) {
-				var tile = new AppTile(app.AppId, app.FuncKey, (System.Windows.Forms.Control)app.AppControl, this);
+				var tile = new AppTile(app.AppId, app.FuncKey,app.SideCode, true, (System.Windows.Forms.Control)app.AppControl, this);
 				HookKeyController.Instance.RegisterCallback(app.FuncKey, tile);
 				mainForm.Controls.Add(tile);
 				GetLayout().AddTile(app.FuncKey, tile);
+				tile.Minimized();
 			}
 		}
 		
@@ -55,7 +56,11 @@ namespace App.Views
 			
 			return layout;
 		}
-		
+
+		public void HideAppTiles(List<AppContext> appContexts)
+		{
+			throw new Exception("not imped");
+		}
 		#region ITileManager implementation
 		public void ActiveTile(int index)
 		{
@@ -80,9 +85,9 @@ namespace App.Views
 			return GetLayout().MinimizedSize(tileId);
 		}
 
-		public Rectangle NormalSize()
+		public Rectangle NormalSize(int sideCode)
 		{
-			return GetLayout().NormalSize();
+			return GetLayout().NormalSize(sideCode);
 		}
 
 		public Rectangle LockedSize()

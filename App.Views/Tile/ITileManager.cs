@@ -20,9 +20,12 @@ namespace App.Views
 		void BuildAppTiles(List<AppContext> context);
 		void ActiveTile(int index);
 		void DeactiveTile(int index);
+
+		void HideAppTiles(List<App.Views.AppContext> appContexts);
+
 		Rectangle MaxmizedSize();
 		Rectangle MinimizedSize(int tileId);
-		Rectangle NormalSize();
+		Rectangle NormalSize(int sideCode);
 		Rectangle LockedSize();
 		
 	}

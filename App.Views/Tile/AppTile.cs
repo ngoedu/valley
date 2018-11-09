@@ -21,13 +21,15 @@ namespace App.Views
 	{
 		private string tileName;
 		private int hotKey;
+		private bool reactive = false;
+		private int SGroup {set; get;}
 		private ITileManager tileManager;
-		private TileStatus status;
+		public TileStatus status {private set; get;}
 		private System.Windows.Forms.Control innerControl;
 		
 		public enum TileStatus { Min = 0, Max = 1, Lock = 2, Normal = 3}
 	
-		public AppTile(string name, int key, System.Windows.Forms.Control control, ITileManager tileManager)
+		public AppTile(string name, int key, int sgroup, bool reactive, System.Windows.Forms.Control control, ITileManager tileManager)
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
@@ -37,13 +39,15 @@ namespace App.Views
 			this.tileManager = tileManager;
 			this.tileName = name;
 			this.hotKey = key;
+			this.reactive = reactive;
 			this.lblName.Text = this.tileName;
-			this.lblFK.Text = "F"+key;
+			this.SGroup = sgroup;
+			this.lblFK.Text = "F"+sgroup;
 			this.innerControl = control;
 			this.pContent.Controls.Add(control);
 			this.innerControl.Dock = DockStyle.Fill;
 			
-			Minimized();	
+				
 		}
 
 		public int GetHotKeyId()
@@ -53,6 +57,10 @@ namespace App.Views
 		public string GetTileName()
 		{
 			return this.tileName;
+		}
+		
+		public int GetSGroup() {
+			return this.SGroup;
 		}
 		#region IHookKeyCallback implementation
 
@@ -94,7 +102,7 @@ namespace App.Views
 
 		public void Normal()
 		{
-			var normalSize = tileManager.NormalSize();
+			var normalSize = tileManager.NormalSize(this.SGroup);
 			this.Top = normalSize.Top;
 			this.Left = normalSize.Left;
 			this.Width = normalSize.Width;
@@ -153,6 +161,7 @@ namespace App.Views
 		}
 		void AppTileDoubleClick(object sender, EventArgs e)
 		{
+			if (this.reactive)
 			this.OnHotKey(this.hotKey);
 		}
 		void CheckBox1CheckedChanged(object sender, EventArgs e)

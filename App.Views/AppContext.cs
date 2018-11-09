@@ -27,6 +27,7 @@ namespace App.Views
 	{
 		public string AppId {private set; get;}
 		public int FuncKey {private set; get;}
+		public int SideCode {private set; get;} //group or side code of layout
 		public IAppEntry AppControl {private set; get;}
 		
 		private static readonly Dictionary<string, AppContext> APPREG = new Dictionary<string, AppContext>();
@@ -36,17 +37,18 @@ namespace App.Views
 		}
 		
 		static AppContext() {
-			APPREG.Add("guider", new App.Views.AppContext("导航", 1, new JGuider()));
-			APPREG.Add("video", new App.Views.AppContext("视频", 2, new JVideo()));
-			APPREG.Add("jeide", new App.Views.AppContext("编码", 3, new JEide("NgoEclipse",  CodeBase.GetCodePath(), PidRecorder.Instance)));
-			APPREG.Add("browser", new App.Views.AppContext("浏览器", 4, new JDevBrowser()));
+			APPREG.Add("video", new App.Views.AppContext("视频", 1, 1,new JVideo()));
+			APPREG.Add("guider", new App.Views.AppContext("导航", 2, 1,new JGuider()));
+			APPREG.Add("jeide", new App.Views.AppContext("编码", 3, 2,new JEide("NgoEclipse",  CodeBase.GetCodePath(), PidRecorder.Instance)));
+			APPREG.Add("browser", new App.Views.AppContext("浏览器", 4, 2, new JDevBrowser()));
 		}
 		
-		public AppContext(string id, int key, IAppEntry ctl)
+		public AppContext(string id, int key, int sideCode, IAppEntry ctl)
 		{
 			this.AppId = id;
 			this.FuncKey = key;
 			this.AppControl = ctl;
+			this.SideCode = sideCode;
 		}
 
 		public static List<App.Views.AppContext> CreateAppContext(List<NGO.Train.Entity.Tile> apps)
