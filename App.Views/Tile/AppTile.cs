@@ -21,6 +21,7 @@ namespace App.Views
 	{
 		private string tileName;
 		private int hotKey;
+		private bool lockable;
 		private bool reactive = false;
 		private int SGroup {set; get;}
 		private ITileManager tileManager;
@@ -29,7 +30,7 @@ namespace App.Views
 		
 		public enum TileStatus { Min = 0, Max = 1, Lock = 2, Normal = 3}
 	
-		public AppTile(string name, int key, int sgroup, bool reactive, System.Windows.Forms.Control control, ITileManager tileManager)
+		public AppTile(string name, int key, int sgroup, bool reactive, bool lockable, System.Windows.Forms.Control control, ITileManager tileManager)
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
@@ -40,6 +41,7 @@ namespace App.Views
 			this.tileName = name;
 			this.hotKey = key;
 			this.reactive = reactive;
+			this.lockable = lockable;
 			this.lblName.Text = this.tileName;
 			this.SGroup = sgroup;
 			this.lblFK.Text = "F"+sgroup;
@@ -47,7 +49,8 @@ namespace App.Views
 			this.pContent.Controls.Add(control);
 			this.innerControl.Dock = DockStyle.Fill;
 			
-				
+			if (!this.lockable)
+				this.cbLock.Visible = false;
 		}
 
 		public int GetHotKeyId()
@@ -81,12 +84,13 @@ namespace App.Views
 		public void Active()
 		{
 			this.BringToFront();
-			this.BackColor = Color.DeepSkyBlue;
+			//this.BackColor = Color.DeepSkyBlue;
+			this.BackColor = Color.FromArgb(60,60,60);
 		}
 
 		public void Deactive()
 		{
-			this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.BackColor = Color.FromArgb(60,60,60);
 		}
 
 		public void Minimized()

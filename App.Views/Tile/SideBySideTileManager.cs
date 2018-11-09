@@ -78,7 +78,7 @@ namespace App.Views.Tile
 			HookKeyController.Instance.RegisterCallback(SideB2.FUNKEY, SideB2);
 			
 			foreach(var app in context) {
-				var tile = new AppTile(app.AppId, app.FuncKey, app.SideCode, false, (System.Windows.Forms.Control)app.AppControl, this);
+				var tile = new AppTile(app.AppId, app.FuncKey, app.SideCode, false, false, (System.Windows.Forms.Control)app.AppControl, this);
 				mainForm.Controls.Add(tile);
 				if (app.SideCode == SideA1.FUNKEY) {
 					SideA1.TILES.Add(tile);

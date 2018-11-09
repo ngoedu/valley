@@ -142,10 +142,8 @@ namespace App.Mediator
 					LoadCoursePlayForm(cid);
 			    }
 			}
-			
-			
-			//LoadCoursePlayForm("sweb-a01");
 		}
+		
 		public void FormClosed()
 		{
 			//Hide all tiles

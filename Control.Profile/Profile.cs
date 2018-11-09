@@ -25,8 +25,8 @@ namespace Control.Profile
 			//
 			InitializeComponent();
 			
-			BackColor = Color.FromArgb(28,80,102);//39, 113,143);
-			
+			BackColor = Color.FromArgb(60,60,60);
+			//BackColor = Color.FromArgb(28,80,102);
 		}
 		
 		public void SetEnergy(int progress) {

@@ -34,5 +34,7 @@ namespace App.Views.Tile
 		public abstract Rectangle NormalSize(int sideCode);
 
 		public abstract Rectangle LockedSize();
+		
+		public abstract void HideTile(int tileId);
 	}
 }

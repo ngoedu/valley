@@ -88,7 +88,18 @@ namespace App.Views.Tile
 				}
 			}
 		}
-		
+
+		#region implemented abstract members of TileLayout
+		public override void HideTile(int tileId)
+		{
+			foreach(var tile in TILES)
+			{	
+				if (tile.Value.GetHotKeyId() == tileId) {
+					tile.Value.Visible = false;	
+				}
+			}
+		}
+		#endregion		
 		public override void DeactiveTile(int index) {
 			foreach(var tile in TILES)
 			{	

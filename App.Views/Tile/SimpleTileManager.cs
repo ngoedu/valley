@@ -36,7 +36,7 @@ namespace App.Views
 		public void BuildAppTiles(List<AppContext> context)
 		{
 			foreach(var app in context) {
-				var tile = new AppTile(app.AppId, app.FuncKey,app.SideCode, true, (System.Windows.Forms.Control)app.AppControl, this);
+				var tile = new AppTile(app.AppId, app.FuncKey,app.SideCode, true, true, (System.Windows.Forms.Control)app.AppControl, this);
 				HookKeyController.Instance.RegisterCallback(app.FuncKey, tile);
 				mainForm.Controls.Add(tile);
 				GetLayout().AddTile(app.FuncKey, tile);
@@ -52,15 +52,17 @@ namespace App.Views
 				if (scale.Equals(DPI.SMALL)) {
 					//layout = new ThreeColumnLayout();
 				} 
-			}
-			
+			}		
 			return layout;
 		}
 
 		public void HideAppTiles(List<AppContext> appContexts)
 		{
-			throw new Exception("not imped");
+			foreach(var app in appContexts) {		
+				GetLayout().HideTile(app.FuncKey);
+			}
 		}
+		
 		#region ITileManager implementation
 		public void ActiveTile(int index)
 		{
