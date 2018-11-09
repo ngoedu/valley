@@ -77,9 +77,14 @@ namespace Control.Eide
 			this.EmbedIde();
 			this.WindowsReStyle();
 			System.Diagnostics.Debug.WriteLine(string.Format("[EIDE] pid={0} Load + Enbed + ReStyle done.",pid));
-			MessageBox.Show("即将导入工程到工作区！", "提示", MessageBoxButtons.OK);
-			
-			
+			DialogResult dialogResult = MessageBox.Show("课程读取选择：【是】从上次学习历史记录读取，【否】从头开始", "提示", MessageBoxButtons.YesNo);
+			if(dialogResult == DialogResult.Yes) {
+				//DONOTHING
+			}
+			else if (dialogResult == DialogResult.No) {
+				//TODO: course history Refresh back
+			}
+	
 			//import project to EIDE
 			IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];
 			var projName = (string)reg[AppRegKeys.EIDE_PROJ];
@@ -220,7 +225,7 @@ namespace Control.Eide
 		/// </summary>
 		private void ResizeEmebed()
 		{
-			Win32Api.SetWindowPos(embedHandle, 0, 4, 2, this.Width-4, this.Height-2, Win32Api.SWP_NOZORDER | Win32Api.SWP_SHOWWINDOW);   
+			Win32Api.SetWindowPos(embedHandle, 0, 1, 1, this.Width-1, this.Height-1, Win32Api.SWP_NOZORDER | Win32Api.SWP_SHOWWINDOW);   
 			//SetWindowPos(embedHandle, 0, 0, 0, this.Width, this.Height, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOOWNERZORDER);
 			
 			//try set window no border

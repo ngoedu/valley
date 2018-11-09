@@ -174,14 +174,14 @@ namespace NGO.Pad.Guider
 
 		void JGuiderSizeChanged(object sender, EventArgs e)
 		{
-			boxCourse.Top = 0;
+			boxCourse.Top = 6;
 			boxCourse.Left = 0;
 			boxCourse.Width = 220;
 			
-			panelMileStone.Top = boxCourse.Height + 1;
+			panelMileStone.Top = boxCourse.Top + boxCourse.Height + 1;
 			panelMileStone.Left = 0;
 			panelMileStone.Width = boxCourse.Width;
-			panelMileStone.Height = this.Height - boxCourse.Height;
+			panelMileStone.Height = this.Height - boxCourse.Height - boxCourse.Top;
 			
 			for (int i=0; i<mileStones.Count; i++)
 			{

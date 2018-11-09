@@ -42,11 +42,9 @@ namespace NGO.Pad.Guider
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.AutoScroll = false;
-			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-			this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.BackColor = System.Drawing.SystemColors.ButtonFace;
 			this.Name = "JGuider";
-			this.Size = new System.Drawing.Size(260, 373);
+			this.Size = new System.Drawing.Size(262, 375);
 			this.SizeChanged += new System.EventHandler(this.JGuiderSizeChanged);
 			this.ResumeLayout(false);
 

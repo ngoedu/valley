@@ -14,7 +14,6 @@ namespace NGO.Pad.Guider
 		/// Designer variable used to keep track of non-visual components.
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
-		private System.Windows.Forms.PictureBox picBox;
 		private System.Windows.Forms.Label tbCourse;
 		
 		/// <summary>
@@ -38,20 +37,8 @@ namespace NGO.Pad.Guider
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.picBox = new System.Windows.Forms.PictureBox();
 			this.tbCourse = new System.Windows.Forms.Label();
-			((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// picBox
-			// 
-			this.picBox.Image = global::Control.Guider.Resource2.course;
-			this.picBox.Location = new System.Drawing.Point(8, 8);
-			this.picBox.Name = "picBox";
-			this.picBox.Size = new System.Drawing.Size(24, 24);
-			this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-			this.picBox.TabIndex = 1;
-			this.picBox.TabStop = false;
 			// 
 			// tbCourse
 			// 
@@ -69,12 +56,10 @@ namespace NGO.Pad.Guider
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.HotTrack;
 			this.Controls.Add(this.tbCourse);
-			this.Controls.Add(this.picBox);
 			this.Name = "Box";
 			this.Size = new System.Drawing.Size(240, 40);
 			this.Load += new System.EventHandler(this.BoxLoad);
 			this.SizeChanged += new System.EventHandler(this.BoxSizeChanged);
-			((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
 			this.ResumeLayout(false);
 
 		}

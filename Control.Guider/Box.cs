@@ -24,18 +24,17 @@ namespace NGO.Pad.Guider
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
-			BackColor = Color.FromArgb(16,35,56);
+			//BackColor = Color.FromArgb(109,125,143);
+			BackColor = Color.FromArgb(73,73,73);
 			tbCourse.BackColor = Color.FromArgb(255,255,238);
 		}
 		
 		void BoxSizeChanged(object sender, EventArgs e)
 		{
-			this.picBox.Top = 7;
-			this.picBox.Left = 4;
 			
-			this.tbCourse.Left = this.picBox.Left + this.picBox.Width + 4;
+			this.tbCourse.Left =  6;
 			this.tbCourse.Top = (this.ClientSize.Height - tbCourse.Height) / 2;
-			this.tbCourse.Width = this.ClientSize.Width - picBox.Width - 16;
+			this.tbCourse.Width = this.ClientSize.Width - 16;
 		}
 
 		#region ICourse implementation

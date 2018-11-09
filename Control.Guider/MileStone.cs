@@ -22,7 +22,8 @@ namespace NGO.Pad.Guider
 	public partial class MileStone : UserControl
 	{
 		private ToolTip toolTip1 = new ToolTip();
-		private SolidBrush myBrush = new SolidBrush(Color.FromArgb(109, 125, 143)); 
+		private SolidBrush myBrush = new SolidBrush(Color.FromArgb(73, 73, 73)); 
+		//private SolidBrush myBrush = new SolidBrush(Color.FromArgb(109, 125, 143)); 
 		private SolidBrush shadowBrush = new SolidBrush(Color.FromArgb(34, 40, 42)); 
 		public int STATUS {set; get;}
 		public string Name {set; get;}
