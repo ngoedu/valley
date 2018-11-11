@@ -56,13 +56,12 @@ namespace Control.Toolbar
 			// pictureBox1
 			// 
 			this.pictureBox1.Image = global::Control.Toolbar.Resource1.select_course2;
-			this.pictureBox1.Location = new System.Drawing.Point(26, 10);
+			this.pictureBox1.Location = new System.Drawing.Point(32, 8);
 			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(62, 62);
+			this.pictureBox1.Size = new System.Drawing.Size(52, 46);
 			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox1.TabIndex = 0;
 			this.pictureBox1.TabStop = false;
-			this.pictureBox1.Visible = false;
 			this.pictureBox1.Click += new System.EventHandler(this.PictureBox1Click);
 			this.pictureBox1.MouseEnter += new System.EventHandler(this.PictureBox1MouseEnter);
 			this.pictureBox1.MouseLeave += new System.EventHandler(this.PictureBox1MouseLeave);
@@ -71,19 +70,18 @@ namespace Control.Toolbar
 			// 
 			this.txtIcon1.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.txtIcon1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-			this.txtIcon1.Location = new System.Drawing.Point(40, 70);
+			this.txtIcon1.Location = new System.Drawing.Point(40, 52);
 			this.txtIcon1.Name = "txtIcon1";
 			this.txtIcon1.Size = new System.Drawing.Size(48, 16);
 			this.txtIcon1.TabIndex = 1;
 			this.txtIcon1.Text = "选课";
-			this.txtIcon1.Visible = false;
 			// 
 			// pictureBox2
 			// 
 			this.pictureBox2.Image = global::Control.Toolbar.Resource1.eclipse1;
-			this.pictureBox2.Location = new System.Drawing.Point(136, 4);
+			this.pictureBox2.Location = new System.Drawing.Point(136, 0);
 			this.pictureBox2.Name = "pictureBox2";
-			this.pictureBox2.Size = new System.Drawing.Size(70, 70);
+			this.pictureBox2.Size = new System.Drawing.Size(52, 52);
 			this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox2.TabIndex = 2;
 			this.pictureBox2.TabStop = false;
@@ -96,7 +94,7 @@ namespace Control.Toolbar
 			this.label1.BackColor = System.Drawing.Color.Transparent;
 			this.label1.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-			this.label1.Location = new System.Drawing.Point(152, 70);
+			this.label1.Location = new System.Drawing.Point(144, 48);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(48, 16);
 			this.label1.TabIndex = 3;
@@ -106,9 +104,9 @@ namespace Control.Toolbar
 			// pictureBox3
 			// 
 			this.pictureBox3.Image = global::Control.Toolbar.Resource1.chrome_a3;
-			this.pictureBox3.Location = new System.Drawing.Point(256, 12);
+			this.pictureBox3.Location = new System.Drawing.Point(256, 0);
 			this.pictureBox3.Name = "pictureBox3";
-			this.pictureBox3.Size = new System.Drawing.Size(62, 62);
+			this.pictureBox3.Size = new System.Drawing.Size(52, 52);
 			this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox3.TabIndex = 4;
 			this.pictureBox3.TabStop = false;
@@ -122,7 +120,7 @@ namespace Control.Toolbar
 			this.label2.BackColor = System.Drawing.Color.Transparent;
 			this.label2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-			this.label2.Location = new System.Drawing.Point(268, 71);
+			this.label2.Location = new System.Drawing.Point(256, 48);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(48, 18);
 			this.label2.TabIndex = 5;
@@ -141,7 +139,7 @@ namespace Control.Toolbar
 			this.Controls.Add(this.txtIcon1);
 			this.Controls.Add(this.pictureBox1);
 			this.Name = "JToolbar";
-			this.Size = new System.Drawing.Size(682, 88);
+			this.Size = new System.Drawing.Size(682, 73);
 			this.MouseLeave += new System.EventHandler(this.JToolbarMouseLeave);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

@@ -101,7 +101,11 @@ namespace  Control.JBrowser
 		{
 			innerBrowser.GoToUrl(url);
 		}
-		
+
+		public int Status()
+		{
+			throw new NotImplementedException();
+		}
 		
 		#region IAppEntry implementation
 		public void Init(AppRegistry reg)

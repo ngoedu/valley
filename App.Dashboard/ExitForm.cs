@@ -7,8 +7,10 @@
  * 
  */
 using System;
+using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using App.Common.Controls;
 
 namespace App.Dashboard
 {
@@ -21,6 +23,8 @@ namespace App.Dashboard
 		private delegate void CloseDelegate();
 		private static ExitForm exitForm;
 		
+		LabelProgressBar progressbar;
+		
 		public ExitForm()
 		{
 			//
@@ -29,15 +33,16 @@ namespace App.Dashboard
 			InitializeComponent();
 			
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-			this.Width = progressBar1.Width;
-			
+			progressBar1.Height = this.Height;
+			//this.Width = progressBar1.Width;
 			timer1.Enabled = true;
 			timer1.Start();
 			timer1.Interval = 100;
 			progressBar1.Maximum = 100;
 			timer1.Tick += new EventHandler(timer1_Tick);
 		}
-			
+		
+		
 		void timer1_Tick(object sender, EventArgs e)
 		{
 			if (progressBar1.Value != 100) {

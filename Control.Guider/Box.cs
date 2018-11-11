@@ -25,7 +25,7 @@ namespace NGO.Pad.Guider
 			//
 			InitializeComponent();
 			//BackColor = Color.FromArgb(109,125,143);
-			BackColor = Color.FromArgb(73,73,73);
+			BackColor = Color.FromArgb(93,93,93);
 			tbCourse.BackColor = Color.FromArgb(255,255,238);
 		}
 		

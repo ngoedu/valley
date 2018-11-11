@@ -22,10 +22,7 @@ namespace App.Views.Tile
 		private Rectangle sideBNormalSize;
 	    private Rectangle sideANormalSize;
 	  
-	    private Dictionary<int, Rectangle> MINS = new Dictionary<int, Rectangle>();
-		  
-	    private IAppTile normalTile = null;
-	     
+	    private Dictionary<int, Rectangle> MINS = new Dictionary<int, Rectangle>();  
 	    private double scale;
 	    
 		public SideBySideLayout(double scale)
@@ -34,10 +31,10 @@ namespace App.Views.Tile
 			
 			Rectangle resolution = Screen.PrimaryScreen.Bounds;
 			Point normalAPoint = new Point(20,100); 
-	    	sideANormalSize = new Rectangle(normalAPoint, new Size(resolution.Width / 2 - 40, resolution.Height - 180));
+	    	sideANormalSize = new Rectangle(normalAPoint, new Size(resolution.Width / 2 - 40, resolution.Height - 190));
 			
 	    	Point normalBPoint = new Point(resolution.Width / 2 ,100);
-	    	sideBNormalSize = new Rectangle(normalBPoint, new Size(resolution.Width / 2 -20 , resolution.Height - 180));
+	    	sideBNormalSize = new Rectangle(normalBPoint, new Size(resolution.Width / 2 -20 , resolution.Height - 190));
 			
 	    	MINS.Add(1,new Rectangle(new Point(100,220),new Size(3, 2)));
 	    	MINS.Add(2,new Rectangle(new Point(120,220),new Size(3, 2)));
@@ -63,7 +60,7 @@ namespace App.Views.Tile
 			foreach(var tile in TILES)
 			{	
 				if (tile.Value.GetHotKeyId() == tileId) {
-					tile.Value.Visible = true;
+					tile.Value.Visible = false;
 					break;
 				} 
 			}

@@ -19,6 +19,12 @@ namespace Control.Video
 	/// </summary>
 	public partial class JVideo : UserControl, IAppEntry
 	{
+		/// <summary>
+		/// -1: default
+		/// 1: inited
+		/// 0: disposed
+		/// </summary>
+		private int status = -1;
 		public JVideo()
 		{
 			//
@@ -34,10 +40,15 @@ namespace Control.Video
 		{
 			string html = (string)reg[AppRegKeys.VIDEO_LINK];
 			LoadHtml(html);
+			this.status = 1;
 		}
 		public void Dispose(AppRegistry reg)
 		{
-			
+			this.status = 0;
+		}
+		
+		public int Status () {
+			return status;
 		}
 		
 		#endregion		

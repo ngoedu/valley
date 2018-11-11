@@ -80,6 +80,10 @@
       <Project>{BBB857C2-514A-47E0-8988-0456B4CF10B8}</Project>
       <Name>Control.Profile</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Control.Toolbar\Control.Toolbar.csproj">
+      <Project>{DE45D941-991A-4EB9-AC9B-288ABBD52525}</Project>
+      <Name>Control.Toolbar</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Protocal.AEther\Protocal.AEther.csproj">
       <Project>{AC9264E3-925E-4090-877E-457A45A10456}</Project>
       <Name>Protocal.AEther</Name>

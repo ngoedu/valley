@@ -97,9 +97,14 @@ namespace Control.Eide
 				System.Diagnostics.Debug.WriteLine("[EIDE] add project "+projName+" to workspace is failed - " + response);
 				MessageBox.Show("[EIDE] add project "+projName+" to workspace is failed - " + response);
 			}
-				
+			
+			this.status = 1;	
 		}
-		
+
+		public int Status()
+		{
+			return this.status;
+		}
 		public void Dispose(AppRegistry reg)
 		{
 			//shutdown EIDE
@@ -108,6 +113,8 @@ namespace Control.Eide
 			var eideResponse = EideResponse.Parse(response);
 			if (eideResponse.status.Equals(EideResponse.STATUS_OK))
 				System.Diagnostics.Debug.WriteLine("[EIDE] workspace sucessfully closed.");
+			
+			this.status = 0;
 		}
 		#endregion
 	

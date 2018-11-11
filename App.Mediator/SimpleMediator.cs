@@ -8,6 +8,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -22,6 +23,7 @@ using CefSharp;
 using Component.Bridge;
 using Control.JBrowser;
 using Control.Profile;
+using Control.Toolbar;
 using NGO.Protocol.AEther;
 using NGO.Train;
 
@@ -31,7 +33,7 @@ namespace App.Mediator
 	/// <summary>
 	/// Description of SimpleMediator.
 	/// </summary>
-	public class SimpleMediator : IMediator
+	public class SimpleMediator : IMediator, IToolBarCallback
 	{
 		private Form mainForm;
 		private ITileManager tileManager;
@@ -42,6 +44,9 @@ namespace App.Mediator
 		private AppRegistry appRegistry = new AppRegistry();
 				
 		private Profile jProfile;
+		private JToolbar jToolbar;
+
+		
 
 		private AetherBridge aetherBridge;		
 		private Endpoint aetherClient;
@@ -81,7 +86,12 @@ namespace App.Mediator
 			//add profile
 			jProfile = new Profile();
 			jProfile.Enabled = false;
-			mainForm.Controls.Add(jProfile);	
+			mainForm.Controls.Add(jProfile);
+
+			//add toolbar
+			jToolbar = new JToolbar(this);
+			mainForm.Controls.Add(jToolbar);
+
 		}
 		
 		private void LoadCoursePlayForm(string cid) {
@@ -130,7 +140,7 @@ namespace App.Mediator
 			task.LaunchTask();
 			
 			//TODO: uncoment below when go-prod
-			if (true) {
+			if (!true) {
 				CourseForm form = new CourseForm();
 				if (form.ShowDialog() == DialogResult.OK)
 			    {
@@ -141,6 +151,9 @@ namespace App.Mediator
 					//course selected
 					LoadCoursePlayForm(cid);
 			    }
+			} else {
+				//course selected
+				LoadCoursePlayForm("sweb-a01-proj1");
 			}
 		}
 		
@@ -150,8 +163,7 @@ namespace App.Mediator
 			tileManager.HideAppTiles(appContexts);
 			
 			foreach(var app in appContexts) {
-				app.AppControl.Dispose(appRegistry);	
-								
+				app.AppControl.Dispose(appRegistry);					
 			}
 			
 			
@@ -168,17 +180,22 @@ namespace App.Mediator
 		
 		public void FormResized(int newHeight, int newWidth)
 		{
-			int headHeight = 62;
+			int headHeight = 78;
 			
 			clientArea.Width = newWidth;
 			clientArea.Height = newHeight;
 			clientArea.X = 0; 
-			clientArea.Y = 62;
+			clientArea.Y = 78;
 			
 			jProfile.Top = 0;
 			jProfile.Left = 0;
-			jProfile.Width = newWidth;
+			jProfile.Width = 300;
 			jProfile.Height = headHeight;
+			
+			jToolbar.Top = jProfile.Top;
+			jToolbar.Left = jProfile.Width;
+			jToolbar.Width = clientArea.Width - jProfile.Width;
+			jToolbar.Height = jProfile.Height;
 		}
 		#endregion form events
 
@@ -212,5 +229,24 @@ namespace App.Mediator
 			
 		}
 		#endregion aether endpoint callback
+
+		#region IToolBarCallback implementation
+
+		public void PlayCourseEntry()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void DisplayCourseLib()
+		{
+
+		}
+
+		public void DisplayWebBrowser()
+		{
+			throw new NotImplementedException();
+		}
+
+		#endregion
 	}
 }

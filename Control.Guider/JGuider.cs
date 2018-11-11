@@ -37,7 +37,7 @@ namespace NGO.Pad.Guider
 		private WebBrowser refBrowser;
 		private TabControl codeTabs;
 		private IClient eideClient;
-		
+		private int status = -1;
 		
 		public JGuider()
 		{
@@ -45,7 +45,7 @@ namespace NGO.Pad.Guider
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
-			//BackColor = Color.FromArgb(0,138,227);
+			BackColor = Color.FromArgb(173,198,227);
 			
 			boxCourse = new Box();
 			this.Controls.Add(boxCourse);
@@ -67,14 +67,18 @@ namespace NGO.Pad.Guider
 			this.BindCourse(course);
 			
 			eideClient = (IClient)reg[AppRegKeys.AETHER_CLIENT];
-			
+			this.status  = 0;
 		}
 		
 		public void Dispose(AppRegistry reg)
 		{
-			
+			this.status = 1;
 		}
 
+		public int Status()
+		{
+			return this.status;
+		}
 		public void ShowRef(int index)
 		{
 			var ms = course.GetMileStoneByID(index);
@@ -96,13 +100,12 @@ namespace NGO.Pad.Guider
 			//add new files 
 			foreach(var file in srcFiles) {
 				var page  = new TabPage();
-				//page.Width = this.codeTabs.ClientSize.Width;
-				//page.Height = this.codeTabs.ClientSize.Height;
 				page.Dock = DockStyle.Fill;
 				this.codeTabs.Controls.Add(page);
 				page.Text = file.Name;
 				JEditor.Languages lan = JEditor.CheckLanguage(file.Name.Split('.')[1]);
 				var editor = new JEditor(lan, false);
+				editor.BorderStyle = BorderStyle.None;
 				//editor.Dock = DockStyle.Fill;
 				//editor.Width = page.ClientSize.Width;
 				//editor.Height = page.ClientSize.Height;
@@ -174,7 +177,7 @@ namespace NGO.Pad.Guider
 
 		void JGuiderSizeChanged(object sender, EventArgs e)
 		{
-			boxCourse.Top = 6;
+			boxCourse.Top = 0;
 			boxCourse.Left = 0;
 			boxCourse.Width = 220;
 			

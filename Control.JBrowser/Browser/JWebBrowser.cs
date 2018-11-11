@@ -27,7 +27,7 @@ namespace  Control.JBrowser
 		private static string CEF_ACTIVE = "CEF_ACTIVE";
 		private static string CEF_DEACTIVE = "CEF_DEACTIVE";
 		private bool isNav = false;
-		private WaitSignal externalSignal;
+		private int status = -1;
 		
 		public JWebBrowser(bool isNavBar, IBrowserJSCallback callback)
 		{
@@ -82,14 +82,19 @@ namespace  Control.JBrowser
 			return "chrome-devtools://devtools/inspector.html";
 		}
 
+		public int Status()
+		{
+			return this.status;
+		}
 		#region IAppEntry implementation
 		public void Init(AppRegistry reg)
 		{
-			//TODO: check below action if required.
+			this.status = 1;
 		}
 		public void Dispose(AppRegistry reg)
 		{
 			//do nothing, as the static Dispose will handle the real dispostion of CEF instalces.
+			this.status = 0;
 		}
 		#endregion
 		#region IWebBrowser implementation

@@ -17,5 +17,6 @@ namespace App.Common.Reg
 	{
 		void Init(AppRegistry reg);
 		void Dispose(AppRegistry reg);
+		int Status();
 	}
 }

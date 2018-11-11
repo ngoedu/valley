@@ -71,6 +71,7 @@
     <Compile Include="Controls\JProgressBar.Designer.cs">
       <DependentUpon>JProgressBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\LabelProgressBar.cs" />
     <Compile Include="Diag\Diagnostics.cs" />
     <Compile Include="Dpi\DPI.cs" />
     <Compile Include="Dpi\DpiUtil.cs" />
