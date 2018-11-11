@@ -25,9 +25,11 @@ namespace App.Views
 	/// </summary>
 	public class CouresJSCallback : IBrowserJSCallback
 	{
-		private Form courseForm; 
+		private CourseForm courseForm; 
 		private CefSharp.WinForms.ChromiumWebBrowser internalBrowser;
-		public CouresJSCallback(Form form) {
+		public string CourseId {private set; get;}
+		
+		public CouresJSCallback(CourseForm form) {
 			courseForm = form;
 		}
 
@@ -117,6 +119,15 @@ namespace App.Views
 	        	internalBrowser.Dispose();
 			}
 	    }
+		
+		public void setSelectedCourseId(string cid) {
+			CourseId = cid;
+		}
+		
+		public void showCoursePreview(string cid) {
+			setSelectedCourseId(cid);
+			courseForm.showCoursePreview(cid);
+		}
 		
 		public string getPreviewSrc(string cid){
 			return "D:/neverstop/tutorial/webClient/test2.html";

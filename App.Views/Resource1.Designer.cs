@@ -39,7 +39,7 @@ namespace App.Views {
 		internal static global::System.Resources.ResourceManager ResourceManager {
 			get {
 				if (object.ReferenceEquals(resourceMan, null)) {
-					global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("App.Forms.Resource1", typeof(Resource1).Assembly);
+					global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("App.Views.Resource1", typeof(Resource1).Assembly);
 					resourceMan = temp;
 				}
 				return resourceMan;
@@ -57,6 +57,16 @@ namespace App.Views {
 			}
 			set {
 				resourceCulture = value;
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap webdesign {
+			get {
+				object obj = ResourceManager.GetObject("webdesign", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
 			}
 		}
 	}

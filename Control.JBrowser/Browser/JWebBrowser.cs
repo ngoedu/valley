@@ -145,10 +145,14 @@ namespace  Control.JBrowser
 				GoToUrl(this.txtAddress.Text);
 			}
 		}
+		
+		public void Dispose() {
+			cefBrowser.Dispose();
+		}
 
 		#endregion
 		
-		public static void Dispose()
+		public static void CefDispose()
 		{
 			//cefBrowser.Dispose();
 			System.Diagnostics.Debug.WriteLine("[JwebBrowser] ChromiumWebBrowser disposed.");

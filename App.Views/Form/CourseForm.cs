@@ -9,6 +9,7 @@
 using System;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using App.Common;
 using App.Common.Dpi;
@@ -22,6 +23,9 @@ namespace App.Views
 	/// </summary>
 	public partial class CourseForm : Form
 	{
+		JWebBrowser browser;
+		CouresJSCallback jsCallback;
+		
 		public CourseForm()
 		{
 			//
@@ -29,7 +33,10 @@ namespace App.Views
 			//
 			InitializeComponent();
 			
-			JWebBrowser browser = new JWebBrowser(false, new CouresJSCallback(this));
+			this.panelPreview.Visible = false;
+			
+			jsCallback = new CouresJSCallback(this);
+			browser = new JWebBrowser(false, jsCallback);
 			browser.Dock = DockStyle.Fill;
 			this.Controls.Add(browser);
 			
@@ -45,6 +52,44 @@ namespace App.Views
             	path =  @"D:/NGO/client/pad/src/valley";
 			#endif
 			browser.GoToUrl(path +@"/wui/ui.html");
+		}
+		
+		
+		void CourseFormSizeChanged(object sender, EventArgs e)
+		{
+			
+		}
+		
+		
+		public void showCoursePreview(string cid) {
+			this.Invoke((MethodInvoker)delegate() {
+		       	this.rtbMetaInfo.Text = "Meta info for "+cid;
+				this.panelPreview.Visible = true;
+				this.browser.Visible = false;
+		    });
+			
+		}
+		
+		public void navigateBackToCourseLib() {
+			this.panelPreview.Visible = false;
+			this.browser.Visible = true;
+		}
+		
+		void BtnGoBackClick(object sender, EventArgs e)
+		{
+			navigateBackToCourseLib();
+		}
+		
+		bool isStartTriggered = false;
+		
+		void BtnStartClick(object sender, EventArgs e)
+		{
+			if (!isStartTriggered) {
+				isStartTriggered = true;
+	       	 	this.DialogResult = DialogResult.OK;
+	        	this.Tag = jsCallback.CourseId;
+	        	this.browser.Dispose();
+			}
 		}
 	}
 }

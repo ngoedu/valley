@@ -140,14 +140,13 @@ namespace App.Mediator
 			task.LaunchTask();
 			
 			//TODO: uncoment below when go-prod
-			if (!true) {
+			if (true) {
 				CourseForm form = new CourseForm();
 				if (form.ShowDialog() == DialogResult.OK)
 			    {
 					var cid = (string)form.Tag;
 					form.Close();
-					Diagnostics.Debug(string.Format("course form closed with cid={0}", form.Tag.ToString()));
-	
+						
 					//course selected
 					LoadCoursePlayForm(cid);
 			    }
@@ -174,7 +173,7 @@ namespace App.Mediator
 			aetherBridge.Shutdown();
 			
 			//cefSharp instances dispose explicitly				
-			JWebBrowser.Dispose();
+			JWebBrowser.CefDispose();
             
 		}	
 		

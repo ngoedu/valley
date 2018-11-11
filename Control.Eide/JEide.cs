@@ -77,6 +77,8 @@ namespace Control.Eide
 			this.EmbedIde();
 			this.WindowsReStyle();
 			System.Diagnostics.Debug.WriteLine(string.Format("[EIDE] pid={0} Load + Enbed + ReStyle done.",pid));
+			
+			/*
 			DialogResult dialogResult = MessageBox.Show("课程读取选择：【是】从上次学习历史记录读取，【否】从头开始", "提示", MessageBoxButtons.YesNo);
 			if(dialogResult == DialogResult.Yes) {
 				//DONOTHING
@@ -84,6 +86,7 @@ namespace Control.Eide
 			else if (dialogResult == DialogResult.No) {
 				//TODO: course history Refresh back
 			}
+			*/
 	
 			//import project to EIDE
 			IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];

@@ -70,10 +70,16 @@ var MAINUI = (function() {
 			$(ul).append(li);
 			$(div).append(ul);
 			
+			
+			hreftext = "详情";
+			var ahref = $("<a/>",{id:"id"+i,name:"btnDown",href:"javascript:void(0);",text:hreftext});
+			$(div).append(ahref);
+			$(ahref).on( "click", { name: obj.cid}, showPreview );
+				
+			/*
 			var hreftext = "";
 			var downloadedList = CourseJScallback.getDownloadedList();
 			var downloaded = downloadedList.split(',');
-			//alert(downloaded);
 			
 			if (downloaded.indexOf(obj.cid) > -1) {
 				hreftext = "开始";
@@ -87,6 +93,8 @@ var MAINUI = (function() {
 				$(div).append(ahref);
 				$(ahref).on( "click", { name: obj.cid}, download );
 			}
+			*/
+			
 			
 			$('#'+box).append(div);
 		}		
@@ -112,16 +120,9 @@ var MAINUI = (function() {
 		listCourses(currMid, currBox);
 	}
 		
-	function preview(event) {
+	function showPreview(event) {
 		var cid = event.data.name;
-		var prevSrc = CourseJScallback.getPreviewSrc(cid);
-		
-		$('#preview_box').children().remove();;
-		var iframe = $('<iframe>', {src: 'file:///'+prevSrc, frameborder: 0,  scrolling: 'no' });
-		$(iframe).height($('#preview_box').height());
-		$(iframe).width($('#preview_box').width());
-		$('#preview_box').append(iframe);
-		//<iframe width="100%" height="100%" src="file:///D:/neverstop/tutorial/webClient/test2.html" frameborder="0" allowfullscreen></iframe>	
+		CourseJScallback.showCoursePreview(cid);
 	}
 	
 	function modalDialogShow() {
