@@ -65,41 +65,40 @@ namespace Control.Eide
 		#region IAppEntry implementation
 		public void Init(AppRegistry reg)
 		{
-			//1.delete current ews and then make a copy of raw workspace.
 			string raw_ws = (string)reg[AppRegKeys.EIDE_RAW_WS];
 			string workspace = (string)reg[AppRegKeys.EIDE_WS];
+			bool imported = false;
 			
-			XTendLibs.FolderDelete.DeleteDirectory(workspace);
-			XTendLibs.FolderCopy.DirectoryCopy(raw_ws, workspace, true, null, null);
+			//1.prepare workspace if required.			
+			if (!(new DirectoryInfo(workspace).Exists)){
+				//XTendLibs.FolderDelete.DeleteDirectory(workspace);
+				XTendLibs.FolderCopy.DirectoryCopy(raw_ws, workspace, true, null, null);
+			} else {
+				imported = true;
+			}
 			
 			//2.launch EIDE
 			this.LoadEide(false, workspace);
 			this.EmbedIde();
 			this.WindowsReStyle();
 			System.Diagnostics.Debug.WriteLine(string.Format("[EIDE] pid={0} Load + Enbed + ReStyle done.",pid));
-			
-			/*
-			DialogResult dialogResult = MessageBox.Show("课程读取选择：【是】从上次学习历史记录读取，【否】从头开始", "提示", MessageBoxButtons.YesNo);
-			if(dialogResult == DialogResult.Yes) {
-				//DONOTHING
-			}
-			else if (dialogResult == DialogResult.No) {
-				//TODO: course history Refresh back
-			}
-			*/
+
 	
-			//import project to EIDE
-			IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];
-			var projName = (string)reg[AppRegKeys.EIDE_PROJ];
-			string response = client.SendToRemoteSync(CMD_ADDPROJ+projName, ENDPOINT_ID);
-			
-			var eideResponse = EideResponse.Parse(response);
-			if (eideResponse.status.Equals(EideResponse.STATUS_OK))
-				System.Diagnostics.Debug.WriteLine("[EIDE] project "+projName+" is sucessfully added into workspace.");
-			else {
-				System.Diagnostics.Debug.WriteLine("[EIDE] add project "+projName+" to workspace is failed - " + response);
-				MessageBox.Show("[EIDE] add project "+projName+" to workspace is failed - " + response);
+			//3.import project to EIDE
+			if (!imported) {
+				IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];
+				var projName = (string)reg[AppRegKeys.EIDE_PROJ];
+				string response = client.SendToRemoteSync(CMD_ADDPROJ+projName, ENDPOINT_ID);
+				
+				var eideResponse = EideResponse.Parse(response);
+				if (eideResponse.status.Equals(EideResponse.STATUS_OK))
+					System.Diagnostics.Debug.WriteLine("[EIDE] project "+projName+" is sucessfully added into workspace.");
+				else {
+					System.Diagnostics.Debug.WriteLine("[EIDE] add project "+projName+" to workspace is failed - " + response);
+					MessageBox.Show("[EIDE] add project "+projName+" to workspace is failed - " + response);
+				}
 			}
+			
 			
 			this.status = 1;	
 		}
