@@ -129,12 +129,16 @@ namespace App.Mediator
 	    				
 			//4.init profile
 			jProfile.SetName("070718A001");
-			jProfile.SetEnergy(85);//trSession.Point);
+			jProfile.SetEnergy(85);//TODO
+			
+			
 		}
 		
 		#region form event
 		public void FormLoaded()
 		{
+			this.mainForm.BringToFront();
+			
 			//launch Course Upgrade task
 			UpgradeTask task = new UpgradeTask();
 			task.LaunchTask();
@@ -195,6 +199,7 @@ namespace App.Mediator
 			jToolbar.Left = jProfile.Width;
 			jToolbar.Width = clientArea.Width - jProfile.Width;
 			jToolbar.Height = jProfile.Height;
+			
 		}
 		#endregion form events
 

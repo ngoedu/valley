@@ -81,6 +81,8 @@ namespace App.Views
 		       		this.btnDownload.Visible = true;
 		       		this.btnStart.Visible = false;
 		       		this.pbDownload.Visible = true;
+		       		this.pbDownload.Value = 0;
+			
 		       	}
 		       	this.panelPreview.Visible = true;
 							
@@ -176,7 +178,7 @@ namespace App.Views
       		System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
 		
       		isDownloadInProgress = false;
-      		MessageBox.Show("课程下载完成,开始按钮播放该课程","提示", MessageBoxButtons.OK, MessageBoxIcon.Information); 
+      		MessageBox.Show("课程已经下载完成,按【开始】播放课程","提示", MessageBoxButtons.OK, MessageBoxIcon.Information); 
       		
       		
       		showCoursePreview(jsCallback.CourseId);
