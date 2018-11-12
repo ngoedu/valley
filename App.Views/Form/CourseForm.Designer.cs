@@ -19,6 +19,8 @@ namespace App.Views
 		private System.Windows.Forms.PictureBox pbImage;
 		private System.Windows.Forms.RichTextBox rtbMetaInfo;
 		private System.Windows.Forms.Button btnGoBack;
+		private System.Windows.Forms.Button btnDownload;
+		private System.Windows.Forms.ProgressBar pbDownload;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -42,6 +44,8 @@ namespace App.Views
 		private void InitializeComponent()
 		{
 			this.panelPreview = new System.Windows.Forms.Panel();
+			this.pbDownload = new System.Windows.Forms.ProgressBar();
+			this.btnDownload = new System.Windows.Forms.Button();
 			this.btnGoBack = new System.Windows.Forms.Button();
 			this.rtbMetaInfo = new System.Windows.Forms.RichTextBox();
 			this.btnStart = new System.Windows.Forms.Button();
@@ -52,6 +56,8 @@ namespace App.Views
 			// 
 			// panelPreview
 			// 
+			this.panelPreview.Controls.Add(this.pbDownload);
+			this.panelPreview.Controls.Add(this.btnDownload);
 			this.panelPreview.Controls.Add(this.btnGoBack);
 			this.panelPreview.Controls.Add(this.rtbMetaInfo);
 			this.panelPreview.Controls.Add(this.btnStart);
@@ -59,16 +65,37 @@ namespace App.Views
 			this.panelPreview.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelPreview.Location = new System.Drawing.Point(0, 0);
 			this.panelPreview.Name = "panelPreview";
-			this.panelPreview.Size = new System.Drawing.Size(1184, 422);
+			this.panelPreview.Size = new System.Drawing.Size(1184, 460);
 			this.panelPreview.TabIndex = 0;
+			// 
+			// pbDownload
+			// 
+			this.pbDownload.Location = new System.Drawing.Point(640, 336);
+			this.pbDownload.Name = "pbDownload";
+			this.pbDownload.Size = new System.Drawing.Size(544, 23);
+			this.pbDownload.TabIndex = 5;
+			// 
+			// btnDownload
+			// 
+			this.btnDownload.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+			this.btnDownload.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.btnDownload.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.btnDownload.Location = new System.Drawing.Point(1064, 384);
+			this.btnDownload.Name = "btnDownload";
+			this.btnDownload.Size = new System.Drawing.Size(80, 50);
+			this.btnDownload.TabIndex = 4;
+			this.btnDownload.Text = "下载";
+			this.btnDownload.UseVisualStyleBackColor = false;
+			this.btnDownload.Click += new System.EventHandler(this.BtnDownloadClick);
 			// 
 			// btnGoBack
 			// 
 			this.btnGoBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+			this.btnGoBack.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.btnGoBack.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.btnGoBack.Location = new System.Drawing.Point(952, 344);
+			this.btnGoBack.Location = new System.Drawing.Point(960, 384);
 			this.btnGoBack.Name = "btnGoBack";
-			this.btnGoBack.Size = new System.Drawing.Size(80, 64);
+			this.btnGoBack.Size = new System.Drawing.Size(80, 50);
 			this.btnGoBack.TabIndex = 3;
 			this.btnGoBack.Text = "返回";
 			this.btnGoBack.UseVisualStyleBackColor = false;
@@ -78,7 +105,7 @@ namespace App.Views
 			// 
 			this.rtbMetaInfo.BackColor = System.Drawing.SystemColors.ButtonFace;
 			this.rtbMetaInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.rtbMetaInfo.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.rtbMetaInfo.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.rtbMetaInfo.Location = new System.Drawing.Point(640, 8);
 			this.rtbMetaInfo.Name = "rtbMetaInfo";
 			this.rtbMetaInfo.Size = new System.Drawing.Size(536, 328);
@@ -87,11 +114,12 @@ namespace App.Views
 			// 
 			// btnStart
 			// 
-			this.btnStart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+			this.btnStart.BackColor = System.Drawing.Color.Lime;
+			this.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.btnStart.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.btnStart.Location = new System.Drawing.Point(1072, 344);
+			this.btnStart.Location = new System.Drawing.Point(1064, 384);
 			this.btnStart.Name = "btnStart";
-			this.btnStart.Size = new System.Drawing.Size(80, 64);
+			this.btnStart.Size = new System.Drawing.Size(80, 50);
 			this.btnStart.TabIndex = 1;
 			this.btnStart.Text = "开始";
 			this.btnStart.UseVisualStyleBackColor = false;
@@ -103,8 +131,7 @@ namespace App.Views
 			this.pbImage.InitialImage = null;
 			this.pbImage.Location = new System.Drawing.Point(0, 0);
 			this.pbImage.Name = "pbImage";
-			this.pbImage.Size = new System.Drawing.Size(632, 460);
-			this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.pbImage.Size = new System.Drawing.Size(632, 459);
 			this.pbImage.TabIndex = 0;
 			this.pbImage.TabStop = false;
 			// 
@@ -112,7 +139,7 @@ namespace App.Views
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1184, 422);
+			this.ClientSize = new System.Drawing.Size(1184, 460);
 			this.ControlBox = false;
 			this.Controls.Add(this.panelPreview);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
