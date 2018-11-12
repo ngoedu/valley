@@ -17,6 +17,7 @@ using System.Windows.Forms;
 using App.Common.Net;
 using App.Common.Proc;
 using App.Common.Reg;
+using App.Common.Signal;
 using App.Common.Win32;
 
 namespace Control.Eide
@@ -48,7 +49,7 @@ namespace Control.Eide
 		/// in shutdown process = 1
 		/// already shutted down = 2
 		/// </summary>
-		int status = 0;
+		AppStatus status;
 		private int pid = -1;
 		
 		
@@ -100,23 +101,39 @@ namespace Control.Eide
 			}
 			
 			
-			this.status = 1;	
+			this.status = AppStatus.Inited;	
+		}
+		
+		public void Reload(AppRegistry reg)
+		{
+			this.Dispose(reg);
+			if (this.status == AppStatus.Disposed) {
+				this.Init(reg);
+				//MessageBox.Show("re-init pid="+pid);
+			}
 		}
 
-		public int Status()
+		public AppStatus Status()
 		{
 			return this.status;
 		}
+		
+		private WaitSignal exitSignal;
 		public void Dispose(AppRegistry reg)
 		{
 			//shutdown EIDE
 			IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];
 			string response = client.SendToRemoteSync(CMD_EXIT, ENDPOINT_ID);
 			var eideResponse = EideResponse.Parse(response);
-			if (eideResponse.status.Equals(EideResponse.STATUS_OK))
-				System.Diagnostics.Debug.WriteLine("[EIDE] workspace sucessfully closed.");
-			
-			this.status = 0;
+			if (eideResponse.status.Equals(EideResponse.STATUS_OK)) {
+				
+				exitSignal = new WaitSignal();
+				exitSignal.WaitOne();
+				
+				System.Diagnostics.Debug.WriteLine("[EIDE] workspace sucessfully exit.");
+				
+				this.status = AppStatus.Disposed;
+			}
 		}
 		#endregion
 	
@@ -137,6 +154,7 @@ namespace Control.Eide
 				return;
 			
 			this.pidCallback.KillProcessById("eide",pid);
+			
 			
 			base.Dispose(disposing);
 		}
@@ -198,8 +216,9 @@ namespace Control.Eide
 		}
 		
 		private void OnExited(object sender, System.EventArgs e) {
-        	System.Diagnostics.Debug.WriteLine("[EIDE] process pid={0} Exited", pid);
-        	pid = -1; 
+        	System.Diagnostics.Debug.WriteLine("[EIDE] process Exited");
+        	pid = -1;
+        	exitSignal.Set();
         }
 		
 		private void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine) {

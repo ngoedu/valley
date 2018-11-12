@@ -130,7 +130,34 @@ namespace App.Mediator
 			//4.init profile
 			jProfile.SetName("070718A001");
 			jProfile.SetEnergy(85);//TODO
+	
+		}
+		
+		private void ReLoadCoursePlayForm(string cid){
+			//1.load course content, prepare registry
+			var courseName = cid;
+			var cpath = CodeBase.GetCoursePackPath();
+			var course = CourseReader.Instance.ReadCourseFrom(cpath, courseName, false);
+		
+			//2.restore raw code, parepare registry info
+			course.RestoreRevFiles();			
+			appRegistry[AppRegKeys.COURSE_KEY]= course;
+					
+			var milestone = course.GetLatestMileStone();
+			appRegistry[AppRegKeys.VIDEO_LINK]= course.GetVideoByID(milestone.LinkID).Content;
+			appRegistry[AppRegKeys.AETHER_CLIENT]= aetherClient;
+			appRegistry[AppRegKeys.EIDE_WS]= cpath+@"\"+courseName+@"\"+course.Schema.Workspace;
+			appRegistry[AppRegKeys.EIDE_RAW_WS]= cpath+@"\rws";
+			appRegistry[AppRegKeys.EIDE_PROJ]= cpath+@"\"+courseName+@"\"+course.Schema.ProjName;
 			
+			//TODO: any change here? 3.reload app control
+			appContexts = App.Views.AppContext.CreateAppContext(course.Apps);		
+			foreach(var app in appContexts) {
+				app.AppControl.Reload(appRegistry);		
+			}
+			
+			//4.rebuid tiles
+			tileManager.RebuildAppTiles(appContexts);
 			
 		}
 		
@@ -241,7 +268,18 @@ namespace App.Mediator
 
 		public void DisplayCourseLib()
 		{
-
+			tileManager.HideAppTiles(appContexts);
+		
+			CourseForm form = new CourseForm();
+			if (form.ShowDialog() == DialogResult.OK)
+		    {
+				var cid = (string)form.Tag;
+				form.Close();
+					
+				//course selected
+				ReLoadCoursePlayForm(cid);
+				//MessageBox.Show("reload course play form");
+		    }
 		}
 
 		public void DisplayWebBrowser()

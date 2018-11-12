@@ -28,6 +28,7 @@ namespace  Control.JBrowser
 		private System.Windows.Forms.Panel panelRight;
 		private JWebBrowser innerBrowser;
 		private bool isDevToolEnabled = false;
+		private AppStatus status;
 		
 		public JDevBrowser()
 		{
@@ -102,7 +103,7 @@ namespace  Control.JBrowser
 			innerBrowser.GoToUrl(url);
 		}
 
-		public int Status()
+		public AppStatus Status()
 		{
 			throw new NotImplementedException();
 		}
@@ -110,12 +111,20 @@ namespace  Control.JBrowser
 		#region IAppEntry implementation
 		public void Init(AppRegistry reg)
 		{
-			
+			this.status = AppStatus.Inited;
+		}
+		
+		public void Reload(AppRegistry reg)
+		{
+			this.Dispose(reg);
+			if (this.status == AppStatus.Disposed) {
+				this.Init(reg);
+			}
 		}
 
 		public void Dispose(AppRegistry reg)
 		{
-
+			this.status = AppStatus.Disposed;
 		}
 		#endregion
 		

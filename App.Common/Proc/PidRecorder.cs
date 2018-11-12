@@ -55,7 +55,7 @@ namespace App.Common.Proc
 	    #region IPidCallback implementation
 		public void PidCreated(string pName, int pid)
 		{
-			NEW_PIDS.Add(pName, pid.ToString());
+			NEW_PIDS[pName]= pid.ToString();
 			System.IO.File.WriteAllText(pidFile, BuildPidInfo());
 		}
 		#endregion

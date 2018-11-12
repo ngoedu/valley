@@ -16,13 +16,13 @@ using App.Common.Hook;
 namespace App.Views.Tile
 {
 	
-	internal class TileSideArray : IHookKeyCallback {
+	internal class SideTileHolder : IHookKeyCallback {
 		public List<AppTile> TILES = new List<AppTile>();
 		public int FUNKEY {get; set;}
 		
 		private ITileManager tileManager;
 		
-		public TileSideArray(int key, ITileManager manager) {
+		public SideTileHolder(int key, ITileManager manager) {
 			FUNKEY = key;
 			this.tileManager = manager;
 		}
@@ -59,14 +59,14 @@ namespace App.Views.Tile
 		private TileLayout layout;
 	    private Form mainForm;
 	    
-	    private TileSideArray SideA1 ;
-	    private TileSideArray SideB2 ;
+	    private SideTileHolder SideA1 ;
+	    private SideTileHolder SideB2 ;
 	    
 		public SideBySideTileManager(Form mf)
 		{
 			this.mainForm = mf;
-			SideA1 = new TileSideArray(1, this);
-	    	SideB2 = new TileSideArray(2, this);
+			SideA1 = new SideTileHolder(1, this);
+	    	SideB2 = new SideTileHolder(2, this);
 	    
 		}
 
@@ -77,6 +77,40 @@ namespace App.Views.Tile
 			HookKeyController.Instance.RegisterCallback(SideA1.FUNKEY, SideA1);
 			HookKeyController.Instance.RegisterCallback(SideB2.FUNKEY, SideB2);
 			
+			foreach(var app in context) {
+				var tile = new AppTile(app.AppId, app.FuncKey, app.SideCode, false, false, (System.Windows.Forms.Control)app.AppControl, this);
+				mainForm.Controls.Add(tile);
+				if (app.SideCode == SideA1.FUNKEY) {
+					SideA1.TILES.Add(tile);
+				}
+				else if (app.SideCode == SideB2.FUNKEY) {
+					SideB2.TILES.Add(tile);
+				}
+				else
+					MessageBox.Show("app don't have defined side by side hotkey");
+					
+				GetLayout().AddTile(app.FuncKey, tile);
+			}
+			SideA1.DiplayTile();
+			SideB2.DiplayTile();
+		}
+		
+		public void RebuildAppTiles(System.Collections.Generic.List<AppContext> context)
+		{
+			//clean up tiles
+			for(int i=1; i<SideA1.TILES.Count;i++)
+			{
+				this.mainForm.Controls.Remove(SideA1.TILES[i]);
+			}
+			for(int i=1; i<SideB2.TILES.Count;i++)
+			{
+				this.mainForm.Controls.Remove(SideB2.TILES[i]);
+			}
+			SideA1.TILES.Clear();
+			SideB2.TILES.Clear();			
+			GetLayout().RemoveAllTiles();
+			
+			//renew tiles and init layout
 			foreach(var app in context) {
 				var tile = new AppTile(app.AppId, app.FuncKey, app.SideCode, false, false, (System.Windows.Forms.Control)app.AppControl, this);
 				mainForm.Controls.Add(tile);

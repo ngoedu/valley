@@ -24,7 +24,7 @@ namespace Control.Video
 		/// 1: inited
 		/// 0: disposed
 		/// </summary>
-		private int status = -1;
+		private AppStatus status;
 		public JVideo()
 		{
 			//
@@ -40,14 +40,23 @@ namespace Control.Video
 		{
 			string html = (string)reg[AppRegKeys.VIDEO_LINK];
 			LoadHtml(html);
-			this.status = 1;
-		}
-		public void Dispose(AppRegistry reg)
-		{
-			this.status = 0;
+			this.status = AppStatus.Inited;
 		}
 		
-		public int Status () {
+		public void Reload(AppRegistry reg)
+		{
+			this.Dispose(reg);
+			if (this.status == AppStatus.Disposed) {
+				this.Init(reg);
+			}
+		}
+		
+		public void Dispose(AppRegistry reg)
+		{
+			this.status = AppStatus.Disposed;
+		}
+		
+		public AppStatus Status () {
 			return status;
 		}
 		

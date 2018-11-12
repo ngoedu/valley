@@ -10,13 +10,21 @@ using System;
 
 namespace App.Common.Reg
 {
+	
+	public enum AppStatus {
+		Inited,
+		Disposed,
+		Reloaded
+	}
+	
 	/// <summary>
 	/// Description of IAppEntry.
 	/// </summary>
 	public interface IAppEntry
 	{
 		void Init(AppRegistry reg);
+		void Reload(AppRegistry reg);
 		void Dispose(AppRegistry reg);
-		int Status();
+		AppStatus Status();
 	}
 }

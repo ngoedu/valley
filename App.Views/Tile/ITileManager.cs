@@ -18,6 +18,7 @@ namespace App.Views
 	public interface ITileManager
 	{
 		void BuildAppTiles(List<AppContext> context);
+		void RebuildAppTiles(List<AppContext> context);
 		void ActiveTile(int index);
 		void DeactiveTile(int index);
 

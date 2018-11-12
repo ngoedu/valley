@@ -37,7 +37,7 @@ namespace NGO.Pad.Guider
 		private WebBrowser refBrowser;
 		private TabControl codeTabs;
 		private IClient eideClient;
-		private int status = -1;
+		private AppStatus status;
 		
 		public JGuider()
 		{
@@ -67,15 +67,23 @@ namespace NGO.Pad.Guider
 			this.BindCourse(course);
 			
 			eideClient = (IClient)reg[AppRegKeys.AETHER_CLIENT];
-			this.status  = 0;
+			this.status  = AppStatus.Inited;
+		}
+		
+		public void Reload(AppRegistry reg)
+		{
+			this.Dispose(reg);
+			if (this.status == AppStatus.Disposed) {
+				this.Init(reg);
+			}
 		}
 		
 		public void Dispose(AppRegistry reg)
 		{
-			this.status = 1;
+			this.status = AppStatus.Disposed;
 		}
 
-		public int Status()
+		public AppStatus Status()
 		{
 			return this.status;
 		}

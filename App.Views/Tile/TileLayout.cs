@@ -23,6 +23,10 @@ namespace App.Views.Tile
 			TILES.Add(key, tile);
 		}
 		
+		public void RemoveAllTiles() {
+			TILES.Clear();
+		}
+		
 		public abstract void ActiveTile(int index);
 		
 		public abstract void DeactiveTile(int index);

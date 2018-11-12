@@ -44,6 +44,11 @@ namespace App.Views
 			}
 		}
 		
+		public void RebuildAppTiles(System.Collections.Generic.List<AppContext> context)
+		{
+			throw new NotImplementedException();
+		}
+		
 		private TileLayout GetLayout() {
 			if (layout == null )
 			{
