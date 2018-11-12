@@ -548,7 +548,7 @@ namespace NGO.Pad.Editor
 			var stopWatch = Stopwatch.StartNew();
 			int idx = dict.Scan(key);
 			stopWatch.Stop();
-			System.Diagnostics.Debug.WriteLine(string.Format("css scan: {0}ms", stopWatch.Elapsed.TotalMilliseconds));
+			//System.Diagnostics.Debug.WriteLine(string.Format("css scan: {0}ms", stopWatch.Elapsed.TotalMilliseconds));
 			if (idx == -1)
 				return Color.Empty;
 			if (idx < FUZZY)
