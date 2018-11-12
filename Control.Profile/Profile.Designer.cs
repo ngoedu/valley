@@ -62,7 +62,7 @@ namespace Control.Profile
 			this.pictureBox1.Image = global::Control.Profile.Resource1.profile_t3;
 			this.pictureBox1.Location = new System.Drawing.Point(16, 13);
 			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(40, 40);
+			this.pictureBox1.Size = new System.Drawing.Size(45, 45);
 			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox1.TabIndex = 2;
 			this.pictureBox1.TabStop = false;
@@ -78,10 +78,10 @@ namespace Control.Profile
 			// 
 			// jProgressBar1
 			// 
-			this.jProgressBar1.Location = new System.Drawing.Point(64, 32);
+			this.jProgressBar1.Location = new System.Drawing.Point(68, 34);
 			this.jProgressBar1.MaxValue = 100;
 			this.jProgressBar1.Name = "jProgressBar1";
-			this.jProgressBar1.Size = new System.Drawing.Size(144, 16);
+			this.jProgressBar1.Size = new System.Drawing.Size(145, 16);
 			this.jProgressBar1.TabIndex = 4;
 			// 
 			// Profile
