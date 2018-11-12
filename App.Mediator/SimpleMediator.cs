@@ -135,10 +135,8 @@ namespace App.Mediator
 		}
 		
 		#region form event
-		public void FormLoaded()
-		{
-			this.mainForm.BringToFront();
-			
+		public void FormShown()
+		{			
 			//launch Course Upgrade task
 			UpgradeTask task = new UpgradeTask();
 			task.LaunchTask();

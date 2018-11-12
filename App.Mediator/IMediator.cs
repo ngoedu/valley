@@ -18,7 +18,7 @@ namespace App.Mediator
 	public interface IMediator :  IOutputCallback, IEndpointCallback
 	{
 		void FormResized(int newHeight, int newWidth);
-		void FormLoaded();
+		void FormShown();
 		void FormClosed();
 	}
 }

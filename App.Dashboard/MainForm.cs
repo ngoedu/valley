@@ -51,8 +51,12 @@ namespace App.Dashboard
 		
 		void MainFormLoad(object sender, EventArgs e)
 		{
-			//mediator.FormLoaded();
-			System.Diagnostics.Debug.WriteLine("MainFormLoad");
+			
+		}
+		
+		void MainFormShown(object sender, EventArgs e)
+		{
+			mediator.FormShown();
 		}
 		
 		void MainFormFormClosed(object sender, FormClosedEventArgs e)
@@ -89,10 +93,6 @@ namespace App.Dashboard
                     break;
             }
         }
-		void MainFormShown(object sender, EventArgs e)
-		{
-			System.Diagnostics.Debug.WriteLine("shown");
-			mediator.FormLoaded();
-		}
+		
 	}
 }

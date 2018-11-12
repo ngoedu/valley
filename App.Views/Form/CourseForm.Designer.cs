@@ -70,9 +70,9 @@ namespace App.Views
 			// 
 			// pbDownload
 			// 
-			this.pbDownload.Location = new System.Drawing.Point(640, 336);
+			this.pbDownload.Location = new System.Drawing.Point(648, 336);
 			this.pbDownload.Name = "pbDownload";
-			this.pbDownload.Size = new System.Drawing.Size(544, 23);
+			this.pbDownload.Size = new System.Drawing.Size(536, 23);
 			this.pbDownload.TabIndex = 5;
 			// 
 			// btnDownload
@@ -105,6 +105,7 @@ namespace App.Views
 			// 
 			this.rtbMetaInfo.BackColor = System.Drawing.SystemColors.ButtonFace;
 			this.rtbMetaInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.rtbMetaInfo.Enabled = false;
 			this.rtbMetaInfo.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.rtbMetaInfo.Location = new System.Drawing.Point(640, 8);
 			this.rtbMetaInfo.Name = "rtbMetaInfo";
@@ -144,9 +145,9 @@ namespace App.Views
 			this.Controls.Add(this.panelPreview);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Name = "CourseForm";
+			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "选择课程";
-			this.TopMost = true;
 			this.SizeChanged += new System.EventHandler(this.CourseFormSizeChanged);
 			this.panelPreview.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
