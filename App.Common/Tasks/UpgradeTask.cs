@@ -31,6 +31,7 @@ namespace App.Common.Tasks
 		public void LaunchTask() {
 			var taskForAction = new Task(() =>
             {
+			    //MessageBox.Show("start downloaded ...");
 			    //int radomTimeSlot = new Random().Next(100,200); //TODO: CHANGE IT TO LARGER ONE
 				//Thread.Sleep(radomTimeSlot);
 				DownloadCourseMetaFile();
@@ -51,7 +52,7 @@ namespace App.Common.Tasks
 				webClient.DownloadFile(new System.Uri(site+fileUrl), destFile);
 	
 				UnGzipFile(destFile);
-				//MessageBox.Show("cmeta downloaded.");
+				//MessageBox.Show("cmeta downloaded and upzipped.");
 		   
 			} catch (WebException webex) {
 				
