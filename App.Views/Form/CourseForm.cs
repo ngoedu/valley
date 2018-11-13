@@ -137,9 +137,9 @@ namespace App.Views
 		    {
 		        wc.DownloadProgressChanged += wc_DownloadProgressChanged;
 		        wc.DownloadFileCompleted += wc_DownloadFileCompleted;
-		       string fileUrl  = "http://192.168.0.12/scup/cpack/"+cid+".zip";
-		       
-		       zipFile += "\\"+cid +".zip";
+		       	string fileUrl  = "http://192.168.0.12/scup/cpack/"+cid+".zip";
+		       	wc.QueryString.Add("token", "NGO");
+		       	zipFile += "\\"+cid +".zip";
 				
 		        try {
 					wc.DownloadFileAsync(new System.Uri(fileUrl), zipFile);
