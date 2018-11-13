@@ -105,7 +105,7 @@ namespace NGO.Train.Entity
 		
 		private string RestoreFileCode(string baseSrc, string patchText) {
 			if (string.IsNullOrEmpty(baseSrc)) {
-				return null;
+				return string.Empty;
 			}
 			
 			if (string.IsNullOrEmpty(patchText))
@@ -121,6 +121,8 @@ namespace NGO.Train.Entity
 		   
 		    string newSrc = (string)results[0];
 			
+		    newSrc = newSrc == null ? string.Empty : newSrc;
+		    
 		    return newSrc;
 		}
 	}
