@@ -64,18 +64,50 @@ namespace Control.Eide
 		}
 		
 		#region IAppEntry implementation
-		public void Init(AppRegistry reg)
+		
+		public void Init(AppRegistry reg) {
+			var projPath = (string)reg[AppRegKeys.EIDE_PROJ];
+			var cdatPath = (string)reg[AppRegKeys.EIDE_RAW_WS];
+			WorkspaceType type = Workspace.CheckWorkspaceType(projPath);
+			
+			string workspace = (string)reg[AppRegKeys.EIDE_WS];
+			bool firstTimeInit = Workspace.GetWorkspace(type).Init(cdatPath, workspace);
+		
+			//2.launch EIDE
+			this.LoadEide(false, workspace);
+			this.EmbedIde();
+			this.WindowsReStyle();
+			System.Diagnostics.Debug.WriteLine(string.Format("[EIDE] pid={0} Load + Enbed + ReStyle done.",pid));
+
+			
+			//3.import project to EIDE
+			if (firstTimeInit) {
+				IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];
+				var projName = (string)reg[AppRegKeys.EIDE_PROJ];
+				string response = client.SendToRemoteSync(CMD_ADDPROJ+projName, ENDPOINT_ID);
+				
+				var eideResponse = EideResponse.Parse(response);
+				if (eideResponse.status.Equals(EideResponse.STATUS_OK))
+					System.Diagnostics.Debug.WriteLine("[EIDE] project "+projName+" is sucessfully added into workspace.");
+				else {
+					System.Diagnostics.Debug.WriteLine("[EIDE] add project "+projName+" to workspace is failed - " + response);
+					MessageBox.Show("[EIDE] add project "+projName+" to workspace is failed - " + response);
+				}
+			}
+		}
+		
+		public void Init1(AppRegistry reg)
 		{
 			string raw_ws = (string)reg[AppRegKeys.EIDE_RAW_WS];
 			string workspace = (string)reg[AppRegKeys.EIDE_WS];
-			bool imported = false;
+			bool firstTimeInit = false;
 			
 			//1.prepare workspace if required.			
 			if (!(new DirectoryInfo(workspace).Exists)){
 				//XTendLibs.FolderDelete.DeleteDirectory(workspace);
 				XTendLibs.FolderCopy.DirectoryCopy(raw_ws, workspace, true, null, null);
 			} else {
-				imported = true;
+				firstTimeInit = true;
 			}
 			
 			//2.launch EIDE
@@ -86,7 +118,7 @@ namespace Control.Eide
 
 	
 			//3.import project to EIDE
-			if (!imported) {
+			if (!firstTimeInit) {
 				IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];
 				var projName = (string)reg[AppRegKeys.EIDE_PROJ];
 				string response = client.SendToRemoteSync(CMD_ADDPROJ+projName, ENDPOINT_ID);

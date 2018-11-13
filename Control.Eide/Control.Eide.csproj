@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EideResponse.cs" />
+    <Compile Include="Workspace.cs" />
     <Compile Include="JEide.cs" />
     <Compile Include="JEide.Designer.cs">
       <DependentUpon>JEide.cs</DependentUpon>
