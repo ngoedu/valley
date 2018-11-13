@@ -107,6 +107,8 @@ namespace XCodeRec
 			this.btnPkgPath = new System.Windows.Forms.Button();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.tbSchemaProj = new System.Windows.Forms.TextBox();
+			this.label19 = new System.Windows.Forms.Label();
 			this.tbSchemaLevel = new System.Windows.Forms.TextBox();
 			this.label13 = new System.Windows.Forms.Label();
 			this.tbSchemaMS = new System.Windows.Forms.TextBox();
@@ -159,8 +161,6 @@ namespace XCodeRec
 			this.label14 = new System.Windows.Forms.Label();
 			this.tbPkgInPath = new System.Windows.Forms.TextBox();
 			this.btnMSoutPath = new System.Windows.Forms.Button();
-			this.label19 = new System.Windows.Forms.Label();
-			this.tbSchemaProj = new System.Windows.Forms.TextBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
@@ -188,6 +188,7 @@ namespace XCodeRec
 			this.tbMSSrcPath.Name = "tbMSSrcPath";
 			this.tbMSSrcPath.Size = new System.Drawing.Size(302, 22);
 			this.tbMSSrcPath.TabIndex = 3;
+			this.tbMSSrcPath.Text = "D:\\NGO\\course\\dist\\";
 			// 
 			// btnPath1
 			// 
@@ -228,6 +229,7 @@ namespace XCodeRec
 			this.tbPackOutputFile.Name = "tbPackOutputFile";
 			this.tbPackOutputFile.Size = new System.Drawing.Size(271, 22);
 			this.tbPackOutputFile.TabIndex = 6;
+			this.tbPackOutputFile.Text = "D:\\NGO\\course\\dist\\";
 			// 
 			// btnPkgPath
 			// 
@@ -281,6 +283,21 @@ namespace XCodeRec
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Schema";
 			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// tbSchemaProj
+			// 
+			this.tbSchemaProj.Location = new System.Drawing.Point(88, 184);
+			this.tbSchemaProj.Name = "tbSchemaProj";
+			this.tbSchemaProj.Size = new System.Drawing.Size(200, 22);
+			this.tbSchemaProj.TabIndex = 15;
+			// 
+			// label19
+			// 
+			this.label19.Location = new System.Drawing.Point(8, 184);
+			this.label19.Name = "label19";
+			this.label19.Size = new System.Drawing.Size(72, 23);
+			this.label19.TabIndex = 14;
+			this.label19.Text = "ProjName";
 			// 
 			// tbSchemaLevel
 			// 
@@ -818,6 +835,7 @@ namespace XCodeRec
 			this.tbPkgInPath.Name = "tbPkgInPath";
 			this.tbPkgInPath.Size = new System.Drawing.Size(302, 22);
 			this.tbPkgInPath.TabIndex = 11;
+			this.tbPkgInPath.Text = "D:\\NGO\\course\\dist\\";
 			// 
 			// btnMSoutPath
 			// 
@@ -829,21 +847,6 @@ namespace XCodeRec
 			this.btnMSoutPath.Text = "...";
 			this.btnMSoutPath.UseVisualStyleBackColor = true;
 			this.btnMSoutPath.Click += new System.EventHandler(this.BtnMSoutPathClick);
-			// 
-			// label19
-			// 
-			this.label19.Location = new System.Drawing.Point(8, 184);
-			this.label19.Name = "label19";
-			this.label19.Size = new System.Drawing.Size(72, 23);
-			this.label19.TabIndex = 14;
-			this.label19.Text = "ProjName";
-			// 
-			// tbSchemaProj
-			// 
-			this.tbSchemaProj.Location = new System.Drawing.Point(88, 184);
-			this.tbSchemaProj.Name = "tbSchemaProj";
-			this.tbSchemaProj.Size = new System.Drawing.Size(200, 22);
-			this.tbSchemaProj.TabIndex = 15;
 			// 
 			// MainForm
 			// 

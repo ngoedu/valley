@@ -24,7 +24,7 @@ namespace XCodeRec
 	public partial class MainForm : Form
 	{
 		
-		private static string CodeFolder = @"D:\NGO\client\cdat\sweb-a01";//@"c:\ngo\client\cdat\sweb-a01";
+		private static string DefaultCodeFolder = @"D:\NGO\course\dist\";//@"c:\ngo\client\cdat\sweb-a01";
 		public MainForm()
 		{
 			//
@@ -63,7 +63,7 @@ namespace XCodeRec
 		{
 			using(var fbd = new FolderBrowserDialog())
 			{
-				fbd.SelectedPath = CodeFolder;
+				fbd.SelectedPath = DefaultCodeFolder;
 			    DialogResult result = fbd.ShowDialog();
 			
 			    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
@@ -76,7 +76,7 @@ namespace XCodeRec
 		{
 			using(var fbd = new FolderBrowserDialog())
 			{
-				fbd.SelectedPath = CodeFolder;
+				fbd.SelectedPath = DefaultCodeFolder;
 			    DialogResult result = fbd.ShowDialog();
 			
 			    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
@@ -90,7 +90,7 @@ namespace XCodeRec
 		{
 			using(var fbd = new FolderBrowserDialog())
 			{
-				fbd.SelectedPath = CodeFolder;
+				fbd.SelectedPath = DefaultCodeFolder;
 			    DialogResult result = fbd.ShowDialog();
 			
 			    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
@@ -231,7 +231,7 @@ namespace XCodeRec
 				return;
 			}
 			
-			var directories = Directory.GetDirectories(tbPkgInPath.Text);
+			var directories = Directory.GetDirectories(tbPkgInPath.Text+@"\ms");
 			var maxDir = directories.Length	 ==0 ? "0" : directories.Last();
 			string[] sd = maxDir.Split('\\');
 			maxDir = sd[sd.Length - 1];
