@@ -116,6 +116,8 @@ namespace App.Views
 		{
 			if (!isButtonTriggered) {
 				isButtonTriggered = true;
+				this.btnGoBack.Enabled = false;
+				this.btnStart.Enabled = false;
 	       	 	this.DialogResult = DialogResult.OK;
 	        	this.Tag = jsCallback.CourseId;
 	        	this.browser.Dispose();
@@ -178,7 +180,8 @@ namespace App.Views
       		System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
 		
       		isDownloadInProgress = false;
-      		MessageBox.Show("课程已经下载完成,按【开始】播放课程","提示", MessageBoxButtons.OK, MessageBoxIcon.Information); 
+      		this.btnGoBack.Enabled = true
+      		;//MessageBox.Show("课程已经下载完成,按【开始】播放课程","提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
       		
       		
       		showCoursePreview(jsCallback.CourseId);
@@ -186,6 +189,7 @@ namespace App.Views
 		
 		void BtnDownloadClick(object sender, EventArgs e)
 		{
+			this.btnGoBack.Enabled = false;
 			StartDownload(jsCallback.CourseId);
 		}
 	}
