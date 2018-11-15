@@ -237,8 +237,8 @@ namespace XCodeRec
 			maxDir = sd[sd.Length - 1];
 			int curr = Int16.Parse(maxDir) + 1;
 			
-			string[] ignore1 = {".project", ".classpath"};
-			string[] ignore2 = {"classes",  ".settings"};
+			string[] ignore1 = {".project", ".classpath", ".pydevproject"}; //for file ignore
+			string[] ignore2 = {"classes",  ".settings"}; //for folder ignore
 			XTendLibs.FolderCopy.DirectoryCopy(tbMSSrcPath.Text,tbPkgInPath.Text+ @"\ms\"+curr, true, ignore1, ignore2);
 			MessageBox.Show("MS folder copy done!");
 		}

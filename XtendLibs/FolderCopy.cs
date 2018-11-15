@@ -17,6 +17,14 @@ namespace XTendLibs
 	/// </summary>
 	public class FolderCopy
 	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="sourceDirName"></param>
+		/// <param name="destDirName"></param>
+		/// <param name="copySubDirs"></param>
+		/// <param name="ignore1"> file name suffix ignore list</param>
+		/// <param name="ignore2">folder name ignore list</param>
 		public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs, string[] ignore1, string[] ignore2)
 	    {
 	      DirectoryInfo dir = new DirectoryInfo(sourceDirName);
