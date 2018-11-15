@@ -76,6 +76,7 @@
     <Compile Include="Dpi\DPI.cs" />
     <Compile Include="Dpi\DpiUtil.cs" />
     <Compile Include="Hook\SystemHotKey.cs" />
+    <Compile Include="Java\JvmUtil.cs" />
     <Compile Include="Md5\MD5Util.cs" />
     <Compile Include="Net\IClient.cs" />
     <Compile Include="Proc\IPidCallback.cs" />
@@ -117,6 +118,7 @@
     <Folder Include="Diag" />
     <Folder Include="Dpi" />
     <Folder Include="Md5" />
+    <Folder Include="Java" />
     <Folder Include="Tasks" />
     <Folder Include="Win32" />
     <Folder Include="Secure" />

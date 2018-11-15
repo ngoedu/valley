@@ -8,6 +8,7 @@
  */
 using System;
 using System.IO;
+using System.Windows.Forms;
 using App.Common;
 
 namespace Control.Eide
@@ -86,9 +87,19 @@ namespace Control.Eide
 	internal class PythonWorkspace : Workspace {
 		
 		private const string ngo_placeholder = "___NGO_PYTHON_PLACHOLDER___";
-		private const string metaFileModulesKeys = @"\.metadata\.plugins\org.python.pydev\v1_ergtpsw9w30j9cfpojzkryfd\modulesKeys";
-		private const string metaFilePythonPath = @"\.metadata\.plugins\org.python.pydev\v1_ergtpsw9w30j9cfpojzkryfd\pythonpath";
+		private const string interpreterPath1 = @"\.metadata\.plugins\org.python.pydev\v1_ergtpsw9w30j9cfpojzkryfd\";
+		private const string interpreterPath2 = @"\.metadata\.plugins\com.python.pydev.analysis\python_v1_ergtpsw9w30j9cfpojzkryfd\";
+		private const string prefPath = @"\.metadata\.plugins\org.eclipse.core.runtime\.settings\org.python.pydev.prefs";
+		private const string metaFileModulesKeys = @"modulesKeys";
+		private const string metaFilePythonPath = @"pythonpath";
+		private const string metaAnalysis = @"python.pydevsysteminfo";
 		
+		/// <summary>
+		/// http://www.pydev.org/manual_101_interpreter.html
+		/// </summary>
+		/// <param name="cdatPath"></param>
+		/// <param name="wsPath"></param>
+		/// <returns></returns>
 		public override bool Init(string cdatPath,string wsPath) {
 			bool firstTimeInit = false;
 			//1.prepare workspace if required.
@@ -97,16 +108,38 @@ namespace Control.Eide
 				XTendLibs.FolderCopy.DirectoryCopy(cdatPath +@"\"+ RawWSFolderName(), wsPath, true, null, null);
 				firstTimeInit = true;
 			
-				//2.make config change for pydev if required.			
-				string textModuleKey = File.ReadAllText(wsPath+metaFileModulesKeys);
-				textModuleKey = textModuleKey.Replace(ngo_placeholder, CodeBase.GetCodePath());
-				File.WriteAllText(wsPath+metaFileModulesKeys, textModuleKey);
+				string codePath = CodeBase.GetCodePath();
 				
-				string pythonPath = File.ReadAllText(wsPath+metaFilePythonPath);
-				pythonPath = pythonPath.Replace(ngo_placeholder, CodeBase.GetCodePath());
-				File.WriteAllText(wsPath+metaFilePythonPath, pythonPath);
+				//2. remane workspace
+				var interpreterName = new App.Common.Java.JvmUtil().Execute(codePath+@"\jre\jvmutil\ngoutil.jar", codePath+@"\python\python.exe");
+				string newFolder1 = interpreterPath1.Replace("ergtpsw9w30j9cfpojzkryfd",interpreterName);
+				string newFolder2 = interpreterPath2.Replace("ergtpsw9w30j9cfpojzkryfd",interpreterName);
+				
+				Directory.Move(wsPath+interpreterPath1, wsPath+newFolder1);
+				Directory.Move(wsPath+interpreterPath2, wsPath+newFolder2);
+				
+				//3.make config change for pydev if required.
+				string textModuleKey = File.ReadAllText(wsPath+newFolder1+metaFileModulesKeys);
+				textModuleKey = textModuleKey.Replace(ngo_placeholder, codePath+@"\python");
+				File.WriteAllText(wsPath+newFolder1+metaFileModulesKeys, textModuleKey);
+				
+				string pythonPath = File.ReadAllText(wsPath+newFolder1+metaFilePythonPath);
+				pythonPath = pythonPath.Replace(ngo_placeholder, codePath);
+				File.WriteAllText(wsPath+newFolder1+metaFilePythonPath, pythonPath);
+				
+				string analysis = File.ReadAllText(wsPath+newFolder2+metaAnalysis);
+				analysis = analysis.Replace(ngo_placeholder, codePath+@"\python\");
+				File.WriteAllText(wsPath+newFolder2+metaAnalysis, analysis);
+				
+				string prefText = File.ReadAllText(wsPath+prefPath);
+				string pfefCodePath = codePath.Replace(@"\",@"\\");
+				prefText = prefText.Replace(ngo_placeholder, pfefCodePath);
+				File.WriteAllText(wsPath+prefPath,prefText);
+				
+				
+				//MessageBox.Show("3 placeholders replacement done, code path="+codePath);
+				
 			}
-			
 			return firstTimeInit;
 		}
 		

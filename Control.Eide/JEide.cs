@@ -70,7 +70,11 @@ namespace Control.Eide
 			var cdatPath = (string)reg[AppRegKeys.EIDE_RAW_WS];
 			WorkspaceType type = Workspace.CheckWorkspaceType(projPath);
 			
+				
 			string workspace = (string)reg[AppRegKeys.EIDE_WS];
+		
+//MessageBox.Show("projPath="+projPath+",cdatPath="+cdatPath+",workspace="+workspace);
+			
 			bool firstTimeInit = Workspace.GetWorkspace(type).Init(cdatPath, workspace);
 		
 			//2.launch EIDE

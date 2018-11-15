@@ -23,6 +23,9 @@ namespace AppTestForms
 		private System.Windows.Forms.Button button7;
 		private System.Windows.Forms.Button button8;
 		private System.Windows.Forms.Button button9;
+		private System.Windows.Forms.Button btnJvmUtil;
+		private System.Windows.Forms.TextBox tbJar;
+		private System.Windows.Forms.TextBox tbParameter;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -54,6 +57,9 @@ namespace AppTestForms
 			this.button7 = new System.Windows.Forms.Button();
 			this.button8 = new System.Windows.Forms.Button();
 			this.button9 = new System.Windows.Forms.Button();
+			this.btnJvmUtil = new System.Windows.Forms.Button();
+			this.tbJar = new System.Windows.Forms.TextBox();
+			this.tbParameter = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
 			// 
 			// button1
@@ -146,11 +152,38 @@ namespace AppTestForms
 			this.button9.UseVisualStyleBackColor = true;
 			this.button9.Click += new System.EventHandler(this.Button9Click);
 			// 
+			// btnJvmUtil
+			// 
+			this.btnJvmUtil.Location = new System.Drawing.Point(32, 376);
+			this.btnJvmUtil.Name = "btnJvmUtil";
+			this.btnJvmUtil.Size = new System.Drawing.Size(75, 23);
+			this.btnJvmUtil.TabIndex = 9;
+			this.btnJvmUtil.Text = "JvmUtil";
+			this.btnJvmUtil.UseVisualStyleBackColor = true;
+			this.btnJvmUtil.Click += new System.EventHandler(this.BtnJvmUtilClick);
+			// 
+			// tbJar
+			// 
+			this.tbJar.Location = new System.Drawing.Point(112, 376);
+			this.tbJar.Name = "tbJar";
+			this.tbJar.Size = new System.Drawing.Size(96, 21);
+			this.tbJar.TabIndex = 10;
+			// 
+			// tbParameter
+			// 
+			this.tbParameter.Location = new System.Drawing.Point(224, 376);
+			this.tbParameter.Name = "tbParameter";
+			this.tbParameter.Size = new System.Drawing.Size(264, 21);
+			this.tbParameter.TabIndex = 11;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(284, 426);
+			this.ClientSize = new System.Drawing.Size(502, 583);
+			this.Controls.Add(this.tbParameter);
+			this.Controls.Add(this.tbJar);
+			this.Controls.Add(this.btnJvmUtil);
 			this.Controls.Add(this.button9);
 			this.Controls.Add(this.button8);
 			this.Controls.Add(this.button7);
@@ -163,6 +196,7 @@ namespace AppTestForms
 			this.Name = "MainForm";
 			this.Text = "AppTestForms";
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 	}

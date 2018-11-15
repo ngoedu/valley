@@ -78,5 +78,10 @@ namespace AppTestForms
 			BridgeForm1 form = new BridgeForm1();
 			form.Show();
 		}
+		void BtnJvmUtilClick(object sender, EventArgs e)
+		{
+			var result = new App.Common.Java.JvmUtil().Execute(tbJar.Text, tbParameter.Text);
+			MessageBox.Show(result);
+		}
 	}
 }
