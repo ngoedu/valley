@@ -111,25 +111,25 @@ namespace Control.Eide
 				string codePath = CodeBase.GetCodePath();
 				
 				//2. remane workspace
-				var interpreterName = new App.Common.Java.JvmUtil().Execute(codePath+@"\jre\jvmutil\ngoutil.jar", codePath+@"\python\python.exe");
-				string newFolder1 = interpreterPath1.Replace("ergtpsw9w30j9cfpojzkryfd",interpreterName);
-				string newFolder2 = interpreterPath2.Replace("ergtpsw9w30j9cfpojzkryfd",interpreterName);
+				//var interpreterName = new App.Common.Java.JvmUtil().Execute(codePath+@"\jre\jvmutil\ngoutil.jar", codePath+@"\python\python.exe");
+				//string newFolder1 = interpreterPath1.Replace("ergtpsw9w30j9cfpojzkryfd",interpreterName);
+				//string newFolder2 = interpreterPath2.Replace("ergtpsw9w30j9cfpojzkryfd",interpreterName);
 				
-				Directory.Move(wsPath+interpreterPath1, wsPath+newFolder1);
-				Directory.Move(wsPath+interpreterPath2, wsPath+newFolder2);
+				//Directory.Move(wsPath+interpreterPath1, wsPath+newFolder1);
+				//Directory.Move(wsPath+interpreterPath2, wsPath+newFolder2);
 				
 				//3.make config change for pydev if required.
-				string textModuleKey = File.ReadAllText(wsPath+newFolder1+metaFileModulesKeys);
-				textModuleKey = textModuleKey.Replace(ngo_placeholder, codePath+@"\python");
-				File.WriteAllText(wsPath+newFolder1+metaFileModulesKeys, textModuleKey);
+				//string textModuleKey = File.ReadAllText(wsPath+newFolder1+metaFileModulesKeys);
+				//textModuleKey = textModuleKey.Replace(ngo_placeholder, codePath+@"\python");
+				//File.WriteAllText(wsPath+newFolder1+metaFileModulesKeys, textModuleKey);
 				
-				string pythonPath = File.ReadAllText(wsPath+newFolder1+metaFilePythonPath);
-				pythonPath = pythonPath.Replace(ngo_placeholder, codePath);
-				File.WriteAllText(wsPath+newFolder1+metaFilePythonPath, pythonPath);
+				//string pythonPath = File.ReadAllText(wsPath+newFolder1+metaFilePythonPath);
+				//pythonPath = pythonPath.Replace(ngo_placeholder, codePath);
+				//File.WriteAllText(wsPath+newFolder1+metaFilePythonPath, pythonPath);
 				
-				string analysis = File.ReadAllText(wsPath+newFolder2+metaAnalysis);
-				analysis = analysis.Replace(ngo_placeholder, codePath+@"\python\");
-				File.WriteAllText(wsPath+newFolder2+metaAnalysis, analysis);
+				//string analysis = File.ReadAllText(wsPath+newFolder2+metaAnalysis);
+				//analysis = analysis.Replace(ngo_placeholder, codePath+@"\python\");
+				//File.WriteAllText(wsPath+newFolder2+metaAnalysis, analysis);
 				
 				string prefText = File.ReadAllText(wsPath+prefPath);
 				string pfefCodePath = codePath.Replace(@"\",@"\\");
