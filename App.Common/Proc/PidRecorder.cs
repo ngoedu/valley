@@ -99,7 +99,7 @@ namespace App.Common.Proc
 					if (p != null && !p.HasExited && IsExecutable(ProcessExecutablePath(p))) {
 						p.Kill();
 						p.WaitForExit(); // possibly with a timeout
-						Diagnostics.Debug(string.Format("[Proc] pid={0} killed", pid));
+						Diagnostics.Debug(string.Format("[Proc] pid {0} killed", pid));
 					}
 				}
 			} catch (Win32Exception winException) {
@@ -118,7 +118,7 @@ namespace App.Common.Proc
 		public void CleanOldProcess()
 		{
 			foreach(var entry in OLD_PIDS) {
-				Diagnostics.Debug(string.Format("Stale pid={0} found", Int16.Parse(entry.Value)));
+				Diagnostics.Debug(string.Format(">>> stale pid {0} found", Int16.Parse(entry.Value)));
 				KillProcessById(entry.Key, Int16.Parse(entry.Value));
 			}
 		}
