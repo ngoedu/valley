@@ -255,7 +255,7 @@ namespace App.Mediator
 		}
 		public void MessageReceived(string message)
 		{
-			MessageBox.Show("App.Mediator received:"+message);
+			//MessageBox.Show("App.Mediator received:"+message);
 		}
 		#endregion aether endpoint callback
 

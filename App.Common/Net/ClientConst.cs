@@ -20,8 +20,8 @@ namespace App.Common.Net
 		public const int PUBLIC_PAD_ID = 1;
 		public const int PUBLIC_EIDE_ID = 9;
 		
-		public const int NAT_GUIDER_ID = 11;
-		public const int NAT_EIDECLIENT_ID = 12;
+		public const int NAT_GUIDER_ID = 12;
+		public const int NAT_EIDECLIENT_ID = 11;
 		public const int NAT_SWEB_ID = 15;
 		
 	}
