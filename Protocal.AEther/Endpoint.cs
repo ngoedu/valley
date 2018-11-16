@@ -43,8 +43,6 @@ namespace NGO.Protocol.AEther
 	    // SwingConsole.ID = 12
 	    // Pad.ID = 8;
 	    // Bridge = 0;
-		public static readonly int ID = 1;
-		public static readonly int BRIDGE_ID = 0;
 		
 		private IEndpointCallback callback;
 		private Socket client;
@@ -170,7 +168,7 @@ namespace NGO.Protocol.AEther
 				connectDone.Set();
 
 				//send first REG to bridge
-				var pack = PackType.REG.ToPackage(Endpoint.BRIDGE_ID,string.Empty);
+				var pack = PackType.REG.ToPackage(ClientConst.BRIDGE_ID,string.Empty);
 				Send(client, pack );
 				DebugDump(string.Format("<REG> sends to bridge - dest={0}", pack.Destination));
 			} catch (Exception e) {  
@@ -239,10 +237,10 @@ namespace NGO.Protocol.AEther
 					break;
 	        	}
 	        	case 3 : { //PackType.KA
-	        		if (package.Destination == Endpoint.ID)
+	        		if (package.Destination == ClientConst.PUBLIC_PAD_ID)
 		        	{
 	        			DebugDump(string.Format("<KA> received from bridge - src={0}", package.Source));
-	        			var pack = PackType.KAA.ToPackage(Endpoint.BRIDGE_ID,string.Empty);
+	        			var pack = PackType.KAA.ToPackage(ClientConst.BRIDGE_ID,string.Empty);
 		        		Send(client, pack);
 		        		DebugDump(string.Format("<KAA> sends to bridge - dest={0}", pack.Destination));
 		        	}

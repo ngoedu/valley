@@ -78,6 +78,7 @@
     <Compile Include="Hook\SystemHotKey.cs" />
     <Compile Include="Java\JvmUtil.cs" />
     <Compile Include="Md5\MD5Util.cs" />
+    <Compile Include="Net\ClientConst.cs" />
     <Compile Include="Net\IClient.cs" />
     <Compile Include="Proc\IPidCallback.cs" />
     <Compile Include="Proc\IPidCleaner.cs" />

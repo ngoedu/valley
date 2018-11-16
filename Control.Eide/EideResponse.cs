@@ -28,6 +28,8 @@ namespace Control.Eide
 		[XmlElement]
 		public string status {set; get;}
 		[XmlElement]
+		public int natid {set; get;}
+		[XmlElement]
 		public string message {set; get;}
 		
 		public EideResponse()

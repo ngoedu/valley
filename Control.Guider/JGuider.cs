@@ -144,7 +144,7 @@ namespace NGO.Pad.Guider
 			string response = eideClient.SendToRemoteSync(mileStoneCmd, JEide.ENDPOINT_ID);
 			
 			var eideResponse = EideResponse.Parse(response);
-			if (eideResponse.status.Equals(EideResponse.STATUS_OK))
+			if (eideResponse.status.Equals(EideResponse.STATUS_OK) && eideResponse.natid == ClientConst.NAT_GUIDER_ID)
 				System.Diagnostics.Debug.WriteLine("[EIDE] rev"+index+" is sucessfully synced to eide workspace.");
 			else {
 				System.Diagnostics.Debug.WriteLine("[EIDE] rev"+index+" sync failed - " + response);

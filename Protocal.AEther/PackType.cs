@@ -7,6 +7,7 @@
  * 
  */
 using System;
+using App.Common.Net;
 
 namespace NGO.Protocol.AEther
 {
@@ -43,15 +44,15 @@ namespace NGO.Protocol.AEther
 			switch (this.num)
 			{
 				case 1: //REG endpoint
-					return EtherPack.ToPackage(Endpoint.ID, Endpoint.BRIDGE_ID, 1,  string.Empty);		
+					return EtherPack.ToPackage(ClientConst.PUBLIC_PAD_ID, ClientConst.BRIDGE_ID, 1,  string.Empty);		
 				case 3: //KA bridge
-					return EtherPack.ToPackage(Endpoint.ID, Endpoint.BRIDGE_ID, 3,  string.Empty);
+					return EtherPack.ToPackage(ClientConst.PUBLIC_PAD_ID, ClientConst.BRIDGE_ID, 3,  string.Empty);
 				case 4: //KAA endpoint
-					return EtherPack.ToPackage(Endpoint.ID, Endpoint.BRIDGE_ID, 4,  string.Empty);
+					return EtherPack.ToPackage(ClientConst.PUBLIC_PAD_ID, ClientConst.BRIDGE_ID, 4,  string.Empty);
 				case 5: //REGA bridge
-					return EtherPack.ToPackage(Endpoint.ID, Endpoint.BRIDGE_ID, 5,  string.Empty);
+					return EtherPack.ToPackage(ClientConst.PUBLIC_PAD_ID, ClientConst.BRIDGE_ID, 5,  string.Empty);
 				case 127: //DAT
-					return EtherPack.ToPackage(Endpoint.ID, dest, 127,  message);
+					return EtherPack.ToPackage(ClientConst.PUBLIC_PAD_ID, dest, 127,  message);
 				}
 			return null;
 		}

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using App.Common.Net;
 using NGO.Protocol.AEther;
 
 namespace AppTestForms
@@ -31,7 +32,7 @@ namespace AppTestForms
 			//
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
-			this.Text += " Endpoint ID="+Endpoint.ID;
+			this.Text += " Endpoint ID="+ClientConst.PUBLIC_PAD_ID;
 			client = new Endpoint(this);
 			
 		}
