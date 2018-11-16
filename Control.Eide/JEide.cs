@@ -81,7 +81,7 @@ namespace Control.Eide
 			this.LoadEide(false, workspace);
 			this.EmbedIde();
 			this.WindowsReStyle();
-			System.Diagnostics.Debug.WriteLine(string.Format("[EIDE] pid={0} Load + Enbed + ReStyle done.",pid));
+			System.Diagnostics.Debug.WriteLine(string.Format("[EIDE] {0} Load+Enbed+ReStyle done.",pid));
 
 			
 			//3.import project to EIDE
@@ -237,7 +237,7 @@ namespace Control.Eide
 					embedHandle = theprocess.MainWindowHandle;
 					var resul1 = Win32Api.SetParent(embedHandle, this.Handle);
 					int errCode = Marshal.GetLastWin32Error();
-					System.Diagnostics.Debug.WriteLine("[EIDE] embeding result - " +GetSysErrMsg(errCode));
+					//System.Diagnostics.Debug.WriteLine("[EIDE] embeding result - " +GetSysErrMsg(errCode));
 					break;
 				}
 			}
