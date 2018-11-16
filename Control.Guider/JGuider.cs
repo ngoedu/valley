@@ -122,7 +122,7 @@ namespace NGO.Pad.Guider
 				
 				//TODO: create diff and render in JEditor
 				if (file.IsPatch()) {
-		   			System.Diagnostics.Debug.WriteLine("MarkupText for file={0}", file.Name);
+		   			//System.Diagnostics.Debug.WriteLine("MarkupText for file={0}", file.Name);
 		   			editor.MarkupText(file.Diff);
 				}
 				
