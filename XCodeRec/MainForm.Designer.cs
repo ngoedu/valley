@@ -77,6 +77,8 @@ namespace XCodeRec
 		private System.Windows.Forms.Button btnBuildVideos;
 		private System.Windows.Forms.TextBox tbSchemaProj;
 		private System.Windows.Forms.Label label19;
+		private System.Windows.Forms.TextBox tbSchemaType;
+		private System.Windows.Forms.Label label20;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -107,6 +109,8 @@ namespace XCodeRec
 			this.btnPkgPath = new System.Windows.Forms.Button();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.tbSchemaType = new System.Windows.Forms.TextBox();
+			this.label20 = new System.Windows.Forms.Label();
 			this.tbSchemaProj = new System.Windows.Forms.TextBox();
 			this.label19 = new System.Windows.Forms.Label();
 			this.tbSchemaLevel = new System.Windows.Forms.TextBox();
@@ -259,6 +263,8 @@ namespace XCodeRec
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.tbSchemaType);
+			this.tabPage1.Controls.Add(this.label20);
 			this.tabPage1.Controls.Add(this.tbSchemaProj);
 			this.tabPage1.Controls.Add(this.label19);
 			this.tabPage1.Controls.Add(this.tbSchemaLevel);
@@ -283,6 +289,25 @@ namespace XCodeRec
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Schema";
 			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// tbSchemaType
+			// 
+			this.tbSchemaType.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.tbSchemaType.Location = new System.Drawing.Point(88, 280);
+			this.tbSchemaType.Margin = new System.Windows.Forms.Padding(2);
+			this.tbSchemaType.Name = "tbSchemaType";
+			this.tbSchemaType.Size = new System.Drawing.Size(140, 26);
+			this.tbSchemaType.TabIndex = 17;
+			// 
+			// label20
+			// 
+			this.label20.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label20.Location = new System.Drawing.Point(8, 280);
+			this.label20.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(75, 18);
+			this.label20.TabIndex = 16;
+			this.label20.Text = "Type";
 			// 
 			// tbSchemaProj
 			// 

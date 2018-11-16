@@ -23,6 +23,13 @@ namespace NGO.Train.Entity
 		public int Level {set; get;}
 		public string Workspace {set; get;}
 		public string ProjName {set; get;}
+		/// <summary>
+		/// Catagory can be:
+		/// 1. web
+		/// 2. java
+		/// 3. python
+		/// </summary>
+		public string Category {set; get;}
 		
 		public Schema()
 		{

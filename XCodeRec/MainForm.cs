@@ -146,6 +146,7 @@ namespace XCodeRec
 			this.tbSchemaSess.Text = course.Schema.Sessions.ToString();
 			this.tbSchemaMS.Text = course.Schema.Milestones.ToString();
 			this.tbSchemaLevel.Text = course.Schema.Level.ToString();
+			this.tbSchemaType.Text = course.Schema.Category.ToString();
 			
 			//this.clbApp.Items
 			for (int i = 0; i < clbApp.Items.Count; i++)
@@ -386,6 +387,7 @@ namespace XCodeRec
 			schema.ProjName = this.tbSchemaProj.Text;
 			schema.Milestones = Int16.Parse(tbSchemaMS.Text);
 			schema.Level = Int16.Parse(tbSchemaLevel.Text);
+			schema.Category = tbSchemaType.Text;
 			
 			pkg.Schema = schema;
 			
