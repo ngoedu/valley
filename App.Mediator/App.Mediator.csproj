@@ -40,6 +40,9 @@
     <Reference Include="CefSharp.WinForms">
       <HintPath>..\App.Dashboard\packages\CefSharp.WinForms.49.0.0\CefSharp\x86\CefSharp.WinForms.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\library\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>

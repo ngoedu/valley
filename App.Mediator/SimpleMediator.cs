@@ -28,6 +28,7 @@ using Control.Profile;
 using Control.Toolbar;
 using NGO.Protocol.AEther;
 using NGO.Train;
+using log4net;
 
 
 namespace App.Mediator
@@ -53,8 +54,11 @@ namespace App.Mediator
 		private AetherBridge aetherBridge;		
 		private Endpoint aetherClient;
 		
+		private static readonly ILog logger = LogManager.GetLogger(typeof(SimpleMediator));  
+
 		public SimpleMediator(Form mf)
 		{
+			logger.Debug("SimpleMediator cotr");
 			var settings = new CefSettings
             {
                	//By default CefSharp will use an in-memory cache, you need to specify a Cache Folder to persist data
@@ -97,6 +101,7 @@ namespace App.Mediator
 		}
 		
 		private void LoadCoursePlayForm(string cid) {
+			logger.Debug("LoadCoursePlayForm cid="+cid);
 			
 			//1.load course content, prepare registry
 			var courseName = cid;
@@ -120,13 +125,13 @@ namespace App.Mediator
 			foreach(var app in appContexts) {
 				app.AppControl.Init(appRegistry);		
 			}
-			Diagnostics.Debug("[app controls] initiated.");
-
+			logger.Debug("app controls inited");
+			
 
 			//3. build app tiles
 	    	tileManager.BuildAppTiles(appContexts);
-			Diagnostics.Debug("[app tiles] initiated.");
-
+			logger.Debug("app tiles inited");
+			
 	    				
 			//4.init profile
 			jProfile.SetName("070718A001");
@@ -135,6 +140,7 @@ namespace App.Mediator
 		}
 		
 		private void ReLoadCoursePlayForm(string cid){
+			logger.Debug("ReLoadCoursePlayForm cid="+cid);
 			//1.load course content, prepare registry
 			var courseName = cid;
 			var cpath = CodeBase.GetCoursePackPath();
@@ -155,9 +161,12 @@ namespace App.Mediator
 			foreach(var app in appContexts) {
 				app.AppControl.Reload(appRegistry);		
 			}
+			logger.Debug("app controls reloaded");
+			
 			
 			//4.rebuid tiles
 			tileManager.RebuildAppTiles(appContexts);
+			logger.Debug("app tiles reloaded");
 			
 		}
 		

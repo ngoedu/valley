@@ -19,6 +19,7 @@ using App.Common.Proc;
 using App.Common.Reg;
 using App.Common.Signal;
 using App.Common.Win32;
+using log4net;
 
 namespace Control.Eide
 {
@@ -42,7 +43,8 @@ namespace Control.Eide
 		private IPidCallback pidCallback;
 		private string eideTitle = "Eclipse";
 		
-		
+		private static readonly ILog logger = LogManager.GetLogger(typeof(JEide));  
+
 	
 		/// <summary>
 		/// initial status = 0
@@ -66,32 +68,36 @@ namespace Control.Eide
 		#region IAppEntry implementation
 		
 		public void Init(AppRegistry reg) {
+			logger.Debug("Init");
 			var projPath = (string)reg[AppRegKeys.EIDE_PROJ];
 			var cdatPath = (string)reg[AppRegKeys.EIDE_CDAT];
 			
 			WorkspaceType type = Workspace.CheckWorkspaceType(projPath);
 			bool firstTimeInit = Workspace.GetWorkspace(type).Init(cdatPath);
-		
+			logger.Info(firstTimeInit ? "workspace Init done" : "workspace loaded");
+			
 			var workspace = cdatPath+Workspace.GetWorkspace(type).WorkspaceFolderName();
 			                       
 			//2.launch EIDE
 			this.LoadEide(false, workspace);
+			logger.Debug("LoadEide done");
 			this.EmbedIde();
+			logger.Debug("EmbedIde done");
 			this.WindowsReStyle();
-			System.Diagnostics.Debug.WriteLine(string.Format("[EIDE] {0} Load+Enbed+ReStyle done.",pid));
-
+			logger.Debug("Restyle done");
+			
 			
 			//3.import project to EIDE
 			IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];
 			string response = client.SendToRemoteSync(CMD_ADDPROJ+projPath, ENDPOINT_ID);
+			logger.Debug("AddProj cmd sent to remote peer, response="+response);
 			
 			var eideResponse = EideResponse.Parse(response);
 			if (eideResponse.status.Equals(EideResponse.STATUS_OK) && eideResponse.natid==ClientConst.NAT_EIDECLIENT_ID){
-				System.Diagnostics.Debug.WriteLine("[EIDE] project "+projPath+" is sucessfully added into workspace.");
-				//MessageBox.Show("Projadd done. projPath="+projPath+",cdatPath="+cdatPath+",workspace="+workspace);
+				logger.Debug("project "+projPath+" is sucessfully added into workspace.");
 			}
 			else {
-				System.Diagnostics.Debug.WriteLine("[EIDE] add project "+projPath+" to workspace is failed - " + response);
+				logger.Error("add project "+projPath+" to workspace is failed - " + response);
 				MessageBox.Show("[EIDE] add project "+projPath+" to workspace is failed - " + response);
 			}
 		
@@ -99,6 +105,8 @@ namespace Control.Eide
 		
 		public void Reload(AppRegistry reg)
 		{
+			logger.Info("Reload");
+			
 			var projPath = (string)reg[AppRegKeys.EIDE_PROJ];
 			var cdatPath = (string)reg[AppRegKeys.EIDE_CDAT];
 			
@@ -108,14 +116,14 @@ namespace Control.Eide
 			//3.import project to EIDE
 			IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];
 			string response = client.SendToRemoteSync(CMD_ADDPROJ+projPath, ENDPOINT_ID);
+			logger.Debug("AddProj cmd re-sent to remote peer, response="+response);
 			
 			var eideResponse = EideResponse.Parse(response);
 			if (eideResponse.status.Equals(EideResponse.STATUS_OK) && eideResponse.natid==ClientConst.NAT_EIDECLIENT_ID){
-				System.Diagnostics.Debug.WriteLine("[EIDE] project "+projPath+" is sucessfully reloaded into workspace.");
-				//MessageBox.Show("Projadd done. projPath="+projPath+",cdatPath="+cdatPath+",workspace="+workspace);
+				logger.Debug("project "+projPath+" is sucessfully re-added into workspace.");
 			}
 			else {
-				System.Diagnostics.Debug.WriteLine("[EIDE] reload project "+projPath+" to workspace is failed - " + response);
+				logger.Debug("reload project "+projPath+" to workspace is failed - " + response);
 				MessageBox.Show("[EIDE] reload project "+projPath+" to workspace is failed - " + response);
 			}
 		}
@@ -137,7 +145,7 @@ namespace Control.Eide
 				exitSignal = new WaitSignal();
 				exitSignal.WaitOne();
 				
-				System.Diagnostics.Debug.WriteLine("[EIDE] workspace sucessfully exit.");
+				logger.Info("[EIDE] workspace sucessfully exit.");
 				
 				this.status = AppStatus.Disposed;
 			}
@@ -223,7 +231,7 @@ namespace Control.Eide
 		}
 		
 		private void OnExited(object sender, System.EventArgs e) {
-        	System.Diagnostics.Debug.WriteLine("[EIDE] process Exited");
+        	logger.Info("[EIDE] process Exited");
         	pid = -1;
         	exitSignal.Set();
         }

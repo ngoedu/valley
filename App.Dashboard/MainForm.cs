@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using App.Common.Hook;
 using App.Mediator;
+using log4net;
 
 
 namespace App.Dashboard
@@ -24,12 +25,16 @@ namespace App.Dashboard
 		private readonly IMediator mediator;
 		private SplashForm splash;
 		
+		private static readonly ILog logger = LogManager.GetLogger(typeof(MainForm));  
+
 		public MainForm()
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
+			
+			logger.Info("MainForm init.");
 			
 			//show splash screen
 			splash = new SplashForm();

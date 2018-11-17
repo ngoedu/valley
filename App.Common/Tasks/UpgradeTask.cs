@@ -13,6 +13,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using log4net;
 
 namespace App.Common.Tasks
 {
@@ -23,7 +24,9 @@ namespace App.Common.Tasks
 	{
 		private const string path = "json/cmeta";
 		private const string site = "http://192.168.0.12/scup/";
-		    
+		
+		private static readonly ILog logger = LogManager.GetLogger(typeof(UpgradeTask));  
+
 		public UpgradeTask()
 		{	
 		}
@@ -31,7 +34,7 @@ namespace App.Common.Tasks
 		public void LaunchTask() {
 			var taskForAction = new Task(() =>
             {
-			    //MessageBox.Show("start downloaded ...");
+			    logger.Info("CMETA update task started");
 			    //int radomTimeSlot = new Random().Next(100,200); //TODO: CHANGE IT TO LARGER ONE
 				//Thread.Sleep(radomTimeSlot);
 				DownloadCourseMetaFile();

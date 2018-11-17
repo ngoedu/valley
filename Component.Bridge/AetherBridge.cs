@@ -31,6 +31,8 @@ namespace Component.Bridge
 		private String aetherPath;
 		private WaitSignal externalSignal;
 		
+		private int IDLE = 30;
+		
 		/// <summary>
 		/// initial status = 0
 		/// in shutdown process = 1
@@ -67,7 +69,7 @@ namespace Component.Bridge
 			//* Create your Process
 		    Process process = new Process();
 		    process.StartInfo.FileName = jrePath +@"\bin\java.exe";
-		    var jvmOption = "-Dngo.bridge.host=127.0.0.1 -Dngo.bridge.port="+this.PORT_NO+" -Dfile.encoding=GBK -Dngo.bridge.idle=30";
+		    var jvmOption = "-Dngo.bridge.host=127.0.0.1 -Dngo.bridge.port="+this.PORT_NO+" -Dfile.encoding=GBK -Dngo.bridge.idle="+IDLE;
 		    var classpath = @"-classpath %BRIDGE_HOEM%\aether-bridge-1.1.jar;%BRIDGE_HOEM%\apache-mina.jar;%BRIDGE_HOEM%\slf4j-api-1.7.21.jar;%BRIDGE_HOEM%\aether-common-1.1.jar;%BRIDGE_HOEM%\commons-codec-1.10.jar;%BRIDGE_HOEM%\slf4j-log4j12-1.7.21.jar;%BRIDGE_HOEM%\log4j-1.2.17.jar";
 		    classpath = classpath.Replace("%BRIDGE_HOEM%", aetherPath);
 		    string main = "org.ngo.ether.bridge.Bridge";
