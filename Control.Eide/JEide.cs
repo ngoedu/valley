@@ -67,15 +67,13 @@ namespace Control.Eide
 		
 		public void Init(AppRegistry reg) {
 			var projPath = (string)reg[AppRegKeys.EIDE_PROJ];
-			var cdatPath = (string)reg[AppRegKeys.EIDE_RAW_WS];
+			var cdatPath = (string)reg[AppRegKeys.EIDE_CDAT];
+			
 			WorkspaceType type = Workspace.CheckWorkspaceType(projPath);
-			
-				
-			string workspace = (string)reg[AppRegKeys.EIDE_WS];
+			bool firstTimeInit = Workspace.GetWorkspace(type).Init(cdatPath);
 		
-			
-			bool firstTimeInit = Workspace.GetWorkspace(type).Init(cdatPath, workspace);
-		
+			var workspace = cdatPath+Workspace.GetWorkspace(type).WorkspaceFolderName();
+			                       
 			//2.launch EIDE
 			this.LoadEide(false, workspace);
 			this.EmbedIde();
@@ -84,29 +82,41 @@ namespace Control.Eide
 
 			
 			//3.import project to EIDE
-			if (firstTimeInit) {
-				IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];
-				var projName = (string)reg[AppRegKeys.EIDE_PROJ];
-				string response = client.SendToRemoteSync(CMD_ADDPROJ+projName, ENDPOINT_ID);
-				
-				var eideResponse = EideResponse.Parse(response);
-				if (eideResponse.status.Equals(EideResponse.STATUS_OK) && eideResponse.natid==ClientConst.NAT_EIDECLIENT_ID){
-					System.Diagnostics.Debug.WriteLine("[EIDE] project "+projName+" is sucessfully added into workspace.");
-					//MessageBox.Show("Projadd done. projPath="+projPath+",cdatPath="+cdatPath+",workspace="+workspace);
-				}
-				else {
-					System.Diagnostics.Debug.WriteLine("[EIDE] add project "+projName+" to workspace is failed - " + response);
-					MessageBox.Show("[EIDE] add project "+projName+" to workspace is failed - " + response);
-				}
+			IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];
+			string response = client.SendToRemoteSync(CMD_ADDPROJ+projPath, ENDPOINT_ID);
+			
+			var eideResponse = EideResponse.Parse(response);
+			if (eideResponse.status.Equals(EideResponse.STATUS_OK) && eideResponse.natid==ClientConst.NAT_EIDECLIENT_ID){
+				System.Diagnostics.Debug.WriteLine("[EIDE] project "+projPath+" is sucessfully added into workspace.");
+				//MessageBox.Show("Projadd done. projPath="+projPath+",cdatPath="+cdatPath+",workspace="+workspace);
 			}
+			else {
+				System.Diagnostics.Debug.WriteLine("[EIDE] add project "+projPath+" to workspace is failed - " + response);
+				MessageBox.Show("[EIDE] add project "+projPath+" to workspace is failed - " + response);
+			}
+		
 		}
 		
 		public void Reload(AppRegistry reg)
 		{
-			this.Dispose(reg);
-			if (this.status == AppStatus.Disposed) {
-				this.Init(reg);
-				//MessageBox.Show("re-init pid="+pid);
+			var projPath = (string)reg[AppRegKeys.EIDE_PROJ];
+			var cdatPath = (string)reg[AppRegKeys.EIDE_CDAT];
+			
+			WorkspaceType type = Workspace.CheckWorkspaceType(projPath);
+			var workspace = cdatPath+Workspace.GetWorkspace(type).WorkspaceFolderName();
+			
+			//3.import project to EIDE
+			IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];
+			string response = client.SendToRemoteSync(CMD_ADDPROJ+projPath, ENDPOINT_ID);
+			
+			var eideResponse = EideResponse.Parse(response);
+			if (eideResponse.status.Equals(EideResponse.STATUS_OK) && eideResponse.natid==ClientConst.NAT_EIDECLIENT_ID){
+				System.Diagnostics.Debug.WriteLine("[EIDE] project "+projPath+" is sucessfully reloaded into workspace.");
+				//MessageBox.Show("Projadd done. projPath="+projPath+",cdatPath="+cdatPath+",workspace="+workspace);
+			}
+			else {
+				System.Diagnostics.Debug.WriteLine("[EIDE] reload project "+projPath+" to workspace is failed - " + response);
+				MessageBox.Show("[EIDE] reload project "+projPath+" to workspace is failed - " + response);
 			}
 		}
 

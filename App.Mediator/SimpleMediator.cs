@@ -112,8 +112,7 @@ namespace App.Mediator
 			var milestone = course.GetLatestMileStone();
 			appRegistry.Add(AppRegKeys.VIDEO_LINK, course.GetVideoByID(milestone.LinkID).Content);
 			appRegistry.Add(AppRegKeys.AETHER_CLIENT, aetherClient);
-			appRegistry.Add(AppRegKeys.EIDE_WS, cpath+@"\"+courseName+@"\"+course.Schema.Workspace);
-			appRegistry.Add(AppRegKeys.EIDE_RAW_WS, cpath);
+			appRegistry.Add(AppRegKeys.EIDE_CDAT, cpath);
 			appRegistry.Add(AppRegKeys.EIDE_PROJ, cpath+@"\"+courseName+@"\"+course.Schema.ProjName);
 			
 			//2. prepare app controls
@@ -148,8 +147,7 @@ namespace App.Mediator
 			var milestone = course.GetLatestMileStone();
 			appRegistry[AppRegKeys.VIDEO_LINK]= course.GetVideoByID(milestone.LinkID).Content;
 			appRegistry[AppRegKeys.AETHER_CLIENT]= aetherClient;
-			appRegistry[AppRegKeys.EIDE_WS]= cpath+@"\"+courseName+@"\"+course.Schema.Workspace;
-			appRegistry[AppRegKeys.EIDE_RAW_WS]= cpath;
+			appRegistry[AppRegKeys.EIDE_CDAT]= cpath;
 			appRegistry[AppRegKeys.EIDE_PROJ]= cpath+@"\"+courseName+@"\"+course.Schema.ProjName;
 			
 			//TODO: any change here? 3.reload app control

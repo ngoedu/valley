@@ -17,7 +17,7 @@ namespace App.Common.Reg
 		
 		public static string COURSE_KEY = "COURSE_KEY";
 		public static string VIDEO_LINK = "VIDEO_LINK";
-		public static string EIDE_RAW_WS = "EIDE_RAW_WS";
+		public static string EIDE_CDAT = "EIDE_CDAT";
 		public static string EIDE_WS = "EIDE_WS";
 		public static string EIDE_PROJ = "EIDE_PROJ";
 

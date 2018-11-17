@@ -27,6 +27,7 @@ namespace Control.Eide
 		private static Workspace javaWorkspace = new JavaWorkspace();
 		private static Workspace pythonWorkspace = new PythonWorkspace();
 		private static Workspace sqlWorkspace = new SQLWorkspace();
+		private static Workspace generalWorkspace = new GeneralWorkspace();
 		
 		
 		public static WorkspaceType CheckWorkspaceType(string wspath)
@@ -43,6 +44,9 @@ namespace Control.Eide
 		
 		public static Workspace GetWorkspace(WorkspaceType type)
 		{
+			//TODO: always return general workspace
+			return generalWorkspace;
+			
 			if (type == WorkspaceType.Java) {
 				return javaWorkspace;
 			} else if (type == WorkspaceType.Python) {
@@ -55,16 +59,19 @@ namespace Control.Eide
 		
 		public abstract string RawWSFolderName();
 		
+		public abstract string WorkspaceFolderName();
+		
 		/// <summary>
 		/// workspace init
 		/// </summary>
 		/// <returns>true - first time init, false - NOT first time</returns>
-		public abstract bool Init(string cdatPath, string wsPath);
+		public abstract bool Init(string cdatPath);
 	}
 	
 	internal class JavaWorkspace : Workspace {
-		public override bool Init(string cdatPath, string wsPath) {
+		public override bool Init(string cdatPath) {
 			bool firstTimeInit = false;
+			String wsPath = cdatPath+WorkspaceFolderName();
 			//1.prepare workspace if required.
 			if (!(new DirectoryInfo(wsPath).Exists)){
 				//XTendLibs.FolderDelete.DeleteDirectory(workspace);
@@ -79,9 +86,49 @@ namespace Control.Eide
 		}
 		
 		public override string RawWSFolderName() {
-			return "rws.java";
+			return @"\ws0\java";
 		}
 		
+		public override string WorkspaceFolderName() {
+			return @"\ws.java";
+		}
+		
+	}
+	
+	internal class GeneralWorkspace : Workspace {
+		
+		private const string ngo_placeholder = "___NGO_PYTHON_PLACHOLDER___";
+		private const string prefPath = @"\.metadata\.plugins\org.eclipse.core.runtime\.settings\org.python.pydev.prefs";
+		
+		public override bool Init(string cdatPath) {
+			bool firstTimeInit = false;
+			
+			String wsPath = cdatPath+WorkspaceFolderName();
+			
+			//1.prepare workspace if required.
+			if (!(new DirectoryInfo(wsPath).Exists)){
+				//XTendLibs.FolderDelete.DeleteDirectory(workspace);
+				XTendLibs.FolderCopy.DirectoryCopy(cdatPath +@"\"+ RawWSFolderName(), wsPath, true, null, null);
+				firstTimeInit = true;
+			
+				string codePath = CodeBase.GetCodePath();
+				
+				string prefText = File.ReadAllText(wsPath+prefPath);
+				string pfefCodePath = codePath.Replace(@"\",@"\\");
+				prefText = prefText.Replace(ngo_placeholder, pfefCodePath);
+				File.WriteAllText(wsPath+prefPath,prefText);
+				
+			}
+			return firstTimeInit;
+		}
+		
+		public override string RawWSFolderName() {
+			return @"\ws0\general";
+		}
+		
+		public override string WorkspaceFolderName() {
+			return @"\ws.general";
+		}
 	}
 	
 	internal class PythonWorkspace : Workspace {
@@ -100,8 +147,11 @@ namespace Control.Eide
 		/// <param name="cdatPath"></param>
 		/// <param name="wsPath"></param>
 		/// <returns></returns>
-		public override bool Init(string cdatPath,string wsPath) {
+		public override bool Init(string cdatPath) {
 			bool firstTimeInit = false;
+			
+			String wsPath = cdatPath+WorkspaceFolderName();
+			
 			//1.prepare workspace if required.
 			if (!(new DirectoryInfo(wsPath).Exists)){
 				//XTendLibs.FolderDelete.DeleteDirectory(workspace);
@@ -144,19 +194,26 @@ namespace Control.Eide
 		}
 		
 		public override string RawWSFolderName() {
-			return "rws.python";
+			return @"\ws0\python";
+		}
+		
+		public override string WorkspaceFolderName() {
+			return @"\ws.python";
 		}
 		
 	}
 	
 	internal class SQLWorkspace : Workspace {
-		public override bool Init(string cdatPath,string wsPath) {
+		public override bool Init(string cdatPath) {
 			throw new NotImplementedException();
 		}
 		
 		public override string RawWSFolderName() {
-			return "rws.sql";
+			return @"\ws0\sql";
 		}
 		
+		public override string WorkspaceFolderName() {
+			return @"\ws.sql";
+		}
 	}
 }
