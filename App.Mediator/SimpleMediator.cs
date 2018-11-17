@@ -14,6 +14,7 @@ using System.IO;
 using System.Windows.Forms;
 using App.Common;
 using App.Common.Debug;
+using App.Common.Net;
 using App.Common.Proc;
 using App.Common.Reg;
 using App.Common.Tasks;
@@ -21,6 +22,7 @@ using App.Views;
 using App.Views.Tile;
 using CefSharp;
 using Component.Bridge;
+using Control.Eide;
 using Control.JBrowser;
 using Control.Profile;
 using Control.Toolbar;
@@ -255,7 +257,10 @@ namespace App.Mediator
 		}
 		public void MessageReceived(string message)
 		{
-			//MessageBox.Show("App.Mediator received:"+message);
+			EideResponse response = EideResponse.Parse(message);
+			if (response.natid == ClientConst.NAT_SWEB_ID) {
+				MessageBox.Show("SWEB");
+			}
 		}
 		#endregion aether endpoint callback
 

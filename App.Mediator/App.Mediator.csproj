@@ -72,6 +72,10 @@
       <Project>{9A647F24-F0FC-4294-99CF-38D72B7A6ADB}</Project>
       <Name>Component.Bridge</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Control.Eide\Control.Eide.csproj">
+      <Project>{9588C636-7568-453A-9A1B-299416A1B8DD}</Project>
+      <Name>Control.Eide</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Control.JBrowser\Control.JBrowser.csproj">
       <Project>{57CDD418-D8D1-4B9B-AEF1-36B2A22355AF}</Project>
       <Name>Control.JBrowser</Name>
