@@ -98,11 +98,11 @@ namespace App.Views.Tile
 		public void RebuildAppTiles(System.Collections.Generic.List<AppContext> context)
 		{
 			//clean up tiles
-			for(int i=1; i<SideA1.TILES.Count;i++)
+			for(int i=0; i<SideA1.TILES.Count;i++)
 			{
 				this.mainForm.Controls.Remove(SideA1.TILES[i]);
 			}
-			for(int i=1; i<SideB2.TILES.Count;i++)
+			for(int i=0; i<SideB2.TILES.Count;i++)
 			{
 				this.mainForm.Controls.Remove(SideB2.TILES[i]);
 			}

@@ -73,7 +73,6 @@ namespace Control.Eide
 				
 			string workspace = (string)reg[AppRegKeys.EIDE_WS];
 		
-//MessageBox.Show("projPath="+projPath+",cdatPath="+cdatPath+",workspace="+workspace);
 			
 			bool firstTimeInit = Workspace.GetWorkspace(type).Init(cdatPath, workspace);
 		
@@ -91,8 +90,10 @@ namespace Control.Eide
 				string response = client.SendToRemoteSync(CMD_ADDPROJ+projName, ENDPOINT_ID);
 				
 				var eideResponse = EideResponse.Parse(response);
-				if (eideResponse.status.Equals(EideResponse.STATUS_OK) && eideResponse.natid==ClientConst.NAT_EIDECLIENT_ID)
+				if (eideResponse.status.Equals(EideResponse.STATUS_OK) && eideResponse.natid==ClientConst.NAT_EIDECLIENT_ID){
 					System.Diagnostics.Debug.WriteLine("[EIDE] project "+projName+" is sucessfully added into workspace.");
+					//MessageBox.Show("Projadd done. projPath="+projPath+",cdatPath="+cdatPath+",workspace="+workspace);
+				}
 				else {
 					System.Diagnostics.Debug.WriteLine("[EIDE] add project "+projName+" to workspace is failed - " + response);
 					MessageBox.Show("[EIDE] add project "+projName+" to workspace is failed - " + response);
