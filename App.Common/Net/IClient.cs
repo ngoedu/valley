@@ -19,5 +19,7 @@ namespace App.Common.Net
 	{
 		void SendToRemote(string message, int target);
 		string SendToRemoteSync(string message, int target);
+		
+		int RegistDataReceiver(IDatReceiver receiver);
 	}
 }

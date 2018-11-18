@@ -73,6 +73,10 @@
       <Project>{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}</Project>
       <Name>App.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Protocal.AEther\Protocal.AEther.csproj">
+      <Project>{AC9264E3-925E-4090-877E-457A45A10456}</Project>
+      <Name>Protocal.AEther</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XtendLibs\XtendLibs.csproj">
       <Project>{24AE7A28-A447-4973-9E75-24C8A4E607CC}</Project>
       <Name>XTendLibs</Name>

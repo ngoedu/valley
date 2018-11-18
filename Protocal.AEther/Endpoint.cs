@@ -7,12 +7,14 @@
  * 
  */
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using App.Common.Net;
 using App.Common.Signal;
+using log4net;
 
 
 namespace NGO.Protocol.AEther
@@ -54,7 +56,12 @@ namespace NGO.Protocol.AEther
 		ManualResetEvent sendDone = new ManualResetEvent(false);
 		readonly ManualResetEvent receiveDone = new ManualResetEvent(false);
 		
-		private WaitSignal externalSignal;
+		private WaitSignal connectSyncSignal;
+		private WaitSignal sentSignal;
+		
+		private static readonly ILog logger = LogManager.GetLogger(typeof(Endpoint));  
+
+		
 		public Endpoint(IEndpointCallback callback)
 		{
 			this.callback = callback;
@@ -67,31 +74,30 @@ namespace NGO.Protocol.AEther
 		}
 		public string SendToRemoteSync(string message, int target)
 		{
-			externalSignal = new WaitSignal();
+			sentSignal = new WaitSignal();
 			SendData(message, target);
-			externalSignal.WaitOne();
+			sentSignal.WaitOne();
 			
-			string response = externalSignal.AttechedObject.ToString();
-			externalSignal.Reset();
-			externalSignal = null;
+			string response = sentSignal.AttechedObject.ToString();
+			sentSignal.Reset();
+			sentSignal = null;
 			
 			return response;
 		}
 		#endregion		
 		public static void DebugDump(string message) {
-			if (IsDebug)
-				System.Diagnostics.Debug.WriteLine("[{0}] - {1}", Thread.CurrentThread.Name, message);
+			logger.Debug(message);
 		}
 
 		public void ConnectSync(string ipAddress, int port)
 		{
-			externalSignal = new WaitSignal();
+			connectSyncSignal = new WaitSignal();
 			Connect(ipAddress, port);
-			externalSignal.WaitOne();
+			connectSyncSignal.WaitOne();
 			
-			externalSignal.Reset();
-			externalSignal = null;
-			System.Diagnostics.Debug.WriteLine(string.Format("[aether client] is connected to bridge {0}:{1}.",ipAddress,port));
+			connectSyncSignal.Reset();
+			connectSyncSignal = null;
+			logger.Info(string.Format("[aether client] is connected to bridge {0}:{1}.",ipAddress,port));
 		}
 		
 		public void Connect(string ipAddress, int port)
@@ -125,12 +131,12 @@ namespace NGO.Protocol.AEther
 			client.Shutdown(SocketShutdown.Both);
 			client.Disconnect(false);
 			if (client.Connected) {
-			    System.Diagnostics.Debug.WriteLine("[aether client] still connnected");
+			    logger.Debug("[aether client] still connnected");
 			    client = null;
 			    return false;
 			}
 			else  {
-				System.Diagnostics.Debug.WriteLine("[aether client] disconnected");
+				logger.Debug("[aether client] disconnected");
 				client = null;
 				return true;
 			}
@@ -145,9 +151,9 @@ namespace NGO.Protocol.AEther
         	DebugDump(string.Format("connectDone signal recieved!"));
         	
         	//notify signal for sync connec.
-        	if (externalSignal !=null)
+        	if (connectSyncSignal !=null)
         	{
-        		externalSignal.Set();
+        		connectSyncSignal.Set();
         	}
         	
 			this.callback.Connected();
@@ -251,12 +257,17 @@ namespace NGO.Protocol.AEther
         			DebugDump(string.Format("<DAT> arrived from - src={0}", package.Source));
         			
         			//external signal event callback for IClient
-        			if (externalSignal != null) {
-        				externalSignal.PushObject(package.ToString());
-        				externalSignal.Set();
+        			if (sentSignal != null) {
+        				sentSignal.PushObject(package.ToString());
+        				sentSignal.Set();
         			}
         			
+        			//TODO: is below necessary for notify callback also?
         			callback.MessageReceived(package.ToString());
+        			
+        			//dispatch received 'DAT' package to all registered receivers
+        			foreach(var r in DATARECEIVERS)
+        				DATARECEIVERS[r.Value.NatId()].DataArrived(package.ToString());
 	        		break;
 	        	}
 	        }	           
@@ -294,6 +305,18 @@ namespace NGO.Protocol.AEther
 			}  
 		}
         
+		private Dictionary<int, IDatReceiver> DATARECEIVERS = new Dictionary<int,IDatReceiver>();
+		/// <summary>
+		/// register data receiver in directory
+		/// </summary>
+		/// <param name="receiver"></param>
+		/// <returns></returns>
+		public int RegistDataReceiver(IDatReceiver receiver)
+		{
+			DATARECEIVERS[receiver.NatId()] = receiver;
+			logger.Debug(string.Format("IDatReceiver natid={0} registered", receiver.NatId()));
+			return receiver.NatId();
+		}
 	}
     
     

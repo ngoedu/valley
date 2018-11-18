@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using log4net;
 using App.Common.Debug;
 using App.Common.Proc;
 using System.Management;
@@ -30,6 +31,9 @@ namespace App.Common.Proc
 	    
 	    private Dictionary<string, string> OLD_PIDS = new Dictionary<string, string>();
 	    private Dictionary<string, string> NEW_PIDS = new Dictionary<string, string>();
+	    
+	    private static readonly ILog logger = LogManager.GetLogger(typeof(PidRecorder));  
+
 	    
 	    private PidRecorder()
 	    {
@@ -99,15 +103,15 @@ namespace App.Common.Proc
 					if (p != null && !p.HasExited && IsExecutable(ProcessExecutablePath(p))) {
 						p.Kill();
 						p.WaitForExit(); // possibly with a timeout
-						Diagnostics.Debug(string.Format("[Proc] pid {0} killed", pid));
+						logger.Debug(string.Format("[Proc] pid {0} killed", pid));
 					}
 				}
 			} catch (Win32Exception winException) {
 				// process was terminating or can't be terminated - deal with it
-				Diagnostics.Debug(string.Format("[Proc] pid={0} kill exception", winException.Message));
+				logger.Debug(string.Format("[Proc] pid={0} kill exception", winException.Message));
 			} catch (InvalidOperationException invalidException) {
 				// process has already exited - might be able to let this one go
-				Diagnostics.Debug(string.Format("[Proc] pid={0} kill exception", invalidException.Message));
+				logger.Error(string.Format("[Proc] pid={0} kill exception", invalidException.Message));
 			}
 			
 			//remove pid from cached file
@@ -118,7 +122,7 @@ namespace App.Common.Proc
 		public void CleanOldProcess()
 		{
 			foreach(var entry in OLD_PIDS) {
-				Diagnostics.Debug(string.Format(">>> stale pid {0} found", Int16.Parse(entry.Value)));
+				logger.Debug(string.Format(">>> stale pid {0} found", Int16.Parse(entry.Value)));
 				KillProcessById(entry.Key, Int16.Parse(entry.Value));
 			}
 		}

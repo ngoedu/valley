@@ -26,7 +26,7 @@ namespace Control.Eide
 	/// <summary>
 	/// Description of JEide.
 	/// </summary>
-	public partial class JEide : Panel, IAppEntry
+	public partial class JEide : Panel, IAppEntry, IDatReceiver
 	{
 		
 		public static int ENDPOINT_ID = 9;
@@ -69,6 +69,11 @@ namespace Control.Eide
 		
 		public void Init(AppRegistry reg) {
 			logger.Debug("Init");
+			
+			//register DAT receiver
+			IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];
+			client.RegistDataReceiver(this);
+			
 			var projPath = (string)reg[AppRegKeys.EIDE_PROJ];
 			var cdatPath = (string)reg[AppRegKeys.EIDE_CDAT];
 			
@@ -88,7 +93,6 @@ namespace Control.Eide
 			
 			
 			//3.import project to EIDE
-			IClient client = (IClient)reg[AppRegKeys.AETHER_CLIENT];
 			string response = client.SendToRemoteSync(CMD_ADDPROJ+projPath, ENDPOINT_ID);
 			logger.Debug("AddProj cmd sent to remote peer, response="+response);
 			
@@ -173,6 +177,29 @@ namespace Control.Eide
 			
 			base.Dispose(disposing);
 		}
+
+		private readonly WaitSignal wbsSignal = new WaitSignal();
+		private bool isWorkbenchActive = false;
+		#region IDatReceiver implementation
+		public void DataArrived(string message)
+		{
+			logger.Debug("Eide DAT package arrived - "+message);
+			EideResponse resp = EideResponse.Parse(message);
+			if (resp.action.Equals("$WBSREADY") && resp.status.Equals("OK"))
+			{
+				isWorkbenchActive = true;
+				//eclipse workbench is now active
+				logger.Debug("Eide DAT package notify shell is ready, reset flag and signal...");
+				wbsSignal.Set();
+			}
+			                                                 
+		}
+		public int NatId()
+		{
+			return ClientConst.NAT_EIDECLIENT_ID;
+		}
+		#endregion	
+
 		
 		private string GenParameters(string ws) {
 		                            
@@ -287,30 +314,33 @@ namespace Control.Eide
 			//create process
 			bool started = CreateByProcess(ws);
 
+			//check if workbench is ready, thread wait when not
+			if (!isWorkbenchActive) {
+				logger.Debug("LoadEide - workbehch shell is NOT ready now, thread have to wait...");
+				wbsSignal.WaitOne();
+				logger.Debug("LoadEide - workbehch shell is ready now, thread continue");
+			}
+			
 			//wait until launched and then hide it
-			while (started && pid == -1) {
-				pid = IsRunning();
-				if (pid > -1) {
-					this.pidCallback.PidCreated("eide", pid);
+			pid = IsRunning();
+			if (pid > -1) {
+				this.pidCallback.PidCreated("eide", pid);
 			
-					//check if do window hidden
-					if (!visible) {
-			
-						//hide it now
-						int hWnd;
-						Process[] processRunning = Process.GetProcesses();
-						foreach (Process pr in processRunning){
-						    if (pr.MainWindowTitle.Contains(eideTitle)){
-						    	embedEclipse = pr;
-						        hWnd = pr.MainWindowHandle.ToInt32();
-						        embedHwd = hWnd;
-						        Win32Api.ShowWindow(hWnd, Win32Api.SW_HIDE);
-						        return;
-						    }
-						}
-						break;
+				//check if do window hidden
+				if (!visible) {
+		
+					//hide it now
+					int hWnd;
+					Process[] processRunning = Process.GetProcesses();
+					foreach (Process pr in processRunning){
+					    if (pr.MainWindowTitle.Contains(eideTitle)){
+					    	embedEclipse = pr;
+					        hWnd = pr.MainWindowHandle.ToInt32();
+					        embedHwd = hWnd;
+					        Win32Api.ShowWindow(hWnd, Win32Api.SW_HIDE);
+					        return;
+					    }
 					}
-					Thread.Sleep(50);
 				}
 			}
 		}
