@@ -15,6 +15,7 @@ namespace Control.JBrowser
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
 		private System.Windows.Forms.TextBox txtAddress;
+		private System.Windows.Forms.PictureBox pictureBox1;
 		
 		/// <summary>
 		/// Disposes resources used by the control.
@@ -38,6 +39,8 @@ namespace Control.JBrowser
 		private void InitializeComponent()
 		{
 			this.txtAddress = new System.Windows.Forms.TextBox();
+			this.pictureBox1 = new System.Windows.Forms.PictureBox();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// txtAddress
@@ -48,16 +51,29 @@ namespace Control.JBrowser
 			this.txtAddress.Name = "txtAddress";
 			this.txtAddress.Size = new System.Drawing.Size(480, 22);
 			this.txtAddress.TabIndex = 0;
-			this.txtAddress.TextChanged += new System.EventHandler(this.TxtAddressTextChanged);
+			this.txtAddress.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtAddressKeyPress);
+			// 
+			// pictureBox1
+			// 
+			this.pictureBox1.Image = global::Control.JBrowser.Resource1.refresh;
+			this.pictureBox1.Location = new System.Drawing.Point(392, 56);
+			this.pictureBox1.Name = "pictureBox1";
+			this.pictureBox1.Size = new System.Drawing.Size(24, 24);
+			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.pictureBox1.TabIndex = 1;
+			this.pictureBox1.TabStop = false;
+			this.pictureBox1.Click += new System.EventHandler(this.PictureBox1Click);
 			// 
 			// JWebBrowser
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.txtAddress);
 			this.Name = "JWebBrowser";
 			this.Size = new System.Drawing.Size(478, 262);
 			this.SizeChanged += new System.EventHandler(this.WebBrowserSizeChanged);
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

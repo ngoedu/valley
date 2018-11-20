@@ -62,18 +62,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Browser\ControlExtensions.cs" />
     <Compile Include="Browser\IBrowserJSCallback.cs" />
     <Compile Include="Browser\IWebBrowser.cs" />
     <Compile Include="Browser\JDevBrowser.cs" />
+    <Compile Include="Browser\JNavWebBrowser.cs" />
     <Compile Include="Browser\JWebBrowser.cs" />
     <Compile Include="Browser\JWebBrowser.Designer.cs">
       <DependentUpon>JWebBrowser.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource1.Designer.cs">
+      <DependentUpon>Resource1.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Browser\JWebBrowser.resx">
       <DependentUpon>JWebBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

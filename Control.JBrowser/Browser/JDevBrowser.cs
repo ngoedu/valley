@@ -26,7 +26,7 @@ namespace  Control.JBrowser
 		private NJFLib.Controls.CollapsibleSplitter splitterPanelLeft;
 		private System.Windows.Forms.Panel panelLeft;
 		private System.Windows.Forms.Panel panelRight;
-		private JWebBrowser innerBrowser;
+		private JNavWebBrowser innerBrowser;
 		private bool isDevToolEnabled = false;
 		private AppStatus status;
 		
@@ -43,7 +43,7 @@ namespace  Control.JBrowser
 			
 			//create right panel
 			panelRight = new System.Windows.Forms.Panel();
-			this.innerBrowser = new JWebBrowser(true, null);
+			this.innerBrowser = new JNavWebBrowser();
 			
 			// splitterPanelLeft
 			this.splitterPanelLeft.AnimationDelay = 20;
@@ -95,12 +95,12 @@ namespace  Control.JBrowser
 		
 		public void LoadPage(string content)
 		{
-			innerBrowser.LoadPage(content);
+			innerBrowser.LoadHtml(content);
 		}
 
 		public void GoToUrl(string url)
 		{
-			innerBrowser.GoToUrl(url);
+			innerBrowser.LoadUrl(url);
 		}
 
 		public AppStatus Status()

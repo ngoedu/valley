@@ -62,15 +62,25 @@ namespace  Control.JBrowser
 
 			isNav = isNavBar;
 			if (!isNav) {
-				cefBrowser.Dock = DockStyle.Fill;
+				cefBrowser.Dock = DockStyle.None;
 				this.txtAddress.Visible = false;
+				this.pictureBox1.Visible = false;
 			} else {
 				this.txtAddress.Visible = true;
+				this.pictureBox1.Visible = true;
 			}
 			Tag = CEF_ACTIVE;
 		}
 		
-		
+			
+		protected void TxtAddressKeyPress(object sender, KeyPressEventArgs e)
+		{
+		    if (e.KeyChar == 13)
+		    {
+		    	GoToUrl(txtAddress.Text);
+		    }
+		}
+			
 		public string ShowDevTools(Panel panel) {
 			/**/var windowInfo = new WindowInfo();
 			var browser = cefBrowser.GetBrowser().GetHost();
@@ -130,27 +140,29 @@ namespace  Control.JBrowser
 				
 				if (isNav)
 				{
-					this.txtAddress.Width = this.ClientSize.Width;
-					this.txtAddress.Left = 0;
-					this.txtAddress.Top = 0;
+					this.txtAddress.Width = this.Width - 32;
+					this.txtAddress.Height = 26;
+					this.txtAddress.Left = 3;
+					this.txtAddress.Top = 1;
+					
+					this.pictureBox1.Left = this.txtAddress.Left+this.txtAddress.Width + 2;
+					this.pictureBox1.Top = txtAddress.Top;
 					
 					cefBrowser.Left = 0;
-					cefBrowser.Top = this.txtAddress.Height;
-					cefBrowser.Width = this.ClientSize.Width;
-					cefBrowser.Height = this.ClientSize.Height - this.txtAddress.Height;
+					cefBrowser.Top = this.txtAddress.Height + 4;
+					cefBrowser.Width = this.Width;
+					cefBrowser.Height = this.Height - this.txtAddress.Height - 4;
 
 				} else {
-					
+					cefBrowser.Left = 0;
+					cefBrowser.Top = 0;
+					cefBrowser.Width = this.Width;
+					cefBrowser.Height = this.Height;
 					
 				}
 			}
 		}
-		void TxtAddressTextChanged(object sender, EventArgs e)
-		{
-			if (Tag == CEF_ACTIVE) {
-				GoToUrl(this.txtAddress.Text);
-			}
-		}
+		
 		
 		public void Dispose() {
 			cefBrowser.Dispose();
@@ -163,6 +175,10 @@ namespace  Control.JBrowser
 			//cefBrowser.Dispose();
 			System.Diagnostics.Debug.WriteLine("[JwebBrowser] ChromiumWebBrowser disposed.");
 			CefSharp.Cef.Shutdown();
+		}
+		void PictureBox1Click(object sender, EventArgs e)
+		{
+			GoToUrl(txtAddress.Text);
 		}
 	}
 	
