@@ -15,6 +15,7 @@ using System.Threading;
 using App.Common.Debug;
 using App.Common.Proc;
 using App.Common.Signal;
+using log4net;
 
 namespace Component.Bridge
 {
@@ -29,10 +30,11 @@ namespace Component.Bridge
 		private IPidCallback pidCallback;
 		private String jrePath;
 		private String aetherPath;
-		private WaitSignal externalSignal;
+		private WaitSignal startupSyncSignal;
 		
 		private int IDLE = 30;
-		
+		private static readonly ILog logger = LogManager.GetLogger(typeof(AetherBridge));  
+
 		/// <summary>
 		/// initial status = 0
 		/// in shutdown process = 1
@@ -50,16 +52,13 @@ namespace Component.Bridge
 		}
 		
 		public void StartupSync() {
-			externalSignal = new WaitSignal();
+			if (status == 1 || pid != -1)
+				return;
+			startupSyncSignal = new WaitSignal();
 			Startup();
-			externalSignal.WaitOne();
+			startupSyncSignal.WaitOneWhen("[aether bridge v1.1] launched","Exception");
+			logger.Info(string.Format("[aether bridge] {0} initialized.", pid));
 			
-			string output = externalSignal.AttechedObject.ToString();
-			if (output !=null && output.Contains("[aether bridge v1.1] launched")) {
-				externalSignal.Reset();
-				externalSignal = null;
-				Diagnostics.Debug(string.Format("[aether bridge] {0} initialized.", pid));
-			}	
 		}
 		
 		public void Startup() {
@@ -108,11 +107,8 @@ namespace Component.Bridge
 		
 		private void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine) {
 		    //notify signal if any
-		    if (externalSignal !=null)
-		    {
-		    	externalSignal.PushObject(outLine.Data);
-		    	externalSignal.Set();
-		    }
+		    if (startupSyncSignal!=null)
+		    	startupSyncSignal.SetWhen(outLine.Data);
 		    
 		    callback.OutputArrived(outLine.Data);
 		}
