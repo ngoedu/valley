@@ -22,12 +22,14 @@ using App.Views;
 using App.Views.Tile;
 using CefSharp;
 using Component.Bridge;
+using Component.Catalina;
 using Control.Eide;
 using Control.JBrowser;
 using Control.Profile;
 using Control.Toolbar;
 using NGO.Protocol.AEther;
 using NGO.Train;
+using NGO.Train.Entity;
 using log4net;
 
 
@@ -53,6 +55,8 @@ namespace App.Mediator
 
 		private AetherBridge aetherBridge;		
 		private Endpoint aetherClient;
+		
+		private CatalinaServer catalina;
 		
 		private static readonly ILog logger = LogManager.GetLogger(typeof(SimpleMediator));  
 
@@ -132,6 +136,14 @@ namespace App.Mediator
 	    	tileManager.BuildAppTiles(appContexts);
 			logger.Debug("app tiles inited");
 			
+			//load catalina if required.
+			if (Int16.Parse(course.Schema.Category) == (int)CourseCategory.Web){
+				int port = 60080;
+				catalina = new CatalinaServer(null, PidRecorder.Instance, "127.0.0.1", 60080, cpath+@"\"+courseName+@"\"+course.Schema.ProjName,course.Schema.ProjName);
+				catalina.StartupSync();
+				logger.Debug("catalina started up on port - " + port);
+			
+			}
 	    				
 			//4.init profile
 			jProfile.SetName("070718A001");
@@ -168,6 +180,19 @@ namespace App.Mediator
 			tileManager.RebuildAppTiles(appContexts);
 			logger.Debug("app tiles reloaded");
 			
+			//load catalina if required.
+			if (Int16.Parse(course.Schema.Category) == (int)CourseCategory.Web ){
+				if (catalina != null) {
+					catalina.ShutdownSync();
+					logger.Debug("catalina shuted down.");
+				}				
+			
+				int port = 60080;
+				catalina = new CatalinaServer(null, PidRecorder.Instance, "127.0.0.1", port, cpath+@"\"+courseName+@"\"+course.Schema.ProjName,course.Schema.ProjName);
+				catalina.StartupSync();
+				logger.Debug("catalina re-started up.");
+			
+			}
 		}
 		
 		#region form event
@@ -203,6 +228,11 @@ namespace App.Mediator
 				app.AppControl.Dispose(appRegistry);					
 			}
 			
+			//shutdown catalina
+			if (catalina != null) {
+				catalina.ShutdownSync();
+				logger.Debug("catalina shuted down.");
+			}
 			
 			//disconnect endpoint
 			aetherClient.Disconnect();

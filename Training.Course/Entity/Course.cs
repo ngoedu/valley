@@ -12,6 +12,15 @@ using DiffMatchPatch;
 
 namespace NGO.Train.Entity
 {
+	public enum CourseCategory {
+		Web = 1,
+		Java = 2,
+		Python = 3,
+		SQL = 4,
+		Other = 5
+	}
+	
+	
 	/// <summary>
 	/// Description of Course.
 	/// </summary>
