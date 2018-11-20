@@ -13,7 +13,7 @@ namespace Component.Catalina
 	/// <summary>
 	/// Description of IOutputCallback.
 	/// </summary>
-	public interface IOutputCallback
+	public interface ICatalinaOutputCallback
 	{
 		void OutputArrived(string output);
 	}
