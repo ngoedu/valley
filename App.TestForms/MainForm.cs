@@ -32,6 +32,9 @@ namespace AppTestForms
 			//
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
+			var allstring = "Starting ProtocolHandler [\"http-nio-60080\"]";
+			bool match = allstring.Contains("60080");
+			System.Diagnostics.Debug.WriteLine(match);
 		}
 		void Button1Click(object sender, EventArgs e)
 		{

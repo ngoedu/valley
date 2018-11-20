@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using App.Common.Proc;
 using Component.Catalina;
 
 namespace NGO.Pad.Catalina
@@ -21,7 +22,7 @@ namespace NGO.Pad.Catalina
 	/// <summary>
 	/// Description of MainForm.
 	/// </summary>
-	public partial class CatalinaForm : Form, IOutputCallback
+	public partial class CatalinaForm : Form, ICatalinaOutputCallback
 	{
 		WebServer server ;
 		
@@ -32,7 +33,7 @@ namespace NGO.Pad.Catalina
 			//
 			InitializeComponent();
 			
-			server = new WebServer(this, "127.0.0.1", 8080, 6002, "NGO_CATA_BYE");
+			server = new WebServer(this,PidRecorder.Instance, "127.0.0.1",  60008, "webroot", "sweb1");
 			
 			backgroundWorker = new BackgroundWorker(); // 实例化后台对象
  
@@ -106,7 +107,7 @@ namespace NGO.Pad.Catalina
 		/// <param name="e"></param>
 		void Button1Click(object sender, EventArgs e)
 		{
-			server.Startup();
+			server.StartupSync();
 		}
 		
 		
@@ -119,7 +120,7 @@ namespace NGO.Pad.Catalina
 		
 		void Button2Click(object sender, EventArgs e)
 		{
-			server.Shutdown();
+			server.ShutdownSync();
 		}
 	}
 }
