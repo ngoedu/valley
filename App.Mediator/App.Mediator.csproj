@@ -75,6 +75,10 @@
       <Project>{9A647F24-F0FC-4294-99CF-38D72B7A6ADB}</Project>
       <Name>Component.Bridge</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Component.Catalina\Component.Catalina.csproj">
+      <Project>{ECBE8FB1-549C-44AB-A8B2-A80CE5F32D70}</Project>
+      <Name>Component.Catalina</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Control.Eide\Control.Eide.csproj">
       <Project>{9588C636-7568-453A-9A1B-299416A1B8DD}</Project>
       <Name>Control.Eide</Name>
