@@ -23,7 +23,7 @@ namespace Component.Catalina
 	/// <summary>
 	/// catalina server bind.
 	/// </summary>
-	public class WebServer
+	public class CatalinaServer
 	{
 		private int pid = -1;
 		private int PORT_NO = 8080;
@@ -49,10 +49,10 @@ namespace Component.Catalina
 		private WaitSignal startupSyncSignal;
 		private WaitSignal shutdownSyncSignal;
 		
-		private static readonly ILog logger = LogManager.GetLogger(typeof(WebServer));  
+		private static readonly ILog logger = LogManager.GetLogger(typeof(CatalinaServer));  
 
 		
-        public WebServer(ICatalinaOutputCallback callback,IPidCallback pCallback, string ip, int port,  string webAppPath, string contextPath)
+        public CatalinaServer(ICatalinaOutputCallback callback,IPidCallback pCallback, string ip, int port,  string webAppPath, string contextPath)
 		{
 			this.PORT_NO = port;
 			this.SERVER_IP = ip;
@@ -135,7 +135,8 @@ namespace Component.Catalina
 		     if (startupSyncSignal!=null)
 		     	startupSyncSignal.SetWhen(outLine.Data);
 		    
-		    callback.OutputArrived(outLine.Data);
+		    if (callback!=null)
+		     	callback.OutputArrived(outLine.Data);
 		    System.Diagnostics.Debug.WriteLine(outLine.Data);
         }
         

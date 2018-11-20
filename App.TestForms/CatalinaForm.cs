@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using App.Common;
 using App.Common.Proc;
 using Component.Catalina;
 
@@ -24,7 +25,7 @@ namespace NGO.Pad.Catalina
 	/// </summary>
 	public partial class CatalinaForm : Form, ICatalinaOutputCallback
 	{
-		WebServer server ;
+		CatalinaServer server ;
 		
 		public CatalinaForm()
 		{
@@ -33,7 +34,7 @@ namespace NGO.Pad.Catalina
 			//
 			InitializeComponent();
 			
-			server = new WebServer(this,PidRecorder.Instance, "127.0.0.1",  60008, "webroot", "sweb1");
+			server = new CatalinaServer(this,PidRecorder.Instance, "127.0.0.1",  60008, CodeBase.GetCodePath() +"/embed/webroot", "/sweb1");
 			
 			backgroundWorker = new BackgroundWorker(); // 实例化后台对象
  
