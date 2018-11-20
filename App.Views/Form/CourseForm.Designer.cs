@@ -132,7 +132,7 @@ namespace App.Views
 			this.pbImage.InitialImage = null;
 			this.pbImage.Location = new System.Drawing.Point(0, 0);
 			this.pbImage.Name = "pbImage";
-			this.pbImage.Size = new System.Drawing.Size(632, 459);
+			this.pbImage.Size = new System.Drawing.Size(632, 460);
 			this.pbImage.TabIndex = 0;
 			this.pbImage.TabStop = false;
 			// 
