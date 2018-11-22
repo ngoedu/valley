@@ -21,6 +21,7 @@ namespace App.Views
 		private System.Windows.Forms.Button btnGoBack;
 		private System.Windows.Forms.Button btnDownload;
 		private System.Windows.Forms.ProgressBar pbDownload;
+		private System.Windows.Forms.ListBox lbHistory;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -44,6 +45,7 @@ namespace App.Views
 		private void InitializeComponent()
 		{
 			this.panelPreview = new System.Windows.Forms.Panel();
+			this.lbHistory = new System.Windows.Forms.ListBox();
 			this.pbDownload = new System.Windows.Forms.ProgressBar();
 			this.btnDownload = new System.Windows.Forms.Button();
 			this.btnGoBack = new System.Windows.Forms.Button();
@@ -56,6 +58,7 @@ namespace App.Views
 			// 
 			// panelPreview
 			// 
+			this.panelPreview.Controls.Add(this.lbHistory);
 			this.panelPreview.Controls.Add(this.pbDownload);
 			this.panelPreview.Controls.Add(this.btnDownload);
 			this.panelPreview.Controls.Add(this.btnGoBack);
@@ -67,6 +70,19 @@ namespace App.Views
 			this.panelPreview.Name = "panelPreview";
 			this.panelPreview.Size = new System.Drawing.Size(1184, 460);
 			this.panelPreview.TabIndex = 0;
+			// 
+			// lbHistory
+			// 
+			this.lbHistory.BackColor = System.Drawing.SystemColors.ButtonFace;
+			this.lbHistory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.lbHistory.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.lbHistory.FormattingEnabled = true;
+			this.lbHistory.ItemHeight = 21;
+			this.lbHistory.Location = new System.Drawing.Point(632, 0);
+			this.lbHistory.Name = "lbHistory";
+			this.lbHistory.Size = new System.Drawing.Size(569, 338);
+			this.lbHistory.TabIndex = 6;
+			this.lbHistory.SelectedIndexChanged += new System.EventHandler(this.LbHistorySelectedIndexChanged);
 			// 
 			// pbDownload
 			// 

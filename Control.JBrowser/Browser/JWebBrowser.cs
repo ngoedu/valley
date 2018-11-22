@@ -102,6 +102,18 @@ namespace  Control.JBrowser
 			this.status = AppStatus.Inited;
 		}
 		
+		
+		public void Active()
+		{
+			
+			MessageBox.Show("JwebBrowser refresh");
+		}
+		
+		public void Inactive()
+		{
+			
+		}
+		
 		public void Reload(AppRegistry reg)
 		{
 			throw new NotImplementedException();

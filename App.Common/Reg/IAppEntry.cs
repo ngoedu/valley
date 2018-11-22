@@ -23,7 +23,9 @@ namespace App.Common.Reg
 	public interface IAppEntry
 	{
 		void Init(AppRegistry reg);
-		void Reload(AppRegistry reg);
+		void Reload(AppRegistry reg);		
+		void Active();
+		void Inactive();
 		void Dispose(AppRegistry reg);
 		AppStatus Status();
 	}

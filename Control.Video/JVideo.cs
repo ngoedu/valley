@@ -42,6 +42,16 @@ namespace Control.Video
 			LoadHtml(html);
 			this.status = AppStatus.Inited;
 		}
+
+		public void Active()
+		{
+			
+		}
+		
+		public void Inactive()
+		{
+			
+		}
 		
 		public void Reload(AppRegistry reg)
 		{

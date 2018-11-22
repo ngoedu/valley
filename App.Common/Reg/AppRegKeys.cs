@@ -21,6 +21,7 @@ namespace App.Common.Reg
 		public static string EIDE_WS = "EIDE_WS";
 		public static string EIDE_PROJ = "EIDE_PROJ";
 
+		public static string BROWSER_URL= "BROWSER_URL";
 		public static string AETHER_CLIENT = "AETHER_CLIENT";
 	}
 }

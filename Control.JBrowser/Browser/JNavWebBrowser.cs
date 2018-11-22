@@ -163,7 +163,7 @@ namespace Control.JBrowser
             this.PerformLayout();
             
             
-             browser = new ChromiumWebBrowser("www.google.com")
+             browser = new ChromiumWebBrowser("about:blank")
             {
                 Dock = DockStyle.Fill,
             };
@@ -247,8 +247,15 @@ namespace Control.JBrowser
             HandleToolStripLayout();
         }
 
+        
+        public void RefreshPage(string pageUrl) {
+        	if (!string.IsNullOrEmpty(pageUrl))
+        		LoadUrl(pageUrl);
+			else
+				LoadUrl(urlTextBox.Text);
+        }
         /*
- 		private void ExitMenuItemClick(object sender, EventArgs e)
+ 		public void Dispose()
         {
             browser.Dispose();
             Cef.Shutdown();

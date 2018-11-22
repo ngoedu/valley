@@ -70,6 +70,16 @@ namespace NGO.Pad.Guider
 			this.status  = AppStatus.Inited;
 		}
 		
+		public void Active()
+		{
+			
+		}
+		
+		public void Inactive()
+		{
+			
+		}
+		
 		public void Reload(AppRegistry reg)
 		{
 			this.Dispose(reg);

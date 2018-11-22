@@ -107,6 +107,17 @@ namespace Control.Eide
 		
 		}
 		
+		public void Active()
+		{
+			
+		}
+		
+		public void Inactive()
+		{
+			
+		}
+		
+		
 		public void Reload(AppRegistry reg)
 		{
 			logger.Info("Reload");

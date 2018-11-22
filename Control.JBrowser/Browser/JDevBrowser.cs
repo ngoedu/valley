@@ -29,6 +29,7 @@ namespace  Control.JBrowser
 		private JNavWebBrowser innerBrowser;
 		private bool isDevToolEnabled = false;
 		private AppStatus status;
+		private AppRegistry appRegistry;
 		
 		public JDevBrowser()
 		{
@@ -82,6 +83,8 @@ namespace  Control.JBrowser
 			
 			//add devtool panel
 			this.Controls.Add(this.panelRight);
+			
+			this.GotFocus += JDevBrowser_GotFocus;
 		}
 		
 		void JDevBrowserSizeChanged(object sender, EventArgs e)
@@ -92,6 +95,9 @@ namespace  Control.JBrowser
 			}
 		}
 		
+		public void JDevBrowser_GotFocus(object sender, EventArgs args) {
+			MessageBox.Show("browser active");
+		}
 		
 		public void LoadPage(string content)
 		{
@@ -111,8 +117,23 @@ namespace  Control.JBrowser
 		#region IAppEntry implementation
 		public void Init(AppRegistry reg)
 		{
+			appRegistry = reg;
 			this.status = AppStatus.Inited;
 		}
+		
+		public void Active()
+		{
+			string refreshUrl = appRegistry.ContainsKey(AppRegKeys.BROWSER_URL) ? (string)appRegistry[AppRegKeys.BROWSER_URL] : null;
+			this.innerBrowser.RefreshPage(refreshUrl);
+		}
+		
+		public void Inactive()
+		{
+			
+		}
+		
+			
+		
 		
 		public void Reload(AppRegistry reg)
 		{

@@ -8,10 +8,14 @@
  */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Net;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+using System.Text;
 using System.Windows.Forms;
 using App.Common;
 using App.Common.Dpi;
@@ -84,12 +88,48 @@ namespace App.Views
 		       		this.pbDownload.Value = 0;
 			
 		       	}
+		       	this.lbHistory.Visible = false;
 		       	this.panelPreview.Visible = true;
 							
 				this.browser.Visible = false;
 		    });
 			
 		}
+		
+		private string FindCourseName(string cid, string courseJson) {
+			DataContractJsonSerializer js = new DataContractJsonSerializer(typeof(List<CourseEntry>));
+			MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(courseJson));
+			List<CourseEntry> allCourses = (List<CourseEntry>)js.ReadObject(stream);
+			
+			foreach(var ce in allCourses) {
+				if (ce.cid == cid)
+					return ce.name;
+			}
+			
+			return string.Empty;
+		}
+
+		public void showTrainingHistory(string coursesJson)
+		{
+			
+			this.Invoke((MethodInvoker)delegate() {
+			    this.lbHistory.Items.Clear();
+				var history = this.GetTrainHistoryList();
+				foreach(string h in history) {
+					string itemString = h + " " + FindCourseName(h, coursesJson);
+					this.lbHistory.Items.Add(itemString);
+				}
+			    
+				this.btnDownload.Visible = false;
+	       		this.btnStart.Visible = true;
+	       		this.pbDownload.Visible = false;
+				this.lbHistory.Visible = true;
+				this.panelPreview.Visible = true;
+				
+				this.browser.Visible = false;
+			});
+		}
+		
 		
 		public void NavigateBackToCourseLib() {
 			this.panelPreview.Visible = false;
@@ -102,6 +142,19 @@ namespace App.Views
 			foreach (var d in System.IO.Directory.GetDirectories(extractPath)) {
 			    var dirName = new DirectoryInfo(d).Name;
 			    list.Add(dirName);
+			 }
+			return list;
+		}
+		
+		public IList GetTrainHistoryList() {
+			string extractPath = CodeBase.GetCoursePackPath();
+			var list = new ArrayList();
+			foreach (var d in System.IO.Directory.GetDirectories(extractPath)) {
+			    var dirName = new DirectoryInfo(d).Name;
+			    var tr = new DirectoryInfo(d).FullName + "/tr.dat";
+			    if (new FileInfo(tr).Exists) {
+			    	list.Add(dirName);
+			    }
 			 }
 			return list;
 		}
@@ -192,5 +245,41 @@ namespace App.Views
 			this.btnGoBack.Enabled = false;
 			StartDownload(jsCallback.CourseId);
 		}
+		
+		void LbHistorySelectedIndexChanged(object sender, EventArgs e)
+		{
+			var course = lbHistory.Items[lbHistory.SelectedIndex].ToString ();
+			var cid = course.Split(' ')[0];
+			this.jsCallback.setSelectedCourseId(cid);
+		}
+	}
+	
+	/**
+	 *
+* "mid" : "cweb",
+* "cid":"sweb-a01-proj1", 
+* "name" : "web客户端基础",
+* "target":"中级",
+* "duration":"18分钟", 
+* "content":"HTML,css3,javascript构造页面",
+* "type":"免费"
+	 */
+	[DataContract]
+	class CourseEntry
+	{
+		[DataMember]
+		public string mid;
+		[DataMember]
+		public string cid;
+		[DataMember]
+		public string name;
+		[DataMember]
+		public string target;
+		[DataMember]
+		public string duration;
+		[DataMember]
+		public string content;
+		[DataMember]
+		public string type;
 	}
 }

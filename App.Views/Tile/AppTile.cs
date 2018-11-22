@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using App.Common.Hook;
+using App.Common.Reg;
 
 namespace App.Views
 {
@@ -86,11 +87,13 @@ namespace App.Views
 			this.BringToFront();
 			//this.BackColor = Color.DeepSkyBlue;
 			this.BackColor = Color.FromArgb(60,60,60);
+			((IAppEntry)this.innerControl).Active();
 		}
 
 		public void Deactive()
 		{
 			this.BackColor = Color.FromArgb(60,60,60);
+			((IAppEntry)this.innerControl).Inactive();
 		}
 
 		public void Minimized()

@@ -54,5 +54,9 @@ namespace App.Views
 			courseForm.showCoursePreview(cid);
 		}
 		
+		public void showTrainingHistory(string jsonString) {
+			courseForm.showTrainingHistory(jsonString);
+		}
+		
 	}
 }
