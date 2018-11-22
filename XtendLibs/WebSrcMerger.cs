@@ -65,7 +65,7 @@ namespace XtendLibs
 		}
 		
 		private void DumpToFile(string htmlContent,string fileName) {
-			var newFileName = fileName.Replace(@".html", ".min.html");
+			var newFileName = fileName.Replace(@".html", ".html");
 			System.IO.File.WriteAllText(newFileName, htmlContent);
 		}
 		
