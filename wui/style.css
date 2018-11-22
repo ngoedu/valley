@@ -11,6 +11,8 @@ body {-webkit-user-select: none;  background:#3c3c3c; margin:0 0 0 0; font-famil
 .selection .navigate .course-list {float:left; width:170px; height: 100%; margin-top:0px; margin-left:0px;/*background-color: #f2f2f2;*/}
 .selection .navigate .course-list ul {list-style-type: none; margin: 0px; padding: 0px; }
 .selection .navigate .course-list ul li { font-size: 16px; line-height: 60px; height: 60px; text-align: center; }
+.selection .navigate .course-list ul li.history { color:white; font-weight: bold;}
+
 .selection .navigate .course-list ul li:hover  {background-color: #becdd1;}
 .selection .navigate .course-list ul li a{text-decoration:none; color:black;}
 
