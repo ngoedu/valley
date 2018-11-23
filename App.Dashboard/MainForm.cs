@@ -9,6 +9,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using App.Common.Dpi;
 using App.Common.Hook;
 using App.Mediator;
 using log4net;
@@ -29,6 +30,12 @@ namespace App.Dashboard
 
 		public MainForm()
 		{
+			
+			if (DpiUtil.GetScale(this.CreateGraphics()) != DPI.SMALL) {
+				MessageBox.Show("请将系统显示字体缩小为【较小100%】, 然后再启动", "提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				System.Environment.Exit(0);
+			}
+			
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//

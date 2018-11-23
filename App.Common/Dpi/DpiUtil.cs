@@ -17,9 +17,9 @@ namespace App.Common.Dpi
 	/// </summary>
 	public class DpiUtil
 	{
-		public static double GetScale(Graphics g)
+		public static float GetScale(Graphics g)
 		{
-			double scale = DPI.SMALL; //1;
+			float scale = DPI.SMALL; //1;
 			using (Graphics graphics = Graphics.FromHwnd(IntPtr.Zero))
             {
                 float dpiX = graphics.DpiX;

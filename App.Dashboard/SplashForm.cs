@@ -9,6 +9,7 @@
 using System;
 using System.Threading;
 using System.Windows.Forms;
+using App.Common.Dpi;
 
 namespace App.Dashboard
 {
