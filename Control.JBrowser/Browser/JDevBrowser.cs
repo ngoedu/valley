@@ -83,8 +83,6 @@ namespace  Control.JBrowser
 			
 			//add devtool panel
 			this.Controls.Add(this.panelRight);
-			
-			this.GotFocus += JDevBrowser_GotFocus;
 		}
 		
 		void JDevBrowserSizeChanged(object sender, EventArgs e)
@@ -95,9 +93,6 @@ namespace  Control.JBrowser
 			}
 		}
 		
-		public void JDevBrowser_GotFocus(object sender, EventArgs args) {
-			MessageBox.Show("browser active");
-		}
 		
 		public void LoadPage(string content)
 		{

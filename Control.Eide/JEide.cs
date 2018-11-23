@@ -33,8 +33,7 @@ namespace Control.Eide
 		
 		public static string CMD_EXIT = "$EXIT=0";
 		public static string CMD_ADDPROJ = "$ADDPROJ=";
-		public static string RESP_EXIT = "<EIDE status='closed'/>";
-		public static string RESP_MILESTONE = "<EIDE mileStone='success'/>";
+
 		
 		private IntPtr embedHandle;
 		private string codeBase;
@@ -271,7 +270,8 @@ namespace Control.Eide
 		private void OnExited(object sender, System.EventArgs e) {
         	logger.Info("[EIDE] process Exited");
         	pid = -1;
-        	exitSignal.Set();
+        	if (exitSignal !=null)
+        		exitSignal.Set();
         }
 		
 		private void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine) {
