@@ -325,7 +325,7 @@ namespace NGO.Protocol.AEther
 		// Client socket.
 		public Socket workSocket = null;
 		// Size of receive buffer.
-		public const int BufferSize = 128;//256;
+		public const int BufferSize = 512;//128;//256;
 		// Receive buffer.
 		public byte[] buffer = new byte[BufferSize];
 		// Received data string.

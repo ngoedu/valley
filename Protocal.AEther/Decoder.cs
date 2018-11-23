@@ -7,6 +7,7 @@
  * 
  */
 using System;
+using log4net;
 
 namespace NGO.Protocol.AEther
 {
@@ -17,6 +18,8 @@ namespace NGO.Protocol.AEther
 	{
 		public static Decoder Instance = new Decoder();
 		
+		private static readonly ILog logger = LogManager.GetLogger(typeof(Decoder));  
+
 		private Decoder()
 		{
 		}
@@ -82,6 +85,7 @@ namespace NGO.Protocol.AEther
 				
 				int dataLen = read - eated;
 				if (dataLen > 0) {
+					logger.Debug("BlockCopy - eated="+eated + ",state.package.Arrived - headerSize="+(state.package.Arrived - headerSize)+",dataLen="+dataLen);
 					Buffer.BlockCopy(buffer, eated, state.package.Payload, state.package.Arrived - headerSize, dataLen);				
 				}
 				
@@ -93,6 +97,7 @@ namespace NGO.Protocol.AEther
 			//P4 payload not available
 			int packLen = state.package.Capacity();//headerSize + state.package.PayloadLen();
 			if (state.package.Arrived < packLen){
+				logger.Debug("BlockCopy - destOffset="+(state.package.Arrived - headerSize) + ",read="+read);
 				Buffer.BlockCopy(buffer, 0, state.package.Payload, state.package.Arrived - headerSize, read);
 				state.package.Arrived+=read;
 				if (state.package.Arrived <packLen)
