@@ -18,6 +18,7 @@ namespace App.Views
 		private System.Windows.Forms.Label lblName;
 		private System.Windows.Forms.CheckBox cbLock;
 		private System.Windows.Forms.Label lblFK;
+		private System.Windows.Forms.PictureBox pbMaxIcon;
 		
 		/// <summary>
 		/// Disposes resources used by the control.
@@ -44,6 +45,8 @@ namespace App.Views
 			this.lblName = new System.Windows.Forms.Label();
 			this.cbLock = new System.Windows.Forms.CheckBox();
 			this.lblFK = new System.Windows.Forms.Label();
+			this.pbMaxIcon = new System.Windows.Forms.PictureBox();
+			((System.ComponentModel.ISupportInitialize)(this.pbMaxIcon)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// pContent
@@ -86,12 +89,22 @@ namespace App.Views
 			this.lblFK.TabIndex = 3;
 			this.lblFK.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
+			// pbMaxIcon
+			// 
+			this.pbMaxIcon.Location = new System.Drawing.Point(328, 0);
+			this.pbMaxIcon.Name = "pbMaxIcon";
+			this.pbMaxIcon.Size = new System.Drawing.Size(23, 23);
+			this.pbMaxIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.pbMaxIcon.TabIndex = 4;
+			this.pbMaxIcon.TabStop = false;
+			// 
 			// AppTile
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.Controls.Add(this.pbMaxIcon);
 			this.Controls.Add(this.lblFK);
 			this.Controls.Add(this.lblName);
 			this.Controls.Add(this.cbLock);
@@ -102,6 +115,7 @@ namespace App.Views
 			this.DoubleClick += new System.EventHandler(this.AppTileDoubleClick);
 			this.Enter += new System.EventHandler(this.AppTileEnter);
 			this.Leave += new System.EventHandler(this.AppTileLeave);
+			((System.ComponentModel.ISupportInitialize)(this.pbMaxIcon)).EndInit();
 			this.ResumeLayout(false);
 
 		}

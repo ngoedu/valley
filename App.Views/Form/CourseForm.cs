@@ -90,6 +90,7 @@ namespace App.Views
 		       	}
 		       	this.lbHistory.Visible = false;
 		       	this.panelPreview.Visible = true;
+				this.pbImage.Image = global::App.Views.Resource1.webdesign;
 							
 				this.browser.Visible = false;
 		    });
@@ -125,7 +126,7 @@ namespace App.Views
 	       		this.pbDownload.Visible = false;
 				this.lbHistory.Visible = true;
 				this.panelPreview.Visible = true;
-				
+				this.pbImage.Image = global::App.Views.Resource1.train_history;
 				this.browser.Visible = false;
 			});
 		}
@@ -133,6 +134,7 @@ namespace App.Views
 		
 		public void NavigateBackToCourseLib() {
 			this.panelPreview.Visible = false;
+			this.jsCallback.setSelectedCourseId(string.Empty);
 			this.browser.Visible = true;
 		}
 		
@@ -167,6 +169,12 @@ namespace App.Views
 		
 		void BtnStartClick(object sender, EventArgs e)
 		{
+			if (string.IsNullOrEmpty(jsCallback.CourseId))
+			{
+				MessageBox.Show("请先选择课程！","提示", MessageBoxButtons.OK,  MessageBoxIcon.Exclamation);
+				return;
+			}
+			
 			if (!isButtonTriggered) {
 				isButtonTriggered = true;
 				this.btnGoBack.Enabled = false;
@@ -248,6 +256,8 @@ namespace App.Views
 		
 		void LbHistorySelectedIndexChanged(object sender, EventArgs e)
 		{
+			if (lbHistory.SelectedIndex <0)
+				return;
 			var course = lbHistory.Items[lbHistory.SelectedIndex].ToString ();
 			var cid = course.Split(' ')[0];
 			this.jsCallback.setSelectedCourseId(cid);

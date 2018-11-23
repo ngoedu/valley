@@ -78,7 +78,7 @@ namespace App.Views.Tile
 			HookKeyController.Instance.RegisterCallback(SideB2.FUNKEY, SideB2);
 			
 			foreach(var app in context) {
-				var tile = new AppTile(app.AppId, app.FuncKey, app.SideCode, false, false, (System.Windows.Forms.Control)app.AppControl, this);
+				var tile = new AppTile(app.AppId, app.FuncKey, app.SideCode, app.Expandable, false, (System.Windows.Forms.Control)app.AppControl, this);
 				mainForm.Controls.Add(tile);
 				if (app.SideCode == SideA1.FUNKEY) {
 					SideA1.TILES.Add(tile);
@@ -94,6 +94,16 @@ namespace App.Views.Tile
 			SideA1.DiplayTile();
 			SideB2.DiplayTile();
 		}
+
+		public void OnHotkey(int keyCode,AppTile tile)
+		{
+			 if (tile.status == AppTile.TileStatus.Max) {
+				DeactiveTile(keyCode);
+			}  else if (tile.status == AppTile.TileStatus.Normal){
+				ActiveTile(keyCode);
+			}	
+		}
+		
 		
 		public void RebuildAppTiles(System.Collections.Generic.List<AppContext> context)
 		{
@@ -112,7 +122,7 @@ namespace App.Views.Tile
 			
 			//renew tiles and init layout
 			foreach(var app in context) {
-				var tile = new AppTile(app.AppId, app.FuncKey, app.SideCode, false, false, (System.Windows.Forms.Control)app.AppControl, this);
+				var tile = new AppTile(app.AppId, app.FuncKey, app.SideCode, app.Expandable, false, (System.Windows.Forms.Control)app.AppControl, this);
 				mainForm.Controls.Add(tile);
 				if (app.SideCode == SideA1.FUNKEY) {
 					SideA1.TILES.Add(tile);
@@ -165,7 +175,7 @@ namespace App.Views.Tile
 
 		public System.Drawing.Rectangle MaxmizedSize()
 		{
-			throw new InvalidOperationException();
+			return GetLayout().MaxmizedSize();
 		}
 
 		public System.Drawing.Rectangle MinimizedSize(int tileId)

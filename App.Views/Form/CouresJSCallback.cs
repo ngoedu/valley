@@ -31,6 +31,7 @@ namespace App.Views
 		
 		public CouresJSCallback(CourseForm form) {
 			courseForm = form;
+			CourseId = string.Empty;
 		}
 
 		public void SetCefBrowser(CefSharp.WinForms.ChromiumWebBrowser cefBrowser)

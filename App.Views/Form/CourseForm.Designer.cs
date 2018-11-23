@@ -73,14 +73,13 @@ namespace App.Views
 			// 
 			// lbHistory
 			// 
-			this.lbHistory.BackColor = System.Drawing.SystemColors.ButtonFace;
-			this.lbHistory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.lbHistory.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.lbHistory.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.lbHistory.FormattingEnabled = true;
 			this.lbHistory.ItemHeight = 21;
 			this.lbHistory.Location = new System.Drawing.Point(632, 0);
 			this.lbHistory.Name = "lbHistory";
-			this.lbHistory.Size = new System.Drawing.Size(569, 338);
+			this.lbHistory.Size = new System.Drawing.Size(569, 319);
 			this.lbHistory.TabIndex = 6;
 			this.lbHistory.SelectedIndexChanged += new System.EventHandler(this.LbHistorySelectedIndexChanged);
 			// 

@@ -29,5 +29,7 @@ namespace App.Views
 		Rectangle NormalSize(int sideCode);
 		Rectangle LockedSize();
 		
+		void OnHotkey(int keyCode, AppTile  tile);
+		
 	}
 }

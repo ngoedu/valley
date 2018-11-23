@@ -21,7 +21,11 @@ namespace App.Views.Tile
 		
 		private Rectangle sideBNormalSize;
 	    private Rectangle sideANormalSize;
-	  
+	    
+	  	private Rectangle tileMaxSize;
+	  	private Point maxPoint = new Point(20,100);
+			
+	    
 	    private Dictionary<int, Rectangle> MINS = new Dictionary<int, Rectangle>();  
 	    private double scale;
 	    
@@ -40,13 +44,28 @@ namespace App.Views.Tile
 	    	MINS.Add(2,new Rectangle(new Point(120,220),new Size(3, 2)));
 	    	MINS.Add(3,new Rectangle(new Point(140,220),new Size(3, 2)));
 	    	MINS.Add(4,new Rectangle(new Point(160,220),new Size(3, 2)));
+	    	
+	    	tileMaxSize = new Rectangle(maxPoint, new Size(resolution.Width - 40, resolution.Height - 180));
+	    	
 		}
 		
 		public override void ActiveTile(int keyCode) {
 			foreach(var tile in TILES)
 			{	
 				if (tile.Value.GetHotKeyId() == keyCode) {
-					tile.Value.Normal();
+					System.Diagnostics.Debug.WriteLine("=====>ActiveTIle, status="+tile.Value.status);
+						
+					if (tile.Value.Reactive) {
+						if (tile.Value.status == AppTile.TileStatus.Min) {
+							tile.Value.Normal();
+						} else if (tile.Value.status == AppTile.TileStatus.Normal) {
+							tile.Value.Maxmized();
+						} else if (tile.Value.status == AppTile.TileStatus.Max) {
+							tile.Value.Normal();
+						}
+					} else {
+						tile.Value.Normal();
+					}
 					tile.Value.Active();
 					tile.Value.Visible = true;
 					break;
@@ -72,16 +91,33 @@ namespace App.Views.Tile
 			foreach(var tile in TILES)
 			{	
 				if (tile.Value.GetHotKeyId() == index) {
-					tile.Value.Visible = false;
-					tile.Value.Deactive();
-					tile.Value.Minimized();	
+					
+					if (tile.Value.Reactive) {
+						if (tile.Value.status == AppTile.TileStatus.Max) {
+							tile.Value.Visible = true;
+							tile.Value.Normal();
+						} else if (tile.Value.status == AppTile.TileStatus.Normal) {
+							tile.Value.Visible = false;
+							tile.Value.Deactive();
+							tile.Value.Minimized();	
+						} else if (tile.Value.status == AppTile.TileStatus.Min) {
+							tile.Value.Visible = false;
+							tile.Value.Deactive();
+							tile.Value.Minimized();	
+						}
+					} else {
+					
+						tile.Value.Visible = false;
+						tile.Value.Deactive();
+						tile.Value.Minimized();	
+					}
 				}
 			}
 		}
 		
 		public override Rectangle MaxmizedSize()
 		{
-			throw new InvalidOperationException();
+			return this.tileMaxSize;
 		}
 
 		public override Rectangle MinimizedSize(int tileId)

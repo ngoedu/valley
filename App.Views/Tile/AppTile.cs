@@ -23,7 +23,7 @@ namespace App.Views
 		private string tileName;
 		private int hotKey;
 		private bool lockable;
-		private bool reactive = false;
+		public bool Reactive {private set; get;}
 		private int SGroup {set; get;}
 		private ITileManager tileManager;
 		public TileStatus status {private set; get;}
@@ -41,7 +41,7 @@ namespace App.Views
 			this.tileManager = tileManager;
 			this.tileName = name;
 			this.hotKey = key;
-			this.reactive = reactive;
+			this.Reactive = reactive;
 			this.lockable = lockable;
 			this.lblName.Text = this.tileName;
 			this.SGroup = sgroup;
@@ -52,6 +52,8 @@ namespace App.Views
 			
 			if (!this.lockable)
 				this.cbLock.Visible = false;
+			
+			this.pbMaxIcon.Visible = (this.Reactive);
 		}
 
 		public int GetHotKeyId()
@@ -70,16 +72,7 @@ namespace App.Views
 
 		public void OnHotKey(int keyCode)
 		{
-			if (this.status == TileStatus.Lock) {
-				this.Active();
-				return;
-			} else if (this.status == TileStatus.Max) {
-				this.tileManager.DeactiveTile(keyCode);
-			} else if (this.status == TileStatus.Min) {
-				this.tileManager.ActiveTile(keyCode);
-			} else if (this.status == TileStatus.Normal){
-				this.tileManager.DeactiveTile(keyCode);
-			}		
+			this.tileManager.OnHotkey(keyCode, this);
 		}
 
 		public void Active()
@@ -115,6 +108,8 @@ namespace App.Views
 			this.Width = normalSize.Width;
 			this.Height = normalSize.Height;
 			this.status = TileStatus.Normal;
+			if (this.Reactive)
+				this.pbMaxIcon.Image = global::App.Views.Resource1.maxmize;
 		}
 		
 		public void Lock()
@@ -135,7 +130,10 @@ namespace App.Views
 			this.Width = maxSize.Width;
 			this.Height = maxSize.Height;
 			this.status = TileStatus.Max;
-			cbLock.Visible = true;
+			if (this.Reactive)
+				this.pbMaxIcon.Image = global::App.Views.Resource1.normal;
+			if (this.lockable)
+				cbLock.Visible = true;
 		}
 		
 		public bool IsLocked() {
@@ -153,6 +151,9 @@ namespace App.Views
 			this.lblFK.Height = titleHeight;
 			this.lblFK.Width = titleHeight;
 			
+			this.pbMaxIcon.Left = this.Width - 33;
+			this.pbMaxIcon.Top = 3;
+			
 		}
 		void AppTileEnter(object sender, EventArgs e)
 		{
@@ -168,7 +169,7 @@ namespace App.Views
 		}
 		void AppTileDoubleClick(object sender, EventArgs e)
 		{
-			if (this.reactive)
+			if (this.Reactive)
 			this.OnHotKey(this.hotKey);
 		}
 		void CheckBox1CheckedChanged(object sender, EventArgs e)

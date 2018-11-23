@@ -44,6 +44,19 @@ namespace App.Views
 			}
 		}
 		
+		public void OnHotkey(int keyCode, AppTile tile) {
+			if (tile.status == AppTile.TileStatus.Lock) {
+				tile.Active();
+				return;
+			} else if (tile.status == AppTile.TileStatus.Max) {
+				DeactiveTile(keyCode);
+			} else if (tile.status == AppTile.TileStatus.Min) {
+				ActiveTile(keyCode);
+			} else if (tile.status == AppTile.TileStatus.Normal){
+				DeactiveTile(keyCode);
+			}		
+		}
+		
 		public void RebuildAppTiles(System.Collections.Generic.List<AppContext> context)
 		{
 			throw new NotImplementedException();
