@@ -14,6 +14,7 @@ using System.Threading;
 using System.Windows.Forms;
 using App.Common.Reg;
 using App.Common.Win32;
+using Control.JBrowser.Browser;
 
 namespace  Control.JBrowser
 {

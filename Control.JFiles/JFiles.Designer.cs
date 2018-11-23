@@ -48,9 +48,9 @@ namespace Control.Files
 			this.lvFiles.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.lvFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lvFiles.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-			this.lvFiles.Location = new System.Drawing.Point(3, 35);
+			this.lvFiles.Location = new System.Drawing.Point(3, 32);
 			this.lvFiles.Name = "lvFiles";
-			this.lvFiles.Size = new System.Drawing.Size(344, 380);
+			this.lvFiles.Size = new System.Drawing.Size(344, 351);
 			this.lvFiles.TabIndex = 0;
 			this.lvFiles.UseCompatibleStateImageBehavior = false;
 			this.lvFiles.View = System.Windows.Forms.View.Details;
@@ -61,21 +61,22 @@ namespace Control.Files
 			this.pbPlus.Image = global::Control.JFiles.Resource1.plus;
 			this.pbPlus.Location = new System.Drawing.Point(316, 4);
 			this.pbPlus.Name = "pbPlus";
-			this.pbPlus.Size = new System.Drawing.Size(23, 23);
+			this.pbPlus.Size = new System.Drawing.Size(23, 21);
 			this.pbPlus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pbPlus.TabIndex = 1;
 			this.pbPlus.TabStop = false;
+			this.pbPlus.EnabledChanged += new System.EventHandler(this.PbPlusEnabledChanged);
 			this.pbPlus.Click += new System.EventHandler(this.PbPlusClick);
 			// 
-			// JBrowser
+			// JFiles
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.Controls.Add(this.pbPlus);
 			this.Controls.Add(this.lvFiles);
-			this.Name = "JBrowser";
-			this.Size = new System.Drawing.Size(350, 419);
+			this.Name = "JFiles";
+			this.Size = new System.Drawing.Size(350, 387);
 			((System.ComponentModel.ISupportInitialize)(this.pbPlus)).EndInit();
 			this.ResumeLayout(false);
 

@@ -66,6 +66,10 @@
     <Compile Include="Browser\IBrowserJSCallback.cs" />
     <Compile Include="Browser\IWebBrowser.cs" />
     <Compile Include="Browser\JDevBrowser.cs" />
+    <Compile Include="Browser\JNav2WebBrowser.cs" />
+    <Compile Include="Browser\JNav2WebBrowser.Designer.cs">
+      <DependentUpon>JNav2WebBrowser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Browser\JNavWebBrowser.cs" />
     <Compile Include="Browser\JWebBrowser.cs" />
     <Compile Include="Browser\JWebBrowser.Designer.cs">
@@ -78,6 +82,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Browser\JNav2WebBrowser.resx">
+      <DependentUpon>JNav2WebBrowser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Browser\JWebBrowser.resx">
       <DependentUpon>JWebBrowser.cs</DependentUpon>
     </EmbeddedResource>

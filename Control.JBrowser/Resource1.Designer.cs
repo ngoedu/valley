@@ -73,6 +73,16 @@ namespace Control.JBrowser {
 		/// <summary>
 		///   Looks up a localized resource of type System.Drawing.Bitmap.
 		/// </summary>
+		internal static System.Drawing.Bitmap nav_left_green_disable {
+			get {
+				object obj = ResourceManager.GetObject("nav_left_green_disable", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
 		internal static System.Drawing.Bitmap nav_plain_green {
 			get {
 				object obj = ResourceManager.GetObject("nav_plain_green", resourceCulture);
@@ -96,6 +106,16 @@ namespace Control.JBrowser {
 		internal static System.Drawing.Bitmap nav_right_green {
 			get {
 				object obj = ResourceManager.GetObject("nav_right_green", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap nav_right_green_disable {
+			get {
+				object obj = ResourceManager.GetObject("nav_right_green_disable", resourceCulture);
 				return ((System.Drawing.Bitmap)(obj));
 			}
 		}
