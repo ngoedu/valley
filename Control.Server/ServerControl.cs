@@ -96,7 +96,18 @@ namespace Control.Server
 							
 					}
 				}
-				this.rtbTomcatConsole.AppendText(e.UserState.ToString()+"\r\n");
+				string message = e.UserState.ToString();
+				if (message.StartsWith("$MARK=")) {
+					int idx1 = message.IndexOf('[')+1;
+					int idx2 = message.IndexOf(']');
+					var color = message.Substring(idx1, idx2 - idx1);
+					this.rtbTomcatConsole.AppendText(message.Substring(idx2+ 1));
+					MarkupText(message.Substring(idx2+ 1), color);
+					
+				} else {
+					this.rtbTomcatConsole.AppendText(message+"\r\n");
+				
+				}
 			}
 		}
 		 
@@ -137,22 +148,51 @@ namespace Control.Server
 
 
 		#endregion
+		private void MarkupText(string text, string color) {
+			rtbTomcatConsole.SelectionStart = rtbTomcatConsole.TextLength - (text.Length -1);
+	        rtbTomcatConsole.SelectionLength = text.Length;  
+	        rtbTomcatConsole.SelectionColor = Color.FromName(color);
+			rtbTomcatConsole.SelectionStart = 0;  
+	        rtbTomcatConsole.SelectionLength = 0; 
+		}
+		private void AppendColorText (string text, string color) {
+			tomcatQueue.Add("$MARK=["+color+"]"+text);
+		}
 
 		void TabCatalinaSizeChanged(object sender, EventArgs e)
 		{
 			this.rtbTomcatConsole.Width = this.tabCatalina.ClientSize.Width - 2;
 			this.rtbTomcatConsole.Left = 1;
-			this.rtbTomcatConsole.Height = this.tabCatalina.ClientSize.Height - this.rtbTomcatConsole.Top - 20;
+			this.rtbTomcatConsole.Height = this.tabCatalina.ClientSize.Height - 100;
 		}
 		void BtTomcatStartClick(object sender, EventArgs e)
 		{
+			if (catalina.IsStartedUp())
+			{
+				MessageBox.Show("Tomcat服务器已经启动了。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return;
+			}
 			catalina.StartupSync();
+			AppendColorText("Tomcat服务器已经正常启动"+"\r\n", "green");
 			this.pbTomcatStatus.Image = global::Control.Server.Resource1.tomcat_logo_trans_vivid_48x48;
+			this.btTomcatStart.Enabled = false;
+			this.btTomcatStop.Enabled = true;
 		}
 		void BtTomcatStopClick(object sender, EventArgs e)
 		{
+			if (!catalina.IsStartedUp())
+			{
+				MessageBox.Show("Tomcat服务器还没启动。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return;
+			}
 			catalina.ShutdownSync();
+			AppendColorText("Tomcat服务器已经停止"+"\r\n", "green");
+			
 			this.pbTomcatStatus.Image = global::Control.Server.Resource1.tomcat_logo_trans_grey_48x48;
+			this.btTomcatStart.Enabled = true;
+			this.btTomcatStop.Enabled = false;
 		}
+		
+		
 	}
 }

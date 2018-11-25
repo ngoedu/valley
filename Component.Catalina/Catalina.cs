@@ -171,5 +171,9 @@ namespace Component.Catalina
             }
                      
 		}
+        
+        public bool IsStartedUp() {
+        	return this.pid !=  -1 && status == 0;
+        }
 	}
 }

@@ -86,7 +86,7 @@ namespace Control.Server
 			// 
 			this.rtbTomcatConsole.BackColor = System.Drawing.SystemColors.MenuText;
 			this.rtbTomcatConsole.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.rtbTomcatConsole.ForeColor = System.Drawing.SystemColors.Info;
+			this.rtbTomcatConsole.ForeColor = System.Drawing.SystemColors.ScrollBar;
 			this.rtbTomcatConsole.Location = new System.Drawing.Point(0, 80);
 			this.rtbTomcatConsole.Name = "rtbTomcatConsole";
 			this.rtbTomcatConsole.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
@@ -96,9 +96,10 @@ namespace Control.Server
 			// 
 			// btTomcatStop
 			// 
+			this.btTomcatStop.Enabled = false;
 			this.btTomcatStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.btTomcatStop.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btTomcatStop.Location = new System.Drawing.Point(176, 40);
+			this.btTomcatStop.Location = new System.Drawing.Point(176, 32);
 			this.btTomcatStop.Name = "btTomcatStop";
 			this.btTomcatStop.Size = new System.Drawing.Size(75, 31);
 			this.btTomcatStop.TabIndex = 2;
@@ -110,7 +111,7 @@ namespace Control.Server
 			// 
 			this.btTomcatStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.btTomcatStart.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btTomcatStart.Location = new System.Drawing.Point(88, 40);
+			this.btTomcatStart.Location = new System.Drawing.Point(88, 32);
 			this.btTomcatStart.Name = "btTomcatStart";
 			this.btTomcatStart.Size = new System.Drawing.Size(75, 31);
 			this.btTomcatStart.TabIndex = 1;
