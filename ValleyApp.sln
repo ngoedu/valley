@@ -52,6 +52,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XWebTool", "XWebTool\XWebTo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Control.JBrowser", "Control.JBrowser\Control.JBrowser.csproj", "{57CDD418-D8D1-4B9B-AEF1-36B2A22355AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Control.Server", "Control.Server\Control.Server.csproj", "{8A934C42-A0E7-4602-9FFF-B5DD34802940}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -154,5 +156,9 @@ Global
 		{57CDD418-D8D1-4B9B-AEF1-36B2A22355AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57CDD418-D8D1-4B9B-AEF1-36B2A22355AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57CDD418-D8D1-4B9B-AEF1-36B2A22355AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A934C42-A0E7-4602-9FFF-B5DD34802940}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A934C42-A0E7-4602-9FFF-B5DD34802940}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A934C42-A0E7-4602-9FFF-B5DD34802940}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A934C42-A0E7-4602-9FFF-B5DD34802940}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

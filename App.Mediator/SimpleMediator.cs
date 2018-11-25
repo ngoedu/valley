@@ -123,6 +123,7 @@ namespace App.Mediator
 			appRegistry.Add(AppRegKeys.AETHER_CLIENT, aetherClient);
 			appRegistry.Add(AppRegKeys.EIDE_CDAT, cpath);
 			appRegistry.Add(AppRegKeys.EIDE_PROJ, cpath+@"\"+courseName+@"\"+course.Schema.ProjName);
+			appRegistry.Add(AppRegKeys.CATALINA_CONTEXT, course.Schema.ProjName);
 			
 			//2. prepare app controls
 			appContexts = App.Views.AppContext.CreateAppContext(course.Apps);
@@ -137,13 +138,13 @@ namespace App.Mediator
 			logger.Debug("app tiles inited");
 			
 			//load catalina if required.
-			if (Int16.Parse(course.Schema.Category) == (int)CourseCategory.Web){
+			/*if (Int16.Parse(course.Schema.Category) == (int)CourseCategory.Web){
 				int port = 60080;
 				catalina = new CatalinaServer(null, PidRecorder.Instance, "127.0.0.1", 60080, cpath+@"\"+courseName+@"\"+course.Schema.ProjName,course.Schema.ProjName);
 				catalina.StartupSync();
 				logger.Debug("catalina started up on port - " + port);
 			
-			}
+			}*/
 	    				
 			//4.init profile
 			jProfile.SetName("070718A001");
@@ -167,6 +168,7 @@ namespace App.Mediator
 			appRegistry[AppRegKeys.AETHER_CLIENT]= aetherClient;
 			appRegistry[AppRegKeys.EIDE_CDAT]= cpath;
 			appRegistry[AppRegKeys.EIDE_PROJ]= cpath+@"\"+courseName+@"\"+course.Schema.ProjName;
+			appRegistry[AppRegKeys.CATALINA_CONTEXT] = course.Schema.ProjName;
 			
 			//TODO: any change here? 3.reload app control
 			appContexts = App.Views.AppContext.CreateAppContext(course.Apps);		
@@ -179,20 +181,6 @@ namespace App.Mediator
 			//4.rebuid tiles
 			tileManager.RebuildAppTiles(appContexts);
 			logger.Debug("app tiles reloaded");
-			
-			//load catalina if required.
-			if (Int16.Parse(course.Schema.Category) == (int)CourseCategory.Web ){
-				if (catalina != null) {
-					catalina.ShutdownSync();
-					logger.Debug("catalina shuted down.");
-				}				
-			
-				int port = 60080;
-				catalina = new CatalinaServer(null, PidRecorder.Instance, "127.0.0.1", port, cpath+@"\"+courseName+@"\"+course.Schema.ProjName,course.Schema.ProjName);
-				catalina.StartupSync();
-				logger.Debug("catalina re-started up.");
-			
-			}
 		}
 		
 		#region form event

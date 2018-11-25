@@ -27,15 +27,24 @@ namespace App.Views.Tile
 			this.tileManager = manager;
 		}
 		
+		private int pointerIdx;
+		
 		public void OnHotKey(int keyCode)
 		{
-			foreach(var t in TILES) {
-				if (t.status == AppTile.TileStatus.Normal) {
+			var toBeActive = TILES[pointerIdx];
+				
+			foreach(var t in TILES) {				
+				if (t != toBeActive) {
 					this.tileManager.DeactiveTile(t.GetHotKeyId());
-				} else if (t.status == AppTile.TileStatus.Min) {
+				}
+				else
+				{
 					this.tileManager.ActiveTile(t.GetHotKeyId());
 				}
 			}
+			
+			pointerIdx += 1;
+			pointerIdx = pointerIdx % (TILES.Count);
 		}
 		
 		public void DiplayTile() {
@@ -47,6 +56,7 @@ namespace App.Views.Tile
 			}
 			
 			this.tileManager.ActiveTile(TILES[0].GetHotKeyId());
+			this.pointerIdx = 1;
 		}		
 	}
 	

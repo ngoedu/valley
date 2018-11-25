@@ -13,6 +13,7 @@ using App.Common.Proc;
 using App.Common.Reg;
 using Control.Eide;
 using Control.JBrowser;
+using Control.Server;
 using Control.Video;
 using NGO.Pad.Guider;
 using NGO.Train;
@@ -42,6 +43,8 @@ namespace App.Views
 			APPREG.Add("guider", new App.Views.AppContext("导航", 2, 1,new JGuider(),false));
 			APPREG.Add("jeide", new App.Views.AppContext("编码", 3, 2,new JEide("NgoEclipse",  CodeBase.GetCodePath(), PidRecorder.Instance), false));
 			APPREG.Add("browser", new App.Views.AppContext("浏览器", 4, 2, new JDevBrowser(),true));
+			APPREG.Add("server", new App.Views.AppContext("服务器", 5, 2, new ServerControl(),false));
+
 		}
 		
 		public AppContext(string id, int key, int sideCode, IAppEntry ctl, bool expandable)

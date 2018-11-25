@@ -44,6 +44,7 @@ namespace App.Views.Tile
 	    	MINS.Add(2,new Rectangle(new Point(120,220),new Size(3, 2)));
 	    	MINS.Add(3,new Rectangle(new Point(140,220),new Size(3, 2)));
 	    	MINS.Add(4,new Rectangle(new Point(160,220),new Size(3, 2)));
+	    	MINS.Add(5,new Rectangle(new Point(180,220),new Size(3, 2)));
 	    	
 	    	tileMaxSize = new Rectangle(maxPoint, new Size(resolution.Width - 40, resolution.Height - 180));
 	    	

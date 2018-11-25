@@ -113,6 +113,10 @@
       <Project>{EFBBF0B8-BA2C-42CE-862E-FD3DF84130D3}</Project>
       <Name>App.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Component.Catalina\Component.Catalina.csproj">
+      <Project>{ECBE8FB1-549C-44AB-A8B2-A80CE5F32D70}</Project>
+      <Name>Component.Catalina</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Control.Eide\Control.Eide.csproj">
       <Project>{9588C636-7568-453A-9A1B-299416A1B8DD}</Project>
       <Name>Control.Eide</Name>
@@ -124,6 +128,10 @@
     <ProjectReference Include="..\Control.JBrowser\Control.JBrowser.csproj">
       <Project>{57CDD418-D8D1-4B9B-AEF1-36B2A22355AF}</Project>
       <Name>Control.JBrowser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Control.Server\Control.Server.csproj">
+      <Project>{8A934C42-A0E7-4602-9FFF-B5DD34802940}</Project>
+      <Name>Control.Server</Name>
     </ProjectReference>
     <ProjectReference Include="..\Control.Video\Control.Video.csproj">
       <Project>{6C117197-6D3B-485B-9B52-A20BD6E34918}</Project>
