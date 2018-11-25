@@ -89,6 +89,7 @@ namespace Control.Server
 			this.rtbTomcatConsole.ForeColor = System.Drawing.SystemColors.ScrollBar;
 			this.rtbTomcatConsole.Location = new System.Drawing.Point(0, 80);
 			this.rtbTomcatConsole.Name = "rtbTomcatConsole";
+			this.rtbTomcatConsole.ReadOnly = true;
 			this.rtbTomcatConsole.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
 			this.rtbTomcatConsole.Size = new System.Drawing.Size(408, 224);
 			this.rtbTomcatConsole.TabIndex = 3;
