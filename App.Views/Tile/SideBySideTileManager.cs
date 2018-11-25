@@ -32,7 +32,18 @@ namespace App.Views.Tile
 		public void OnHotKey(int keyCode)
 		{
 			var toBeActive = TILES[pointerIdx];
-				
+			
+			//for only one tile item
+			if (TILES.Count == 1) {
+				var t = TILES[0];
+				if (t.status == AppTile.TileStatus.Min){
+					this.tileManager.ActiveTile(t.GetHotKeyId());
+				} else if (t.status == AppTile.TileStatus.Normal){
+					this.tileManager.DeactiveTile(t.GetHotKeyId());
+				}
+				return;
+			}
+			
 			foreach(var t in TILES) {				
 				if (t != toBeActive) {
 					this.tileManager.DeactiveTile(t.GetHotKeyId());
