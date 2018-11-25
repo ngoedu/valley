@@ -56,7 +56,7 @@ namespace App.Views.Tile
 			}
 			
 			this.tileManager.ActiveTile(TILES[0].GetHotKeyId());
-			this.pointerIdx = 1;
+			this.pointerIdx = TILES.Count > 1 ? 1 : 0;
 		}		
 	}
 	
@@ -71,12 +71,14 @@ namespace App.Views.Tile
 	    
 	    private SideTileHolder SideA1 ;
 	    private SideTileHolder SideB2 ;
+	    private SideTileHolder SideC3 ;
 	    
 		public SideBySideTileManager(Form mf)
 		{
 			this.mainForm = mf;
 			SideA1 = new SideTileHolder(1, this);
 	    	SideB2 = new SideTileHolder(2, this);
+	    	SideC3 = new SideTileHolder(3, this);
 	    
 		}
 
@@ -86,6 +88,7 @@ namespace App.Views.Tile
 		{
 			HookKeyController.Instance.RegisterCallback(SideA1.FUNKEY, SideA1);
 			HookKeyController.Instance.RegisterCallback(SideB2.FUNKEY, SideB2);
+			HookKeyController.Instance.RegisterCallback(SideC3.FUNKEY, SideC3);
 			
 			foreach(var app in context) {
 				var tile = new AppTile(app.AppId, app.FuncKey, app.SideCode, app.Expandable, false, (System.Windows.Forms.Control)app.AppControl, this);
@@ -96,12 +99,15 @@ namespace App.Views.Tile
 				else if (app.SideCode == SideB2.FUNKEY) {
 					SideB2.TILES.Add(tile);
 				}
-				else
+				else if (app.SideCode == SideC3.FUNKEY) {
+					SideC3.TILES.Add(tile);
+				} else
 					MessageBox.Show("app don't have defined side by side hotkey");
 					
 				GetLayout().AddTile(app.FuncKey, tile);
 			}
 			SideA1.DiplayTile();
+			SideC3.DiplayTile();
 			SideB2.DiplayTile();
 		}
 
@@ -126,8 +132,14 @@ namespace App.Views.Tile
 			{
 				this.mainForm.Controls.Remove(SideB2.TILES[i]);
 			}
+			for(int i=0; i<SideC3.TILES.Count;i++)
+			{
+				this.mainForm.Controls.Remove(SideC3.TILES[i]);
+			}
 			SideA1.TILES.Clear();
-			SideB2.TILES.Clear();			
+			SideB2.TILES.Clear();
+			SideC3.TILES.Clear();			
+						
 			GetLayout().RemoveAllTiles();
 			
 			//renew tiles and init layout
@@ -140,12 +152,16 @@ namespace App.Views.Tile
 				else if (app.SideCode == SideB2.FUNKEY) {
 					SideB2.TILES.Add(tile);
 				}
+				else if (app.SideCode == SideC3.FUNKEY) {
+					SideC3.TILES.Add(tile);
+				}
 				else
 					MessageBox.Show("app don't have defined side by side hotkey");
 					
 				GetLayout().AddTile(app.FuncKey, tile);
 			}
 			SideA1.DiplayTile();
+			SideC3.DiplayTile();
 			SideB2.DiplayTile();
 		}
 		
@@ -171,6 +187,10 @@ namespace App.Views.Tile
 			for(int i=0; i<SideB2.TILES.Count;i++)
 			{
 				SideB2.TILES[i].Visible = false;
+			}
+			for(int i=0; i<SideC3.TILES.Count;i++)
+			{
+				SideC3.TILES[i].Visible = false;
 			}
 		}
 		public void ActiveTile(int index)
