@@ -120,7 +120,8 @@ namespace  Control.JBrowser
 		public void Active()
 		{
 			string refreshUrl = appRegistry.ContainsKey(AppRegKeys.BROWSER_URL) ? (string)appRegistry[AppRegKeys.BROWSER_URL] : null;
-			this.innerBrowser.RefreshPage(refreshUrl);
+			if (refreshUrl!=null)
+				this.innerBrowser.RefreshPage(refreshUrl);
 		}
 		
 		public void Inactive()

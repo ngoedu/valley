@@ -249,8 +249,11 @@ namespace Control.JBrowser
 
         
         public void RefreshPage(string pageUrl) {
-        	if (!string.IsNullOrEmpty(pageUrl))
+        	if (!string.IsNullOrEmpty(pageUrl)) {
+        		if (urlTextBox.Text.Equals("about:blank"))
+					urlTextBox.Text = pageUrl;
         		LoadUrl(pageUrl);
+        	}
 			else
 				LoadUrl(urlTextBox.Text);
         }
