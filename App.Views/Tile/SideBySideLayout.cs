@@ -53,7 +53,7 @@ namespace App.Views.Tile
 		public override void ActiveTile(int keyCode) {
 			foreach(var tile in TILES)
 			{	
-				if (tile.Value.GetHotKeyId() == keyCode) {
+				if (tile.Value.GetKeyId() == keyCode) {
 					System.Diagnostics.Debug.WriteLine("=====>ActiveTIle, status="+tile.Value.status);
 						
 					if (tile.Value.Reactive) {
@@ -79,7 +79,7 @@ namespace App.Views.Tile
 		{
 			foreach(var tile in TILES)
 			{	
-				if (tile.Value.GetHotKeyId() == tileId) {
+				if (tile.Value.GetKeyId() == tileId) {
 					tile.Value.Visible = false;
 					break;
 				} 
@@ -91,7 +91,7 @@ namespace App.Views.Tile
 		public override void DeactiveTile(int index) {
 			foreach(var tile in TILES)
 			{	
-				if (tile.Value.GetHotKeyId() == index) {
+				if (tile.Value.GetKeyId() == index) {
 					
 					if (tile.Value.Reactive) {
 						if (tile.Value.status == AppTile.TileStatus.Max) {

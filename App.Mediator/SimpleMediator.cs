@@ -132,19 +132,9 @@ namespace App.Mediator
 			}
 			logger.Debug("app controls inited");
 			
-
 			//3. build app tiles
 	    	tileManager.BuildAppTiles(appContexts);
 			logger.Debug("app tiles inited");
-			
-			//load catalina if required.
-			/*if (Int16.Parse(course.Schema.Category) == (int)CourseCategory.Web){
-				int port = 60080;
-				catalina = new CatalinaServer(null, PidRecorder.Instance, "127.0.0.1", 60080, cpath+@"\"+courseName+@"\"+course.Schema.ProjName,course.Schema.ProjName);
-				catalina.StartupSync();
-				logger.Debug("catalina started up on port - " + port);
-			
-			}*/
 	    				
 			//4.init profile
 			jProfile.SetName("070718A001");

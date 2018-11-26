@@ -16,7 +16,7 @@ namespace App.Views
 	/// </summary>
 	public interface IAppTile : IHookKeyCallback
 	{
-		int GetHotKeyId();
+		int GetKeyId();
 		string GetTileName();
 		int GetSGroup();
 		void Active();

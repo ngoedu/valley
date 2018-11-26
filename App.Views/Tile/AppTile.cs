@@ -21,7 +21,7 @@ namespace App.Views
 	public partial class AppTile : UserControl, IAppTile
 	{
 		private string tileName;
-		private int hotKey;
+		public int Key {private set; get;}
 		private bool lockable;
 		public bool Reactive {private set; get;}
 		private int SGroup {set; get;}
@@ -40,7 +40,7 @@ namespace App.Views
 			
 			this.tileManager = tileManager;
 			this.tileName = name;
-			this.hotKey = key;
+			this.Key = key;
 			this.Reactive = reactive;
 			this.lockable = lockable;
 			this.lblName.Text = this.tileName;
@@ -56,9 +56,9 @@ namespace App.Views
 			this.pbMaxIcon.Visible = (this.Reactive);
 		}
 
-		public int GetHotKeyId()
+		public int GetKeyId()
 		{
-			return this.hotKey;
+			return this.Key;
 		}
 		public string GetTileName()
 		{
@@ -91,7 +91,7 @@ namespace App.Views
 
 		public void Minimized()
 		{
-			var minSize = tileManager.MinimizedSize(this.hotKey);
+			var minSize = tileManager.MinimizedSize(this.Key);
 			this.Top = minSize.Top;
 			this.Left = minSize.Left;
 			this.Width = minSize.Width;
@@ -170,7 +170,7 @@ namespace App.Views
 		void AppTileDoubleClick(object sender, EventArgs e)
 		{
 			if (this.Reactive)
-			this.OnHotKey(this.hotKey);
+			this.OnHotKey(this.Key);
 		}
 		void CheckBox1CheckedChanged(object sender, EventArgs e)
 		{
@@ -183,7 +183,7 @@ namespace App.Views
 		
 		public override string ToString()
 		{
-			return string.Format("[AppTile TileName={0}, HotKey={1}, Status={2}]", tileName, hotKey, status);
+			return string.Format("[AppTile TileName={0}, HotKey={1}, Status={2}]", tileName, Key, status);
 		}
 
 	}

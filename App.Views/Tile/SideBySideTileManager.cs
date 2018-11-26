@@ -19,7 +19,6 @@ namespace App.Views.Tile
 	internal class SideTileHolder : IHookKeyCallback {
 		public List<AppTile> TILES = new List<AppTile>();
 		public int FUNKEY {get; set;}
-		
 		private ITileManager tileManager;
 		
 		public SideTileHolder(int key, ITileManager manager) {
@@ -31,26 +30,29 @@ namespace App.Views.Tile
 		
 		public void OnHotKey(int keyCode)
 		{
+			if (TILES.Count == 0)
+				return;
+			
 			var toBeActive = TILES[pointerIdx];
 			
 			//for only one tile item
 			if (TILES.Count == 1) {
 				var t = TILES[0];
 				if (t.status == AppTile.TileStatus.Min){
-					this.tileManager.ActiveTile(t.GetHotKeyId());
+					this.tileManager.ActiveTile(t.GetKeyId());
 				} else if (t.status == AppTile.TileStatus.Normal){
-					this.tileManager.DeactiveTile(t.GetHotKeyId());
+					this.tileManager.DeactiveTile(t.GetKeyId());
 				}
 				return;
 			}
 			
 			foreach(var t in TILES) {				
 				if (t != toBeActive) {
-					this.tileManager.DeactiveTile(t.GetHotKeyId());
+					this.tileManager.DeactiveTile(t.GetKeyId());
 				}
 				else
 				{
-					this.tileManager.ActiveTile(t.GetHotKeyId());
+					this.tileManager.ActiveTile(t.GetKeyId());
 				}
 			}
 			
@@ -58,15 +60,19 @@ namespace App.Views.Tile
 			pointerIdx = pointerIdx % (TILES.Count);
 		}
 		
-		public void DiplayTile() {
-			TILES = TILES.OrderBy(x => x.GetHotKeyId()).ToList();
+		public void InitTiles() {
+			if (TILES.Count == 0){
+				return;
+			} 
+			
+			TILES = TILES.OrderBy(x => x.GetKeyId()).ToList();
 			
 			for(int i=1; i<TILES.Count;i++)
 			{
-				this.tileManager.DeactiveTile(TILES[i].GetHotKeyId());
+				this.tileManager.DeactiveTile(TILES[i].GetKeyId());
 			}
 			
-			this.tileManager.ActiveTile(TILES[0].GetHotKeyId());
+			this.tileManager.ActiveTile(TILES[0].GetKeyId());
 			this.pointerIdx = TILES.Count > 1 ? 1 : 0;
 		}		
 	}
@@ -117,9 +123,9 @@ namespace App.Views.Tile
 					
 				GetLayout().AddTile(app.FuncKey, tile);
 			}
-			SideA1.DiplayTile();
-			SideC3.DiplayTile();
-			SideB2.DiplayTile();
+			SideA1.InitTiles();
+			SideC3.InitTiles();
+			SideB2.InitTiles();
 		}
 
 		public void OnHotkey(int keyCode,AppTile tile)
@@ -171,9 +177,9 @@ namespace App.Views.Tile
 					
 				GetLayout().AddTile(app.FuncKey, tile);
 			}
-			SideA1.DiplayTile();
-			SideC3.DiplayTile();
-			SideB2.DiplayTile();
+			SideA1.InitTiles();
+			SideC3.InitTiles();
+			SideB2.InitTiles();
 		}
 		
 		private TileLayout GetLayout() {
@@ -207,6 +213,14 @@ namespace App.Views.Tile
 		public void ActiveTile(int index)
 		{
 			GetLayout().ActiveTile(index);
+			
+			//disable SideC3 sole tile
+			var b2Tile = SideB2.TILES.Find(x=> x.GetKeyId() == index);
+			if ( b2Tile !=null && SideC3.TILES.Count > 0) {
+				var soleTile = SideC3.TILES[0];
+				GetLayout().DeactiveTile(soleTile.GetKeyId());
+			}
+			
 		}
 
 		public void DeactiveTile(int index)

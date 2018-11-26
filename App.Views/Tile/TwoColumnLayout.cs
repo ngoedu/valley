@@ -53,7 +53,7 @@ namespace App.Views.Tile
 		public override void ActiveTile(int index) {
 			foreach(var tile in TILES)
 			{	
-				if (tile.Value.GetHotKeyId() == index) {
+				if (tile.Value.GetKeyId() == index) {
 					if (maxTile == null) {
 						tile.Value.Maxmized();
 						tile.Value.Active();
@@ -94,7 +94,7 @@ namespace App.Views.Tile
 		{
 			foreach(var tile in TILES)
 			{	
-				if (tile.Value.GetHotKeyId() == tileId) {
+				if (tile.Value.GetKeyId() == tileId) {
 					tile.Value.Visible = false;	
 				}
 			}
@@ -103,7 +103,7 @@ namespace App.Views.Tile
 		public override void DeactiveTile(int index) {
 			foreach(var tile in TILES)
 			{	
-				if (tile.Value.GetHotKeyId() == index) {
+				if (tile.Value.GetKeyId() == index) {
 					tile.Value.Deactive();
 					tile.Value.Minimized();	
 				}
