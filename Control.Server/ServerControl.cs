@@ -35,6 +35,13 @@ namespace Control.Server
 			InitializeComponent();
 			
 			
+			tomcatBackgroundWorker = new BackgroundWorker(); // 实例化后台对象webapp 
+            tomcatBackgroundWorker.WorkerReportsProgress = true; // 设置可以通告进度
+            tomcatBackgroundWorker.WorkerSupportsCancellation = true; // 设置可以取消
+            tomcatBackgroundWorker.DoWork += new DoWorkEventHandler(tomcatDoWork);
+            tomcatBackgroundWorker.ProgressChanged += new ProgressChangedEventHandler(tomcatUpdateProgress);
+            tomcatBackgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(tomcatCompletedWork);
+            tomcatBackgroundWorker.RunWorkerAsync(this);
 		}
 
 		#region IAppEntry implementation
@@ -42,24 +49,19 @@ namespace Control.Server
 		private BlockingCollection<string> tomcatQueue = new BlockingCollection<string>();
 		private int pid = -1;
 		private int inShutdown = -1;
-		
+		private int port = 60080;
+		private string context = string.Empty;
+
 
 		public void Init(AppRegistry reg)
 		{
 			var webapp = (string)reg[AppRegKeys.EIDE_PROJ];
-			var context = reg[AppRegKeys.CATALINA_CONTEXT];
-			catalina = new CatalinaServer(this, PidRecorder.Instance, "127.0.0.1",60080,  webapp, "/"+context);
+			context = (string)reg[AppRegKeys.CATALINA_CONTEXT];
+			catalina = new CatalinaServer(this, PidRecorder.Instance, "127.0.0.1", port,  webapp, "/"+context);
 			
-			tomcatBackgroundWorker = new BackgroundWorker(); // 实例化后台对象webapp
- 
-            tomcatBackgroundWorker.WorkerReportsProgress = true; // 设置可以通告进度
-            tomcatBackgroundWorker.WorkerSupportsCancellation = true; // 设置可以取消
- 
-            tomcatBackgroundWorker.DoWork += new DoWorkEventHandler(tomcatDoWork);
-            tomcatBackgroundWorker.ProgressChanged += new ProgressChangedEventHandler(tomcatUpdateProgress);
-            tomcatBackgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(tomcatCompletedWork);
-
-            tomcatBackgroundWorker.RunWorkerAsync(this);
+			//reg push value.
+			reg[AppRegKeys.BROWSER_URL] = "http://127.0.0.1:"+port+"/"+context+"/";
+			
 		}
 
 		#region ICatalinaOutputCallback implementation
@@ -118,6 +120,14 @@ namespace Control.Server
 
 		public void Reload(AppRegistry reg)
 		{
+			if (catalina != null) {
+				catalina.ShutdownSync();
+			}
+			Init(reg);
+			
+			this.btTomcatStart.Enabled = true;
+			this.btTomcatStop.Enabled = false;
+			this.pbTomcatStatus.Image = global::Control.Server.Resource1.tomcat_logo_trans_grey_48x48;
 			
 		}
 
@@ -173,7 +183,7 @@ namespace Control.Server
 				return;
 			}
 			catalina.StartupSync();
-			AppendColorText("Tomcat服务器已经正常启动"+"\r\n", "green");
+			AppendColorText("Tomcat服务器已经启动。端口="+port+",应用="+context+"\r\n", "green");
 			this.pbTomcatStatus.Image = global::Control.Server.Resource1.tomcat_logo_trans_vivid_48x48;
 			this.btTomcatStart.Enabled = false;
 			this.btTomcatStop.Enabled = true;
