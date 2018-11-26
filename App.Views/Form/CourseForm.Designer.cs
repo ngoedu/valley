@@ -21,7 +21,7 @@ namespace App.Views
 		private System.Windows.Forms.Button btnGoBack;
 		private System.Windows.Forms.Button btnDownload;
 		private System.Windows.Forms.ProgressBar pbDownload;
-		private System.Windows.Forms.ListBox lbHistory;
+		private System.Windows.Forms.ListView lvHistory;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -45,7 +45,7 @@ namespace App.Views
 		private void InitializeComponent()
 		{
 			this.panelPreview = new System.Windows.Forms.Panel();
-			this.lbHistory = new System.Windows.Forms.ListBox();
+			this.lvHistory = new System.Windows.Forms.ListView();
 			this.pbDownload = new System.Windows.Forms.ProgressBar();
 			this.btnDownload = new System.Windows.Forms.Button();
 			this.btnGoBack = new System.Windows.Forms.Button();
@@ -58,7 +58,7 @@ namespace App.Views
 			// 
 			// panelPreview
 			// 
-			this.panelPreview.Controls.Add(this.lbHistory);
+			this.panelPreview.Controls.Add(this.lvHistory);
 			this.panelPreview.Controls.Add(this.pbDownload);
 			this.panelPreview.Controls.Add(this.btnDownload);
 			this.panelPreview.Controls.Add(this.btnGoBack);
@@ -71,17 +71,19 @@ namespace App.Views
 			this.panelPreview.Size = new System.Drawing.Size(1184, 460);
 			this.panelPreview.TabIndex = 0;
 			// 
-			// lbHistory
+			// lvHistory
 			// 
-			this.lbHistory.BackColor = System.Drawing.SystemColors.ControlLightLight;
-			this.lbHistory.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.lbHistory.FormattingEnabled = true;
-			this.lbHistory.ItemHeight = 21;
-			this.lbHistory.Location = new System.Drawing.Point(632, 0);
-			this.lbHistory.Name = "lbHistory";
-			this.lbHistory.Size = new System.Drawing.Size(569, 319);
-			this.lbHistory.TabIndex = 6;
-			this.lbHistory.SelectedIndexChanged += new System.EventHandler(this.LbHistorySelectedIndexChanged);
+			this.lvHistory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.lvHistory.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.lvHistory.FullRowSelect = true;
+			this.lvHistory.GridLines = true;
+			this.lvHistory.Location = new System.Drawing.Point(632, 0);
+			this.lvHistory.Name = "lvHistory";
+			this.lvHistory.Size = new System.Drawing.Size(569, 320);
+			this.lvHistory.TabIndex = 7;
+			this.lvHistory.UseCompatibleStateImageBehavior = false;
+			this.lvHistory.View = System.Windows.Forms.View.Details;
+			this.lvHistory.SelectedIndexChanged += new System.EventHandler(this.LvHistorySelectedIndexChanged);
 			// 
 			// pbDownload
 			// 

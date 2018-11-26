@@ -88,7 +88,7 @@ namespace App.Views
 		       		this.pbDownload.Value = 0;
 			
 		       	}
-		       	this.lbHistory.Visible = false;
+		       	this.lvHistory.Visible = false;
 		       	this.panelPreview.Visible = true;
 				this.pbImage.Image = global::App.Views.Resource1.webdesign;
 							
@@ -114,17 +114,34 @@ namespace App.Views
 		{
 			
 			this.Invoke((MethodInvoker)delegate() {
-			    this.lbHistory.Items.Clear();
+			   
+			   
+				this.lvHistory.Clear(); 
+				ColumnHeader  ch1= new ColumnHeader();
+				ch1.Text = "课程代码";
+				ch1.Width = 190;
+				ch1.TextAlign = HorizontalAlignment.Center;
+				ColumnHeader ch2 = new ColumnHeader();
+				ch2.Text = "课程名称";
+				ch2.Width = 280;
+				ch2.TextAlign = HorizontalAlignment.Center;
+				this.lvHistory.Columns.Add(ch1);
+				this.lvHistory.Columns.Add(ch2);
+				
+			   
 				var history = this.GetTrainHistoryList();
 				foreach(string h in history) {
-					string itemString = h + " " + FindCourseName(h, coursesJson);
-					this.lbHistory.Items.Add(itemString);
+					ListViewItem lvi = new ListViewItem();
+					lvi.Text = h;
+					lvi.SubItems.Add(FindCourseName(h, coursesJson));
+					this.lvHistory.Items.Add(lvi);
 				}
+				 
 			    
 				this.btnDownload.Visible = false;
 	       		this.btnStart.Visible = true;
 	       		this.pbDownload.Visible = false;
-				this.lbHistory.Visible = true;
+				this.lvHistory.Visible = true;
 				this.panelPreview.Visible = true;
 				this.pbImage.Image = global::App.Views.Resource1.train_history;
 				this.browser.Visible = false;
@@ -253,15 +270,16 @@ namespace App.Views
 			this.btnGoBack.Enabled = false;
 			StartDownload(jsCallback.CourseId);
 		}
-		
-		void LbHistorySelectedIndexChanged(object sender, EventArgs e)
+		void LvHistorySelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (lbHistory.SelectedIndex <0)
+			if (lvHistory.SelectedItems.Count == 0)
 				return;
-			var course = lbHistory.Items[lbHistory.SelectedIndex].ToString ();
-			var cid = course.Split(' ')[0];
+			
+			var cid = lvHistory.SelectedItems[0].Text;
+			//System.Diagnostics.Debug.WriteLine("history selected course id="+cid);
 			this.jsCallback.setSelectedCourseId(cid);
 		}
+		
 	}
 	
 	/**
