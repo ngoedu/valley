@@ -76,11 +76,14 @@ namespace Control.Eide
 			var projPath = (string)reg[AppRegKeys.EIDE_PROJ];
 			var cdatPath = (string)reg[AppRegKeys.EIDE_CDAT];
 			
-			WorkspaceType type = Workspace.CheckWorkspaceType(projPath);
-			bool firstTimeInit = Workspace.GetWorkspace(type).Init(cdatPath);
+			ClasspathType ctype = ClassPath.CheckClasspathType(projPath);
+			bool initCP = ClassPath.GetClasspath(ctype).Init(projPath);
+			
+			WorkspaceType wtype = Workspace.CheckWorkspaceType(projPath);
+			bool firstTimeInit = Workspace.GetWorkspace(wtype).Init(cdatPath);
 			logger.Info(firstTimeInit ? "workspace Init done" : "workspace loaded");
 			
-			var workspace = cdatPath+Workspace.GetWorkspace(type).WorkspaceFolderName();
+			var workspace = cdatPath+Workspace.GetWorkspace(wtype).WorkspaceFolderName();
 			                       
 			//2.launch EIDE
 			this.LoadEide(false, workspace);
@@ -123,6 +126,9 @@ namespace Control.Eide
 			
 			var projPath = (string)reg[AppRegKeys.EIDE_PROJ];
 			var cdatPath = (string)reg[AppRegKeys.EIDE_CDAT];
+			
+			ClasspathType ctype = ClassPath.CheckClasspathType(projPath);
+			bool initCP = ClassPath.GetClasspath(ctype).Init(projPath);
 			
 			WorkspaceType type = Workspace.CheckWorkspaceType(projPath);
 			var workspace = cdatPath+Workspace.GetWorkspace(type).WorkspaceFolderName();
@@ -215,7 +221,7 @@ namespace Control.Eide
 		                            
 			var osgiRequiredJavaVer_0 = "-Dosgi.requiredJavaVersion=1.8";
 			var jvmXX_1 = "-XX:+UseG1GC -XX:+UseStringDeduplication";
-			var aether_2 = "-Dngo.bridge.host=127.0.0.1 -Dngo.bridge.port=60001";
+			var aether_2 = @"-Dngo.bridge.host=127.0.0.1 -Dngo.bridge.port=60001 -Dext.jar.path=D:\NGO\client\embed\ext";
 			var jvmXX_3 = "-Xms256m -Xmx1024m";
 			var jar_4 = @"-jar "+this.codeBase+@"\eide\dist\eclipse\\plugins/org.eclipse.equinox.launcher_1.3.201.v20161025-1711.jar";
 			var os_5 = "-os win32";

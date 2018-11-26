@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassPath.cs" />
     <Compile Include="EideResponse.cs" />
     <Compile Include="Workspace.cs" />
     <Compile Include="JEide.cs" />
