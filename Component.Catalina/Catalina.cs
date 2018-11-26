@@ -81,7 +81,7 @@ namespace Component.Catalina
 				return;
         	
         	var fileName = CodeBase.GetCodePath() +@"\jre\bin\java.exe";
-        	var extPath = CodeBase.GetCodePath() +@"\embed\ext";
+        	var extPath = CodeBase.GetCodePath() +@"\embed\lib";
         	var catalinaHome = CodeBase.GetCodePath() +@"\embed";
         	
         	//* Create your Process
