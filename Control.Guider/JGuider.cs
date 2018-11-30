@@ -61,6 +61,10 @@ namespace NGO.Pad.Guider
 			this.Controls.Add(codeTabs);
 		}
 
+		public void SetAppTitleCallback(IAppTitleCallback callback)
+		{
+			//DO nothing
+		}
 		public void Init(App.Common.Reg.AppRegistry reg)
 		{
 			course = (Course)reg[AppRegKeys.COURSE_KEY];

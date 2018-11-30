@@ -35,6 +35,10 @@ namespace Control.Video
 			this.webBrowser1.AllowNavigation = true;
 		}
 
+		public void SetAppTitleCallback(IAppTitleCallback callback)
+		{
+			//DO nothing
+		}
 		#region IAppEntry implementation
 		public void Init(AppRegistry reg)
 		{

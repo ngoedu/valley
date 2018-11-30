@@ -95,6 +95,7 @@
     <Compile Include="Reg\AppRegistry.cs" />
     <Compile Include="Reg\AppRegKeys.cs" />
     <Compile Include="Reg\IAppEntry.cs" />
+    <Compile Include="Reg\IAppTitleCallback.cs" />
     <Compile Include="Resource1.Designer.cs">
       <DependentUpon>Resource1.resx</DependentUpon>
       <AutoGen>True</AutoGen>

@@ -110,6 +110,11 @@ namespace  Control.JBrowser
 			throw new NotImplementedException();
 		}
 		
+		public void SetAppTitleCallback(IAppTitleCallback callback)
+		{
+			this.innerBrowser.SetTitieUpdateCallback(callback);
+		}
+		
 		#region IAppEntry implementation
 		public void Init(AppRegistry reg)
 		{

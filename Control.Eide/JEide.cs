@@ -65,7 +65,10 @@ namespace Control.Eide
 		}
 		
 		#region IAppEntry implementation
-		
+		public void SetAppTitleCallback(IAppTitleCallback callback)
+		{
+			//DO nothing
+		}
 		public void Init(AppRegistry reg) {
 			logger.Debug("Init");
 			

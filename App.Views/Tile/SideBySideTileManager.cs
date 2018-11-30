@@ -109,6 +109,7 @@ namespace App.Views.Tile
 			
 			foreach(var app in context) {
 				var tile = new AppTile(app.AppId, app.FuncKey, app.SideCode, app.Expandable, false, (System.Windows.Forms.Control)app.AppControl, this);
+				app.AppControl.SetAppTitleCallback(tile);
 				mainForm.Controls.Add(tile);
 				if (app.SideCode == SideA1.FUNKEY) {
 					SideA1.TILES.Add(tile);

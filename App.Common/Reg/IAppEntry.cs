@@ -28,5 +28,6 @@ namespace App.Common.Reg
 		void Inactive();
 		void Dispose(AppRegistry reg);
 		AppStatus Status();
+		void SetAppTitleCallback(IAppTitleCallback callback);
 	}
 }

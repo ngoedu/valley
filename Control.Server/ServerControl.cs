@@ -53,6 +53,10 @@ namespace Control.Server
 		private string context = string.Empty;
 
 
+		public void SetAppTitleCallback(IAppTitleCallback callback)
+		{
+			//DO nothing
+		}
 		public void Init(AppRegistry reg)
 		{
 			var webapp = (string)reg[AppRegKeys.EIDE_PROJ];

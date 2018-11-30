@@ -8,6 +8,7 @@
  */
 using System;
 using System.Windows.Forms;
+using App.Common.Reg;
 using CefSharp;
 using CefSharp.WinForms;
 
@@ -29,7 +30,7 @@ namespace Control.JBrowser
         private System.Windows.Forms.Label statusLabel;
 		
         private readonly ChromiumWebBrowser browser;
-
+        private IAppTitleCallback titleChangeCallback;
        
         
 		public JNavWebBrowser()
@@ -176,6 +177,11 @@ namespace Control.JBrowser
             browser.AddressChanged += OnBrowserAddressChanged;
 		}
 		
+		public void SetTitieUpdateCallback(IAppTitleCallback callback) {
+			this.titleChangeCallback = callback;
+			
+		}
+		
 		public void DisplayOutput(string output)
         {
             this.InvokeOnUiThreadIfRequired(() => outputLabel.Text = output);
@@ -220,6 +226,8 @@ namespace Control.JBrowser
         private void OnBrowserTitleChanged(object sender, TitleChangedEventArgs args)
         {
             this.InvokeOnUiThreadIfRequired(() => Text = args.Title);
+            if (titleChangeCallback !=null)
+            	titleChangeCallback.UpdateTitle(args.Title);
         }
 
         private void OnBrowserAddressChanged(object sender, AddressChangedEventArgs args)
@@ -249,13 +257,10 @@ namespace Control.JBrowser
 
         
         public void RefreshPage(string pageUrl) {
-        	if (!string.IsNullOrEmpty(pageUrl)) {
-        		if (urlTextBox.Text.Equals("about:blank"))
-					urlTextBox.Text = pageUrl;
-        		LoadUrl(pageUrl);
+        	if (urlTextBox.Text.Equals("about:blank") || string.IsNullOrEmpty(urlTextBox.Text)){
+        			urlTextBox.Text = pageUrl;
         	}
-			else
-				LoadUrl(urlTextBox.Text);
+			LoadUrl(urlTextBox.Text);
         }
         /*
  		public void Dispose()

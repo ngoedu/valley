@@ -19,6 +19,7 @@ namespace App.Views
 		private System.Windows.Forms.CheckBox cbLock;
 		private System.Windows.Forms.Label lblFK;
 		private System.Windows.Forms.PictureBox pbMaxIcon;
+		private System.Windows.Forms.Label lblTitle;
 		
 		/// <summary>
 		/// Disposes resources used by the control.
@@ -46,6 +47,7 @@ namespace App.Views
 			this.cbLock = new System.Windows.Forms.CheckBox();
 			this.lblFK = new System.Windows.Forms.Label();
 			this.pbMaxIcon = new System.Windows.Forms.PictureBox();
+			this.lblTitle = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.pbMaxIcon)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -70,9 +72,9 @@ namespace App.Views
 			// 
 			this.cbLock.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cbLock.ForeColor = System.Drawing.SystemColors.ButtonFace;
-			this.cbLock.Location = new System.Drawing.Point(144, 4);
+			this.cbLock.Location = new System.Drawing.Point(280, 0);
 			this.cbLock.Name = "cbLock";
-			this.cbLock.Size = new System.Drawing.Size(80, 24);
+			this.cbLock.Size = new System.Drawing.Size(32, 24);
 			this.cbLock.TabIndex = 2;
 			this.cbLock.Text = "锁";
 			this.cbLock.UseVisualStyleBackColor = true;
@@ -98,16 +100,26 @@ namespace App.Views
 			this.pbMaxIcon.TabIndex = 4;
 			this.pbMaxIcon.TabStop = false;
 			// 
+			// lblTitle
+			// 
+			this.lblTitle.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.lblTitle.ForeColor = System.Drawing.Color.WhiteSmoke;
+			this.lblTitle.Location = new System.Drawing.Point(144, 4);
+			this.lblTitle.Name = "lblTitle";
+			this.lblTitle.Size = new System.Drawing.Size(304, 25);
+			this.lblTitle.TabIndex = 5;
+			// 
 			// AppTile
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.Controls.Add(this.lblTitle);
+			this.Controls.Add(this.cbLock);
 			this.Controls.Add(this.pbMaxIcon);
 			this.Controls.Add(this.lblFK);
 			this.Controls.Add(this.lblName);
-			this.Controls.Add(this.cbLock);
 			this.Controls.Add(this.pContent);
 			this.Name = "AppTile";
 			this.Size = new System.Drawing.Size(360, 228);

@@ -18,7 +18,7 @@ namespace App.Views
 	/// <summary>
 	/// Description of AppTile.
 	/// </summary>
-	public partial class AppTile : UserControl, IAppTile
+	public partial class AppTile : UserControl, IAppTile, IAppTitleCallback
 	{
 		private string tileName;
 		public int Key {private set; get;}
@@ -56,6 +56,13 @@ namespace App.Views
 			this.pbMaxIcon.Visible = (this.Reactive);
 		}
 
+		public void UpdateTitle(string title)
+		{
+			this.Invoke((MethodInvoker)delegate() {
+				this.lblTitle.Text = title;
+			});
+		}
+		
 		public int GetKeyId()
 		{
 			return this.Key;

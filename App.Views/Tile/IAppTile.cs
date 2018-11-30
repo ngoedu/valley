@@ -8,6 +8,7 @@
  */
 using System;
 using App.Common.Hook;
+using App.Views.Tile;
 
 namespace App.Views
 {
@@ -26,5 +27,6 @@ namespace App.Views
 		void Minimized();
 		void Lock();
 		bool IsLocked();
+		
 	}
 }

@@ -92,6 +92,10 @@ namespace  Control.JBrowser
 			return "chrome-devtools://devtools/inspector.html";
 		}
 
+		public void SetAppTitleCallback(IAppTitleCallback callback)
+		{
+			//DO nothing
+		}
 		public AppStatus Status()
 		{
 			return this.status;
