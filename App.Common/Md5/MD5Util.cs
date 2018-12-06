@@ -17,12 +17,12 @@ namespace App.Common.Md5
 	/// </summary>
 	public class MD5Util
 	{
-		static string salt = "Ng0@ndSalt";
+		static char[] salt = new char[] {'N','g','0', '@', 'n','d','S','a','l','t'};
             
-		public static string  StringMD5(string message)
+		public static string  StringMD5(string message, string mysalt)
 		{
 			var provider = MD5.Create();
-            byte[] bytes = provider.ComputeHash(Encoding.ASCII.GetBytes(salt + message));
+            byte[] bytes = provider.ComputeHash(Encoding.ASCII.GetBytes(salt + message + mysalt));
             string computedHash = BitConverter.ToString(bytes);
     
             return computedHash.Replace("-", "");

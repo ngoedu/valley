@@ -10,6 +10,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using App.Common;
 
 namespace Control.Profile
 {
@@ -18,6 +19,8 @@ namespace Control.Profile
 	/// </summary>
 	public partial class Profile : UserControl, IProfile
 	{
+		
+		private Account account;
 		public Profile()
 		{
 			//
@@ -27,6 +30,19 @@ namespace Control.Profile
 			
 			BackColor = Color.FromArgb(60,60,60);
 			//BackColor = Color.FromArgb(28,80,102);
+			
+			//init profile account
+			InitAccount();
+		}
+		
+		private void InitAccount() {
+			account = Account.ReadAccountFromFile(CodeBase.GetCodePath() + @"/conf/profile.xml");
+			
+			//first time gen account id
+			if (account == null) {
+				account = new Account();
+				Account.WriteToFile(account, CodeBase.GetCodePath() + @"/conf/profile.xml");
+			}
 		}
 		
 		public void SetEnergy(int progress) {
@@ -36,6 +52,10 @@ namespace Control.Profile
 		
 		public void SetName(string name) {
 			this.lblName.Text = name;
+		}
+		
+		public string GetAccountName() {
+			return account.ID;
 		}
 		
 		void ProfileSizeChanged(object sender, EventArgs e)

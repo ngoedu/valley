@@ -111,8 +111,14 @@ namespace App.Mediator
 			var courseName = cid;
 			var cpath = CodeBase.GetCoursePackPath();
 			var course = CourseReader.Instance.ReadCourseFrom(cpath, courseName, false);
-			//var trSession = CourseReader.Instance.ReadTrainingSessionFrom(cpath, courseName, false);
-			//TODO: setup training records in course
+			
+			var trSession = CourseReader.Instance.ReadTrainingSessionFrom(cpath, courseName, false);
+			if (trSession == null || !trSession.Security.Validated(jProfile.GetAccountName(), cid)) {
+				MessageBox.Show("无效的课程", "提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return;
+			}
+			appRegistry.Add(AppRegKeys.COURSE_TRAINSESSION, cpath+"/"+ courseName+"/tr.dat");
+			appRegistry.Add(AppRegKeys.COURSE_TRAINSESSION_OBJ, trSession);
 			
 			course.RestoreRevFiles();
 			
@@ -137,19 +143,37 @@ namespace App.Mediator
 			logger.Debug("app tiles inited");
 	    				
 			//4.init profile
-			jProfile.SetName("070718A001");
-			jProfile.SetEnergy(85);//TODO
+			jProfile.SetEnergy(trSession.Point);
 	
 		}
 		
 		private void ReLoadCoursePlayForm(string cid){
 			logger.Debug("ReLoadCoursePlayForm cid="+cid);
+			
+
 			//1.load course content, prepare registry
 			var courseName = cid;
 			var cpath = CodeBase.GetCoursePackPath();
 			var course = CourseReader.Instance.ReadCourseFrom(cpath, courseName, false);
-		
-			//2.restore raw code, parepare registry info
+			
+			
+			//2.dispose apps
+			appContexts = App.Views.AppContext.CreateAppContext(course.Apps);		
+			foreach(var app in appContexts) {
+				app.AppControl.Reload(appRegistry);		
+			}
+			logger.Debug("app controls disposed");
+			
+			
+			//3.load train session
+			var trSession = CourseReader.Instance.ReadTrainingSessionFrom(cpath, courseName, false);
+			if (trSession == null || !trSession.Security.Validated(jProfile.GetAccountName(), cid)) {
+				MessageBox.Show("无效的课程", "提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return;
+			}
+			appRegistry[AppRegKeys.COURSE_TRAINSESSION_OBJ] = trSession;
+			
+			//4.restore raw code, parepare registry info
 			course.RestoreRevFiles();			
 			appRegistry[AppRegKeys.COURSE_KEY]= course;
 					
@@ -160,17 +184,19 @@ namespace App.Mediator
 			appRegistry[AppRegKeys.EIDE_PROJ]= cpath+@"\"+courseName+@"\"+course.Schema.ProjName;
 			appRegistry[AppRegKeys.CATALINA_CONTEXT] = course.Schema.ProjName;
 			
-			//TODO: any change here? 3.reload app control
-			appContexts = App.Views.AppContext.CreateAppContext(course.Apps);		
+			//5: re-init app control
 			foreach(var app in appContexts) {
-				app.AppControl.Reload(appRegistry);		
+				app.AppControl.Init(appRegistry);		
 			}
-			logger.Debug("app controls reloaded");
+			logger.Debug("app controls re-inited");
 			
 			
-			//4.rebuid tiles
+			//6.rebuid tiles
 			tileManager.RebuildAppTiles(appContexts);
 			logger.Debug("app tiles reloaded");
+			
+			//7.init profile
+			jProfile.SetEnergy(trSession.Point);
 		}
 		
 		#region form event
@@ -182,7 +208,7 @@ namespace App.Mediator
 			
 			//TODO: uncoment below when go-prod
 			if (true) {
-				CourseForm form = new CourseForm();
+				CourseForm form = new CourseForm(jProfile.GetAccountName());
 				if (form.ShowDialog() == DialogResult.OK)
 			    {
 					var cid = (string)form.Tag;
@@ -290,7 +316,7 @@ namespace App.Mediator
 		{
 			tileManager.HideAppTiles(appContexts);
 		
-			CourseForm form = new CourseForm();
+			CourseForm form = new CourseForm(jProfile.GetAccountName());
 			if (form.ShowDialog() == DialogResult.OK)
 		    {
 				var cid = (string)form.Tag;

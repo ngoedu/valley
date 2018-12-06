@@ -28,7 +28,7 @@ namespace NGO.Train
 		}
 		
 		public Course ReadCourseFrom(string folder, string fileName, bool isHashed) {
-			string md5Folder = isHashed ? MD5Util.StringMD5(fileName) : fileName;
+			string md5Folder = isHashed ? MD5Util.StringMD5(fileName, "") : fileName;
 			if (!Directory.Exists(folder+@"\"+md5Folder)) {
 				return null;
 			}
@@ -37,12 +37,12 @@ namespace NGO.Train
 		}
 		
 		public TrainingSession ReadTrainingSessionFrom(string folder, string fileName, bool isHashed) {
-			string md5Folder = isHashed ? MD5Util.StringMD5(fileName) : fileName;
+			string md5Folder = isHashed ? MD5Util.StringMD5(fileName, "") : fileName;
 			if (!Directory.Exists(folder+@"\"+md5Folder)) {
 				return null;
 			}
 			
-			return ReadTrainingSessionFromFile(folder+@"\"+md5Folder+@"\tr.dat");
+			return ReadTrainingSessionFromFile(folder+@"\"+md5Folder+@"/tr.dat");
 		}
 		
 		
@@ -56,6 +56,9 @@ namespace NGO.Train
 		}
 		
 		public TrainingSession ReadTrainingSessionFromFile(string fileName) {
+			if(!System.IO.File.Exists(fileName))
+				return null;
+			
 			var serializer = new XmlSerializer(typeof(TrainingSession));
 			using (var reader = XmlReader.Create(fileName))
 			{

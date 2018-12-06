@@ -16,6 +16,10 @@ namespace App.Common.Reg
 	public class AppRegKeys {
 		
 		public static string COURSE_KEY = "COURSE_KEY";
+
+		public static string COURSE_TRAINSESSION="COURSE_TRAINSESSION";
+		public static string COURSE_TRAINSESSION_OBJ="COURSE_TRAINSESSION_OBJ";
+
 		public static string VIDEO_LINK = "VIDEO_LINK";
 		public static string EIDE_CDAT = "EIDE_CDAT";
 		public static string EIDE_WS = "EIDE_WS";

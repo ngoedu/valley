@@ -38,6 +38,7 @@ namespace NGO.Pad.Guider
 		private TabControl codeTabs;
 		private IClient eideClient;
 		private AppStatus status;
+		private TrainingSession session;
 		
 		public JGuider()
 		{
@@ -68,6 +69,12 @@ namespace NGO.Pad.Guider
 		public void Init(App.Common.Reg.AppRegistry reg)
 		{
 			course = (Course)reg[AppRegKeys.COURSE_KEY];
+			
+			session = (TrainingSession)reg[AppRegKeys.COURSE_TRAINSESSION_OBJ];
+			foreach (var ms in session.Progress) {
+				course.Milestons[ms.MSID - 1].Status =  ms.Status;
+			}
+			
 			this.BindCourse(course);
 			
 			eideClient = (IClient)reg[AppRegKeys.AETHER_CLIENT];
@@ -94,6 +101,15 @@ namespace NGO.Pad.Guider
 		
 		public void Dispose(AppRegistry reg)
 		{
+			//TODO: copy milestone change
+			session.Progress = new List<MsStatus>();
+			foreach (var ms in course.Milestons) {
+				session.Progress.Add(new MsStatus(ms.ID, ms.Status));
+			}
+			
+			//persist training session into file
+			TrainingSession.WriteSessionToFile(session, (string)reg[AppRegKeys.COURSE_TRAINSESSION]);
+			
 			this.status = AppStatus.Disposed;
 		}
 
@@ -104,6 +120,7 @@ namespace NGO.Pad.Guider
 		public void ShowRef(int index)
 		{
 			var ms = course.GetMileStoneByID(index);
+			ms.Status = Course.STATUS_REFER;
 			var refInfo = course.GetReferByID(ms.RefID);
 			LoadHtml(refInfo.Content);
 			this.codeTabs.Visible = false;
@@ -112,6 +129,8 @@ namespace NGO.Pad.Guider
 		public void ShowCode(int index)
 		{
 			var ms = course.GetMileStoneByID(index);
+			ms.Status = Course.STATUS_CODE;
+			
 			List<NGO.Train.Entity.File> srcFiles = ms.Files;
 			
 			//clean all page
@@ -152,6 +171,8 @@ namespace NGO.Pad.Guider
 		public void ReplicateCode(int index)
 		{
 			var revision = course.GetMileStoneByID(index);
+			revision.Status = Course.STATUS_SAVE;
+			
 			string xmlRevision = revision.ToXml();
 			
 			string mileStoneCmd = "$MILESTONE="+xmlRevision;

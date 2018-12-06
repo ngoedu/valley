@@ -20,6 +20,7 @@ using System.Windows.Forms;
 using App.Common;
 using App.Common.Dpi;
 using Control.JBrowser;
+using NGO.Train;
 using App.Views;
 
 namespace App.Views
@@ -37,14 +38,17 @@ namespace App.Views
 		private const string site = "http://192.168.0.12/scup";
 		private bool isDownloadInProgress = false;
 		private string zipFile = CodeBase.GetCoursePackPath();
-
+		private string downloadedCid;
 		
-		public CourseForm()
+		private string uid;
+
+		public CourseForm(string uid)
 		{
-			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
+			
+			this.uid = uid;
 			
 			this.panelPreview.Visible = false;
 			
@@ -217,15 +221,17 @@ namespace App.Views
 		    {
 		        wc.DownloadProgressChanged += wc_DownloadProgressChanged;
 		        wc.DownloadFileCompleted += wc_DownloadFileCompleted;
-		       	string fileUrl  = "http://192.168.0.12/scup/cpack/"+cid+".zip";
+		       	string fileUrl  = "http://192.168.0.13/scup/cpack/"+cid+".zip";
 		       	wc.QueryString.Add("token", "NGO");
 		       	zipFile += "\\"+cid +".zip";
-				
+		       	downloadedCid = cid;
 		        try {
 					wc.DownloadFileAsync(new System.Uri(fileUrl), zipFile);
 				} catch (WebException webex) {
 					HttpWebResponse webResp = (HttpWebResponse) webex.Response;
 					MessageBox.Show(webResp.ToString());
+					isDownloadInProgress = false;
+			
 		        }
 		    }
 	    }
@@ -252,16 +258,21 @@ namespace App.Views
 		        return;
 		    }
 		    
+		    //unzip file to folder
 		    string zipPath = zipFile;
       		string extractPath = CodeBase.GetCoursePackPath();
-
       		System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
 		
       		isDownloadInProgress = false;
-      		this.btnGoBack.Enabled = true
-      		;//MessageBox.Show("课程已经下载完成,按【开始】播放课程","提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+      		this.btnGoBack.Enabled = true;
       		
+      		//delete zip file
+      		File.Delete(zipPath);
       		
+      		//generate TR file 
+      		TrainingSession.InitSessionWithSecurity(this.downloadedCid, this.uid,  100, zipFile.Replace(@".zip",""));
+      		
+      		//show 
       		showCoursePreview(jsCallback.CourseId);
 		}
 		
@@ -270,6 +281,7 @@ namespace App.Views
 			this.btnGoBack.Enabled = false;
 			StartDownload(jsCallback.CourseId);
 		}
+		
 		void LvHistorySelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (lvHistory.SelectedItems.Count == 0)
