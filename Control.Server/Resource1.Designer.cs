@@ -63,6 +63,26 @@ namespace Control.Server {
 		/// <summary>
 		///   Looks up a localized resource of type System.Drawing.Bitmap.
 		/// </summary>
+		internal static System.Drawing.Bitmap mysql {
+			get {
+				object obj = ResourceManager.GetObject("mysql", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap mysql_d {
+			get {
+				object obj = ResourceManager.GetObject("mysql-d", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
 		internal static System.Drawing.Bitmap tomcat_logo_trans_grey_48x48 {
 			get {
 				object obj = ResourceManager.GetObject("tomcat_logo_trans_grey_48x48", resourceCulture);

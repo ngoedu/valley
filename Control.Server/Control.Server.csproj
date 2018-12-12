@@ -78,6 +78,10 @@
       <Project>{ECBE8FB1-549C-44AB-A8B2-A80CE5F32D70}</Project>
       <Name>Component.Catalina</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Component.MySQL\Component.MySQL.csproj">
+      <Project>{C1D3F738-4242-4054-87E3-555D837FD522}</Project>
+      <Name>Component.MySQL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

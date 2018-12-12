@@ -16,16 +16,18 @@ using App.Common;
 using App.Common.Proc;
 using App.Common.Reg;
 using Component.Catalina;
+using Component.MySQL;
 
 namespace Control.Server
 {
 	/// <summary>
 	/// Description of ServerControl.
 	/// </summary>
-	public partial class ServerControl : UserControl , ICatalinaOutputCallback, IAppEntry
+	public partial class ServerControl : UserControl , ICatalinaOutputCallback, IMySQLConsoleCallback, IAppEntry
 	{
 		
 		private CatalinaServer catalina ;
+		private MySQLServer mysql;
 		
 		public ServerControl()
 		{
@@ -35,6 +37,7 @@ namespace Control.Server
 			InitializeComponent();
 			
 			
+			//tomcat
 			tomcatBackgroundWorker = new BackgroundWorker(); // 实例化后台对象webapp 
             tomcatBackgroundWorker.WorkerReportsProgress = true; // 设置可以通告进度
             tomcatBackgroundWorker.WorkerSupportsCancellation = true; // 设置可以取消
@@ -42,11 +45,24 @@ namespace Control.Server
             tomcatBackgroundWorker.ProgressChanged += new ProgressChangedEventHandler(tomcatUpdateProgress);
             tomcatBackgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(tomcatCompletedWork);
             tomcatBackgroundWorker.RunWorkerAsync(this);
+            
+            
+            //mysql 
+            mysqlBackgroundWorker = new BackgroundWorker(); // 实例化后台对象webapp 
+            mysqlBackgroundWorker.WorkerReportsProgress = true; // 设置可以通告进度
+            mysqlBackgroundWorker.WorkerSupportsCancellation = true; // 设置可以取消
+            mysqlBackgroundWorker.DoWork += new DoWorkEventHandler(mysqlDoWork);
+            mysqlBackgroundWorker.ProgressChanged += new ProgressChangedEventHandler(mysqlUpdateProgress);
+            mysqlBackgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(mysqlCompletedWork);
+            mysqlBackgroundWorker.RunWorkerAsync(this);
 		}
 
 		#region IAppEntry implementation
 		private BackgroundWorker tomcatBackgroundWorker;
+		private BackgroundWorker mysqlBackgroundWorker;
 		private BlockingCollection<string> tomcatQueue = new BlockingCollection<string>();
+		private BlockingCollection<string> mysqlQueue = new BlockingCollection<string>();
+		
 		private int pid = -1;
 		private int inShutdown = -1;
 		private int port = 60080;
@@ -59,21 +75,30 @@ namespace Control.Server
 		}
 		public void Init(AppRegistry reg)
 		{
+			//init catalina
 			var webapp = (string)reg[AppRegKeys.EIDE_PROJ];
 			context = (string)reg[AppRegKeys.CATALINA_CONTEXT];
 			catalina = new CatalinaServer(this, PidRecorder.Instance, "127.0.0.1", port,  webapp, "/"+context);
 			
-			//reg push value.
+			//reg push value back.
 			reg[AppRegKeys.BROWSER_URL] = "http://127.0.0.1:"+port+"/"+context+"/";
+			
+			
+			//init mysql
+			mysql = new MySQLServer(this, PidRecorder.Instance, 63306);
 			
 		}
 
-		#region ICatalinaOutputCallback implementation
-		public void OutputArrived(string output)
+		public void CatalinaOutputArrived(string output)
 		{
 			tomcatQueue.Add(output);
 		}
-		#endregion
+		
+		public void MySQLOutputArrived(string output)
+		{
+			mysqlQueue.Add(output);
+		}
+		
 		
 		void tomcatDoWork(object sender, DoWorkEventArgs e)
         {
@@ -118,6 +143,30 @@ namespace Control.Server
 		}
 		 
 		void tomcatCompletedWork(object sender, RunWorkerCompletedEventArgs e)
+        {	
+		}
+		
+		
+		
+		void mysqlDoWork(object sender, DoWorkEventArgs e)
+        {
+			while (true)
+			{
+				var item = mysqlQueue.Take();
+				//System.Diagnostics.Debug.WriteLine("item Taken");
+				mysqlBackgroundWorker.ReportProgress(1,item);
+			}		
+		}
+		
+		void mysqlUpdateProgress(object sender, ProgressChangedEventArgs e)
+        {
+			if (e != null && e.UserState != null) {
+				string message = e.UserState.ToString();
+				this.rtbMySqlConsole.AppendText(message);			
+			}
+		}
+		 
+		void mysqlCompletedWork(object sender, RunWorkerCompletedEventArgs e)
         {	
 		}
 		
@@ -179,6 +228,9 @@ namespace Control.Server
 			this.rtbTomcatConsole.Left = 1;
 			this.rtbTomcatConsole.Height = this.tabCatalina.ClientSize.Height - 100;
 		}
+		
+		
+		
 		void BtTomcatStartClick(object sender, EventArgs e)
 		{
 			if (catalina.IsStartedUp())
@@ -205,6 +257,43 @@ namespace Control.Server
 			this.pbTomcatStatus.Image = global::Control.Server.Resource1.tomcat_logo_trans_grey_48x48;
 			this.btTomcatStart.Enabled = true;
 			this.btTomcatStop.Enabled = false;
+		}
+		
+		
+		void TabMysqlSizeChanged(object sender, EventArgs e)
+		{
+			this.rtbMySqlConsole.Width = this.tabMysql.ClientSize.Width - 2;
+			this.rtbMySqlConsole.Left = 1;
+			this.rtbMySqlConsole.Height = this.tabMysql.ClientSize.Height - 100;
+		}
+		
+		
+		void BtnMySQLStartClick(object sender, EventArgs e)
+		{
+	
+			if (mysql.IsStartedUp())
+			{
+				MessageBox.Show("MySQL服务器已经启动了。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return;
+			}
+			mysql.StartupSync();
+			this.pbMySQL.Image = global::Control.Server.Resource1.mysql;
+			this.btnMySQLStart.Enabled = false;
+			this.btnMySQLStop.Enabled = true;
+		}
+		void BtnMySQLStopClick(object sender, EventArgs e)
+		{
+	
+			if (!mysql.IsStartedUp())
+			{
+				MessageBox.Show("MySQL服务器还没启动。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return;
+			}
+			mysql.ShutdownSync();
+			
+			this.pbMySQL.Image = global::Control.Server.Resource1.mysql_d;
+			this.btnMySQLStart.Enabled = true;
+			this.btnMySQLStop.Enabled = false;
 		}
 		
 		

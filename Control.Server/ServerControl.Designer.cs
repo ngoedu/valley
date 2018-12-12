@@ -21,6 +21,10 @@ namespace Control.Server
 		private System.Windows.Forms.Button btTomcatStop;
 		private System.Windows.Forms.Button btTomcatStart;
 		private System.Windows.Forms.RichTextBox rtbTomcatConsole;
+		private System.Windows.Forms.Button btnMySQLStop;
+		private System.Windows.Forms.Button btnMySQLStart;
+		private System.Windows.Forms.RichTextBox rtbMySqlConsole;
+		private System.Windows.Forms.PictureBox pbMySQL;
 		
 		/// <summary>
 		/// Disposes resources used by the control.
@@ -50,9 +54,15 @@ namespace Control.Server
 			this.btTomcatStart = new System.Windows.Forms.Button();
 			this.pbTomcatStatus = new System.Windows.Forms.PictureBox();
 			this.tabMysql = new System.Windows.Forms.TabPage();
+			this.pbMySQL = new System.Windows.Forms.PictureBox();
+			this.rtbMySqlConsole = new System.Windows.Forms.RichTextBox();
+			this.btnMySQLStop = new System.Windows.Forms.Button();
+			this.btnMySQLStart = new System.Windows.Forms.Button();
 			this.tabServers.SuspendLayout();
 			this.tabCatalina.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pbTomcatStatus)).BeginInit();
+			this.tabMysql.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pbMySQL)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tabServers
@@ -131,6 +141,10 @@ namespace Control.Server
 			// 
 			// tabMysql
 			// 
+			this.tabMysql.Controls.Add(this.pbMySQL);
+			this.tabMysql.Controls.Add(this.rtbMySqlConsole);
+			this.tabMysql.Controls.Add(this.btnMySQLStop);
+			this.tabMysql.Controls.Add(this.btnMySQLStart);
 			this.tabMysql.Location = new System.Drawing.Point(4, 28);
 			this.tabMysql.Name = "tabMysql";
 			this.tabMysql.Padding = new System.Windows.Forms.Padding(3);
@@ -138,6 +152,51 @@ namespace Control.Server
 			this.tabMysql.TabIndex = 1;
 			this.tabMysql.Text = "MySQL";
 			this.tabMysql.UseVisualStyleBackColor = true;
+			this.tabMysql.SizeChanged += new System.EventHandler(this.TabMysqlSizeChanged);
+			// 
+			// pbMySQL
+			// 
+			this.pbMySQL.Image = global::Control.Server.Resource1.mysql_d;
+			this.pbMySQL.Location = new System.Drawing.Point(32, 24);
+			this.pbMySQL.Name = "pbMySQL";
+			this.pbMySQL.Size = new System.Drawing.Size(64, 56);
+			this.pbMySQL.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.pbMySQL.TabIndex = 3;
+			this.pbMySQL.TabStop = false;
+			// 
+			// rtbMySqlConsole
+			// 
+			this.rtbMySqlConsole.BackColor = System.Drawing.SystemColors.InfoText;
+			this.rtbMySqlConsole.ForeColor = System.Drawing.SystemColors.Info;
+			this.rtbMySqlConsole.Location = new System.Drawing.Point(32, 96);
+			this.rtbMySqlConsole.Name = "rtbMySqlConsole";
+			this.rtbMySqlConsole.Size = new System.Drawing.Size(360, 184);
+			this.rtbMySqlConsole.TabIndex = 2;
+			this.rtbMySqlConsole.Text = "";
+			// 
+			// btnMySQLStop
+			// 
+			this.btnMySQLStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnMySQLStop.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.btnMySQLStop.Location = new System.Drawing.Point(200, 40);
+			this.btnMySQLStop.Name = "btnMySQLStop";
+			this.btnMySQLStop.Size = new System.Drawing.Size(75, 32);
+			this.btnMySQLStop.TabIndex = 1;
+			this.btnMySQLStop.Text = "停止";
+			this.btnMySQLStop.UseVisualStyleBackColor = true;
+			this.btnMySQLStop.Click += new System.EventHandler(this.BtnMySQLStopClick);
+			// 
+			// btnMySQLStart
+			// 
+			this.btnMySQLStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnMySQLStart.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.btnMySQLStart.Location = new System.Drawing.Point(120, 40);
+			this.btnMySQLStart.Name = "btnMySQLStart";
+			this.btnMySQLStart.Size = new System.Drawing.Size(75, 32);
+			this.btnMySQLStart.TabIndex = 0;
+			this.btnMySQLStart.Text = "开始";
+			this.btnMySQLStart.UseVisualStyleBackColor = true;
+			this.btnMySQLStart.Click += new System.EventHandler(this.BtnMySQLStartClick);
 			// 
 			// ServerControl
 			// 
@@ -149,6 +208,8 @@ namespace Control.Server
 			this.tabServers.ResumeLayout(false);
 			this.tabCatalina.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.pbTomcatStatus)).EndInit();
+			this.tabMysql.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.pbMySQL)).EndInit();
 			this.ResumeLayout(false);
 
 		}
