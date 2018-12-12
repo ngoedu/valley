@@ -51,6 +51,9 @@
     <Reference Include="CefSharp.WinForms">
       <HintPath>..\App.Dashboard\packages\CefSharp.WinForms.49.0.0\CefSharp\x86\CefSharp.WinForms.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\library\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -116,6 +119,10 @@
     <ProjectReference Include="..\Component.Catalina\Component.Catalina.csproj">
       <Project>{ECBE8FB1-549C-44AB-A8B2-A80CE5F32D70}</Project>
       <Name>Component.Catalina</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Component.MySQL\Component.MySQL.csproj">
+      <Project>{C1D3F738-4242-4054-87E3-555D837FD522}</Project>
+      <Name>Component.MySQL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Control.Eide\Control.Eide.csproj">
       <Project>{9588C636-7568-453A-9A1B-299416A1B8DD}</Project>

@@ -39,7 +39,7 @@ namespace NGO.Train
 			tr.Security.UID = uid;
 			
 			var token = MD5Util.StringMD5(uid+cid, mysalt);
-			logger.Info("InitSessionWithSecurity, token="+token);
+			logger.Info(string.Format("InitSessionWithSecurity uid={0}, cid={1}, token={2}",uid, cid, token));
 			
 			tr.Security.Token = token;
 			WriteSessionToFile(tr, path+"/tr.dat");
@@ -63,7 +63,7 @@ namespace NGO.Train
 		public bool Validated(string userId, string cid)
 		{
 			string md5 = MD5Util.StringMD5(userId+cid, TrainingSession.mysalt);
-			logger.Info("Security.Validated, token="+md5);
+			logger.Debug(string.Format("Security.Validated uid={0}, cid={1}, md5={2} , token={3}",userId, cid, md5, Token));
 			
 			if (this.Token.Equals(md5))
 			    return true;

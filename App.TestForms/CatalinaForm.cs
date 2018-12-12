@@ -49,7 +49,7 @@ namespace NGO.Pad.Catalina
 		}
 
 		#region IOutputCallback implementation
-		public void OutputArrived(string output)
+		public void CatalinaOutputArrived(string output)
 		{
 			queue.Add(output);
 		}
