@@ -24,6 +24,7 @@ using CefSharp;
 using Component.Bridge;
 using Component.Catalina;
 using Control.Eide;
+using Control.Guider;
 using Control.JBrowser;
 using Control.Profile;
 using Control.Toolbar;
@@ -38,7 +39,7 @@ namespace App.Mediator
 	/// <summary>
 	/// Description of SimpleMediator.
 	/// </summary>
-	public class SimpleMediator : IMediator, IToolBarCallback
+	public class SimpleMediator : IMediator, IToolBarCallback, IGuideCallback
 	{
 		private Form mainForm;
 		private ITileManager tileManager;
@@ -122,6 +123,7 @@ namespace App.Mediator
 			
 			course.RestoreRevFiles();
 			
+			appRegistry.Add(AppRegKeys.GUIDE_CB, this);
 			appRegistry.Add(AppRegKeys.COURSE_KEY, course);
 			
 			var milestone = course.GetLatestMileStone();
@@ -150,20 +152,10 @@ namespace App.Mediator
 		private void ReLoadCoursePlayForm(string cid){
 			logger.Debug("ReLoadCoursePlayForm cid="+cid);
 			
-
 			//1.load course content, prepare registry
 			var courseName = cid;
 			var cpath = CodeBase.GetCoursePackPath();
 			var course = CourseReader.Instance.ReadCourseFrom(cpath, courseName, false);
-			
-			
-			//2.dispose apps
-			appContexts = App.Views.AppContext.CreateAppContext(course.Apps);		
-			foreach(var app in appContexts) {
-				app.AppControl.Reload(appRegistry);		
-			}
-			logger.Debug("app controls disposed");
-			
 			
 			//3.load train session
 			var trSession = CourseReader.Instance.ReadTrainingSessionFrom(cpath, courseName, false);
@@ -171,11 +163,13 @@ namespace App.Mediator
 				MessageBox.Show("无效的课程", "提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return;
 			}
+			appRegistry[AppRegKeys.COURSE_TRAINSESSION]= cpath+"/"+ courseName+"/tr.dat";
 			appRegistry[AppRegKeys.COURSE_TRAINSESSION_OBJ] = trSession;
 			
 			//4.restore raw code, parepare registry info
 			course.RestoreRevFiles();			
 			appRegistry[AppRegKeys.COURSE_KEY]= course;
+			appRegistry[AppRegKeys.GUIDE_CB] = this;
 					
 			var milestone = course.GetLatestMileStone();
 			appRegistry[AppRegKeys.VIDEO_LINK]= course.GetVideoByID(milestone.LinkID).Content;
@@ -184,9 +178,10 @@ namespace App.Mediator
 			appRegistry[AppRegKeys.EIDE_PROJ]= cpath+@"\"+courseName+@"\"+course.Schema.ProjName;
 			appRegistry[AppRegKeys.CATALINA_CONTEXT] = course.Schema.ProjName;
 			
-			//5: re-init app control
+			//5: re-load app control
+			appContexts = App.Views.AppContext.CreateAppContext(course.Apps);		
 			foreach(var app in appContexts) {
-				app.AppControl.Init(appRegistry);		
+				app.AppControl.Reload(appRegistry);		
 			}
 			logger.Debug("app controls re-inited");
 			
@@ -222,9 +217,13 @@ namespace App.Mediator
 				LoadCoursePlayForm("sweb-a01-proj1");
 			}
 		}
+
 		
 		public void FormClosed()
 		{
+			//persist status
+			jProfile.Dispose();
+			
 			//Hide all tiles
 			tileManager.HideAppTiles(appContexts);
 			
@@ -271,7 +270,12 @@ namespace App.Mediator
 		}
 		#endregion form events
 
-		
+		#region IGuideCallback implementation
+		public int EnergyDecrease(int level, int index)
+		{
+			return jProfile.AddEnergy(-level);
+		}
+		#endregion	
 		
 		#region bridge callback
 		/// <summary>
@@ -306,12 +310,6 @@ namespace App.Mediator
 		#endregion aether endpoint callback
 
 		#region IToolBarCallback implementation
-
-		public void PlayCourseEntry()
-		{
-			throw new NotImplementedException();
-		}
-
 		public void DisplayCourseLib()
 		{
 			tileManager.HideAppTiles(appContexts);
@@ -324,15 +322,8 @@ namespace App.Mediator
 					
 				//course selected
 				ReLoadCoursePlayForm(cid);
-				//MessageBox.Show("reload course play form");
 		    }
 		}
-
-		public void DisplayWebBrowser()
-		{
-			throw new NotImplementedException();
-		}
-
 		#endregion
 	}
 }
