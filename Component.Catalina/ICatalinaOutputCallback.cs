@@ -15,6 +15,6 @@ namespace Component.Catalina
 	/// </summary>
 	public interface ICatalinaOutputCallback
 	{
-		void OutputArrived(string output);
+		void CatalinaOutputArrived(string output);
 	}
 }

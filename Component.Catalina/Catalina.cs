@@ -136,7 +136,7 @@ namespace Component.Catalina
 		     	startupSyncSignal.SetWhen(outLine.Data);
 		    
 		    if (callback!=null)
-		     	callback.OutputArrived(outLine.Data);
+		     	callback.CatalinaOutputArrived(outLine.Data);
 		    System.Diagnostics.Debug.WriteLine(outLine.Data);
         }
         
