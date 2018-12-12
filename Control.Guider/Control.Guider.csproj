@@ -49,6 +49,7 @@
     <Compile Include="Box.cs" />
     <Compile Include="Box.Designer.cs" />
     <Compile Include="IBox.cs" />
+    <Compile Include="IGuideCallback.cs" />
     <Compile Include="IGuider.cs" />
     <Compile Include="JGuider.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

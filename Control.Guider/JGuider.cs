@@ -21,6 +21,7 @@ using DiffMatchPatch;
 using NGO.Pad.Editor;
 using NGO.Train;
 using NGO.Train.Entity;
+using Control.Guider;
 
 namespace NGO.Pad.Guider
 {
@@ -37,8 +38,10 @@ namespace NGO.Pad.Guider
 		private WebBrowser refBrowser;
 		private TabControl codeTabs;
 		private IClient eideClient;
+		private IGuideCallback guideCallback;
 		private AppStatus status;
 		private TrainingSession session;
+		private string course_tr_file;
 		
 		public JGuider()
 		{
@@ -69,6 +72,7 @@ namespace NGO.Pad.Guider
 		public void Init(App.Common.Reg.AppRegistry reg)
 		{
 			course = (Course)reg[AppRegKeys.COURSE_KEY];
+			course_tr_file = (string)reg[AppRegKeys.COURSE_TRAINSESSION];
 			
 			session = (TrainingSession)reg[AppRegKeys.COURSE_TRAINSESSION_OBJ];
 			foreach (var ms in session.Progress) {
@@ -76,6 +80,8 @@ namespace NGO.Pad.Guider
 			}
 			
 			this.BindCourse(course);
+			
+			guideCallback = (IGuideCallback)reg[AppRegKeys.GUIDE_CB];
 			
 			eideClient = (IClient)reg[AppRegKeys.AETHER_CLIENT];
 			this.status  = AppStatus.Inited;
@@ -94,9 +100,7 @@ namespace NGO.Pad.Guider
 		public void Reload(AppRegistry reg)
 		{
 			this.Dispose(reg);
-			if (this.status == AppStatus.Disposed) {
-				this.Init(reg);
-			}
+			this.Init(reg);
 		}
 		
 		public void Dispose(AppRegistry reg)
@@ -108,7 +112,7 @@ namespace NGO.Pad.Guider
 			}
 			
 			//persist training session into file
-			TrainingSession.WriteSessionToFile(session, (string)reg[AppRegKeys.COURSE_TRAINSESSION]);
+			TrainingSession.WriteSessionToFile(session, course_tr_file);
 			
 			this.status = AppStatus.Disposed;
 		}
@@ -117,7 +121,8 @@ namespace NGO.Pad.Guider
 		{
 			return this.status;
 		}
-		public void ShowRef(int index)
+		
+		public void ShowRef(int index, bool trace)
 		{
 			var ms = course.GetMileStoneByID(index);
 			ms.Status = Course.STATUS_REFER;
@@ -125,8 +130,11 @@ namespace NGO.Pad.Guider
 			LoadHtml(refInfo.Content);
 			this.codeTabs.Visible = false;
 			this.refBrowser.Visible = true;
+			
+			this.session.Point = this.guideCallback.EnergyDecrease(1, index);
 		}
-		public void ShowCode(int index)
+		
+		public void ShowCode(int index, bool trace)
 		{
 			var ms = course.GetMileStoneByID(index);
 			ms.Status = Course.STATUS_CODE;
@@ -166,9 +174,11 @@ namespace NGO.Pad.Guider
 			
 			this.codeTabs.Visible = true;
 			this.refBrowser.Visible = false;
+			
+			this.session.Point = this.guideCallback.EnergyDecrease(2, index);
 		}
 		
-		public void ReplicateCode(int index)
+		public void ReplicateCode(int index, bool trace)
 		{
 			var revision = course.GetMileStoneByID(index);
 			revision.Status = Course.STATUS_SAVE;
@@ -185,6 +195,8 @@ namespace NGO.Pad.Guider
 				System.Diagnostics.Debug.WriteLine("[EIDE] rev"+index+" sync failed - " + response);
 				MessageBox.Show("[EIDE] rev"+index+" sync failed - " + response);
 			}
+			
+			this.session.Point = this.guideCallback.EnergyDecrease(3, index);
 		}
 
 		private void LoadHtml(string html) {		

@@ -47,11 +47,11 @@ namespace Control.Toolbar
 		
 		void PictureBox2Click(object sender, EventArgs e)
 		{
-			this.callback.PlayCourseEntry();
+			//this.callback.PlayCourseEntry();
 		}
 		void PictureBox3Click(object sender, EventArgs e)
 		{
-			this.callback.DisplayWebBrowser();
+			//this.callback.DisplayWebBrowser();
 		}
 		
 		#region Icon effect

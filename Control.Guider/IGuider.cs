@@ -19,10 +19,10 @@ namespace NGO.Pad.Guider
 	{
 		void BindCourse(Course course);
 		
-		void ShowRef(int index);
+		void ShowRef(int index, bool trace);
 
-		void ShowCode(int index);
+		void ShowCode(int index, bool trace);
 		
-		void ReplicateCode(int index);
+		void ReplicateCode(int index, bool trace);
 	}
 }

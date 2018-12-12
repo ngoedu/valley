@@ -55,7 +55,7 @@ namespace Control.Profile
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(56, 24);
 			this.label1.TabIndex = 0;
-			this.label1.Text = "账号：";
+			this.label1.Visible = false;
 			// 
 			// pictureBox1
 			// 
@@ -75,6 +75,7 @@ namespace Control.Profile
 			this.lblName.Name = "lblName";
 			this.lblName.Size = new System.Drawing.Size(100, 16);
 			this.lblName.TabIndex = 3;
+			this.lblName.Visible = false;
 			// 
 			// jProgressBar1
 			// 
@@ -96,6 +97,7 @@ namespace Control.Profile
 			this.Name = "Profile";
 			this.Size = new System.Drawing.Size(300, 62);
 			this.SizeChanged += new System.EventHandler(this.ProfileSizeChanged);
+			this.Paint += new System.Windows.Forms.PaintEventHandler(this.ProfilePaint);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);
 

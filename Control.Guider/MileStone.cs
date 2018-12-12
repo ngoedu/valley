@@ -125,7 +125,7 @@ namespace NGO.Pad.Guider
 						stone.BackColor = COLOR_INDEX[STATUS];
 						toolTip1.RemoveAll();
 						toolTip1.SetToolTip(stone, "回顾知识点");
-						this.guider.ShowRef(this.index);
+						this.guider.ShowRef(this.index, true);
 						break;
 					}
 				case 1:
@@ -134,7 +134,7 @@ namespace NGO.Pad.Guider
 						stone.BackColor = COLOR_INDEX[STATUS];
 						toolTip1.RemoveAll();
 						toolTip1.SetToolTip(stone, "参考示例代码");
-						this.guider.ShowCode(this.index);
+						this.guider.ShowCode(this.index, true);
 						break;
 					}
 				case 2:
@@ -146,7 +146,7 @@ namespace NGO.Pad.Guider
 							STATUS = Course.STATUS_SAVE;
 							stone.BackColor = COLOR_INDEX[STATUS];
 							toolTip1.RemoveAll();
-							this.guider.ReplicateCode(this.index);
+							this.guider.ReplicateCode(this.index, true);
 							toolTip1.SetToolTip(stone, "已执行覆盖代码操作！");
 							
 						} else {
@@ -204,17 +204,17 @@ namespace NGO.Pad.Guider
 			switch (STATUS) {
 				case 1:
 					{
-						this.guider.ShowRef(this.index);
+						this.guider.ShowRef(this.index, false);
 						break;
 					}
 				case 2:
 					{
-						this.guider.ShowCode(this.index);
+						this.guider.ShowCode(this.index, false);
 						break;
 					}
 				case 3:
 					{
-						this.guider.ShowCode(this.index);
+						this.guider.ShowCode(this.index, false);
 						break;
 					}
 			}
