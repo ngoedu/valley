@@ -21,6 +21,7 @@ using App.Common;
 using App.Common.Dpi;
 using Control.JBrowser;
 using NGO.Train;
+using log4net;
 using App.Views;
 
 namespace App.Views
@@ -41,6 +42,9 @@ namespace App.Views
 		private string downloadedCid;
 		
 		private string uid;
+		
+		private static readonly ILog logger = LogManager.GetLogger(typeof(CourseForm));  
+
 
 		public CourseForm(string uid)
 		{
@@ -219,20 +223,20 @@ namespace App.Views
 			
 			using (WebClient wc = new WebClient())
 		    {
-		        wc.DownloadProgressChanged += wc_DownloadProgressChanged;
-		        wc.DownloadFileCompleted += wc_DownloadFileCompleted;
+				wc.Headers.Add ("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+		       
+				wc.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadFileCompleted);
+       			wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(wc_DownloadProgressChanged);
+
+
+				//wc.DownloadProgressChanged += wc_DownloadProgressChanged;
+		        //wc.DownloadFileCompleted += wc_DownloadFileCompleted;
 		       	string fileUrl  = "http://192.168.0.13/scup/cpack/"+cid+".zip";
 		       	wc.QueryString.Add("token", "NGO");
-		       	zipFile += "\\"+cid +".zip";
+
 		       	downloadedCid = cid;
-		        try {
-					wc.DownloadFileAsync(new System.Uri(fileUrl), zipFile);
-				} catch (WebException webex) {
-					HttpWebResponse webResp = (HttpWebResponse) webex.Response;
-					MessageBox.Show(webResp.ToString());
-					isDownloadInProgress = false;
-			
-		        }
+		       	logger.Info(string.Format("url={0} download to {1}", fileUrl, zipFile ));
+		        wc.DownloadFileAsync(new System.Uri(fileUrl), zipFile +"\\"+cid +".zip");
 		    }
 	    }
 		
@@ -254,23 +258,25 @@ namespace App.Views
 		
 		    if (e.Error != null) // We have an error! Retry a few times, then abort.
 		    {
-		        MessageBox.Show("An error ocurred while trying to download file - "+e.Error.Message); 
+		    	logger.Error("download error - "+e.Error.StackTrace);
+		    	MessageBox.Show("下载文件错误 - "+e.Error.InnerException);
+		    	this.btnGoBack.Enabled = true;
 		        return;
 		    }
 		    
 		    //unzip file to folder
-		    string zipPath = zipFile;
+		    string zipFilePath = zipFile+ "//"+downloadedCid + ".zip";
       		string extractPath = CodeBase.GetCoursePackPath();
-      		System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
+      		System.IO.Compression.ZipFile.ExtractToDirectory(zipFilePath, extractPath);
 		
       		isDownloadInProgress = false;
       		this.btnGoBack.Enabled = true;
       		
       		//delete zip file
-      		File.Delete(zipPath);
+      		File.Delete(zipFilePath);
       		
       		//generate TR file 
-      		TrainingSession.InitSessionWithSecurity(this.downloadedCid, this.uid,  100, zipFile.Replace(@".zip",""));
+      		TrainingSession.InitSessionWithSecurity(this.downloadedCid, this.uid,  100, zipFilePath.Replace(@".zip",""));
       		
       		//show 
       		showCoursePreview(jsCallback.CourseId);
