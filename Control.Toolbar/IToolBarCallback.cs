@@ -16,5 +16,7 @@ namespace Control.Toolbar
 	public interface IToolBarCallback
 	{
 		void DisplayCourseLib();
+
+		void PreferenceConfig();
 	}
 }

@@ -78,14 +78,13 @@ namespace Control.Toolbar
 			// 
 			// pictureBox2
 			// 
-			this.pictureBox2.Image = global::Control.Toolbar.Resource1.eclipse1;
-			this.pictureBox2.Location = new System.Drawing.Point(136, 0);
+			this.pictureBox2.Image = global::Control.Toolbar.Resource1.gear1;
+			this.pictureBox2.Location = new System.Drawing.Point(136, 9);
 			this.pictureBox2.Name = "pictureBox2";
-			this.pictureBox2.Size = new System.Drawing.Size(52, 52);
+			this.pictureBox2.Size = new System.Drawing.Size(48, 48);
 			this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox2.TabIndex = 2;
 			this.pictureBox2.TabStop = false;
-			this.pictureBox2.Visible = false;
 			this.pictureBox2.Click += new System.EventHandler(this.PictureBox2Click);
 			this.pictureBox2.MouseEnter += new System.EventHandler(this.PictureBox2MouseEnter);
 			// 
@@ -94,12 +93,11 @@ namespace Control.Toolbar
 			this.label1.BackColor = System.Drawing.Color.Transparent;
 			this.label1.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-			this.label1.Location = new System.Drawing.Point(144, 48);
+			this.label1.Location = new System.Drawing.Point(142, 53);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(48, 16);
 			this.label1.TabIndex = 3;
-			this.label1.Text = "编程";
-			this.label1.Visible = false;
+			this.label1.Text = "设置";
 			// 
 			// pictureBox3
 			// 
@@ -132,10 +130,10 @@ namespace Control.Toolbar
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+			this.Controls.Add(this.label1);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.pictureBox3);
 			this.Controls.Add(this.pictureBox2);
-			this.Controls.Add(this.label1);
 			this.Controls.Add(this.txtIcon1);
 			this.Controls.Add(this.pictureBox1);
 			this.Name = "JToolbar";

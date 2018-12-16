@@ -47,7 +47,7 @@ namespace Control.Toolbar
 		
 		void PictureBox2Click(object sender, EventArgs e)
 		{
-			//this.callback.PlayCourseEntry();
+			this.callback.PreferenceConfig();
 		}
 		void PictureBox3Click(object sender, EventArgs e)
 		{

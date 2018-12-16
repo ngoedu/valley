@@ -93,9 +93,9 @@ namespace Control.Toolbar {
 		/// <summary>
 		///   Looks up a localized resource of type System.Drawing.Bitmap.
 		/// </summary>
-		internal static System.Drawing.Bitmap package {
+		internal static System.Drawing.Bitmap gear1 {
 			get {
-				object obj = ResourceManager.GetObject("package", resourceCulture);
+				object obj = ResourceManager.GetObject("gear1", resourceCulture);
 				return ((System.Drawing.Bitmap)(obj));
 			}
 		}
