@@ -15,6 +15,7 @@ namespace NGO.Pad.Guider
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
 		private System.Windows.Forms.Label stone;
+		private System.Windows.Forms.PictureBox pbPlayVideo;
 		
 		/// <summary>
 		/// Disposes resources used by the control.
@@ -38,29 +39,43 @@ namespace NGO.Pad.Guider
 		private void InitializeComponent()
 		{
 			this.stone = new System.Windows.Forms.Label();
+			this.pbPlayVideo = new System.Windows.Forms.PictureBox();
+			((System.ComponentModel.ISupportInitialize)(this.pbPlayVideo)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// stone
 			// 
 			this.stone.BackColor = System.Drawing.SystemColors.Info;
 			this.stone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.stone.Location = new System.Drawing.Point(37, 24);
-			this.stone.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.stone.Location = new System.Drawing.Point(28, 19);
 			this.stone.Name = "stone";
-			this.stone.Size = new System.Drawing.Size(22, 17);
+			this.stone.Size = new System.Drawing.Size(17, 14);
 			this.stone.TabIndex = 0;
 			this.stone.Click += new System.EventHandler(this.StoneClick);
 			this.stone.DoubleClick += new System.EventHandler(this.StoneDoubleClick);
 			// 
+			// pbPlayVideo
+			// 
+			this.pbPlayVideo.Image = global::Control.Guider.Resource2.play1;
+			this.pbPlayVideo.Location = new System.Drawing.Point(56, 16);
+			this.pbPlayVideo.Name = "pbPlayVideo";
+			this.pbPlayVideo.Size = new System.Drawing.Size(22, 22);
+			this.pbPlayVideo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.pbPlayVideo.TabIndex = 1;
+			this.pbPlayVideo.TabStop = false;
+			this.pbPlayVideo.Click += new System.EventHandler(this.PbPlayVideoClick);
+			// 
 			// MileStone
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.pbPlayVideo);
 			this.Controls.Add(this.stone);
-			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.Name = "MileStone";
-			this.Size = new System.Drawing.Size(101, 69);
+			this.Size = new System.Drawing.Size(76, 55);
+			this.SizeChanged += new System.EventHandler(this.MileStoneSizeChanged);
 			this.Paint += new System.Windows.Forms.PaintEventHandler(this.MileStonePaint);
+			((System.ComponentModel.ISupportInitialize)(this.pbPlayVideo)).EndInit();
 			this.ResumeLayout(false);
 
 		}

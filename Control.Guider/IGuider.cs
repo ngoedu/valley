@@ -18,6 +18,8 @@ namespace NGO.Pad.Guider
 	public interface IGuider : IAppEntry
 	{
 		void BindCourse(Course course);
+
+		void ShowVideo(int index, bool trace);
 		
 		void ShowRef(int index, bool trace);
 

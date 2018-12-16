@@ -36,12 +36,16 @@ namespace NGO.Pad.Guider
 		private List<MileStone> mileStones = new List<MileStone>();
 		private System.Windows.Forms.Panel panelMileStone;
 		private WebBrowser refBrowser;
+		private WebBrowser videoBrowser;
 		private TabControl codeTabs;
 		private IClient eideClient;
 		private IGuideCallback guideCallback;
 		private AppStatus status;
 		private TrainingSession session;
 		private string course_tr_file;
+		private AppRegistry reg;
+		
+		private const int boxWidth = 220;
 		
 		public JGuider()
 		{
@@ -61,6 +65,10 @@ namespace NGO.Pad.Guider
 			refBrowser = new WebBrowser();
 			this.Controls.Add(refBrowser);
 			
+			videoBrowser = new WebBrowser();
+			videoBrowser.Name = "INNER_VIDEO";
+			this.Controls.Add(videoBrowser);
+					
 			codeTabs = new TabControl();
 			this.Controls.Add(codeTabs);
 		}
@@ -84,6 +92,9 @@ namespace NGO.Pad.Guider
 			guideCallback = (IGuideCallback)reg[AppRegKeys.GUIDE_CB];
 			
 			eideClient = (IClient)reg[AppRegKeys.AETHER_CLIENT];
+			
+			this.reg = reg;
+			
 			this.status  = AppStatus.Inited;
 		}
 		
@@ -121,15 +132,30 @@ namespace NGO.Pad.Guider
 		{
 			return this.status;
 		}
+
+		public void ShowVideo(int index, bool trace)
+		{
+			var milestone = course.GetMileStoneByID(index);
+			string videoLinkHtml = course.GetVideoByID(milestone.LinkID).Content;
+			LoadVideoHtml(videoLinkHtml);
+			this.codeTabs.Visible = false;
+			this.refBrowser.Visible = false;
+			this.videoBrowser.Visible = true;
+			
+			this.reg[AppRegKeys.VIDEO_OBJ] = this.videoBrowser;
+			this.reg[AppRegKeys.VIDEO_PARENT_OBJ] = this;
+			this.reg[AppRegKeys.VIDEO_ORI_SIZE] = videoBrowser.Size;
+		}
 		
 		public void ShowRef(int index, bool trace)
 		{
 			var ms = course.GetMileStoneByID(index);
 			ms.Status = Course.STATUS_REFER;
 			var refInfo = course.GetReferByID(ms.RefID);
-			LoadHtml(refInfo.Content);
+			LoadRefHtml(refInfo.Content);
 			this.codeTabs.Visible = false;
 			this.refBrowser.Visible = true;
+			this.videoBrowser.Visible = false;
 			
 			this.session.Point = this.guideCallback.EnergyDecrease(1, index);
 		}
@@ -174,6 +200,7 @@ namespace NGO.Pad.Guider
 			
 			this.codeTabs.Visible = true;
 			this.refBrowser.Visible = false;
+			this.videoBrowser.Visible = false;
 			
 			this.session.Point = this.guideCallback.EnergyDecrease(2, index);
 		}
@@ -199,12 +226,20 @@ namespace NGO.Pad.Guider
 			this.session.Point = this.guideCallback.EnergyDecrease(3, index);
 		}
 
-		private void LoadHtml(string html) {		
+		private void LoadRefHtml(string html) {		
 			refBrowser.DocumentText="";
 			refBrowser.Document.OpenNew(true);
 			refBrowser.Document.Write(html);
 			refBrowser.Refresh();
-		}		
+		}	
+		
+		private void LoadVideoHtml(string html) {		
+			videoBrowser.DocumentText="";
+			videoBrowser.Document.OpenNew(true);
+			videoBrowser.Document.Write(html);
+			videoBrowser.Refresh();
+		}	
+		
 		private void RemoveMileStones() {
 			foreach(var ctl in mileStones) {
 				this.panelMileStone.Controls.Remove(ctl);
@@ -224,6 +259,7 @@ namespace NGO.Pad.Guider
 				var stone = new MileStone(step.ID, step.ID+"."+step.Title, step.Status, this);
 				stone.Top = (stone.Height - 2 ) * index++ ;
 				stone.Left = 20;
+				stone.Width = boxWidth - 8;
 				mileStones.Add(stone);
 				this.panelMileStone.Controls.Add(stone);
 			}
@@ -232,9 +268,11 @@ namespace NGO.Pad.Guider
 
 		void JGuiderSizeChanged(object sender, EventArgs e)
 		{
+			const int boxLeftPosX = 2;
+			
 			boxCourse.Top = 0;
 			boxCourse.Left = 0;
-			boxCourse.Width = 220;
+			boxCourse.Width = boxWidth;
 			
 			panelMileStone.Top = boxCourse.Top + boxCourse.Height + 1;
 			panelMileStone.Left = 0;
@@ -244,13 +282,18 @@ namespace NGO.Pad.Guider
 			for (int i=0; i<mileStones.Count; i++)
 			{
 				mileStones[i].Top = (mileStones[i].Height - 2 ) * i;
-				mileStones[i].Left = 20;			
+				mileStones[i].Left = boxLeftPosX;			
 			}
 			
 			refBrowser.Top = boxCourse.Top;
 			refBrowser.Left = boxCourse.Width;
 			refBrowser.Width = this.Width - boxCourse.Width;
 			refBrowser.Height = this.Height;
+			
+			videoBrowser.Top = boxCourse.Top;
+			videoBrowser.Left = boxCourse.Width;
+			videoBrowser.Width = this.Width - boxCourse.Width;
+			videoBrowser.Height = this.Height;
 			
 			codeTabs.Top = boxCourse.Top;
 			codeTabs.Left = boxCourse.Width;

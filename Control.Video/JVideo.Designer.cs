@@ -48,6 +48,7 @@ namespace Control.Video
 			this.webBrowser1.Name = "webBrowser1";
 			this.webBrowser1.Size = new System.Drawing.Size(150, 150);
 			this.webBrowser1.TabIndex = 0;
+			this.webBrowser1.Visible = false;
 			// 
 			// JVideo
 			// 

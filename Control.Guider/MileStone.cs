@@ -219,5 +219,15 @@ namespace NGO.Pad.Guider
 					}
 			}
 		}
+		void MileStoneSizeChanged(object sender, EventArgs e)
+		{
+			this.pbPlayVideo.Location = new Point(this.Width - 20, 16);
+		}
+		
+		void PbPlayVideoClick(object sender, EventArgs e)
+		{
+			this.guider.ShowVideo(this.index, false);
+	
+		}
 	}
 }

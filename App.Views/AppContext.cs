@@ -39,8 +39,8 @@ namespace App.Views
 		}
 		
 		static AppContext() {
-			APPREG.Add("video", new App.Views.AppContext("视频", 1, 1,new JVideo(), false));
-			APPREG.Add("guider", new App.Views.AppContext("导航", 2, 1,new JGuider(),false));
+			APPREG.Add("guider", new App.Views.AppContext("导航", 1, 1,new JGuider(),false));
+			APPREG.Add("video", new App.Views.AppContext("视频", 2, 1,new JVideo(), false));
 			APPREG.Add("jeide", new App.Views.AppContext("编码", 3, 2,new JEide("NgoEclipse",  CodeBase.GetCodePath(), PidRecorder.Instance), false));
 			APPREG.Add("browser", new App.Views.AppContext("浏览器", 4, 2, new JDevBrowser(),true));
 			APPREG.Add("server", new App.Views.AppContext("服务器", 5, 3, new ServerControl(),false));
