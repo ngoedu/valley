@@ -45,9 +45,10 @@ namespace App.Mediator
 		private ITileManager tileManager;
 		private Rectangle clientArea;
 		private string codeBase;
+		private bool initLoadDone = false;
 		
 		private List<App.Views.AppContext> appContexts = new List<App.Views.AppContext>();
-		private AppRegistry appRegistry = new AppRegistry();
+		private readonly AppRegistry appRegistry = new AppRegistry();
 				
 		private Profile jProfile;
 		private JToolbar jToolbar;
@@ -147,6 +148,7 @@ namespace App.Mediator
 			//4.init profile
 			jProfile.SetEnergy(trSession.Point);
 	
+			initLoadDone = true;
 		}
 		
 		private void ReLoadCoursePlayForm(string cid){
@@ -209,8 +211,12 @@ namespace App.Mediator
 					var cid = (string)form.Tag;
 					form.Close();
 						
+					LoadingForm.ShowLoadingScreen();
+			
 					//course selected
 					LoadCoursePlayForm(cid);
+					
+					LoadingForm.CloseForm();
 			    }
 			} else {
 				//course selected
@@ -223,6 +229,9 @@ namespace App.Mediator
 		{
 			//persist status
 			jProfile.Dispose();
+			
+			//hide jtoolbar
+			jToolbar.Visible = false;
 			
 			//Hide all tiles
 			tileManager.HideAppTiles(appContexts);
@@ -321,9 +330,24 @@ namespace App.Mediator
 				form.Close();
 					
 				//course selected
-				ReLoadCoursePlayForm(cid);
+				if (!initLoadDone)
+					LoadCoursePlayForm(cid);
+				else
+					ReLoadCoursePlayForm(cid);
 		    }
 		}
+		
+
+		public void PreferenceConfig()
+		{
+			var form = new PrefConfigForm(jProfile.GetAccountName());
+			if (form.ShowDialog() == DialogResult.OK)
+		    {
+				//var cid = (string)form.Tag;
+				form.Close();
+		    }
+		}
+		
 		#endregion
 	}
 }
