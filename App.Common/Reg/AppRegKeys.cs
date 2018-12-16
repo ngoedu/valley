@@ -21,6 +21,11 @@ namespace App.Common.Reg
 		public static string COURSE_TRAINSESSION="COURSE_TRAINSESSION";
 		public static string COURSE_TRAINSESSION_OBJ="COURSE_TRAINSESSION_OBJ";
 
+		public static string VIDEO_OBJ = "VIDEO_OBJ";
+		public static string VIDEO_PARENT_OBJ = "VIDEO_PARENT_OBJ";
+		public static string VIDEO_ORI_SIZE = "VIDEO_ORI_SIZE";
+		
+		
 		public static string VIDEO_LINK = "VIDEO_LINK";
 		public static string EIDE_CDAT = "EIDE_CDAT";
 		public static string EIDE_WS = "EIDE_WS";
