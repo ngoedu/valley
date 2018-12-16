@@ -162,7 +162,7 @@ namespace Control.Server
         {
 			if (e != null && e.UserState != null) {
 				string message = e.UserState.ToString();
-				this.rtbMySqlConsole.AppendText(message);			
+				this.rtbMySqlConsole.AppendText(message+"\r\n");			
 			}
 		}
 		 
