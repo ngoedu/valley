@@ -158,9 +158,11 @@ namespace App.Views
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1184, 460);
-			this.ControlBox = false;
 			this.Controls.Add(this.panelPreview);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.Icon = global::App.Views.Resource1.select_c;
+			this.MaximizeBox = false;
+			this.MinimizeBox = false;
 			this.Name = "CourseForm";
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
