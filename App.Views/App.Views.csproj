@@ -82,6 +82,14 @@
     <Compile Include="Form\CourseForm.Designer.cs">
       <DependentUpon>CourseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form\LoadingForm.cs" />
+    <Compile Include="Form\LoadingForm.Designer.cs">
+      <DependentUpon>LoadingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\PrefConfigForm.cs" />
+    <Compile Include="Form\PrefConfigForm.Designer.cs">
+      <DependentUpon>PrefConfigForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource1.Designer.cs">
       <DependentUpon>Resource1.resx</DependentUpon>
@@ -102,6 +110,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Form\CourseForm.resx">
       <DependentUpon>CourseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\LoadingForm.resx">
+      <DependentUpon>LoadingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\PrefConfigForm.resx">
+      <DependentUpon>PrefConfigForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>
