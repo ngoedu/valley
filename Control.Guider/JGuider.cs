@@ -125,6 +125,10 @@ namespace NGO.Pad.Guider
 			//persist training session into file
 			TrainingSession.WriteSessionToFile(session, course_tr_file);
 			
+			//stop video.
+			this.LoadVideoHtml(string.Empty);
+			
+			
 			this.status = AppStatus.Disposed;
 		}
 
