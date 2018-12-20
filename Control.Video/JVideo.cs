@@ -78,9 +78,11 @@ namespace Control.Video
 						this.webBrowser1.Visible = false;
 						innerVideo.BringToFront();
 						
-						var style= innerVideo.Document.GetElementsByTagName("style")[0];
-						style.InnerText =  @"div { background-color: black; width:"+innerVideo.Width+"px; height: "+(innerVideo.Height-40)+"px;}";
-					}				
+						if (innerVideo.Document.GetElementsByTagName("style").Count > 0) {
+							var style= innerVideo.Document.GetElementsByTagName("style")[0];
+							style.InnerText =  @"div { background-color: black; width:"+innerVideo.Width+"px; height: "+(innerVideo.Height-40)+"px;}";
+						}	
+					}
 				}
 			}
 		}
@@ -100,9 +102,10 @@ namespace Control.Video
 				var oriSize = (Size)reg[AppRegKeys.VIDEO_ORI_SIZE];
 				innerVideo.Size = oriSize;
 				
-				var style= innerVideo.Document.GetElementsByTagName("style")[0];
-				style.InnerText =  @"div { background-color: black; width:"+oriSize.Width+"px; height: "+(oriSize.Height-40)+"px;}";
-
+				if (innerVideo.Document.GetElementsByTagName("style").Count > 0) {
+					var style= innerVideo.Document.GetElementsByTagName("style")[0];
+					style.InnerText =  @"div { background-color: black; width:"+oriSize.Width+"px; height: "+(oriSize.Height-40)+"px;}";
+				}
 			}
 			
 		}
