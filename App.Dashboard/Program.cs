@@ -23,6 +23,7 @@ namespace NGO.Dashboard
 		[STAThread]
 		private static void Main(string[] args)
 		{
+			CefSharp.Cef.EnableHighDPISupport();
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			MainForm mainForm = new MainForm();
