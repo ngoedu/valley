@@ -56,6 +56,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Control.Server", "Control.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.MySQL", "Component.MySQL\Component.MySQL.csproj", "{C1D3F738-4242-4054-87E3-555D837FD522}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XWindowsService", "XWindowsService\XWindowsService.csproj", "{291C7246-03CB-4B9B-A8D1-FBDB1786FAC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -166,5 +168,9 @@ Global
 		{C1D3F738-4242-4054-87E3-555D837FD522}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1D3F738-4242-4054-87E3-555D837FD522}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1D3F738-4242-4054-87E3-555D837FD522}.Release|Any CPU.Build.0 = Release|Any CPU
+		{291C7246-03CB-4B9B-A8D1-FBDB1786FAC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{291C7246-03CB-4B9B-A8D1-FBDB1786FAC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{291C7246-03CB-4B9B-A8D1-FBDB1786FAC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{291C7246-03CB-4B9B-A8D1-FBDB1786FAC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

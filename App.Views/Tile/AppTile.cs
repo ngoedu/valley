@@ -192,6 +192,16 @@ namespace App.Views
 		{
 			return string.Format("[AppTile TileName={0}, HotKey={1}, Status={2}]", tileName, Key, status);
 		}
+		
+		/// <summary>
+		/// dispatch label db-click event to tile
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		void LblTitleClick(object sender, EventArgs e)
+		{
+			AppTileDoubleClick(sender, e);
+		}
 
 	}
 }

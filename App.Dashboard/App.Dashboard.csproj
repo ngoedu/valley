@@ -51,6 +51,9 @@
     <FileAlignment>4096</FileAlignment>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CefSharp.Core">
+      <HintPath>packages\CefSharp.Common.49.0.0\CefSharp\x86\CefSharp.Core.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\library\log4net.dll</HintPath>
     </Reference>

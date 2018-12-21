@@ -176,12 +176,20 @@ namespace Control.Server
 			if (catalina != null) {
 				catalina.ShutdownSync();
 			}
+			
+			if (mysql != null) {
+				mysql.ShutdownSync();
+			}
+			
 			Init(reg);
 			
 			this.btTomcatStart.Enabled = true;
 			this.btTomcatStop.Enabled = false;
 			this.pbTomcatStatus.Image = global::Control.Server.Resource1.tomcat_logo_trans_grey_48x48;
 			
+			this.btnMySQLStart.Enabled = true;
+			this.btnMySQLStop.Enabled = false;
+			this.pbMySQL.Image = global::Control.Server.Resource1.tomcat_logo_trans_grey_48x48;			
 		}
 
 
@@ -199,8 +207,13 @@ namespace Control.Server
 
 		public void Dispose(AppRegistry reg)
 		{
-			catalina.ShutdownSync();
+			if (catalina != null && catalina.IsStartedUp()) {
+				catalina.ShutdownSync();
+			}
 			
+			if (mysql != null && mysql.IsStartedUp()) {
+				mysql.ShutdownSync();
+			}
 		}
 
 

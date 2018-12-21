@@ -103,11 +103,12 @@ namespace App.Views
 			// lblTitle
 			// 
 			this.lblTitle.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.lblTitle.ForeColor = System.Drawing.Color.WhiteSmoke;
-			this.lblTitle.Location = new System.Drawing.Point(144, 4);
+			this.lblTitle.ForeColor = System.Drawing.Color.LightGray;
+			this.lblTitle.Location = new System.Drawing.Point(144, 6);
 			this.lblTitle.Name = "lblTitle";
-			this.lblTitle.Size = new System.Drawing.Size(304, 25);
+			this.lblTitle.Size = new System.Drawing.Size(304, 22);
 			this.lblTitle.TabIndex = 5;
+			this.lblTitle.Click += new System.EventHandler(this.LblTitleClick);
 			// 
 			// AppTile
 			// 

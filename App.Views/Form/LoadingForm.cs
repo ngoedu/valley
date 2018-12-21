@@ -37,7 +37,7 @@ namespace App.Views
 			//this.Width = progressBar1.Width;
 			timer1.Enabled = true;
 			timer1.Start();
-			timer1.Interval = 100;
+			timer1.Interval = 200;
 			progressBar1.Maximum = 100;
 			timer1.Tick += new EventHandler(timer1_Tick);
 		}

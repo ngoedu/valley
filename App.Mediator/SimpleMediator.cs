@@ -53,12 +53,10 @@ namespace App.Mediator
 		private Profile jProfile;
 		private JToolbar jToolbar;
 
-		
 
 		private AetherBridge aetherBridge;		
 		private Endpoint aetherClient;
 		
-		private CatalinaServer catalina;
 		
 		private static readonly ILog logger = LogManager.GetLogger(typeof(SimpleMediator));  
 
@@ -238,12 +236,6 @@ namespace App.Mediator
 			
 			foreach(var app in appContexts) {
 				app.AppControl.Dispose(appRegistry);					
-			}
-			
-			//shutdown catalina
-			if (catalina != null) {
-				catalina.ShutdownSync();
-				logger.Debug("catalina shuted down.");
 			}
 			
 			//disconnect endpoint
