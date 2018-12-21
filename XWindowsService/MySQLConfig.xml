@@ -1,0 +1,8 @@
+﻿<?xml version="1.0"?>
+<MySQLConfig>
+	<RootPass>Qwer!234d</RootPass>
+	<MySQLHome>D:\NGO\NOC\mysql5.6.34</MySQLHome>
+	<Executable>%MySQLHome%\bin\mysqld.exe</Executable>
+	<ExecutableAdmin>%MySQLHome%\bin\mysqladmin.exe</ExecutableAdmin>
+	<Parameters>--defaults-file=%MySQLHome%\bin\my.ini --console</Parameters>
+</MySQLConfig>

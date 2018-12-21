@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CatalinaConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<JavaHome>D:\ngo\noc\jdk1.8.0_144</JavaHome>
+	<TomcatHome>D:\NGO\NOC\apache-tomcat-8.0.46</TomcatHome>
+	<Executable>%JAVA_HOME%\bin\java.exe</Executable>
+	<Parameters>-Djava.util.logging.config.file=%TOMCAT_HOME%\conf\logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager  -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources   -Djava.endorsed.dirs=%TOMCAT_HOME%\endorsed -classpath %TOMCAT_HOME%\bin\bootstrap.jar;%TOMCAT_HOME%\bin\tomcat-juli.jar -Dcatalina.base=%TOMCAT_HOME% -Dcatalina.home=%TOMCAT_HOME% -Djava.io.tmpdir=%TOMCAT_HOME%\temp org.apache.catalina.startup.Bootstrap  start</Parameters>
+</CatalinaConfig>
