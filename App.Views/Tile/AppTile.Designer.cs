@@ -108,7 +108,7 @@ namespace App.Views
 			this.lblTitle.Name = "lblTitle";
 			this.lblTitle.Size = new System.Drawing.Size(304, 22);
 			this.lblTitle.TabIndex = 5;
-			this.lblTitle.Click += new System.EventHandler(this.LblTitleClick);
+			this.lblTitle.DoubleClick += new System.EventHandler(this.LblTitleDoubleClick);
 			// 
 			// AppTile
 			// 

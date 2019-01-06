@@ -59,7 +59,7 @@ namespace App.Views
 		public void UpdateTitle(string title)
 		{
 			this.Invoke((MethodInvoker)delegate() {
-				this.lblTitle.Text = title;
+				this.lblTitle.Text = "["+title+"]";
 			});
 		}
 		
@@ -198,7 +198,7 @@ namespace App.Views
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		void LblTitleClick(object sender, EventArgs e)
+		void LblTitleDoubleClick(object sender, EventArgs e)
 		{
 			AppTileDoubleClick(sender, e);
 		}
