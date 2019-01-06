@@ -8,6 +8,7 @@
  */
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace App.Views
@@ -32,6 +33,23 @@ namespace App.Views
 			this.lbNavBox.Left = 0;
 			this.lbNavBox.Top = 0;
 			this.lbNavBox.Height = this.ClientSize.Height;
+		}
+		
+		void LbCourseUpgradeConfClick(object sender, EventArgs e)
+		{
+			foreach (System.Windows.Forms.Control c in this.Controls) {
+				if (c.Tag != null && c.Tag.ToString().StartsWith("ConfTab") ) {
+					c.Visible = c.Tag.ToString().EndsWith("cup");
+				}
+		    }
+		}
+		void LbWorkspaceConfClick(object sender, EventArgs e)
+		{
+			foreach (System.Windows.Forms.Control c in this.Controls) {
+				if (c.Tag != null && c.Tag.ToString().StartsWith("ConfTab") ) {
+					c.Visible = c.Tag.ToString().EndsWith("ws");
+				}
+		    }
 		}
 	}
 }
