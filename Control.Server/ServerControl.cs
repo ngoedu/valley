@@ -48,6 +48,7 @@ namespace Control.Server
             
             
             //mysql 
+            /*
             mysqlBackgroundWorker = new BackgroundWorker(); // 实例化后台对象webapp 
             mysqlBackgroundWorker.WorkerReportsProgress = true; // 设置可以通告进度
             mysqlBackgroundWorker.WorkerSupportsCancellation = true; // 设置可以取消
@@ -55,13 +56,14 @@ namespace Control.Server
             mysqlBackgroundWorker.ProgressChanged += new ProgressChangedEventHandler(mysqlUpdateProgress);
             mysqlBackgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(mysqlCompletedWork);
             mysqlBackgroundWorker.RunWorkerAsync(this);
+            */
 		}
 
 		#region IAppEntry implementation
 		private BackgroundWorker tomcatBackgroundWorker;
-		private BackgroundWorker mysqlBackgroundWorker;
+		//private BackgroundWorker mysqlBackgroundWorker;
 		private BlockingCollection<string> tomcatQueue = new BlockingCollection<string>();
-		private BlockingCollection<string> mysqlQueue = new BlockingCollection<string>();
+		//private BlockingCollection<string> mysqlQueue = new BlockingCollection<string>();
 		
 		private int pid = -1;
 		private int inShutdown = -1;
@@ -85,7 +87,7 @@ namespace Control.Server
 			
 			
 			//init mysql
-			mysql = new MySQLServer(this, PidRecorder.Instance, 63306);
+			//mysql = new MySQLServer(this, PidRecorder.Instance, 63306);
 			
 		}
 
@@ -94,10 +96,10 @@ namespace Control.Server
 			tomcatQueue.Add(output);
 		}
 		
-		public void MySQLOutputArrived(string output)
-		{
-			mysqlQueue.Add(output);
-		}
+		//public void MySQLOutputArrived(string output)
+		//{
+		//	mysqlQueue.Add(output);
+		//}
 		
 		
 		void tomcatDoWork(object sender, DoWorkEventArgs e)
@@ -148,27 +150,27 @@ namespace Control.Server
 		
 		
 		
-		void mysqlDoWork(object sender, DoWorkEventArgs e)
-        {
-			while (true)
-			{
-				var item = mysqlQueue.Take();
-				//System.Diagnostics.Debug.WriteLine("item Taken");
-				mysqlBackgroundWorker.ReportProgress(1,item);
-			}		
-		}
+		//void mysqlDoWork(object sender, DoWorkEventArgs e)
+        //{
+		//	while (true)
+		//	{
+		//		var item = mysqlQueue.Take();
+		//		//System.Diagnostics.Debug.WriteLine("item Taken");
+		//		mysqlBackgroundWorker.ReportProgress(1,item);
+		//	}		
+		//}
 		
-		void mysqlUpdateProgress(object sender, ProgressChangedEventArgs e)
-        {
-			if (e != null && e.UserState != null) {
-				string message = e.UserState.ToString();
-				this.rtbMySqlConsole.AppendText(message+"\r\n");			
-			}
-		}
+		//void mysqlUpdateProgress(object sender, ProgressChangedEventArgs e)
+        //{
+		//	if (e != null && e.UserState != null) {
+		//		string message = e.UserState.ToString();
+		//		this.rtbMySqlConsole.AppendText(message+"\r\n");			
+		//	}
+		//}
 		 
-		void mysqlCompletedWork(object sender, RunWorkerCompletedEventArgs e)
-        {	
-		}
+		//void mysqlCompletedWork(object sender, RunWorkerCompletedEventArgs e)
+        //{	
+		//}
 		
 
 		public void Reload(AppRegistry reg)
@@ -177,9 +179,9 @@ namespace Control.Server
 				catalina.ShutdownSync();
 			}
 			
-			if (mysql != null) {
-				mysql.ShutdownSync();
-			}
+			//if (mysql != null) {
+			//	mysql.ShutdownSync();
+			//}
 			
 			Init(reg);
 			
@@ -187,9 +189,9 @@ namespace Control.Server
 			this.btTomcatStop.Enabled = false;
 			this.pbTomcatStatus.Image = global::Control.Server.Resource1.tomcat_logo_trans_grey_48x48;
 			
-			this.btnMySQLStart.Enabled = true;
-			this.btnMySQLStop.Enabled = false;
-			this.pbMySQL.Image = global::Control.Server.Resource1.tomcat_logo_trans_grey_48x48;			
+			//this.btnMySQLStart.Enabled = true;
+			//this.btnMySQLStop.Enabled = false;
+			//this.pbMySQL.Image = global::Control.Server.Resource1.tomcat_logo_trans_grey_48x48;			
 		}
 
 
@@ -211,9 +213,9 @@ namespace Control.Server
 				catalina.ShutdownSync();
 			}
 			
-			if (mysql != null && mysql.IsStartedUp()) {
-				mysql.ShutdownSync();
-			}
+			//if (mysql != null && mysql.IsStartedUp()) {
+			//	mysql.ShutdownSync();
+			//}
 		}
 
 
@@ -281,33 +283,33 @@ namespace Control.Server
 		}
 		
 		
-		void BtnMySQLStartClick(object sender, EventArgs e)
-		{
+		//void BtnMySQLStartClick(object sender, EventArgs e)
+		//{
 	
-			if (mysql.IsStartedUp())
-			{
-				MessageBox.Show("MySQL服务器已经启动了。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-				return;
-			}
-			mysql.StartupSync();
-			this.pbMySQL.Image = global::Control.Server.Resource1.mysql;
-			this.btnMySQLStart.Enabled = false;
-			this.btnMySQLStop.Enabled = true;
-		}
-		void BtnMySQLStopClick(object sender, EventArgs e)
-		{
+		//	if (mysql.IsStartedUp())
+		//	{
+		//		MessageBox.Show("MySQL服务器已经启动了。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+		//		return;
+		//	}
+		//	mysql.StartupSync();
+		//	this.pbMySQL.Image = global::Control.Server.Resource1.mysql;
+		//	this.btnMySQLStart.Enabled = false;
+		//	this.btnMySQLStop.Enabled = true;
+		//}
+		//void BtnMySQLStopClick(object sender, EventArgs e)
+		//{
 	
-			if (!mysql.IsStartedUp())
-			{
-				MessageBox.Show("MySQL服务器还没启动。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-				return;
-			}
-			mysql.ShutdownSync();
+		//	if (!mysql.IsStartedUp())
+		//	{
+		//		MessageBox.Show("MySQL服务器还没启动。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+		//		return;
+		//	}
+		//	mysql.ShutdownSync();
 			
-			this.pbMySQL.Image = global::Control.Server.Resource1.mysql_d;
-			this.btnMySQLStart.Enabled = true;
-			this.btnMySQLStop.Enabled = false;
-		}
+		//	this.pbMySQL.Image = global::Control.Server.Resource1.mysql_d;
+		//	this.btnMySQLStart.Enabled = true;
+		//	this.btnMySQLStop.Enabled = false;
+		//}
 		
 		
 	}

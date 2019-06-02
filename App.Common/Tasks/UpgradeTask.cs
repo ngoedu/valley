@@ -14,6 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using log4net;
+using App.Common.Tasks.Upgrade;
 
 namespace App.Common.Tasks
 {
@@ -22,8 +23,8 @@ namespace App.Common.Tasks
 	/// </summary>
 	public class UpgradeTask
 	{
-		private const string path = "json/cmeta";
-		private const string site = "http://192.168.0.12/scup/";
+		private const string path = "json/supg";
+		private const string site = "http://192.168.0.11/scup/";
 		
 		private static readonly ILog logger = LogManager.GetLogger(typeof(UpgradeTask));  
 
@@ -34,28 +35,24 @@ namespace App.Common.Tasks
 		public void LaunchTask() {
 			var taskForAction = new Task(() =>
             {
-			    logger.Info("CMETA update task started");
+			    logger.Info("upgrade task started");
 			    //int radomTimeSlot = new Random().Next(100,200); //TODO: CHANGE IT TO LARGER ONE
 				//Thread.Sleep(radomTimeSlot);
-				DownloadCourseMetaFile();
+				DownloadUpgradePackFile();
             });
 　　　　　　
 			taskForAction.Start();
 		}
 		
-		private  void  DownloadCourseMetaFile() {
+		private  void  DownloadUpgradePackFile() {
 			WebClient webClient = new WebClient();
 			webClient.QueryString.Add("key", "1");
 			webClient.QueryString.Add("token", "543OGN13d");
-			string fileUrl = string.Empty;
+			string packJson = string.Empty;
 			try {
 				//normally http 200 returned
-				fileUrl = webClient.DownloadString(site+path);
-				string destFile = CodeBase.GetWUIDataPath() + "\\dat.ngjs";
-				webClient.DownloadFile(new System.Uri(site+fileUrl), destFile);
-	
-				UnGzipFile(destFile);
-				//MessageBox.Show("cmeta downloaded and upzipped.");
+				packJson = webClient.DownloadString(site+path);
+				
 		   
 			} catch (WebException webex) {
 				
@@ -82,27 +79,5 @@ namespace App.Common.Tasks
 		}
 		
 		
-		private void UnGzipFile(string filePath) {
-			FileInfo gzipFileName = new FileInfo(filePath);
-			using (FileStream fileToDecompressAsStream = gzipFileName.OpenRead())
-			{
-				string decompressedFileName = filePath.Replace(".ngjs", ".js");
-			    using (FileStream decompressedStream = File.Create(decompressedFileName))
-			    {
-			        using (GZipStream decompressionStream = new GZipStream(fileToDecompressAsStream, CompressionMode.Decompress))
-			        {
-			            try
-			            {
-			                decompressionStream.CopyTo(decompressedStream);
-			            }
-			                catch (Exception ex)
-			            {
-			                Console.WriteLine(ex.Message);
-			            }
-			        }
-			    }
-			}
-
-		}
 	}
 }

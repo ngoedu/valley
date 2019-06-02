@@ -223,6 +223,7 @@ namespace App.Views
 			
 			using (WebClient wc = new WebClient())
 		    {
+				wc.Proxy = null;
 				wc.Headers.Add ("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
 		       
 				wc.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadFileCompleted);
@@ -231,8 +232,9 @@ namespace App.Views
 
 				//wc.DownloadProgressChanged += wc_DownloadProgressChanged;
 		        //wc.DownloadFileCompleted += wc_DownloadFileCompleted;
-		       	string fileUrl  = "http://192.168.0.13/scup/cpack/"+cid+".zip";
+		       	string fileUrl  = "http://192.168.0.11/scup/cpack/"+cid+".zip";
 		       	wc.QueryString.Add("token", "NGO");
+		       	
 
 		       	downloadedCid = cid;
 		       	logger.Info(string.Format("url={0} download to {1}", fileUrl, zipFile ));

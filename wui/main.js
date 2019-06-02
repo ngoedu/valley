@@ -56,10 +56,12 @@ var MAINUI = (function() {
 			if (obj.mid !==mid)
 				continue;
 			var div = $("<div/>");
-			var span = $("<span/>").text("课程名称："+obj.cid +","+ obj.name);
+			var span = $("<span/>").text("课程编号："+obj.cid );
 			$(div).append(span);
 			
 			var ul = $("<ul/>");
+			var li = $("<li/>").addClass("course-info").text("名称："+obj.name);
+			$(ul).append(li);
 			var li = $("<li/>").addClass("course-info").text("适用："+obj.target);
 			$(ul).append(li);
 			var li = $("<li/>").addClass("course-info").text("时长："+obj.duration);

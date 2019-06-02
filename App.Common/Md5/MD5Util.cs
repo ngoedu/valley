@@ -27,5 +27,14 @@ namespace App.Common.Md5
     
             return computedHash.Replace("-", "");
 		}
+		
+		public static string  StringMD52(string message, string mysalt)
+		{
+			var provider = MD5.Create();
+            byte[] bytes = provider.ComputeHash(Encoding.ASCII.GetBytes( message + mysalt));
+            string computedHash = BitConverter.ToString(bytes);
+    
+            return computedHash.Replace("-", "");
+		}
 	}
 }

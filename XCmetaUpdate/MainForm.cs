@@ -8,8 +8,13 @@
  */
 using System;
 using System.Drawing;
+using System.IO;
+using System.IO.Compression;
+using System.Net;
+using System.Text;
 using System.Windows.Forms;
 using System.Xml;
+using App.Common.Md5;
 
 namespace XCmetaUpdate
 {
@@ -166,7 +171,8 @@ namespace XCmetaUpdate
                           dgvActivity.Rows[index].Cells[3].Value = xmlElement.ChildNodes.Item(3).InnerText;
                            dgvActivity.Rows[index].Cells[4].Value = xmlElement.ChildNodes.Item(4).InnerText;
                             dgvActivity.Rows[index].Cells[5].Value = xmlElement.ChildNodes.Item(5).InnerText;
-                             dgvActivity.Rows[index].Cells[6].Value = xmlElement.ChildNodes.Item(6).InnerText;
+                            dgvActivity.Rows[index].Cells[6].Value = xmlElement.ChildNodes.Item(6).InnerText;
+                             dgvActivity.Rows[index].Cells[7].Value = xmlElement.ChildNodes.Item(7).InnerText;
                     } 
                 }
                 catch
@@ -199,6 +205,7 @@ namespace XCmetaUpdate
                 	XmlElement xmlElement_target = xmlDocument.CreateElement("target");//创建<name>节点
                 	XmlElement xmlElement_content = xmlDocument.CreateElement("content");//创建<name>节点
                 	XmlElement xmlElement_duration = xmlDocument.CreateElement("duration");//创建<name>节点
+                	XmlElement xmlElement_type = xmlDocument.CreateElement("type");//创建<name>节点
                 	XmlElement xmlElement_desc = xmlDocument.CreateElement("desc");//创建<name>节点
                 	
                 	xmlElement_mid.InnerText = dgvActivity.Rows[i].Cells[0].Value.ToString();
@@ -207,7 +214,8 @@ namespace XCmetaUpdate
                		xmlElement_target.InnerText = dgvActivity.Rows[i].Cells[3].Value.ToString();
                		xmlElement_content.InnerText = dgvActivity.Rows[i].Cells[4].Value.ToString();
                		xmlElement_duration.InnerText = dgvActivity.Rows[i].Cells[5].Value.ToString();
-               		xmlElement_desc.InnerText = dgvActivity.Rows[i].Cells[6].Value.ToString();
+               		xmlElement_type.InnerText = dgvActivity.Rows[i].Cells[6].Value.ToString();
+               		xmlElement_desc.InnerText = dgvActivity.Rows[i].Cells[7].Value.ToString();
                		
                		xmlElement_activity.AppendChild(xmlElement_mid);
 					xmlElement_activity.AppendChild(xmlElement_aid);
@@ -215,6 +223,7 @@ namespace XCmetaUpdate
 					xmlElement_activity.AppendChild(xmlElement_target);
 					xmlElement_activity.AppendChild(xmlElement_content);
 					xmlElement_activity.AppendChild(xmlElement_duration);
+					xmlElement_activity.AppendChild(xmlElement_type);
 					xmlElement_activity.AppendChild(xmlElement_desc);
       
 					xmlElement_cmeta.AppendChild(xmlElement_activity);
@@ -240,6 +249,7 @@ namespace XCmetaUpdate
                 	XmlElement xmlElement_target = xmlDocument.CreateElement("target");//创建<name>节点
                 	XmlElement xmlElement_content = xmlDocument.CreateElement("content");//创建<name>节点
                 	XmlElement xmlElement_duration = xmlDocument.CreateElement("duration");//创建<name>节点
+                	XmlElement xmlElement_type = xmlDocument.CreateElement("type");//创建<name>节点
                 	XmlElement xmlElement_desc = xmlDocument.CreateElement("desc");//创建<name>节点
                 	
                 	xmlElement_mid.InnerText = dgvActivity.Rows[i].Cells[0].Value.ToString();
@@ -248,7 +258,8 @@ namespace XCmetaUpdate
                		xmlElement_target.InnerText = dgvActivity.Rows[i].Cells[3].Value.ToString();
                		xmlElement_content.InnerText = dgvActivity.Rows[i].Cells[4].Value.ToString();
                		xmlElement_duration.InnerText = dgvActivity.Rows[i].Cells[5].Value.ToString();
-               		xmlElement_desc.InnerText = dgvActivity.Rows[i].Cells[6].Value.ToString();
+               		xmlElement_type.InnerText = dgvActivity.Rows[i].Cells[6].Value.ToString();
+               		xmlElement_desc.InnerText = dgvActivity.Rows[i].Cells[7].Value.ToString();
                		
                		xmlElement_activity.AppendChild(xmlElement_mid);
 					xmlElement_activity.AppendChild(xmlElement_aid);
@@ -256,6 +267,7 @@ namespace XCmetaUpdate
 					xmlElement_activity.AppendChild(xmlElement_target);
 					xmlElement_activity.AppendChild(xmlElement_content);
 					xmlElement_activity.AppendChild(xmlElement_duration);
+					xmlElement_activity.AppendChild(xmlElement_type);
 					xmlElement_activity.AppendChild(xmlElement_desc);
       
 					xmlElement_cmeta.AppendChild(xmlElement_activity);
@@ -372,7 +384,13 @@ namespace XCmetaUpdate
 		{
 			var catjson = "";
 			int row = dgvCatagory.Rows.Count;//得到总行数    
-            for (int i = 0; i < row - 1; i++)//得到总行数并在之内循环    
+            
+			if (dgvCatagory.Rows[0].Cells[0].Value == null) {
+				MessageBox.Show("Category can't be empty");
+				return;
+			}
+			
+			for (int i = 0; i < row - 1; i++)//得到总行数并在之内循环
             {
             	catjson +="{\"mid\" :\"" + dgvCatagory.Rows[i].Cells[0].Value.ToString()+  "\", \"name\": \""+ dgvCatagory.Rows[i].Cells[1].Value.ToString()+"\"},";        		
             }
@@ -380,16 +398,25 @@ namespace XCmetaUpdate
             
             
             var activityjson = "";
-			row = dgvActivity.Rows.Count;//得到总行数    
+			row = dgvActivity.Rows.Count;//得到总行数  
+			if (dgvActivity.Rows[0].Cells[0].Value == null) {
+				MessageBox.Show("Activity can't be empty");
+				return;
+			}
+						
             for (int i = 0; i < row - 1; i++)//得到总行数并在之内循环    
             {
-            	activityjson +="{\"mid\" : \""+dgvActivity.Rows[i].Cells[0].Value.ToString()+"\", \"cid\":\""+dgvActivity.Rows[i].Cells[1].Value.ToString()+"\", \"name\" : \""+dgvActivity.Rows[i].Cells[2].Value.ToString()+"\",\"target\":\""+dgvActivity.Rows[i].Cells[3].Value.ToString()+"\",\"duration\":\""+dgvActivity.Rows[i].Cells[4].Value.ToString()+"\", \"content\":\""+dgvActivity.Rows[i].Cells[5].Value.ToString()+"\",\"type\":\""+dgvActivity.Rows[i].Cells[0].Value.ToString()+"\"},";
+            	activityjson +="{\"mid\" : \""+dgvActivity.Rows[i].Cells[0].Value.ToString()+"\", \"cid\":\""+dgvActivity.Rows[i].Cells[1].Value.ToString()+"\", \"name\" : \""+dgvActivity.Rows[i].Cells[2].Value.ToString()+"\",\"target\":\""+dgvActivity.Rows[i].Cells[3].Value.ToString()+"\",\"duration\":\""+dgvActivity.Rows[i].Cells[4].Value.ToString()+"\", \"content\":\""+dgvActivity.Rows[i].Cells[5].Value.ToString()+"\",\"type\":\""+dgvActivity.Rows[i].Cells[6].Value.ToString()+"\",\"desc\":\""+dgvActivity.Rows[i].Cells[7].Value.ToString()+"\"},";
             }
             activityjson = "'["+activityjson.Substring(0, activityjson.Length -1) + "]'";
             
            	var topicjson = "";
 			row = dgvTopic.Rows.Count;//得到总行数    
-            for (int i = 0; i < row - 1; i++)//得到总行数并在之内循环    
+			if (dgvTopic.Rows[0].Cells[0].Value == null) {
+				MessageBox.Show("Topic can't be empty");
+				return;
+			}
+			for (int i = 0; i < row - 1; i++)//得到总行数并在之内循环    
             {
             	topicjson +="{\"tid\" :\"" + dgvTopic.Rows[i].Cells[0].Value.ToString()+  "\", \"name\": \""+ dgvTopic.Rows[i].Cells[1].Value.ToString()+"\"},";        		
             }
@@ -411,8 +438,101 @@ namespace XCmetaUpdate
 ";
             var json = template.Replace("{0}", catjson).Replace("{1}", activityjson).Replace("{2}", topicjson);
             System.IO.File.WriteAllText(this.tbxJsonDatOutputPath.Text, json);
-            MessageBox.Show("Dat.js 已经生成。");
+            
+            string startPath = this.tbxJsonDatOutputPath.Text;
+            string zipPath = this.tbxJsonDatOutputPath.Text.Replace(".js",".ngjs");
+			
+			FileStream sourceFileStream = File.OpenRead(startPath);
+			FileStream destFileStream = File.Create(zipPath);
+			
+			GZipStream compressingStream = new GZipStream(destFileStream,CompressionMode.Compress);
+			
+			byte[] bytes = new byte[2048];
+			int bytesRead;
+			while ((bytesRead = sourceFileStream.Read(bytes, 0, bytes.Length)) != 0)
+			{
+			    compressingStream.Write(bytes, 0, bytesRead);
+			}
+			
+			sourceFileStream.Close();
+			compressingStream.Close();
+			destFileStream.Close();
+							
+            MessageBox.Show("Dat.ngjs 已经生成。");
             
 		}
+		
+		void BtnUploadToNOCClick(object sender, EventArgs e)
+		{
+			String uriString = tbUploadURI.Text;
+			
+			// Create a new WebClient instance.
+			using (WebClient myWebClient = new WebClient()) {
+				var username = textBox1.Text.Split(':')[0]; //"ngobased2";
+				var password = textBox1.Text.Split(':')[1]; //"U#fv3rK#0w!t2";
+				
+				myWebClient.UseDefaultCredentials = true;
+ 				myWebClient.Credentials = new NetworkCredential(username, password);
+ 				
+ 				//string credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(username + ":" + password));
+				//myWebClient.Headers[HttpRequestHeader.Authorization] = "Basic " + credentials;
+				
+				
+				string fileName = this.tbxJsonDatOutputPath.Text.Replace(".js",".ngjs");;
+			
+				// Upload the file to the URI.
+				// The 'UploadFile(uriString,fileName)' method implicitly uses HTTP POST method.
+				byte[] responseArray = myWebClient.UploadFile(uriString,fileName);
+				
+				var result1 = System.Text.Encoding.ASCII.GetString(responseArray);
+				
+				MessageBox.Show("upload result:"+result1);
+			}		
+			
+			using (WebClient myWebClient = new WebClient()) {
+				
+				var username = textBox1.Text.Split(':')[0]; //"ngobased2";
+				var password = textBox1.Text.Split(':')[1]; //"U#fv3rK#0w!t2";
+				
+				try {
+					myWebClient.UseDefaultCredentials = true;
+	 				myWebClient.Credentials = new NetworkCredential(username, password);
+	 				
+	 				//string credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(username + ":" + password));
+					//myWebClient.Headers[HttpRequestHeader.Authorization] = "Basic " + credentials;
+					
+					var md5 = MD5Util.StringMD52(System.IO.File.ReadAllText(this.tbxJsonDatOutputPath.Text),"");
+					myWebClient.QueryString.Add("cmkey",md5);
+					myWebClient.QueryString.Add("cmpath",textBox2.Text);
+					string reply2 = myWebClient.DownloadString (this.tbCmetaRegist.Text);
+					
+					
+					// Decode and display the response.
+					MessageBox.Show("regist result:"+reply2);
+				
+				} catch (WebException webex) {
+				
+					HttpWebResponse webResp = (HttpWebResponse) webex.Response;
+					
+					switch (webResp.StatusCode)
+					{
+						case HttpStatusCode.NotModified: // 304
+						{
+							MessageBox.Show("CMeta info Not modified");	
+							break;
+						}
+						case HttpStatusCode.InternalServerError: // 500 
+						{
+							MessageBox.Show("ex=500, internal error");	
+							break;
+						}
+						default:
+							break;
+					}
+				}
+			}		
+		}
+		
+		
 	}
 }

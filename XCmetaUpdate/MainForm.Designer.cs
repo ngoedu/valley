@@ -39,6 +39,19 @@ namespace XCmetaUpdate
 		private System.Windows.Forms.Button btnTopicWrite;
 		private System.Windows.Forms.Button btnGenDatjs;
 		private System.Windows.Forms.TextBox tbxJsonDatOutputPath;
+		private System.Windows.Forms.Button btnUploadToNOC;
+		private System.Windows.Forms.TextBox tbUploadURI;
+		private System.Windows.Forms.DataGridViewTextBoxColumn type;
+		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.TextBox tbCmetaRegist;
+		private System.Windows.Forms.TextBox textBox2;
+		private System.Windows.Forms.TextBox textBox3;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.TextBox textBox4;
+		private System.Windows.Forms.TextBox textBox5;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -55,10 +68,6 @@ namespace XCmetaUpdate
 		}
 		
 		/// <summary>
-		/// This method is required for Windows Forms designer support.
-		/// Do not change the method contents inside the source code editor. The Forms designer might
-		/// not be able to load this method if it was changed manually.
-		/// </summary>
 		private void InitializeComponent()
 		{
 			System.Windows.Forms.Button btnTopicLoad;
@@ -79,6 +88,7 @@ namespace XCmetaUpdate
 			this.target = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.duration = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.content = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.btnTopicWrite = new System.Windows.Forms.Button();
@@ -87,6 +97,14 @@ namespace XCmetaUpdate
 			this.tname = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.btnGenDatjs = new System.Windows.Forms.Button();
 			this.tbxJsonDatOutputPath = new System.Windows.Forms.TextBox();
+			this.btnUploadToNOC = new System.Windows.Forms.Button();
+			this.tbUploadURI = new System.Windows.Forms.TextBox();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.textBox3 = new System.Windows.Forms.TextBox();
+			this.tbCmetaRegist = new System.Windows.Forms.TextBox();
 			btnTopicLoad = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -219,6 +237,7 @@ namespace XCmetaUpdate
 			this.target,
 			this.duration,
 			this.content,
+			this.type,
 			this.desc});
 			this.dgvActivity.Location = new System.Drawing.Point(8, 8);
 			this.dgvActivity.Name = "dgvActivity";
@@ -259,6 +278,11 @@ namespace XCmetaUpdate
 			// 
 			this.content.HeaderText = "Content";
 			this.content.Name = "content";
+			// 
+			// type
+			// 
+			this.type.HeaderText = "type";
+			this.type.Name = "type";
 			// 
 			// desc
 			// 
@@ -312,7 +336,8 @@ namespace XCmetaUpdate
 			// 
 			// btnGenDatjs
 			// 
-			this.btnGenDatjs.Location = new System.Drawing.Point(32, 456);
+			this.btnGenDatjs.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnGenDatjs.Location = new System.Drawing.Point(24, 440);
 			this.btnGenDatjs.Name = "btnGenDatjs";
 			this.btnGenDatjs.Size = new System.Drawing.Size(136, 32);
 			this.btnGenDatjs.TabIndex = 1;
@@ -323,22 +348,105 @@ namespace XCmetaUpdate
 			// tbxJsonDatOutputPath
 			// 
 			this.tbxJsonDatOutputPath.Font = new System.Drawing.Font("Lucida Console", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.tbxJsonDatOutputPath.Location = new System.Drawing.Point(176, 464);
+			this.tbxJsonDatOutputPath.Location = new System.Drawing.Point(168, 448);
 			this.tbxJsonDatOutputPath.Name = "tbxJsonDatOutputPath";
 			this.tbxJsonDatOutputPath.Size = new System.Drawing.Size(832, 21);
 			this.tbxJsonDatOutputPath.TabIndex = 2;
 			this.tbxJsonDatOutputPath.Text = "d:\\ngo\\client\\pad\\src\\valley\\wui\\dat.js";
 			// 
+			// btnUploadToNOC
+			// 
+			this.btnUploadToNOC.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnUploadToNOC.Location = new System.Drawing.Point(24, 488);
+			this.btnUploadToNOC.Name = "btnUploadToNOC";
+			this.btnUploadToNOC.Size = new System.Drawing.Size(136, 48);
+			this.btnUploadToNOC.TabIndex = 3;
+			this.btnUploadToNOC.Text = "Upload/Regist to NOC";
+			this.btnUploadToNOC.UseVisualStyleBackColor = true;
+			this.btnUploadToNOC.Click += new System.EventHandler(this.BtnUploadToNOCClick);
+			// 
+			// tbUploadURI
+			// 
+			this.tbUploadURI.Font = new System.Drawing.Font("Lucida Console", 10.5F);
+			this.tbUploadURI.Location = new System.Drawing.Point(168, 488);
+			this.tbUploadURI.Name = "tbUploadURI";
+			this.tbUploadURI.Size = new System.Drawing.Size(408, 21);
+			this.tbUploadURI.TabIndex = 4;
+			this.tbUploadURI.Text = "http://192.168.0.13/scup/admin/cmupload";
+			// 
+			// textBox1
+			// 
+			this.textBox1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+			this.textBox1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.textBox1.Location = new System.Drawing.Point(168, 552);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(408, 22);
+			this.textBox1.TabIndex = 6;
+			this.textBox1.Text = "ngobased2:U#fv3rK#0w!t2";
+			// 
+			// label1
+			// 
+			this.label1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label1.Location = new System.Drawing.Point(72, 552);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(96, 16);
+			this.label1.TabIndex = 7;
+			this.label1.Text = "Authentication";
+			// 
+			// label2
+			// 
+			this.label2.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label2.Location = new System.Drawing.Point(592, 512);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(80, 16);
+			this.label2.TabIndex = 8;
+			this.label2.Text = "Path";
+			// 
+			// textBox2
+			// 
+			this.textBox2.Font = new System.Drawing.Font("Consolas", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.textBox2.Location = new System.Drawing.Point(624, 512);
+			this.textBox2.Name = "textBox2";
+			this.textBox2.Size = new System.Drawing.Size(216, 24);
+			this.textBox2.TabIndex = 9;
+			this.textBox2.Text = "/cpack/dat.ngjs";
+			// 
+			// textBox3
+			// 
+			this.textBox3.Font = new System.Drawing.Font("Lucida Console", 10.5F);
+			this.textBox3.Location = new System.Drawing.Point(168, 512);
+			this.textBox3.Name = "textBox3";
+			this.textBox3.Size = new System.Drawing.Size(336, 21);
+			this.textBox3.TabIndex = 10;
+			this.textBox3.Text = "http://192.168.0.13/scup/admin/cmregist";
+			// 
+			// tbCmetaRegist
+			// 
+			this.tbCmetaRegist.Font = new System.Drawing.Font("Lucida Console", 10.5F);
+			this.tbCmetaRegist.Location = new System.Drawing.Point(168, 512);
+			this.tbCmetaRegist.Name = "tbCmetaRegist";
+			this.tbCmetaRegist.Size = new System.Drawing.Size(408, 21);
+			this.tbCmetaRegist.TabIndex = 10;
+			this.tbCmetaRegist.Text = "http://192.168.0.13/scup/admin/cmregist";
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1053, 556);
+			this.ClientSize = new System.Drawing.Size(1198, 669);
+			this.Controls.Add(this.tbCmetaRegist);
+			this.Controls.Add(this.textBox3);
+			this.Controls.Add(this.textBox2);
+			this.Controls.Add(this.label2);
+			this.Controls.Add(this.label1);
+			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.tbUploadURI);
+			this.Controls.Add(this.btnUploadToNOC);
 			this.Controls.Add(this.tbxJsonDatOutputPath);
 			this.Controls.Add(this.btnGenDatjs);
 			this.Controls.Add(this.tabControl1);
 			this.Name = "MainForm";
-			this.Text = "MainForm";
+			this.Text = "NGO CMeta Util";
 			this.Load += new System.EventHandler(this.MainFormLoad);
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);

@@ -76,6 +76,7 @@ namespace Control.Server
 			this.tabServers.SelectedIndex = 0;
 			this.tabServers.Size = new System.Drawing.Size(426, 359);
 			this.tabServers.TabIndex = 0;
+			this.tabServers.Visible = false;
 			// 
 			// tabCatalina
 			// 
